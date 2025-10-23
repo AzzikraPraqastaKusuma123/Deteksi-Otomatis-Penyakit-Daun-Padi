@@ -37,18 +37,20 @@ function DetectionDetail() {
     return <div>Detection not found</div>;
   }
 
-  const disease = diseasesData.find(d => d.disease_id === detection.detected_disease_id);
-
   return (
     <div className="container">
-      <h1>Detection Details (ID: {detection.detection_id})</h1>
-      <p>User: <Link to={`/users/${detection.user_id}`}>{getUserName(detection.user_id)}</Link></p>
-      <p>Disease: <Link to={`/diseases/${detection.detected_disease_id}`}>{getDiseaseName(detection.detected_disease_id)}</Link></p>
-      <p>Confidence Score: {detection.confidence_score}</p>
-      <p>Is Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
-      <p>LLM Generated Response: {detection.llm_generated_response}</p>
-      <p>Detection Timestamp: {detection.detection_timestamp}</p>
-      {detection.image_path && <p>Image Path: {detection.image_path}</p>}
+      <div className="card">
+        <div className="card-body">
+          <h1 className="card-title">Detection Details (ID: {detection.detection_id})</h1>
+          <p className="card-text">User: <Link to={`/users/${detection.user_id}`}>{getUserName(detection.user_id)}</Link></p>
+          <p className="card-text">Disease: <Link to={`/diseases/${detection.detected_disease_id}`}>{getDiseaseName(detection.detected_disease_id)}</Link></p>
+          <p className="card-text">Confidence Score: {detection.confidence_score}</p>
+          <p className="card-text">Is Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
+          <p className="card-text">LLM Generated Response: {detection.llm_generated_response}</p>
+          <p className="card-text">Detection Timestamp: {detection.detection_timestamp}</p>
+          {detection.image_path && <p className="card-text">Image Path: {detection.image_path}</p>}
+        </div>
+      </div>
     </div>
   );
 }

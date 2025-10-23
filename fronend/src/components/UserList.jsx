@@ -10,19 +10,17 @@ function UserList() {
   return (
     <div className="container">
       <h1>Users</h1>
-      <ul>
+      <div className="list-group">
         {usersData.map(user => (
-          <li key={user.user_id}>
-            <div className="card">
-              <Link to={`/users/${user.user_id}`}>
-                <h2>{user.full_name} ({user.username})</h2>
-              </Link>
-              <p>Email: {user.email}</p>
-              <p>Location: {user.location}</p>
+          <Link to={`/users/${user.user_id}`} key={user.user_id} className="list-group-item list-group-item-action">
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">{user.full_name} ({user.username})</h5>
             </div>
-          </li>
+            <p className="mb-1">{user.email}</p>
+            <small>{user.location}</small>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

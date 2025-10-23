@@ -23,22 +23,19 @@ function DetectionList() {
   return (
     <div className="container">
       <h1>Detections</h1>
-      <ul>
+      <div className="list-group">
         {detectionsData.map(detection => (
-          <li key={detection.detection_id}>
-            <div className="card">
-              <h2>Detection ID: {detection.detection_id}</h2>
-              <p>User ID: {detection.user_id}</p>
-              <p>Disease: <Link to={`/diseases/${detection.detected_disease_id}`}>{getDiseaseName(detection.detected_disease_id)}</Link></p>
-              <p>Confidence: {detection.confidence_score}</p>
-              <p>Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
-              <p>Timestamp: {detection.detection_timestamp}</p>
-              <p>{detection.llm_generated_response}</p>
-              <Link to={`/detections/${detection.detection_id}`}>View Details</Link>
+          <Link to={`/detections/${detection.detection_id}`} key={detection.detection_id} className="list-group-item list-group-item-action">
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">Detection ID: {detection.detection_id}</h5>
+              <small>{detection.detection_timestamp}</small>
             </div>
-          </li>
+            <p className="mb-1">Disease: {getDiseaseName(detection.detected_disease_id)}</p>
+            <p className="mb-1">Confidence: {detection.confidence_score}</p>
+            <p className="mb-1">Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

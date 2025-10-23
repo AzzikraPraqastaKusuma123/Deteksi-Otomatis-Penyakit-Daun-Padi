@@ -18,12 +18,16 @@ function DiseaseDetail() {
 
   return (
     <div className="container">
-      <h1>{disease.disease_name}</h1>
-      {disease.scientific_name && <p>Scientific Name: {disease.scientific_name}</p>}
-      <p>Description: {disease.description}</p>
-      <p>Symptoms: {disease.symptoms}</p>
-      <p>Treatment: {disease.treatment_recommendations}</p>
-      {disease.image_url_example && <img src={disease.image_url_example} alt={disease.disease_name} />}
+      <div className="card">
+        <div className="card-body">
+          <h1 className="card-title">{disease.disease_name}</h1>
+          {disease.scientific_name && <p className="card-text"><strong>Scientific Name:</strong> {disease.scientific_name}</p>}
+          <p className="card-text"><strong>Description:</strong> {disease.description}</p>
+          <p className="card-text"><strong>Symptoms:</strong> {disease.symptoms}</p>
+          <p className="card-text"><strong>Treatment:</strong> {disease.treatment_recommendations}</p>
+          {disease.image_url_example && <img src={disease.image_url_example} alt={disease.disease_name} className="img-fluid mt-3" />}
+        </div>
+      </div>
     </div>
   );
 }

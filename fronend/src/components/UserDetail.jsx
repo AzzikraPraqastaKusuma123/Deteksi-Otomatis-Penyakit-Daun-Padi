@@ -35,25 +35,28 @@ function UserDetail() {
 
   return (
     <div className="container">
-      <h1>User: {user.full_name} ({user.username})</h1>
-      <p>Email: {user.email}</p>
-      <p>Location: {user.location}</p>
+      <div className="card">
+        <div className="card-body">
+          <h1 className="card-title">{user.full_name} ({user.username})</h1>
+          <p className="card-text">Email: {user.email}</p>
+          <p className="card-text">Location: {user.location}</p>
+        </div>
+      </div>
 
       <h2>Detections by {user.username}</h2>
       {userDetections.length > 0 ? (
-        <ul>
+        <div className="list-group">
           {userDetections.map(detection => (
-            <li key={detection.detection_id}>
-              <div className="card">
-                <p>Disease: <Link to={`/diseases/${detection.detected_disease_id}`}>{getDiseaseName(detection.detected_disease_id)}</Link></p>
-                <p>Confidence: {detection.confidence_score}</p>
-                <p>Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
-                <p>Timestamp: {detection.detection_timestamp}</p>
-                <Link to={`/detections/${detection.detection_id}`}>View Detection Details</Link>
+            <Link to={`/detections/${detection.detection_id}`} key={detection.detection_id} className="list-group-item list-group-item-action">
+              <div className="d-flex w-100 justify-content-between">
+                <h5 className="mb-1">{getDiseaseName(detection.detected_disease_id)}</h5>
+                <small>{detection.detection_timestamp}</small>
               </div>
-            </li>
+              <p className="mb-1">Confidence: {detection.confidence_score}</p>
+              <p className="mb-1">Healthy: {detection.is_healthy ? 'Yes' : 'No'}</p>
+            </Link>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No detections found for this user.</p>
       )}
