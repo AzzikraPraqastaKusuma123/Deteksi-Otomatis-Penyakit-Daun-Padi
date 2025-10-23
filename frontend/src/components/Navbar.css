@@ -1,0 +1,26 @@
+
+.navbar-custom {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem 2rem;
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.navbar-custom .nav-link {
+  color: #6c757d;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+  color: var(--primary-color);
+}
+
+.navbar-custom .btn-primary {
+  transition: all 0.3s ease;
+}
