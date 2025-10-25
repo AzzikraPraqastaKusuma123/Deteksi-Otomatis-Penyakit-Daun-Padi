@@ -8,12 +8,28 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Mock register logic
-    console.log({ username, password, email });
-    alert('Registration successful!');
-    navigate('/login');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registration successful!');
+        navigate('/login');
+      } else {
+        alert(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('Failed to connect to the server');
+    }
   };
 
   return (

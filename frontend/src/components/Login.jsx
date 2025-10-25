@@ -7,14 +7,31 @@ const Login = ({ setLoggedIn }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Mock login logic
-    if (username === 'user' && password === 'password') {
-      setLoggedIn(true);
-      navigate('/');
-    } else {
-      alert('Invalid credentials');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Simpan token dari backend di localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', username);
+        setLoggedIn(true);
+        alert('Login successful!');
+        navigate('/');
+      } else {
+        alert(data.message || 'Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Failed to connect to the server');
     }
   };
 
