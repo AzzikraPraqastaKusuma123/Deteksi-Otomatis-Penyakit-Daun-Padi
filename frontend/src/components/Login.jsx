@@ -20,12 +20,18 @@ const Login = ({ setLoggedIn }) => {
       const data = await response.json();
 
       if (response.ok) {
-        // Simpan token dari backend di localStorage
+        // Simpan token dan data pengguna dari backend di localStorage
         localStorage.setItem('token', data.token);
-        localStorage.setItem('username', username);
+        localStorage.setItem('user', JSON.stringify(data.user));
         setLoggedIn(true);
         alert('Login successful!');
-        navigate('/');
+        
+        // Arahkan berdasarkan peran pengguna
+        if (data.user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       } else {
         alert(data.message || 'Invalid credentials');
       }
