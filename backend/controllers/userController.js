@@ -23,10 +23,11 @@ export const getUserById = (req, res) => {
                    FROM users WHERE id = ?`;
 
   const detectionSql = `
-    SELECT id AS detection_id, detected_disease, image_path, confidence_score, 
-           is_healthy, llm_generated_response, detection_timestamp 
-    FROM detections 
-    WHERE user_id = ?`;
+    SELECT d.id AS detection_id, dis.disease_name, d.image_path, d.confidence_score, 
+           d.is_healthy, d.llm_generated_response, d.timestamp as detection_timestamp 
+    FROM detections d
+    LEFT JOIN diseases dis ON d.disease_id = dis.id
+    WHERE d.user_id = ?`;
 
   db.query(userSql, [userId], (err, userResult) => {
     if (err) {
