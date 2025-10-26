@@ -36,6 +36,7 @@ const EditUser = () => {
     if (password) {
       userData.password = password;
     }
+    console.log('Updating user with data:', userData);
     try {
       await api.put(`/users/${userId}`, userData);
       navigate('/admin/users');
@@ -46,37 +47,39 @@ const EditUser = () => {
 
   return (
     <div className="edit-user-container">
-      <h2>Edit User</h2>
-      <form onSubmit={handleSubmit} className="edit-user-form">
-        <div className="form-group">
-          <label>Username</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password (leave blank to keep current password)</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div className="form-group">
-          <label>Full Name</label>
-          <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-        </div>
-        <div className="form-group">
-          <label>Location</label>
-          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
-        </div>
-        <div className="form-group">
-          <label>Role</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit" className="btn-submit">Update User</button>
-      </form>
+      <div className="edit-user-card">
+        <h2>Edit User</h2>
+        <form onSubmit={handleSubmit} className="edit-user-form">
+          <div className="form-group">
+            <label>Username</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password (leave blank to keep current password)</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Full Name</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Location</label>
+            <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Role</label>
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button type="submit" className="btn-submit">Update User</button>
+        </form>
+      </div>
     </div>
   );
 };

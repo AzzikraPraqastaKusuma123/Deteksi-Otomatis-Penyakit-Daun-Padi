@@ -18,4 +18,24 @@ db.connect((err) => {
   }
 });
 
+const originalQuery = db.query;
+db.query = function (...args) {
+  const [sql, params, callback] = args;
+  console.log("SQL:", sql);
+  if (typeof params === 'function') {
+    // (sql, callback)
+    return originalQuery.call(this, sql, (err, results) => {
+      console.log("RESULTS:", results);
+      params(err, results);
+    });
+  } else {
+    // (sql, params, callback)
+    console.log("PARAMS:", params);
+    return originalQuery.call(this, sql, params, (err, results) => {
+      console.log("RESULTS:", results);
+      callback(err, results);
+    });
+  }
+};
+
 export default db;

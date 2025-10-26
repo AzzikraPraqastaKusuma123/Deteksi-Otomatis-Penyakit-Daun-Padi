@@ -89,11 +89,11 @@ export const updateUser = (req, res) => {
   }
 
   const sql = `UPDATE users SET 
-                 username = ?, 
-                 email = ?, 
-                 ${password ? "password = ?, " : ""}
-                 full_name = ?, 
-                 location = ?, 
+                 username = ?,
+                 email = ?,
+                 ${password ? "password = ?," : ""}
+                 full_name = ?,
+                 location = ?,
                  role = ? 
                WHERE id = ?`;
 

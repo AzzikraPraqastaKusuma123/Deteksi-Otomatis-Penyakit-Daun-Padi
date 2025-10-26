@@ -13,12 +13,13 @@ function UserList() {
   }, []);
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const response = await api.get('/users');
       setUsers(response.data);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching users:', error);
+    } finally {
       setLoading(false);
     }
   };
@@ -35,18 +36,14 @@ function UserList() {
   };
 
   const filteredUsers = users.filter(user => 
-    user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.email && user.email.toLowerCase().includes(searchTerm.toLowerCase()))
   );
-
-  if (loading) {
-    return <div className="user-list-container"><p>Loading users...</p></div>;
-  }
 
   return (
     <div className="user-list-container">
       <div className="user-list-header">
-        <h1>Users</h1>
+        <h1>Manage Users</h1>
         <div className="header-actions">
           <div className="search-bar">
             <i className="fas fa-search"></i>
@@ -57,47 +54,60 @@ function UserList() {
               onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
-          <Link to="/admin/users/add" className="btn-add-user">Add User</Link>
+          <Link to="/admin/users/add" className="btn-add-user">
+            <i className="fas fa-plus"></i> Add User
+          </Link>
         </div>
       </div>
-      <div className="table-responsive">
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Full Name</th>
-              <th>Location</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map(user => (
-                <tr key={user.id}>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.full_name || '-'}</td>
-                  <td>{user.location || '-'}</td>
-                  <td>
-                    <span className={`role-badge role-${user.role}`}>{user.role}</span>
-                  </td>
-                  <td className="action-buttons">
-                    <Link to={`/admin/users/edit/${user.id}`} className="btn-edit">Edit</Link>
-                    <button onClick={() => handleDelete(user.id)} className="btn-delete">Delete</button>
-                    <Link to={`/admin/users/${user.id}`} className="btn-view-details">View</Link>
-                  </td>
-                </tr>
-              ))
-            ) : (
+
+      {loading ? (
+        <div className="loading-container"><p>Loading users...</p></div>
+      ) : (
+        <div className="table-responsive">
+          <table className="user-table">
+            <thead>
               <tr>
-                <td colSpan="7">No users found.</td>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Location</th>
+                <th>Role</th>
+                <th>Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map(user => (
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.full_name || '-'}</td>
+                    <td>{user.location || '-'}</td>
+                    <td>
+                      <span className={`role-badge role-${user.role}`}>{user.role}</span>
+                    </td>
+                    <td className="action-buttons">
+                      <Link to={`/admin/users/edit/${user.id}`} className="btn-action btn-edit">
+                        <i className="fas fa-pencil-alt"></i>
+                      </Link>
+                      <button onClick={() => handleDelete(user.id)} className="btn-action btn-delete">
+                        <i className="fas fa-trash-alt"></i>
+                      </button>
+                      <Link to={`/admin/users/${user.id}`} className="btn-action btn-view">
+                        <i className="fas fa-eye"></i>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="no-users-found">No users found matching your search.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

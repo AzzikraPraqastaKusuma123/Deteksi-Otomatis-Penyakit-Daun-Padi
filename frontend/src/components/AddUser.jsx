@@ -25,37 +25,39 @@ const AddUser = () => {
 
   return (
     <div className="add-user-container">
-      <h2>Add New User</h2>
-      <form onSubmit={handleSubmit} className="add-user-form">
-        <div className="form-group">
-          <label>Username</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Full Name</label>
-          <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-        </div>
-        <div className="form-group">
-          <label>Location</label>
-          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
-        </div>
-        <div className="form-group">
-          <label>Role</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit" className="btn-submit">Add User</button>
-      </form>
+      <div className="add-user-card">
+        <h2>Add New User</h2>
+        <form onSubmit={handleSubmit} className="add-user-form">
+          <div className="form-group">
+            <label>Username</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Full Name</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Location</label>
+            <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Role</label>
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button type="submit" className="btn-submit">Add User</button>
+        </form>
+      </div>
     </div>
   );
 };

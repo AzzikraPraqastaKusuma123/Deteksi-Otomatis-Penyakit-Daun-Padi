@@ -1,14 +1,17 @@
-@import '../variables.css';
+:root {
+  --sidebar-width: 260px;
+  --background-color: #f4f7f9;
+}
 
 .admin-layout {
   display: flex;
+  background-color: var(--background-color);
 }
 
 .admin-content {
   margin-left: var(--sidebar-width);
-  padding: 20px;
+  padding: 2rem;
   width: calc(100% - var(--sidebar-width));
-  background-color: var(--background-color);
   min-height: 100vh;
   transition: margin-left 0.3s ease;
 }
