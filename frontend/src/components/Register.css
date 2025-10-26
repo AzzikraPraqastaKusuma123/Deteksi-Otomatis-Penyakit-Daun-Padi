@@ -1,24 +1,95 @@
 
-.register-card {
-  width: 100%;
-  max-width: 400px;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  margin: 2rem auto;
+@import '../variables.css';
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
 }
 
-.input-group-text {
-  background-color: transparent;
-  border-right: 0;
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.register-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.register-header p {
+  color: #7f8c8d;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .form-control {
-  border-left: 0;
+  height: 50px;
+  padding-left: 45px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s;
 }
 
 .form-control:focus {
   box-shadow: none;
   border-color: var(--primary-color);
+}
+
+.input-group-text {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+}
+
+.btn-register {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.btn-register:hover {
+  background-color: var(--secondary-color);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.login-link p {
+  color: #7f8c8d;
+}
+
+.login-link a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }

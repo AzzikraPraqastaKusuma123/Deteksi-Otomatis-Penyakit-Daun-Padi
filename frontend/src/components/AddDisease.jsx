@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import './Form.css';
+import './AddDisease.css';
 
 function AddDisease() {
   const [diseaseName, setDiseaseName] = useState('');
@@ -28,9 +28,9 @@ function AddDisease() {
   };
 
   return (
-    <div className="form-container">
-      <h1 className="form-title">Add New Disease</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="add-disease-container">
+      <h1 className="add-disease-title">Add New Disease</h1>
+      <form onSubmit={handleSubmit} className="add-disease-form">
         <div className="form-group">
           <label>Disease Name</label>
           <input
@@ -77,7 +77,7 @@ function AddDisease() {
             onChange={(e) => setTreatment(e.target.value)}
           ></textarea>
         </div>
-        <button type="submit" className="btn btn-primary">Add Disease</button>
+        <button type="submit" className="btn-submit">Add Disease</button>
       </form>
     </div>
   );

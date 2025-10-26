@@ -1,0 +1,108 @@
+@import '../variables.css';
+
+.add-detection-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.add-detection-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.add-detection-header h1 {
+  margin: 0 0 10px 0;
+}
+
+.add-detection-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.detection-form .form-group {
+  margin-bottom: 20px;
+}
+
+.detection-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.detection-form .form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ecf0f1;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.detection-form .form-control:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.dropzone {
+  border: 2px dashed #bdc3c7;
+  border-radius: 5px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.dropzone.active {
+  border-color: var(--secondary-color);
+  background-color: #f9fafb;
+}
+
+.dropzone:hover {
+  border-color: var(--secondary-color);
+}
+
+.dropzone-text i {
+  font-size: 3rem;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.dropzone-text p {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.dropzone-text em {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 5px;
+}
+
+.btn-submit-detection {
+  width: 100%;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit-detection:hover {
+  background-color: #2980b9;
+}

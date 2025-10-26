@@ -6,15 +6,17 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setLoggedIn(false);
     navigate('/login');
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <nav className="navbar navbar-expand-lg navbar-custom">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          <strong>PadiGuard</strong>
+          PadiGuard
         </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -24,7 +26,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             {loggedIn && (
               <>
                 <li className="nav-item">
-                  <NavLink className="nav-link" activeClassName="active" to="/users">Users</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/dashboard">Home</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" activeClassName="active" to="/detections">Detections</NavLink>
@@ -38,7 +40,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
           <ul className="navbar-nav">
             {loggedIn ? (
               <li className="nav-item">
-                <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
+                <button className="btn btn-logout" onClick={handleLogout}>Logout</button>
               </li>
             ) : (
               <>
@@ -46,7 +48,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
                   <NavLink className="nav-link" to="/login">Login</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="btn btn-primary" to="/register">Register</NavLink>
+                  <NavLink className="btn btn-register" to="/register">Register</NavLink>
                 </li>
               </>
             )}

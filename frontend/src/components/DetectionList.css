@@ -1,0 +1,121 @@
+@import '../variables.css';
+
+.detection-list-container {
+  padding: 2rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.list-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.btn-add-new {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-add-new:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.detection-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.detection-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.detection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.detection-card .card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.detection-card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-badge {
+  align-self: flex-start;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.status-healthy {
+  background-color: #2ecc71; /* Emerald */
+}
+
+.status-disease {
+  background-color: #e74c3c; /* Alizarin */
+}
+
+.detection-card-body .card-title {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+
+.detection-card-body .card-text {
+  color: #7f8c8d;
+  margin-bottom: 0.25rem;
+}
+
+.detection-card-body .card-text strong {
+  color: var(--text-color);
+}
+
+.detection-card-body .text-muted {
+  font-size: 0.85rem;
+  color: #bdc3c7 !important; /* Silver */
+}
+
+.detection-card-body .btn-view-details {
+  margin-top: auto;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s;
+  align-self: flex-end;
+}
+
+.detection-card-body .btn-view-details:hover {
+  background-color: var(--secondary-color);
+}

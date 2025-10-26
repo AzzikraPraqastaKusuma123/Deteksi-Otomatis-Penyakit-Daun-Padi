@@ -1,0 +1,86 @@
+@import '../variables.css';
+
+.user-dashboard {
+  padding: 2rem 0;
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
+  background-size: cover;
+  background-position: center;
+  padding: 4rem;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-text h1 {
+  margin: 0 0 1rem 0;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-cta-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-cta-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-card.detect .card-icon { color: var(--primary-color); }
+.dashboard-card.history .card-icon { color: #2ecc71; }
+.dashboard-card.diseases .card-icon { color: #e67e22; }
+
+.dashboard-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.dashboard-card p {
+  color: #7f8c8d;
+  line-height: 1.6;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './List.css';
+import './DetectionList.css';
 
 const detectionsData = [
   { detection_id: 1, user_id: 1, detected_disease_id: 1, image_path: 'uploads/budi/20251015_093012.jpg', confidence_score: '0.9650', is_healthy: 0, llm_generated_response: 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', detection_timestamp: '2025-10-15 04:14:12' },
@@ -22,24 +22,23 @@ function getDiseaseName(disease_id) {
 
 function DetectionList() {
   return (
-    <div className="list-container">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="list-title mb-0">Detections</h1>
-        <Link to="/detections/add" className="btn btn-primary">Add Detection</Link>
+    <div className="detection-list-container">
+      <div className="list-header">
+        <h1>Detection History</h1>
+        <Link to="/detections/add" className="btn-add-new">Start New Detection</Link>
       </div>
-      <div className="row">
+      <div className="detection-cards-grid">
         {detectionsData.map(detection => (
-          <div className="col-md-6 col-lg-4 mb-4" key={detection.detection_id}>
-            <div className="card list-card">
-              <img src={`http://localhost:5000/${detection.image_path}`} className="card-img-top" alt="..."/>
-              <div className="card-body">
-                <h5 className="card-title">Detection ID: {detection.detection_id}</h5>
-                <p className="card-text"><strong>Disease:</strong> {getDiseaseName(detection.detected_disease_id)}</p>
-                <p className="card-text"><strong>Confidence:</strong> {detection.confidence_score}</p>
-                <p className="card-text"><strong>Healthy:</strong> {detection.is_healthy ? 'Yes' : 'No'}</p>
-                <p className="card-text"><small className="text-muted">{detection.detection_timestamp}</small></p>
-                <Link to={`/detections/${detection.detection_id}`} className="btn btn-primary">View Details</Link>
-              </div>
+          <div className="detection-card" key={detection.detection_id}>
+            <img src={`http://localhost:5000/${detection.image_path}`} className="card-img-top" alt="Detection"/>
+            <div className="detection-card-body">
+              <span className={`status-badge ${detection.is_healthy ? 'status-healthy' : 'status-disease'}`}>
+                {detection.is_healthy ? 'Healthy' : 'Disease'}
+              </span>
+              <h5 className="card-title">{getDiseaseName(detection.detected_disease_id)}</h5>
+              <p className="card-text">Confidence: <strong>{parseFloat(detection.confidence_score * 100).toFixed(2)}%</strong></p>
+              <p className="card-text"><small className="text-muted">{new Date(detection.detection_timestamp).toLocaleString()}</small></p>
+              <Link to={`/detections/${detection.detection_id}`} className="btn-view-details">View Details</Link>
             </div>
           </div>
         ))}

@@ -1,0 +1,14 @@
+@import '../variables.css';
+
+.admin-layout {
+  display: flex;
+}
+
+.admin-content {
+  margin-left: var(--sidebar-width);
+  padding: 20px;
+  width: calc(100% - var(--sidebar-width));
+  background-color: var(--background-color);
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import UserList from "./components/UserList";
 import DetectionList from "./components/DetectionList";
@@ -14,6 +14,8 @@ import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
+import AdminLayout from "./components/AdminLayout";
+import MainLayout from "./components/MainLayout";
 import "./App.css";
 
 function App() {
@@ -21,8 +23,9 @@ function App() {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
+    if (token && user) {
       setLoggedIn(true);
       setUserRole(user.role);
     }
@@ -30,117 +33,43 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-        <div className="content">
-          <div className="container">
-            <Routes>
-              {/* Auth Routes */}
-              <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserRole={setUserRole} />} />
-              <Route path="/register" element={<Register />} />
+      <Routes>
+        {/* Routes without any layout */}
+        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserRole={setUserRole} />} />
+        <Route path="/register" element={<Register />} />
 
-              {/* Admin Route */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
+        {/* Admin Routes with AdminLayout */}
+        <Route 
+          element={
+            <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<UserList />} />
+          <Route path="/admin/users/:userId" element={<UserDetail />} />
+          <Route path="/admin/diseases" element={<DiseaseList />} />
+          <Route path="/admin/diseases/add" element={<AddDisease />} />
+        </Route>
 
-              {/* User Dashboard Route */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                    <UserDashboard />
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* Default protected route */}
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                    <UserDashboard />
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* User routes (for admin) */}
-              <Route
-                path="/users"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
-                    <UserList />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/users/:userId"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
-                    <UserDetail />
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* Detection routes */}
-              <Route
-                path="/detections"
-                element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                    <DetectionList />
-                  </ProtectedRoute>
-                }
-              />
-                          <Route
-                            path="/detections/add"
-                            element={
-                              <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                                <AddDetection />
-                              </ProtectedRoute>
-                            }
-                          />
-                          <Route
-                            path="/detections/:detectionId"
-                            element={
-                              <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                                <DetectionDetail />
-                              </ProtectedRoute>
-                            }
-                          />
-                          {/* Disease routes */}
-                          <Route
-                            path="/diseases"
-                            element={
-                              <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user', 'admin']}>
-                                <DiseaseList />
-                              </ProtectedRoute>
-                            }
-                          />
-                                      <Route
-                                        path="/diseases/add"
-                                        element={
-                                          <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
-                                            <AddDisease />
-                                          </ProtectedRoute>
-                                        }
-                                      />
-                                      <Route
-                                        path="/diseases/:diseaseId"
-                                        element={
-                                          <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user', 'admin']}>
-                                            <DiseaseDetail />
-                                          </ProtectedRoute>
-                                        }
-                                      />            
-            </Routes>
-          </div>
-        </div>
-      </div>
+        {/* User Routes with MainLayout */}
+        <Route 
+          element={
+            <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
+              <MainLayout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/" element={<UserDashboard />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/detections" element={<DetectionList />} />
+          <Route path="/detections/add" element={<AddDetection />} />
+          <Route path="/detections/:detectionId" element={<DetectionDetail />} />
+          <Route path="/diseases" element={<DiseaseList />} />
+          <Route path="/diseases/:diseaseId" element={<DiseaseDetail />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

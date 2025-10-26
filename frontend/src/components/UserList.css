@@ -1,0 +1,109 @@
+@import '../variables.css';
+
+.user-list-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.user-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.user-list-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bdc3c7;
+}
+
+.search-bar input {
+  padding: 12px 20px 12px 45px;
+  border-radius: 25px;
+  border: 1px solid #ecf0f1;
+  width: 300px;
+  transition: width 0.3s, box-shadow 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.user-table thead th {
+  background-color: #f9fafb;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.user-table tbody tr {
+  transition: background-color 0.3s;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f1f8e9;
+}
+
+.role-badge {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.role-badge.role-admin {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.role-badge.role-user {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-view-details {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-view-details:hover {
+  background-color: var(--secondary-color);
+}

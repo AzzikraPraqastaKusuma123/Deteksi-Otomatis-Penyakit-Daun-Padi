@@ -1,17 +1,27 @@
+@import '../variables.css';
+
 .navbar-custom {
-  background-color: var(--light-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
 }
 
 .navbar-brand {
   font-weight: 700;
-  color: var(--dark-color);
+  font-size: 1.5rem;
+  color: var(--primary-color);
 }
 
 .nav-link {
   color: var(--text-color);
   font-weight: 500;
   transition: color 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .nav-link:hover {
@@ -23,23 +33,28 @@
   font-weight: 700;
 }
 
-.btn-primary {
+.btn-register {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
+  border-radius: 20px;
+  padding: 8px 20px;
+  transition: background-color 0.3s;
 }
 
-.btn-primary:hover {
-  background-color: #45a049;
-  border-color: #45a049;
+.btn-register:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
-.btn-outline-danger {
+.btn-logout {
   color: var(--primary-color);
   border-color: var(--primary-color);
+  border-radius: 20px;
+  padding: 8px 20px;
 }
 
-.btn-outline-danger:hover {
+.btn-logout:hover {
   color: white;
   background-color: var(--primary-color);
   border-color: var(--primary-color);
