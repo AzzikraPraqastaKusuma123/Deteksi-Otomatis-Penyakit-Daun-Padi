@@ -88,7 +88,7 @@
 
 .form-control {
   height: 50px;
-  padding-left: 45px;
+  padding-left: 50px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
@@ -110,8 +110,9 @@
   transform: translateY(-50%);
   background-color: transparent;
   border: none;
-  color: var(--text-muted);
-  font-size: 1.2rem;
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  z-index: 10;
 }
 
 .btn-auth {
