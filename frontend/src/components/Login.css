@@ -1,12 +1,4 @@
 
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0f2f5;
-}
-
 .login-card {
   width: 100%;
   max-width: 400px;
@@ -14,6 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
+  margin: 2rem auto;
 }
 
 .input-group-text {
@@ -27,5 +20,5 @@
 
 .form-control:focus {
   box-shadow: none;
-  border-color: #ced4da;
+  border-color: var(--primary-color);
 }

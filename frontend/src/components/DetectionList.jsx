@@ -23,12 +23,15 @@ function getDiseaseName(disease_id) {
 function DetectionList() {
   return (
     <div className="list-container">
-      <h1 className="list-title">Detections</h1>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1 className="list-title mb-0">Detections</h1>
+        <Link to="/detections/add" className="btn btn-primary">Add Detection</Link>
+      </div>
       <div className="row">
         {detectionsData.map(detection => (
           <div className="col-md-6 col-lg-4 mb-4" key={detection.detection_id}>
             <div className="card list-card">
-              <img src={`https://placehold.co/600x400/4CAF50/FFFFFF?text=PadiGuard`} className="card-img-top" alt="..."/>
+              <img src={`http://localhost:5000/${detection.image_path}`} className="card-img-top" alt="..."/>
               <div className="card-body">
                 <h5 className="card-title">Detection ID: {detection.detection_id}</h5>
                 <p className="card-text"><strong>Disease:</strong> {getDiseaseName(detection.detected_disease_id)}</p>

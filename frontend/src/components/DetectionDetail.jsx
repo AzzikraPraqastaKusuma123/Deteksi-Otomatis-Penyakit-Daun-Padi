@@ -44,7 +44,7 @@ function DetectionDetail() {
       <div className="row">
         <div className="col-md-5">
           <div className="card detail-card">
-            <img src={`https://placehold.co/600x400/4CAF50/FFFFFF?text=PadiGuard`} className="detail-image" alt="..."/>
+            <img src={`http://localhost:5000/${detection.image_path}`} className="detail-image" alt="..."/>
           </div>
         </div>
         <div className="col-md-7">

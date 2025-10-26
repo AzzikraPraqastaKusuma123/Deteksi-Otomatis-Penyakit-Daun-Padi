@@ -11,9 +11,11 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-custom">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">PadiGuard</NavLink>
+        <NavLink className="navbar-brand" to="/">
+          <strong>PadiGuard</strong>
+        </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -22,10 +24,13 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             {loggedIn && (
               <>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/users">Users</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/users">Users</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/detections">Detections</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/detections">Detections</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" activeClassName="active" to="/diseases">Diseases</NavLink>
                 </li>
               </>
             )}
