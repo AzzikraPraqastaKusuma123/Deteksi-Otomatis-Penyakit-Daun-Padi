@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isCollapsed, toggleSidebar }) => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // New state for mobile menu
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -11,10 +12,21 @@ const Sidebar = () => {
     navigate('/login');
   };
 
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileMenuOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <h3>PadiGuard</h3>
+        <button className="sidebar-toggle" onClick={toggleSidebar}>
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        {/* New: Mobile menu toggle button */}
+        <button className="menu-toggle" onClick={handleMobileMenuToggle}>
+          <i className={isMobileMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
+        </button>
       </div>
       <ul className="sidebar-nav">
         <li>

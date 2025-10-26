@@ -1,11 +1,14 @@
 :root {
   --sidebar-width: 260px;
-  --background-color: #f4f7f9;
+  --sidebar-width-collapsed: 80px;
+  --background-color: var(--background-color); /* Use global background color */
+  --transition-speed: var(--transition-speed);
 }
 
 .admin-layout {
   display: flex;
   background-color: var(--background-color);
+  min-height: 100vh;
 }
 
 .admin-content {
@@ -13,5 +16,23 @@
   padding: 2rem;
   width: calc(100% - var(--sidebar-width));
   min-height: 100vh;
-  transition: margin-left 0.3s ease;
+  transition: margin-left var(--transition-speed), width var(--transition-speed);
+  background-color: var(--background-color); /* Ensure content background is consistent */
+}
+
+.admin-layout.sidebar-collapsed .admin-content {
+  margin-left: var(--sidebar-width-collapsed);
+  width: calc(100% - var(--sidebar-width-collapsed));
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .admin-layout.sidebar-collapsed .admin-content {
+    margin-left: 0;
+  }
 }

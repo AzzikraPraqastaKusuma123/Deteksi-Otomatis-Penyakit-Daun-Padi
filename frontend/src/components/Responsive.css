@@ -1,0 +1,70 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    box-shadow: none;
+    background-color: var(--dark-color); /* Ensure mobile sidebar uses dark color */
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
+  }
+
+  .sidebar-header h3 {
+    color: white; /* Ensure title is white on mobile sidebar */
+  }
+
+  .sidebar-nav {
+    display: none; /* Hide by default on mobile */
+    padding: 0;
+  }
+
+  .sidebar.open .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-nav li a {
+    padding: 1rem 1.5rem;
+    color: var(--light-color); /* Ensure links are light color on mobile sidebar */
+  }
+
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-main-content {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: white; /* Ensure toggle icon is white */
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}

@@ -1,80 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --accent-color: #f1c40f;
-  --background-color: #ecf0f1;
-  --text-color: #2c3e50;
-  --card-bg: #ffffff;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --primary-color: var(--primary-color);
+  --secondary-color: var(--secondary-color);
+  --accent-color: var(--accent-color);
+  --background-color: var(--background-color);
+  --text-color: var(--text-color);
+  --card-bg: var(--card-background);
+  --shadow: var(--shadow-medium);
+  --border-radius: 8px; /* Slightly less rounded */
 }
 
 .admin-dashboard {
   font-family: 'Poppins', sans-serif;
   padding: 2rem;
   background-color: var(--background-color);
+  min-height: calc(100vh - 4rem);
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
 }
 
 .dashboard-header h1 {
   color: var(--text-color);
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
+  font-size: 2.2rem; /* Slightly smaller title */
 }
 
 .dashboard-header p {
-  color: #7f8c8d;
-  margin-bottom: 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjusted min-width */
+  gap: 1.5rem; /* Reduced gap */
   margin-bottom: 2rem;
 }
 
 .stat-card {
   background-color: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 1.5rem; /* Adjusted padding */
+  border-radius: var(--border-radius);
   display: flex;
   align-items: center;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-light); /* Lighter shadow */
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border: 1px solid var(--border-color);
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px); /* Subtle lift */
+  box-shadow: var(--shadow-medium); /* Slightly more pronounced shadow on hover */
 }
 
 .stat-card-icon {
-  font-size: 2.5rem;
-  margin-right: 1.5rem;
-  padding: 1rem;
+  font-size: 2.2rem; /* Adjusted icon size */
+  margin-right: 1.2rem;
+  padding: 0.8rem;
   border-radius: 50%;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
+  width: 65px; /* Adjusted icon container size */
+  height: 65px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for icon */
 }
 
-.stat-card.users .stat-card-icon { background: linear-gradient(45deg, #3498db, #2980b9); }
-.stat-card.detections .stat-card-icon { background: linear-gradient(45deg, #2ecc71, #27ae60); }
-.stat-card.diseases .stat-card-icon { background: linear-gradient(45deg, #f1c40f, #f39c12); }
+.stat-card.users .stat-card-icon { background: var(--primary-color); }
+.stat-card.detections .stat-card-icon { background: var(--secondary-color); }
+.stat-card.diseases .stat-card-icon { background: var(--accent-color); }
 
 .stat-card-info p {
   margin: 0;
-  color: #7f8c8d;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .stat-card-info h3 {
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 2rem; /* Adjusted count size */
   font-weight: 700;
   color: var(--text-color);
 }
@@ -82,14 +91,15 @@
 .dashboard-main-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  gap: 1.5rem; /* Reduced gap */
 }
 
 .chart-container, .quick-actions {
   background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
+  padding: 1.8rem; /* Adjusted padding */
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  border: 1px solid var(--border-color);
 }
 
 .chart-container h2, .quick-actions h2 {
@@ -97,28 +107,82 @@
   margin-bottom: 1.5rem;
   color: var(--text-color);
   font-weight: 600;
+  font-size: 1.6rem; /* Adjusted title size */
 }
 
 .quick-action-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Adjusted gap */
   background-color: var(--primary-color);
   color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
+  padding: 12px 18px; /* Adjusted padding */
+  border-radius: 6px; /* Slightly less rounded */
   text-decoration: none;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-align: center;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
   font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(var(--primary-color-rgb), 0.15); /* Subtle button shadow */
 }
 
 .quick-action-btn:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
+  background-color: var(--secondary-color); /* Use secondary color on hover */
+  transform: translateY(-2px); /* Subtle lift */
+  box-shadow: 0 4px 10px rgba(var(--primary-color-rgb), 0.2);
 }
 
 .quick-action-btn i {
   font-size: 1.2rem;
+}
+
+/* Responsive adjustments for AdminDashboard */
+@media (max-width: 1024px) {
+  .dashboard-main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.2rem;
+  }
+
+  .stat-card-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+  }
+
+  .stat-card-info h3 {
+    font-size: 1.8rem;
+  }
+
+  .chart-container, .quick-actions {
+    padding: 1.2rem;
+  }
+
+  .chart-container h2, .quick-actions h2 {
+    font-size: 1.4rem;
+  }
+
+  .quick-action-btn {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
 }
