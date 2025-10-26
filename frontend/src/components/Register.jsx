@@ -6,6 +6,8 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [location, setLocation] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -15,7 +17,7 @@ const Register = () => {
       const response = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, full_name: fullName, location }),
       });
 
       const data = await response.json();
@@ -64,6 +66,30 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+            />
+          </div>
+          <div className="input-group">
+            <span className="input-group-text">
+              <i className="fas fa-id-card"></i>
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </div>
+          <div className="input-group">
+            <span className="input-group-text">
+              <i className="fas fa-map-marker-alt"></i>
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
           <div className="input-group">

@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [userCount, setUserCount] = useState(0);
-  // Placeholders for other stats
-  const [detectionCount, setDetectionCount] = useState(125);
-  const [diseaseCount, setDiseaseCount] = useState(15);
+  const [detectionCount, setDetectionCount] = useState(0);
+  const [diseaseCount, setDiseaseCount] = useState(0);
 
   useEffect(() => {
-    // In a real app, you would fetch these counts from your API
-    fetch('http://localhost:5000/api/users')
-      .then(response => response.json())
-      .then(data => {
-        setUserCount(data.length);
-      })
-      .catch(error => {
-        console.error('Error fetching user count:', error);
-      });
+    const fetchCounts = async () => {
+      try {
+        const [users, detections, diseases] = await Promise.all([
+          api.get('/users'),
+          api.get('/detections/count'),
+          api.get('/diseases/count')
+        ]);
+        setUserCount(users.data.length);
+        setDetectionCount(detections.data.count);
+        setDiseaseCount(diseases.data.count);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    };
+    fetchCounts();
   }, []);
 
   return (

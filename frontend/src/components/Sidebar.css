@@ -63,3 +63,33 @@
 .sidebar-nav li a span {
   font-weight: 500;
 }
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid #34495e;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background-color: transparent;
+  border: none;
+  color: #bdc3c7;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+  color: white;
+}
+
+.logout-btn i {
+  margin-right: 1rem;
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}

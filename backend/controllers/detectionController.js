@@ -16,3 +16,11 @@ export const addDetection = (req, res) => {
     res.status(201).json({ message: "Detection added successfully" });
   });
 };
+
+export const getDetectionsCount = (req, res) => {
+  const query = "SELECT COUNT(*) as count FROM detections";
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).json({ message: "Failed to get detections count", error: err });
+    res.json(results[0]);
+  });
+};

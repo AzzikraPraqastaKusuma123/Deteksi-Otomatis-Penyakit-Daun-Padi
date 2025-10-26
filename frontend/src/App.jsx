@@ -16,6 +16,8 @@ import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
 import AdminLayout from "./components/AdminLayout";
 import MainLayout from "./components/MainLayout";
+import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser";
 import "./App.css";
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
         >
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<UserList />} />
+          <Route path="/admin/users/add" element={<AddUser />} />
+          <Route path="/admin/users/edit/:userId" element={<EditUser />} />
           <Route path="/admin/users/:userId" element={<UserDetail />} />
           <Route path="/admin/diseases" element={<DiseaseList />} />
           <Route path="/admin/diseases/add" element={<AddDisease />} />

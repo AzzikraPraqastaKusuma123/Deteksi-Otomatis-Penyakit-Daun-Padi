@@ -16,3 +16,11 @@ export const addDisease = (req, res) => {
     res.status(201).json({ message: "Disease added successfully" });
   });
 };
+
+export const getDiseasesCount = (req, res) => {
+  const query = "SELECT COUNT(*) as count FROM diseases";
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).json({ message: "Failed to get diseases count", error: err });
+    res.json(results[0]);
+  });
+};
