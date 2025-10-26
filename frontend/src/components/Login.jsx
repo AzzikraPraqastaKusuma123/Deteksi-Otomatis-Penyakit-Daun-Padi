@@ -30,7 +30,7 @@ const Login = ({ setLoggedIn }) => {
         if (data.user.role === 'admin') {
           navigate('/admin');
         } else {
-          navigate('/');
+          navigate('/dashboard');
         }
       } else {
         alert(data.message || 'Invalid credentials');

@@ -1,24 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './List.css';
 
-function UserList() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/users')
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
-        setLoading(false);
-      });
-  }, []);
-
+function UserList({ users, loading }) {
   if (loading) {
     return <div className="list-container"><p>Loading users...</p></div>;
   }

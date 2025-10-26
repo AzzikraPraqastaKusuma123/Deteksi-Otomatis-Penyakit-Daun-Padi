@@ -12,7 +12,8 @@ import DetectionDetail from "./components/DetectionDetail";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AdminDashboard from "./components/AdminDashboard"; // Import AdminDashboard
+import AdminDashboard from "./components/AdminDashboard";
+import UserDashboard from "./components/UserDashboard";
 import "./App.css";
 
 function App() {
@@ -48,21 +49,31 @@ function App() {
                 }
               />
 
+              {/* User Dashboard Route */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
+                    <UserDashboard />
+                  </ProtectedRoute>
+                }
+              />
+
               {/* Default protected route */}
               <Route
                 path="/"
                 element={
                   <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
-                    <UserList />
+                    <UserDashboard />
                   </ProtectedRoute>
                 }
               />
 
-              {/* User routes */}
+              {/* User routes (for admin) */}
               <Route
                 path="/users"
                 element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
+                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
                     <UserList />
                   </ProtectedRoute>
                 }
@@ -70,7 +81,7 @@ function App() {
               <Route
                 path="/users/:userId"
                 element={
-                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
+                  <ProtectedRoute loggedIn={loggedIn} allowedRoles={['admin']}>
                     <UserDetail />
                   </ProtectedRoute>
                 }
@@ -105,7 +116,7 @@ function App() {
                           <Route
                             path="/diseases"
                             element={
-                              <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user']}>
+                              <ProtectedRoute loggedIn={loggedIn} allowedRoles={['user', 'admin']}>
                                 <DiseaseList />
                               </ProtectedRoute>
                             }
