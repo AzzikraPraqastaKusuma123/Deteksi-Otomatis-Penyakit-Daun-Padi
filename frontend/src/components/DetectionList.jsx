@@ -25,7 +25,7 @@ function DetectionList() {
     <div className="detection-list-container">
       <div className="list-header">
         <h1>Detection History</h1>
-        <Link to="/detections/add" className="btn-add-new">Start New Detection</Link>
+        <Link to="/detect" className="btn-add-new">Start New Detection</Link>
       </div>
       <div className="detection-cards-grid">
         {detectionsData.map(detection => (
@@ -38,7 +38,7 @@ function DetectionList() {
               <h5 className="card-title">{getDiseaseName(detection.detected_disease_id)}</h5>
               <p className="card-text">Confidence: <strong>{parseFloat(detection.confidence_score * 100).toFixed(2)}%</strong></p>
               <p className="card-text"><small className="text-muted">{new Date(detection.detection_timestamp).toLocaleString()}</small></p>
-              <Link to={`/detections/${detection.detection_id}`} className="btn-view-details">View Details</Link>
+              
             </div>
           </div>
         ))}

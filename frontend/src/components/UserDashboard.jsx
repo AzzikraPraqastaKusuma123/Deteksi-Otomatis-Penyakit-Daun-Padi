@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './UserDashboard.css';
-import Detection from './Detection'; // Import the new component
+
 
 const UserDashboard = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -12,18 +12,14 @@ const UserDashboard = () => {
         <div className="hero-text">
           <h1>Welcome, {user?.username}!</h1>
           <p>Your partner in protecting rice crops. Ready to detect diseases and get recommendations?</p>
-          {/* Tombol ini bisa diarahkan ke section scan atau halaman upload */}
-          <a href="#camera-scan" className="hero-cta-btn">Start Camera Scan</a>
+          <Link to="/detect" className="hero-cta-btn">Start Detection</Link>
         </div>
       </div>
 
-      {/* New Camera Detection Section */}
-      <div id="camera-scan" className="dashboard-section">
-        <Detection />
-      </div>
+
 
       <div className="dashboard-cards">
-        <Link to="/detections/add" className="dashboard-card detect">
+        <Link to="/detect" className="dashboard-card detect">
           <div className="card-icon">
             <i className="fas fa-upload"></i>
           </div>

@@ -7,8 +7,7 @@ import AddDisease from "./components/AddDisease";
 import DiseaseList from "./components/DiseaseList";
 import DiseaseDetail from "./components/DiseaseDetail";
 import UserDetail from "./components/UserDetail";
-import AddDetection from "./components/AddDetection";
-import DetectionDetail from "./components/DetectionDetail";
+import DetectionPage from "./components/DetectionPage";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -68,8 +67,7 @@ function App() {
           <Route path="/" element={<UserDashboard />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/detections" element={<DetectionList />} />
-          <Route path="/detections/add" element={<AddDetection />} />
-          <Route path="/detections/:detectionId" element={<DetectionDetail />} />
+          <Route path="/detect" element={<DetectionPage />} />
           <Route path="/diseases" element={<DiseaseList />} />
           <Route path="/diseases/:diseaseId" element={<DiseaseDetail />} />
         </Route>

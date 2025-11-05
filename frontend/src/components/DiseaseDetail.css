@@ -1,0 +1,84 @@
+
+.detail-container {
+  padding: 2rem;
+  font-family: var(--font-family, 'Poppins', sans-serif);
+  background-color: var(--background-color, #ecf0f1);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color, #2ecc71);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: var(--primary-hover, #27ae60);
+}
+
+.detail-card {
+  background-color: var(--container-bg, #ffffff);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  height: 100%;
+}
+
+.detail-image {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color, #34495e);
+  margin-bottom: 1.5rem;
+}
+
+.detail-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--light-text, #7f8c8d);
+  margin-bottom: 1rem;
+}
+
+.detail-info p strong {
+  color: var(--text-color, #34495e);
+  font-weight: 600;
+}
+
+/* Simple grid for layout */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -1rem;
+}
+
+.col-md-5,
+.col-md-7 {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.col-md-5 {
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+
+.col-md-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+}
+
+@media (max-width: 768px) {
+  .col-md-5,
+  .col-md-7 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

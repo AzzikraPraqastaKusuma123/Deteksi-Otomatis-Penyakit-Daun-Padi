@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import './Detail.css';
+import './UserDetail.css';
 
 function UserDetail() {
   const { userId } = useParams();
