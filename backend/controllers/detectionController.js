@@ -1,4 +1,20 @@
 import db from "../config/db.js";
+import { runInference } from '../services/detectionService.js';
+
+export const detectDisease = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No image file uploaded.' });
+  }
+
+  try {
+    const imageBuffer = req.file.buffer;
+    const prediction = await runInference(imageBuffer);
+    res.json(prediction);
+  } catch (error) {
+    console.error('Error during inference:', error);
+    res.status(500).json({ message: 'Failed to process image', error: error.message });
+  }
+};
 
 export const getAllDetections = (req, res) => {
   const query = "SELECT * FROM detections";

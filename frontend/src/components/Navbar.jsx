@@ -26,13 +26,13 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             {loggedIn && (
               <>
                 <li className="nav-item">
-                  <NavLink className="nav-link" activeClassName="active" to="/dashboard">Home</NavLink>
+                  <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/dashboard">Home</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" activeClassName="active" to="/detections">Detections</NavLink>
+                  <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/detections">Detections</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" activeClassName="active" to="/diseases">Diseases</NavLink>
+                  <NavLink className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")} to="/diseases">Diseases</NavLink>
                 </li>
               </>
             )}

@@ -19,4 +19,13 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
+// Fungsi khusus untuk deteksi gambar dengan FormData
+export const detectImage = (formData) => {
+  return API.post("/detections/detect", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 export default API;
