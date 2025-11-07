@@ -4,127 +4,104 @@ import sharp from 'sharp';
 import path from 'path';
 import db from "../config/db.js";
 
-// 🧠 Lokasi model di luar folder backend → gunakan ../model/
 const modelPath = path.resolve(process.cwd(), '../model/best_resnet50v2.onnx');
 
-// Label sesuai dengan kelas model kamu
 const labels = [
-  'Bacterial Leaf Blight',
-  'Brown Spot',
-  'Healthy Rice Leaf',
-  'Leaf Blast',
-  'Leaf scald',
-  'Narrow Brown Leaf Spot',
-  'Rice Hispa',
-  'Sheath Blight'
+  'Bacterial Leaf Blight',
+  'Brown Spot',
+  'Healthy Rice Leaf',
+  'Leaf Blast',
+  'Leaf Scald',
+  'Narrow Brown Leaf Spot',
+  'Rice Hispa',
+  'Sheath Blight'
 ];
 
 let session = null;
 
-/**
- * 🧩 Load model ONNX saat server mulai
- */
 export async function loadModel() {
-  try {
-    console.log("Loading ONNX model from:", modelPath);
-    session = await InferenceSession.create(modelPath);
-    console.log('✅ ONNX model loaded successfully.');
-  } catch (error) {
-    console.error('❌ Failed to load ONNX model:', error);
-    throw error;
-  }
+  try {
+    console.log("🧠 Loading ONNX model:", modelPath);
+    session = await InferenceSession.create(modelPath);
+    console.log('✅ Model loaded successfully.');
+  } catch (error) {
+    console.error('❌ Failed to load ONNX model:', error);
+    throw error;
+  }
 }
 
-/**
- * 🔢 Fungsi Softmax untuk menghitung probabilitas
- */
 function softmax(arr) {
-  const max = Math.max(...arr);
-  const exps = arr.map(x => Math.exp(x - max));
-  const sum = exps.reduce((a, b) => a + b, 0);
-  return exps.map(x => x / sum);
+  const max = Math.max(...arr);
+  const exp = arr.map(x => Math.exp(x - max));
+  const sum = exp.reduce((a, b) => a + b, 0);
+  return exp.map(x => x / sum);
 }
 
-/**
- * 🧠 Proses inferensi gambar
- */
 export async function runInference(imageBuffer) {
-  if (!session) {
-    throw new Error('Model session is not initialized. Call loadModel() first.');
-  }
+  if (!session) throw new Error('Model not initialized. Run loadModel() first.');
 
-  console.log('Backend: Starting inference...');
+  try {
+    const raw = await sharp(imageBuffer)
+      .resize(224, 224)
+      .toColorspace('srgb')
+      .removeAlpha()
+      .raw()
+      .toBuffer();
 
-  try {
-    // 1️⃣ Resize & preprocessing gambar → 224x224 RGB
-    const raw = await sharp(imageBuffer)
-      .resize(224, 224)
-      .removeAlpha()
-      .raw()
-      .toBuffer();
+    const float32Data = new Float32Array(raw.length);
+    for (let i = 0; i < raw.length; i++) {
+      float32Data[i] = (raw[i] / 127.5) - 1.0; // [-1, 1] normalisasi TF
+    }
 
-    console.log('Backend: Image preprocessed successfully.');
+    const inputTensor = new Tensor('float32', float32Data, [1, 224, 224, 3]);
+    const feeds = { [session.inputNames[0]]: inputTensor };
+    const results = await session.run(feeds);
 
-    // 2️⃣ Normalisasi piksel (0–1)
-    const float32Data = new Float32Array(raw.length);
-    for (let i = 0; i < raw.length; i++) {
-      float32Data[i] = raw[i] / 255.0;
-    }
+    const output = results[session.outputNames[0]].data;
+    const probs = softmax(Array.from(output));
 
-    // 3️⃣ Bentuk tensor [1, 224, 224, 3] (NHWC)
-    const inputTensor = new Tensor('float32', float32Data, [1, 224, 224, 3]);
+    const maxProb = Math.max(...probs);
+    const maxIndex = probs.indexOf(maxProb);
+    const predictedDiseaseName = labels[maxIndex] || "Unknown Disease";
 
-    // 4️⃣ Jalankan model
-    const feeds = { [session.inputNames[0]]: inputTensor };
-    const results = await session.run(feeds);
+    console.log(`✅ Prediction: ${predictedDiseaseName}, Confidence: ${maxProb.toFixed(4)}`);
 
-    const outputName = session.outputNames[0];
-    const output = results[outputName].data;
-    console.log('Backend: Model inference completed.');
+    // --- PERBAIKAN DIMULAI DISINI ---
+    const diseaseDetails = await new Promise((resolve) => {
+      db.query(
+        // 1. Mengganti 'name' menjadi 'disease_name' agar sesuai dengan DB
+        // 2. Menambahkan 'treatment_recommendations' ke query
+        "SELECT description, prevention, treatment_recommendations FROM diseases WHERE disease_name = ?",
+        [predictedDiseaseName],
+        (err, results) => {
+          if (err) {
+            console.error("Error fetching disease details:", err);
+            return resolve({
+              description: "No description found.",
+              prevention: "No prevention tips available.",
+              treatment_recommendations: "No treatment recommendations available." // Default
+            });
+          }
+          // Memberikan nilai default jika 'results[0]' kosong
+          resolve(results[0] || {
+            description: "No description available.",
+            prevention: "No prevention tips available.",
+            treatment_recommendations: "No treatment recommendations available."
+          });
+        }
+      );
+    });
 
-    // 5️⃣ Konversi ke probabilitas & ambil hasil tertinggi
-    const probs = softmax(Array.from(output));
-    const maxProb = Math.max(...probs);
-    const maxIndex = probs.indexOf(maxProb);
-    const predictedDiseaseName = labels[maxIndex] || "Unknown Disease";
-
-    console.log(`✅ Prediction: ${predictedDiseaseName}, Confidence: ${maxProb.toFixed(4)}`);
-
-    // 6️⃣ Ambil detail penyakit dari database
-    const diseaseDetails = await new Promise((resolve) => {
-      const query = `
-        SELECT description, prevention
-        FROM diseases
-        WHERE name = ?
-      `;
-      db.query(query, [predictedDiseaseName], (err, results) => {
-        if (err) {
-          console.error("Error fetching disease details:", err);
-          return resolve({
-            description: "Error fetching description.",
-            prevention: "Error fetching prevention tips.",
-          });
-        }
-        if (results.length > 0) {
-          resolve(results[0]);
-        } else {
-          resolve({
-            description: "No description available.",
-            prevention: "No prevention tips available.",
-          });
-        }
-      });
-    });
-
-    // 7️⃣ Kembalikan hasil lengkap
-    return {
-      disease: predictedDiseaseName,
-      confidence: Number(maxProb.toFixed(4)),
-      description: diseaseDetails.description,
-      prevention: diseaseDetails.prevention,
-    };
-  } catch (error) {
-    console.error("❌ Error during inference run:", error);
-    throw error;
-  }
+    return {
+      disease: predictedDiseaseName,
+      confidence: Number(maxProb.toFixed(4)),
+      description: diseaseDetails.description,
+      prevention: diseaseDetails.prevention,
+      treatment_recommendations: diseaseDetails.treatment_recommendations // 3. Menambahkan data baru ke return
+    };
+    // --- PERBAIKAN SELESAI DISINI ---
+  } catch (error) {
+    console.error("❌ Error during inference:", error);
+    throw error;
+  }
 }
