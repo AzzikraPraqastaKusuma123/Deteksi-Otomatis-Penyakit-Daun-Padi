@@ -1,4 +1,3 @@
-// src/services/api.js
 import axios from 'axios';
 
 // 1. Buat instance axios terpusat
@@ -8,10 +7,10 @@ const api = axios.create({
 });
 
 /**
- * 2. INTERCEPTOR (Bagian Paling Penting)
- * Kode ini akan berjalan OTOMATIS setiap kali Anda memanggil API
- * menggunakan 'api.post()' atau 'api.get()'.
- */
+ * 2. INTERCEPTOR (Bagian Paling Penting)
+ * Kode ini akan berjalan OTOMATIS setiap kali Anda memanggil API
+ * menggunakan 'api.post()' atau 'api.get()'.
+ */
 api.interceptors.request.use(
   (config) => {
     // Mengambil token yang disimpan saat login
@@ -29,10 +28,17 @@ api.interceptors.request.use(
 );
 
 // 3. Definisikan semua fungsi API Anda di sini
+
+/**
+ * Untuk halaman Login
+ */
 export const loginUser = (credentials) => {
   return api.post('/auth/login', credentials);
 };
 
+/**
+ * Untuk halaman DetectionPage
+ */
 export const detectImage = (formData) => {
   // Endpoint ini ('/detections/detect') akan otomatis mendapatkan token
   // berkat interceptor di atas.
@@ -43,6 +49,18 @@ export const detectImage = (formData) => {
   });
 };
 
-// Tambahkan fungsi API lain di sini (register, getUser, dll.)
+/**
+ * [TAMBAHAN BARU]
+ * Untuk halaman DetectionList.jsx.
+ * Mengambil semua riwayat deteksi milik pengguna.
+ */
+export const getDetections = () => {
+  // Ini akan memanggil endpoint GET /api/detections/
+  // Token akan otomatis ditambahkan oleh interceptor
+  return api.get('/detections');
+};
+
+// Anda bisa menambahkan fungsi lain di sini (register, getCount, dll.)
+// export const getDetectionCount = () => api.get('/detections/count');
 
 export default api;

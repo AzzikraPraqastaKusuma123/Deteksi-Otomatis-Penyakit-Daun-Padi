@@ -1,50 +1,100 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// DetectionList.jsx
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './DetectionList.css';
-
-const detectionsData = [
-  { detection_id: 1, user_id: 1, detected_disease_id: 1, image_path: 'uploads/budi/20251015_093012.jpg', confidence_score: '0.9650', is_healthy: 0, llm_generated_response: 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', detection_timestamp: '2025-10-15 04:14:12' },
-  { detection_id: 2, user_id: 2, detected_disease_id: 4, image_path: 'uploads/siti/20251015_100545.jpg', confidence_score: '0.9910', is_healthy: 1, llm_generated_response: 'Selamat! Daun padi Anda terlihat sehat. Pertahankan kondisi ini dengan pemupukan berimbang dan pengairan yang cukup.', detection_timestamp: '2025-10-15 04:14:12' },
-  { detection_id: 3, user_id: 1, detected_disease_id: 2, image_path: 'uploads/budi/20251015_101500.jpg', confidence_score: '0.8975', is_healthy: 0, llm_generated_response: 'Terdeteksi gejala Bercak Coklat pada daun. Ini disebabkan oleh jamur. Pastikan Anda menggunakan benih yang sehat untuk penanaman berikutnya dan lakukan sanitasi lahan.', detection_timestamp: '2025-10-15 04:14:12' },
-];
-
-const diseasesData = [
-  { disease_id: 1, disease_name: 'Hawar Daun Bakteri' },
-  { disease_id: 2, disease_name: 'Bercak Coklat' },
-  { disease_id: 3, disease_name: 'Tungro' },
-  { disease_id: 4, disease_name: 'Sehat' },
-];
-
-function getDiseaseName(disease_id) {
-  const disease = diseasesData.find(d => d.disease_id === disease_id);
-  return disease ? disease.disease_name : 'Unknown';
-}
+// 1. Impor fungsi getDetections dari file service API Anda
+import { getDetections } from '../services/api';
 
 function DetectionList() {
-  return (
-    <div className="detection-list-container">
-      <div className="list-header">
-        <h1>Detection History</h1>
-        <Link to="/detect" className="btn-add-new">Start New Detection</Link>
-      </div>
-      <div className="detection-cards-grid">
-        {detectionsData.map(detection => (
-          <div className="detection-card" key={detection.detection_id}>
-            <img src={`http://localhost:5000/${detection.image_path}`} className="card-img-top" alt="Detection"/>
-            <div className="detection-card-body">
-              <span className={`status-badge ${detection.is_healthy ? 'status-healthy' : 'status-disease'}`}>
-                {detection.is_healthy ? 'Healthy' : 'Disease'}
-              </span>
-              <h5 className="card-title">{getDiseaseName(detection.detected_disease_id)}</h5>
-              <p className="card-text">Confidence: <strong>{parseFloat(detection.confidence_score * 100).toFixed(2)}%</strong></p>
-              <p className="card-text"><small className="text-muted">{new Date(detection.detection_timestamp).toLocaleString()}</small></p>
-              
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  // 3. Siapkan state untuk data, loading, dan error
+  const [detections, setDetections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  // 4. Gunakan useEffect untuk mengambil data saat komponen dimuat
+  useEffect(() => {
+    const fetchDetections = async () => {
+      try {
+        setError(null);
+        setLoading(true);
+        
+        // Memanggil API (token akan otomatis terkirim)
+        const response = await getDetections();
+        
+        // Data dari backend adalah array, urutkan dari yang terbaru
+        setDetections(response.data.sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at)));
+      } catch (err) {
+        console.error("Failed to fetch detections:", err);
+        // Jika token tidak valid/habis (401 atau 403), redirect ke login
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          setError("Sesi Anda telah berakhir. Silakan login kembali.");
+          localStorage.removeItem('token'); // Hapus token lama
+          localStorage.removeItem('user');
+          setTimeout(() => navigate('/login'), 2000);
+        } else {
+          setError("Gagal memuat riwayat deteksi.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDetections();
+  }, [navigate]); // Tambahkan navigate sebagai dependensi
+
+  // 5. Tampilkan status loading
+  if (loading) {
+    return <div className="detection-list-container"><p>Loading history...</p></div>;
+  }
+
+  // 6. Tampilkan pesan error
+  if (error) {
+    return <div className="detection-list-container"><p className="error-message">{error}</p></div>;
+  }
+
+  return (
+    <div className="detection-list-container">
+      <div className="list-header">
+        <h1>Detection History</h1>
+        <Link to="/detect" className="btn-add-new">Start New Detection</Link>
+      </div>
+
+      {/* 7. Tampilkan pesan jika tidak ada data */}
+      {detections.length === 0 ? (
+        <div className="no-detections">
+          <p>No detection history found.</p>
+          <p>Start your first analysis!</p>
+        </div>
+      ) : (
+        <div className="detection-cards-grid">
+          {/* 8. Render data dinamis dari state 'detections' */}
+          {detections.map(detection => {
+            // Cek apakah sehat berdasarkan nama penyakit
+            const isHealthy = detection.disease_name.toLowerCase().includes('healthy') || detection.disease_name.toLowerCase().includes('sehat');
+            
+            return (
+              <div className="detection-card" key={detection.id}> {/* Gunakan detection.id */}
+                {/* Pastikan URL gambar benar, controller menyimpan '/uploads/...' */}
+                <img src={`http://localhost:5000${detection.image_url}`} className="card-img-top" alt={detection.disease_name}/>
+                <div className="detection-card-body">
+                  <span className={`status-badge ${isHealthy ? 'status-healthy' : 'status-disease'}`}>
+                    {isHealthy ? 'Healthy' : 'Disease'}
+                  </span>
+                  {/* Tampilkan disease_name langsung dari DB */}
+                  <h5 className="card-title">{detection.disease_name}</h5>
+                  {/* Tampilkan confidence dari DB (decimal) */}
+                  <p className="card-text">Confidence: <strong>{(detection.confidence * 100).toFixed(2)}%</strong></p>
+                  {/* Tampilkan detected_at dari DB (timestamp) */}
+                  <p className="card-text"><small className="text-muted">{new Date(detection.detected_at).toLocaleString()}</small></p>
+                </div>
+              </div>
+            ); {/* <-- KARAKTER '_' YANG ERROR TELAH DIHAPUS DARI SINI */}
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default DetectionList;

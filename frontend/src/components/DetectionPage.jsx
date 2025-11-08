@@ -226,12 +226,10 @@ const DetectionPage = () => {
                 <p>{prediction.description}</p>
                 
                 {/* Menambahkan 'Prevention' yang hilang */}
-                <h4>Prevention</h4>
+                <h4>Treatment Recommendation</h4>
                 <p>{prediction.prevention}</p>
                 
-                <h4>Treatment Recommendations</h4>
-                {/* Mengganti 'prediction.prevention' menjadi 'prediction.treatment_recommendations' */}
-                <p>{prediction.treatment_recommendations}</p>
+               
               </div>
               {/* --- AKHIR PERBAIKAN --- */}
 
