@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Nov 2025 pada 05.09
+-- Waktu pembuatan: 08 Nov 2025 pada 15.54
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -44,7 +44,27 @@ CREATE TABLE `detections` (
 
 INSERT INTO `detections` (`id`, `user_id`, `disease_name`, `confidence`, `image_url`, `description`, `prevention`, `detected_at`) VALUES
 (1, 1, 'Sheath Blight', 0.2635, '/uploads/detection_1762488238120.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat.\n2. Lakukan drainase yang baik pada lahan.\n3. Gunakan varietas padi yang tahan.', '2025-11-07 04:03:58'),
-(2, 1, 'Narrow Brown Leaf Spot', 0.2774, '/uploads/detection_1762488517304.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', '2025-11-07 04:08:37');
+(2, 1, 'Narrow Brown Leaf Spot', 0.2774, '/uploads/detection_1762488517304.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', '2025-11-07 04:08:37'),
+(3, 1, 'Narrow Brown Leaf Spot', 0.2794, '/uploads/detection_1762605755865.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', '2025-11-08 12:42:35'),
+(4, 1, 'Brown Spot', 0.2533, '/uploads/detection_1762605970152.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', '2025-11-08 12:46:10'),
+(5, 1, 'Brown Spot', 0.2796, '/uploads/detection_1762605998384.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', '2025-11-08 12:46:38'),
+(6, 1, 'Leaf Blast', 0.2782, '/uploads/detection_1762606014378.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', '2025-11-08 12:46:54'),
+(7, 1, 'Sheath Blight', 0.2789, '/uploads/detection_1762606117742.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', '2025-11-08 12:48:37'),
+(8, 1, 'Sheath Blight', 0.2783, '/uploads/detection_1762606163354.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', '2025-11-08 12:49:23'),
+(9, 1, 'Leaf Blast', 0.2789, '/uploads/detection_1762606185353.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', '2025-11-08 12:49:45'),
+(10, 1, 'Rice Hispa', 0.2796, '/uploads/detection_1762606228043.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', '2025-11-08 12:50:28'),
+(11, 1, 'Rice Hispa', 0.2789, '/uploads/detection_1762606754082.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', '2025-11-08 12:59:14'),
+(12, 1, 'Leaf Scald', 0.2742, '/uploads/detection_1762607430758.jpg', 'Menyebabkan lesi besar, memanjang, berwarna coklat muda atau abu-abu kehijauan pada ujung daun, seringkali dengan pola \"zona\" konsentris.', '1. Jaga kebersihan lahan. \n2. Gunakan benih bersertifikat. \n3. Pemupukan Kalium yang cukup.', '2025-11-08 13:10:30'),
+(13, 1, 'Rice Hispa', 0.2479, '/uploads/detection_1762607519169.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', '2025-11-08 13:11:59'),
+(14, 4, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762609226852.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', '2025-11-08 13:40:26'),
+(15, 4, 'Rice Hispa', 0.1689, '/uploads/detection_1762609249391.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', '2025-11-08 13:40:49'),
+(16, 4, 'Sheath Blight', 0.1940, '/uploads/detection_1762609259872.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', '2025-11-08 13:40:59'),
+(17, 1, 'Bacterial Leaf Blight', 0.1664, '/uploads/detection_1762610723399.jpg', 'Penyakit ini menyebabkan lesi berair pada tepi daun yang kemudian menguning, menjadi abu-abu, dan kering. Sering disebut \"kresek\".', '1. Gunakan varietas tahan. \n2. Pastikan drainase baik. \n3. Jangan gunakan pupuk Nitrogen berlebihan.', '2025-11-08 14:05:23'),
+(18, 1, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762612855294.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', '2025-11-08 14:40:55'),
+(19, 6, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762613343609.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', '2025-11-08 14:49:03'),
+(20, 6, 'Brown Spot', 0.2795, '/uploads/detection_1762613359289.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', '2025-11-08 14:49:19'),
+(21, 6, 'Rice Hispa', 0.2633, '/uploads/detection_1762613376909.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', '2025-11-08 14:49:36'),
+(22, 1, 'Leaf Blast', 0.2677, '/uploads/detection_1762613423601.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', '2025-11-08 14:50:23');
 
 -- --------------------------------------------------------
 
@@ -109,7 +129,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `full_name`, `location`, `detect
 (2, 'budi_petani', 'budi.petani@email.com', 'Budi Santoso', 'Karawang, Jawa Barat', 'Hawar Daun Bakteri', 'uploads/budi/20251015_093012.jpg', 0.9650, 0, 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', '2025-10-14 21:14:12', '$2b$10$hGya3vJg8nPWXb8f4HytzuK2Zx8s4fK9z0q3wrXj5D5p3E8aZo5yq', '2025-10-26 05:16:10', 'user'),
 (3, 'siti_agri', 'siti.agri@email.com', 'Siti Aminah', 'Indramayu, Jawa Barat', 'Sehat', 'uploads/siti/20251015_100545.jpg', 0.9910, 1, 'Selamat! Daun padi Anda terlihat sehat. Pertahankan kondisi ini dengan pemupukan berimbang dan pengairan yang cukup.', '2025-10-14 22:14:12', '$2b$10$VtB2YxZf2ExmAwn5nbqZWe5vZfZ6bD3xKQxN0OQxR8WcL1b8Lwzze', '2025-10-26 05:16:10', 'user'),
 (4, 'japar', 'japar@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-10-26 05:18:14', '$2b$10$jhI2G/hyadiASkM7IZKLVu7zPSSAEAA57BrNxahTNK5Y8bWhNh/eK', '2025-10-26 05:18:14', 'user'),
-(5, 'zikra', 'zikra@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-10-26 06:19:50', '$2b$10$ve9YCMCZ2FEfaRkOd6i9e.Cmjt0HGWIrmuzpwAET4MKt/96Z/7K7W', '2025-10-26 06:19:50', 'user');
+(5, 'zikra', 'zikra@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-10-26 06:19:50', '$2b$10$ve9YCMCZ2FEfaRkOd6i9e.Cmjt0HGWIrmuzpwAET4MKt/96Z/7K7W', '2025-10-26 06:19:50', 'user'),
+(6, 'joko', 'joko@gmail.com', 'joko anwar', 'lampung', NULL, NULL, NULL, NULL, NULL, '2025-11-08 14:48:33', '$2b$10$ypzfiacv1eChpENU6WIAk.kDXXERMbgAl6fyofCuiEyOdUDEHHaNO', '2025-11-08 14:48:33', 'user');
 
 --
 -- Indexes for dumped tables
@@ -144,7 +165,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `detections`
 --
 ALTER TABLE `detections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `diseases`
@@ -156,7 +177,7 @@ ALTER TABLE `diseases`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
