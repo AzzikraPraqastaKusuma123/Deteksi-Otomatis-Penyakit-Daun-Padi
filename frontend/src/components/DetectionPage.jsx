@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { detectImage } from '../services/api'; // Ini sudah benar
+import { detectImage } from '../services/api'; 
 import './DetectionPage.css';
 import { FiUploadCloud, FiCamera } from 'react-icons/fi';
-// 1. Impor useNavigate untuk redirect jika token habis
 import { useNavigate } from 'react-router-dom';
 
 const DetectionPage = () => {
@@ -17,8 +16,6 @@ const DetectionPage = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate(); // 2. Inisialisasi navigate
 
-  // ... (useEffect, startCamera, stopCamera, onDrop, getRootProps, handleModeChange semuanya sudah benar) ...
-  // Cleanup effect for camera stream
   useEffect(() => {
     return () => {
       if (stream) {
@@ -226,13 +223,12 @@ const DetectionPage = () => {
                 <p>{prediction.description}</p>
                 
                 {/* Menambahkan 'Prevention' yang hilang */}
-                <h4>Treatment Recommendation</h4>
+                <h4>Prevention</h4>
                 <p>{prediction.prevention}</p>
                 
                
               </div>
-              {/* --- AKHIR PERBAIKAN --- */}
-
+ 
             </div>
           ) : (
             !loading && <div className="no-results">
