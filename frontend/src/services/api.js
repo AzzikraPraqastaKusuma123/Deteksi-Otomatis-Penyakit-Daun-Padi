@@ -1,52 +1,110 @@
+// frontend/src/services/api.js
 import axios from 'axios';
 
+// === 1. Inisialisasi Instance Axios ===
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api'
+  baseURL: 'http://localhost:5000/api', // Sesuaikan dengan server backend kamu
 });
 
+// === 2. Interceptor untuk Menyertakan Token Otomatis ===
 api.interceptors.request.use(
-  (config) => {
-    // Mengambil token yang disimpan saat login
-    const token = localStorage.getItem('token');
-    
-    if (token) {
-      // Menambahkan token ke header 'Authorization'
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config; // Lanjutkan request dengan header baru
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
-
+// === 3. AUTHENTICATION ===
 export const loginUser = (credentials) => {
-  return api.post('/auth/login', credentials);
+  // POST /auth/login
+  return api.post('/auth/login', credentials);
 };
 
-export const detectImage = (formData) => {
-  return api.post('/detections/detect', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+export const registerUser = (data) => {
+  // POST /auth/register
+  return api.post('/auth/register', data);
 };
 
-export const getDetections = () => {
-  return api.get('/detections');
-};
-
+// === 4. DISEASE MANAGEMENT ===
 export const getAllDiseases = () => {
-  return api.get('/diseases');
+  // GET /diseases
+  return api.get('/diseases');
 };
 
 export const getDiseaseById = (id) => {
-  return api.get(`/diseases/${id}`);
+  // GET /diseases/:id
+  return api.get(`/diseases/${id}`);
 };
 
 export const addDisease = (diseaseData) => {
-  return api.post('/diseases', diseaseData);
+  // POST /diseases
+  return api.post('/diseases', diseaseData);
 };
 
+export const getDiseasesCount = () => {
+  // GET /diseases/count
+  return api.get('/diseases/count');
+};
+
+// === 5. DETECTION SYSTEM ===
+export const detectImage = (formData) => {
+  // POST /detections/detect
+  return api.post('/detections/detect', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const getDetections = () => {
+  // GET /detections
+  return api.get('/detections');
+};
+
+export const getDetectionsCount = () => {
+  // GET /detections/count
+  return api.get('/detections/count');
+};
+
+// === 6. USER MANAGEMENT (Admin) ===
+export const getAllUsers = () => {
+  // GET /users
+  return api.get('/users');
+};
+
+export const getUserById = (id) => {
+  // GET /users/:id
+  return api.get(`/users/${id}`);
+};
+
+export const addUser = (userData) => {
+  // POST /users
+  return api.post('/users', userData);
+};
+
+export const updateUser = (id, userData) => {
+  // PUT /users/:id
+  return api.put(`/users/${id}`, userData);
+};
+
+export const deleteUser = (id) => {
+  // DELETE /users/:id
+  return api.delete(`/users/${id}`);
+};
+
+// === 7. USER PROFILE (Untuk User Login) ===
+export const updateUserProfile = (id, data) => {
+  // PUT /users/profile/:id
+  return api.put(`/users/profile/${id}`, data);
+};
+
+export const getUserProfile = (id) => {
+  // GET /users/:id (ambil detail user + deteksi)
+  return api.get(`/users/${id}`);
+};
+
+// === 8. Ekspor default ===
+export { api };
 export default api;
