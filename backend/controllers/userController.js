@@ -130,3 +130,40 @@ export const deleteUser = (req, res) => {
     res.json({ message: "User deleted successfully" });
   });
 };
+
+// UPDATE profile user (hanya untuk user login)
+export const updateUserProfile = (req, res) => {
+  const userId = req.params.id;
+  const { email, full_name, location, password } = req.body;
+
+  // Hash password baru jika diubah
+  let hashedPassword = null;
+  if (password) {
+    hashedPassword = bcrypt.hashSync(password, 10);
+  }
+
+  const sql = `
+    UPDATE users SET 
+      email = ?,
+      full_name = ?,
+      location = ? 
+      ${password ? ", password = ?" : ""}
+    WHERE id = ?
+  `;
+
+  const params = password
+    ? [email, full_name, location, hashedPassword, userId]
+    : [email, full_name, location, userId];
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      console.error("Error updating profile:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "Profile updated successfully" });
+  });
+};
