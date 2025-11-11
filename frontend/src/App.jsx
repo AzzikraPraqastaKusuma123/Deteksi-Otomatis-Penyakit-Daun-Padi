@@ -17,6 +17,7 @@ import AdminLayout from "./components/AdminLayout";
 import MainLayout from "./components/MainLayout";
 import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
+import ProfilePage from "./components/ProfilePage";
 import "./App.css";
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/detect" element={<DetectionPage />} />
           <Route path="/diseases" element={<DiseaseList />} />
           <Route path="/diseases/:diseaseId" element={<DiseaseDetail />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </Router>

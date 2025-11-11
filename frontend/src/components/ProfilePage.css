@@ -1,0 +1,61 @@
+@import '../variables.css'; /* Asumsi Anda memiliki file ini */
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Mulai dari atas */
+  padding: 120px 2rem 2rem 2rem; /* Padding atas 120px untuk navbar fixed */
+  background-color: var(--light-bg-color, #f8f9fa);
+  min-height: 100vh;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 600px;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  font-size: 5rem;
+  color: var(--primary-color, #4CAF50);
+  margin-bottom: 1rem;
+}
+
+.profile-header h1 {
+  color: var(--text-color, #333);
+  margin-bottom: 0.5rem;
+}
+
+.profile-header p {
+  color: var(--text-secondary, #6c757d);
+}
+
+.profile-body .profile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-body .profile-item:last-child {
+  border-bottom: none;
+}
+
+.profile-item strong {
+  color: var(--text-color, #333);
+  font-weight: 600;
+}
+
+.profile-item span {
+  color: var(--text-secondary, #555);
+  font-weight: 500;
+}
