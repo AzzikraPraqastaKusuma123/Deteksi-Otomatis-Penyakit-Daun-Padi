@@ -178,7 +178,7 @@ const DetectionPage = () => {
           {mode === 'camera' && (
             <div className="camera-container">
               <video ref={videoRef} autoPlay playsInline muted className="camera-feed" />
-              {stream && <button onClick={handleCapture} className="btn-capture">Capture Photo</button>}
+              {stream && <button onClick={handleCapture} className="btn-capture"><FiCamera size={24} /></button>}
             </div>
           )}
 
