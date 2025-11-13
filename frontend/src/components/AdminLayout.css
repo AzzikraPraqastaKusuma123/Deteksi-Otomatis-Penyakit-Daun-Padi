@@ -20,6 +20,9 @@
   /* min-height: 100vh; Removed as flex-grow handles height */
   transition: margin-left var(--transition-speed), width var(--transition-speed);
   background-color: var(--background-color); /* Ensure content background is consistent */
+  display: flex; /* Added for vertical centering */
+  flex-direction: column; /* Added for vertical centering */
+  justify-content: center; /* Added for vertical centering */
 }
 
 .admin-layout.sidebar-collapsed .admin-content {

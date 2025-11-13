@@ -8,5 +8,8 @@
 
 .main-content {
   flex-grow: 1; /* Allows main content to take up available space */
-  padding-top: 70px; /* Adjust based on Navbar height */
+  padding-top: 150px; /* Increased significantly for clear separation */
+  display: flex; /* Added for vertical centering */
+  flex-direction: column; /* Added for vertical centering */
+  /* justify-content: center; Removed as we will rely on fixed margins */
 }
