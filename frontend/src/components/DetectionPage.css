@@ -25,12 +25,13 @@
   grid-template-columns: 1fr 1fr; /* Two columns */
   gap: 1rem;
   width: 100%; /* Take full width within its parent's padding */
-  /* max-width: 1200px; Removed max-width to allow full screen */
+  /* max-width: 1000px; Removed to make it full width */
   background-color: var(--container-bg);
-  padding: 1.5rem;
+  padding: 1rem; /* Reduced padding to match global .container */
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem; /* Added to push it down further from navbar */
+  margin-top: 2rem; /* Restored original margin-top */
+  min-height: 700px; /* Increased to make it longer */
 }
 
 .detection-input-section {
@@ -176,9 +177,11 @@
 
 /* Analyze Button */
 .action-buttons {
-  display: flex;
+  display: flex; /* Re-enabled flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically (if needed, for single line) */
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem; /* Reverted to original margin */
 }
 
 /* ... */
@@ -250,6 +253,9 @@
     grid-template-columns: 1fr; /* Single column on smaller screens */
     gap: 1rem;
     padding: 1rem;
+    min-height: auto; /* Allow height to adjust on smaller screens */
+    max-width: 100%; /* Ensure full width on smaller screens */
+    margin: 0 auto; /* Center on smaller screens */
   }
 
   .detection-results-section {

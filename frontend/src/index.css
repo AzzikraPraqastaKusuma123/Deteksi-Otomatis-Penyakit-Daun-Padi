@@ -31,9 +31,9 @@ body {
 }
 
 #root {
-  margin: 0 auto;
-  text-align: center;
   width: 100%;
+  /* margin: 0 auto; Removed to allow full width */
+  /* text-align: center; Removed to allow content to align naturally */
 }
 
 h1 {
@@ -79,7 +79,7 @@ button:focus-visible {
 /* Custom styles for better UI */
 .container {
   background-color: #ffffff;
-  padding: 1rem; /* Re-added padding */
+  /* padding: 1rem; Removed padding for full-width background */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%; /* Explicitly set width to 100% */
