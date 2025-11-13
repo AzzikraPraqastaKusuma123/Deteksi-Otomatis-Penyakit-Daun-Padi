@@ -35,6 +35,7 @@ CREATE TABLE `detections` (
   `image_url` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `prevention` text DEFAULT NULL,
+  `treatment_recommendations` text DEFAULT NULL,
   `detected_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

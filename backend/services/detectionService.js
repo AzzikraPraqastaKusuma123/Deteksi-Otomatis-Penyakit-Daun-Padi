@@ -3,6 +3,8 @@ import { InferenceSession, Tensor } from 'onnxruntime-node';
 import sharp from 'sharp';
 import path from 'path';
 import db from "../config/db.js";
+import axios from 'axios';
+import 'dotenv/config';
 
 const modelPath = path.resolve(process.cwd(), '../model/best_resnet50v2.onnx');
 
@@ -28,6 +30,71 @@ export async function loadModel() {
     console.error('❌ Failed to load ONNX model:', error);
     throw error;
   }
+}
+
+export async function getGenerativeInfo(diseaseName) {
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn("GEMINI_API_KEY not found. Skipping generative info.");
+    return null;
+  }
+
+  if (diseaseName === 'Healthy Rice Leaf') {
+    return {
+      informasi_detail: "Daun padi dalam kondisi sehat, tidak menunjukkan gejala penyakit.",
+      solusi_penyembuhan: "Tidak diperlukan penyembuhan. Pertahankan praktik pertanian yang baik untuk menjaga kesehatan tanaman.",
+      rekomendasi_produk: []
+    };
+  }
+
+  const prompt = `
+    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi dari Indonesia yang sangat berpengalaman.
+
+    Berikan penjelasan yang sangat mendalam, detail, dan panjang untuk setiap bagian. Anggap setiap bagian adalah sebuah esai singkat. Gunakan bahasa yang mudah dipahami namun tetap akurat, seolah-olah Anda sedang memberikan konsultasi langsung kepada seorang petani.
+
+    Berdasarkan nama penyakit berikut: "${diseaseName}"
+
+    Tolong berikan jawaban HANYA dalam format JSON dengan struktur berikut:
+    {
+      "informasi_detail": "Jelaskan secara mendalam dengan minimal 100 kata tentang penyakit ini. Mulai dari gejala awal yang samar, bagaimana perkembangan gejala menjadi parah, apa nama ilmiah penyebabnya (jamur/bakteri), bagaimana cara patogen tersebut menyerang jaringan tanaman, kondisi cuaca dan lingkungan (suhu, kelembaban) yang paling ideal untuk wabah, dan apa dampak ekonomi jika dibiarkan.",
+      "solusi_penyembuhan": "Berikan panduan langkah-demi-langkah yang sangat komprehensif dengan minimal 150 kata. Untuk bagian (A) Metode Pengendalian Kultural & Organik, jelaskan setidaknya 3-4 teknik secara detail, seperti rotasi tanaman, penggunaan varietas tahan, sanitasi (pembersihan gulma/sisa tanaman), dan penggunaan musuh alami atau pestisida nabati. Untuk bagian (B) Metode Pengendalian Kimiawi, sebutkan 2-3 jenis zat aktif yang berbeda, jelaskan perbedaan cara kerjanya (sistemik vs. kontak), berikan contoh waktu aplikasi (misal: pagi hari, tidak hujan), dan tekankan pentingnya mengikuti dosis anjuran untuk menghindari resistensi.",
+      "rekomendasi_produk": [
+        { "nama_produk": "Contoh Merek Dagang Fungisida/Bakterisida", "deskripsi_singkat": "Jelaskan secara singkat produk ini mengandung zat aktif apa dan untuk apa." },
+        { "nama_produk": "Contoh Merek Dagang Pupuk/Produk Pendukung", "deskripsi_singkat": "Jelaskan mengapa produk ini direkomendasikan untuk pemulihan atau pencegahan." }
+      ]
+    }
+  `;
+
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          response_mime_type: "application/json",
+        },
+      }
+    );
+
+    console.log("✅ Successfully received response from Gemini API.");
+    try {
+      // The response from Gemini is a JSON string, parse it into an object
+      const jsonString = response.data.candidates[0].content.parts[0].text;
+      return JSON.parse(jsonString);
+    } catch (parseError) {
+      console.error("❌ Failed to parse JSON response from Gemini:", parseError);
+      return { 
+        error: true, 
+        message: "Failed to parse AI response." 
+      };
+    }
+  } catch (error) {
+    console.error("❌ Error calling Gemini API:", error.response ? error.response.data : error.message);
+    // Return a structured error object instead of null
+    return { 
+      error: true, 
+      message: error.response ? error.response.data : error.message 
+    };
+  }
 }
 
 function softmax(arr) {

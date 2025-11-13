@@ -1,0 +1,189 @@
+/* DetailedAnalysisPage.css */
+.detailed-analysis-page {
+  padding: 2rem;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+}
+
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.analysis-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+.btn-back {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+  background-color: #2980b9;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.main-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-content .image-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.image-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #34495e;
+}
+
+.detected-image {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.result-card-detailed {
+  width: 100%;
+}
+
+.result-header-detailed h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #16a085;
+  padding-bottom: 0.5rem;
+}
+
+.confidence {
+  margin-bottom: 1.5rem;
+}
+
+.result-details-detailed {
+  margin-bottom: 1.5rem;
+}
+
+.result-details-detailed h4 {
+  font-size: 1.2rem;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+}
+
+.result-details-detailed p {
+  line-height: 1.6;
+  color: #555;
+}
+
+.gemini-info-detailed {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.gemini-info-detailed h3 {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.gemini-section-detailed {
+  margin-bottom: 1.5rem;
+}
+
+.gemini-section-detailed h4 {
+  font-size: 1.2rem;
+  color: #34495e;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.gemini-section-detailed h4 i {
+  margin-right: 10px;
+  color: #16a085;
+}
+
+.gemini-section-detailed p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  white-space: pre-wrap; /* To respect newlines from Gemini */
+}
+
+.product-list-detailed {
+  list-style: none;
+  padding-left: 0;
+}
+
+.product-item-detailed {
+  background-color: #f8f9fa;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border-left: 4px solid #16a085;
+}
+
+.healthy-leaf-detailed {
+  text-align: center;
+  padding: 2rem;
+  background-color: #e8f8f5;
+  border-radius: 8px;
+}
+
+.healthy-leaf-detailed p {
+  font-size: 1.2rem;
+  color: #138d75;
+  font-weight: 500;
+}
+
+.gemini-error {
+  background-color: #fff5f5;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.gemini-error h4 {
+  color: #721c24;
+}
+
+.gemini-error pre {
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.85rem;
+}
+
+.error-container {
+  text-align: center;
+  padding: 3rem;
+}

@@ -19,6 +19,7 @@ import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
 import ProfilePage from "./components/ProfilePage";
 import EditProfilePage from "./components/EditProfilePage";
+import DetailedAnalysisPage from "./components/DetailedAnalysisPage"; // Import the new component
 import "./App.css";
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/detections" element={<DetectionList />} />
           <Route path="/detect" element={<DetectionPage />} />
+          <Route path="/analysis-result" element={<DetailedAnalysisPage />} /> {/* Add the new route */}
           <Route path="/diseases" element={<DiseaseList />} />
           <Route path="/diseases/:diseaseId" element={<DiseaseDetail />} />
           <Route path="/profile" element={<ProfilePage />} />

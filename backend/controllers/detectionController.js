@@ -1,6 +1,6 @@
 // backend/controllers/detectionController.js
 import db from "../config/db.js";
-import { runInference } from "../services/detectionService.js";
+import { runInference, getGenerativeInfo } from "../services/detectionService.js";
 import fs from "fs";
 import path from "path";
 
@@ -19,6 +19,9 @@ export const detectDisease = async (req, res) => {
     const imageBuffer = req.file.buffer;
     const prediction = await runInference(imageBuffer);
 
+    // Get additional info from Gemini
+    const generativeInfo = await getGenerativeInfo(prediction.disease);
+
     // Simpan gambar hasil upload di folder /uploads/
     const uploadDir = path.join(process.cwd(), "uploads");
     if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
@@ -31,8 +34,8 @@ export const detectDisease = async (req, res) => {
 
     console.log("SQL:");
     console.log(`
-      INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention, treatment_recommendations)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `);
 
     const params = [
@@ -41,14 +44,15 @@ export const detectDisease = async (req, res) => {
       prediction.confidence,
       imageUrl,
       prediction.description,
-      prediction.prevention
+      prediction.prevention,
+      prediction.treatment_recommendations // Added
     ];
     console.log("PARAMS:", params);
 
     db.query(
       `
-      INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention, treatment_recommendations)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
       `,
       params,
       (err, results) => {
@@ -63,7 +67,9 @@ export const detectDisease = async (req, res) => {
           confidence: prediction.confidence,
           description: prediction.description,
           prevention: prediction.prevention,
-          image_url: imageUrl
+          treatment_recommendations: prediction.treatment_recommendations, // Added
+          image_url: imageUrl,
+          generativeInfo: generativeInfo // Added Gemini response
         });
       }
     );
