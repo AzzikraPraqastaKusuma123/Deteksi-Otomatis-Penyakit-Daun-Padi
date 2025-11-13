@@ -17,20 +17,17 @@
   font-family: var(--font-family);
   background-color: var(--background-color);
   min-height: 100vh;
-  padding: 2rem; /* Overall padding for the page */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 1rem; /* Re-introduce a small padding */
 }
 
 .detection-main-layout { /* Renamed from .detection-container */
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two columns */
-  gap: 2rem;
+  gap: 1rem;
   width: 100%; /* Take full width within its parent's padding */
   /* max-width: 1200px; Removed max-width to allow full screen */
   background-color: var(--container-bg);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -362,8 +359,8 @@
 @media (max-width: 992px) {
   .detection-main-layout { /* Apply to the new main layout */
     grid-template-columns: 1fr; /* Single column on smaller screens */
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .detection-results-section {

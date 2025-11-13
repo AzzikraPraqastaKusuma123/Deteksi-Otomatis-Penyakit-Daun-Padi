@@ -1,0 +1,113 @@
+.app-footer {
+  background-color: var(--text-color); /* Dark Blue-Gray from existing palette */
+  color: #ffffff;
+  padding: 2.5rem 2rem 1rem; /* Increased top padding */
+  margin-top: 4rem; /* Provide more space from the content above */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-family);
+  text-align: center;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  justify-content: space-around; /* Distribute items evenly */
+  gap: 2rem; /* Space between sections */
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-section {
+  flex: 1; /* Allow sections to grow */
+  min-width: 250px; /* Minimum width for sections before wrapping */
+  text-align: left;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color); /* Use primary color for headings */
+}
+
+.footer-section p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 1.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.contact-info p {
+  margin-bottom: 0.5rem;
+}
+
+.footer-bottom {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .footer-container {
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center;
+    text-align: center;
+    gap: 3rem; /* More space when stacked */
+  }
+
+  .footer-section {
+    min-width: unset; /* Remove min-width when stacked */
+    width: 100%;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center; /* Center social icons when stacked */
+  }
+}
+
+@media (max-width: 480px) {
+  .app-footer {
+    padding: 1.5rem 1rem 0.8rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-section p {
+    font-size: 0.85rem;
+  }
+
+  .social-icons a {
+    font-size: 1.3rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+  }
+}
