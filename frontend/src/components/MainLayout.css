@@ -1,5 +1,12 @@
 /* MainLayout.css */
 
+.main-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main-content {
+  flex-grow: 1; /* Allows main content to take up available space */
   padding-top: 70px; /* Adjust based on Navbar height */
 }

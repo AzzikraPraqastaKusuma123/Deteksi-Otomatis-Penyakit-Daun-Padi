@@ -6,14 +6,14 @@ import './MainLayout.css';
 
 const MainLayout = ({ loggedIn, setLoggedIn }) => {
   return (
-    <div>
+    <div className="main-layout-wrapper">
       <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="main-content">
         <div className="container">
           <Outlet />
         </div>
       </div>
-      <Footer /> {/* Add the Footer component here */}
+      <Footer /> {/* Move the Footer component back here */}
     </div>
   );
 };

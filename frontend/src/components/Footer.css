@@ -2,7 +2,7 @@
   background-color: var(--text-color); /* Dark Blue-Gray from existing palette */
   color: #ffffff;
   padding: 2.5rem 2rem 1rem; /* Increased top padding */
-  margin-top: 4rem; /* Provide more space from the content above */
+  /* margin-top: 2rem; Removed as flexbox handles spacing */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-family: var(--font-family);
   text-align: center;

@@ -7,15 +7,17 @@
 
 .admin-layout {
   display: flex;
+  flex-direction: column; /* Added for sticky footer */
   background-color: var(--background-color);
   min-height: 100vh;
 }
 
 .admin-content {
+  flex-grow: 1; /* Added to make content grow */
   margin-left: var(--sidebar-width);
   padding: 2rem;
   width: calc(100% - var(--sidebar-width));
-  min-height: 100vh;
+  /* min-height: 100vh; Removed as flex-grow handles height */
   transition: margin-left var(--transition-speed), width var(--transition-speed);
   background-color: var(--background-color); /* Ensure content background is consistent */
 }

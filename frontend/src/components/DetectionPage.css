@@ -62,12 +62,12 @@
 
 .detection-controls > p {
   color: var(--light-text);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .mode-switcher {
   display: flex;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border-color);
@@ -102,51 +102,21 @@
 .dropzone {
   border: 2px dashed var(--border-color);
   border-radius: 10px;
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
   cursor: pointer;
   transition: border-color 0.3s ease, background-color 0.3s ease;
   position: relative;
-  min-height: 250px;
+  min-height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
-.dropzone.active {
-  border-color: var(--primary-color);
-  background-color: #f1f8e9;
-}
-
-.dropzone-text {
-  color: var(--light-text);
-}
-
-.dropzone-text svg {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.dropzone-text p {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin: 0;
-}
-
-.dropzone-text em {
-  font-size: 0.9rem;
-}
-
-.image-preview-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
+/* ... */
 .image-preview {
   max-width: 100%;
-  max-height: 300px;
+  max-height: 250px;
   border-radius: 8px;
   object-fit: contain;
 }
@@ -207,77 +177,23 @@
 .action-buttons {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
-.btn-analyze {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-analyze:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-}
-
-.btn-analyze:disabled {
-  background-color: var(--border-color);
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Results Styling */
-/* .results-container { This class is no longer used directly for layout */
-/*   background-color: #f9f9f9; */
-/*   border-radius: 10px; */
-/*   padding: 2rem; */
-/*   display: flex; */
-/*   justify-content: center; */
-/*   align-items: center; */
-/*   min-height: 500px; */
-/* } */
+/* ... */
 
 .loading-spinner {
   text-align: center;
   color: var(--light-text);
-  margin-top: 2rem; /* Added margin for spacing */
+  margin-top: 1.5rem; /* Added margin for spacing */
 }
 
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border-left-color: var(--primary-color);
-  animation: spin 1s ease infinite;
-  margin: 0 auto 1rem;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.error-message {
-  color: var(--error-color);
-  background-color: #fbe9e7;
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
-}
+/* ... */
 
 .no-results {
   text-align: center;
   color: var(--light-text);
-  margin-top: 2rem; /* Added margin for spacing */
+  margin-top: 1.5rem; /* Added margin for spacing */
   font-size: 1.1rem;
 }
 
@@ -303,48 +219,20 @@
   font-weight: 700;
   color: var(--primary-color); /* Changed to primary color for emphasis */
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .confidence {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.confidence p {
-  margin: 0 0 0.5rem 0;
-  font-weight: 500;
-  color: var(--light-text);
-}
-
-.confidence-bar-container {
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.confidence-bar {
-  height: 25px;
-  background-color: var(--primary-color);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-  font-weight: 600;
-  border-radius: 10px 0 0 10px;
-  transition: width 0.5s ease-in-out;
-}
-
-.confidence-bar span {
-    padding-left: 10px;
-}
+/* ... */
 
 .result-details h4 {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-color);
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 0.3rem;

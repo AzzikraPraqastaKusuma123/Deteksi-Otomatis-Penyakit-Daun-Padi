@@ -79,9 +79,10 @@ button:focus-visible {
 /* Custom styles for better UI */
 .container {
   background-color: #ffffff;
-  padding: 2rem;
+  padding: 1rem; /* Re-added padding */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Explicitly set width to 100% */
 }
 
 .card {

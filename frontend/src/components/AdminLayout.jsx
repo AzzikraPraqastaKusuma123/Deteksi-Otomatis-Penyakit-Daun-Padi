@@ -18,7 +18,7 @@ const AdminLayout = () => {
       <main className="admin-content">
         <Outlet />
       </main>
-      <Footer /> {/* Add the Footer component here */}
+      <Footer /> {/* Move the Footer component back here */}
     </div>
   );
 };
