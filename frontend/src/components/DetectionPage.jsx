@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { detectImage } from '../services/api'; 
 import './DetectionPage.css';
-import { FiUploadCloud, FiCamera, FiArrowRight } from 'react-icons/fi';
+import { FiUploadCloud, FiCamera, FiArrowRight, FiRefreshCcw } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 const DetectionPage = () => {
@@ -13,6 +13,7 @@ const DetectionPage = () => {
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState('upload'); 
   const [stream, setStream] = useState(null);
+  const [currentFacingMode, setCurrentFacingMode] = useState('environment'); // 'user' for front, 'environment' for back
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const DetectionPage = () => {
 
   const startCamera = async () => {
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: currentFacingMode } });
       setStream(mediaStream);
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
@@ -43,6 +44,27 @@ const DetectionPage = () => {
       setStream(null);
     }
   };
+
+  const switchCamera = () => {
+    stopCamera(); // Stop current stream
+    const newFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+    setCurrentFacingMode(newFacingMode);
+    // Restart camera with new facing mode
+    // This will be handled by the useEffect that watches currentFacingMode, or by calling startCamera directly
+    // For now, let's call startCamera directly after setting the new mode.
+    // However, startCamera uses the state, so it might not get the updated state immediately.
+    // A better approach is to trigger startCamera when currentFacingMode changes.
+    // Let's modify startCamera to accept a facingMode parameter or rely on useEffect.
+    // For simplicity and immediate effect, I'll modify startCamera to accept a parameter.
+    // But first, let's ensure the state update triggers a re-render and then startCamera.
+    // The useEffect for stream cleanup is good. We need another useEffect for currentFacingMode changes.
+  };
+
+  useEffect(() => {
+    if (mode === 'camera' && currentFacingMode) {
+      startCamera();
+    }
+  }, [currentFacingMode, mode]); // Re-run startCamera when facing mode or mode changes
 
   const onDrop = useCallback(acceptedFiles => {
     const file = acceptedFiles[0];
@@ -68,7 +90,9 @@ const DetectionPage = () => {
     setPrediction(null);
     setError('');
     if (newMode === 'camera') {
-      startCamera();
+      // When switching to camera mode, ensure we start with the currentFacingMode
+      // The useEffect above will handle calling startCamera when mode becomes 'camera'
+      // and currentFacingMode is set.
     } else {
       stopCamera();
     }
@@ -177,7 +201,12 @@ const DetectionPage = () => {
           {mode === 'camera' && (
             <div className="camera-container">
               <video ref={videoRef} autoPlay playsInline muted className="camera-feed" />
-              {stream && <button onClick={handleCapture} className="btn-capture"><FiCamera size={24} /></button>}
+              {stream && (
+                <div className="camera-controls">
+                  <button onClick={handleCapture} className="btn-capture"><FiCamera size={24} /></button>
+                  <button onClick={switchCamera} className="btn-switch-camera"><FiRefreshCcw size={24} /></button>
+                </div>
+              )}
             </div>
           )}
 

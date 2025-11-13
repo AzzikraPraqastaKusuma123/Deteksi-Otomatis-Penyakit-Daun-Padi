@@ -154,10 +154,6 @@
 }
 
 .btn-capture {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: var(--primary-color);
   color: white;
   border: 3px solid white;
@@ -173,6 +169,34 @@
 
 .btn-capture:hover {
   background-color: var(--primary-hover);
+}
+
+.camera-controls {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between buttons */
+  z-index: 10; /* Ensure controls are above video */
+}
+
+.btn-switch-camera {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+  border: 3px solid white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-switch-camera:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Analyze Button */
