@@ -118,10 +118,6 @@ Pastikan model `best_resnet50v2.onnx` ditempatkan di direktori `model/` di root 
 3.  **Lihat Analisis:** Setelah analisis, sistem akan menampilkan penyakit yang terdeteksi, tingkat kepercayaan, dan informasi rinci.
 4.  **Kelola Profil:** Perbarui informasi pengguna Anda dari halaman profil.
 
-## 🤝 Kontribusi
-
-Kontribusi sangat diterima! Jangan ragu untuk mengirimkan pull request atau membuka masalah.
-
 ## 📄 Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT - lihat file `LICENSE` untuk detailnya. (Catatan: File `LICENSE` saat ini tidak ada dalam struktur proyek, ini adalah placeholder.)
