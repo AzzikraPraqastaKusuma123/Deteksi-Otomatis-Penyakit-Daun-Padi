@@ -142,7 +142,8 @@ const DetectionPage = () => {
 
   return (
     <div className="detection-page">
-      <div className="detection-container-refactored">
+      <div className="detection-main-layout">
+      <div className="detection-input-section">
         <div className="detection-controls">
           <h2>Paddy Leaf Disease Detection</h2>
           <p>Upload an image or use your camera to detect diseases in rice leaves.</p>
@@ -191,42 +192,56 @@ const DetectionPage = () => {
             </button>
           </div>
           {error && <div className="error-message" style={{marginTop: '1rem'}}>{error}</div>}
-          
-          {/* Basic result shown here */}
-          {prediction && !loading && (
-            <div className="result-card" style={{marginTop: '2rem'}}>
-              <h3>Ringkasan Analisis</h3>
-              <div className="result-header">
-                <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
-              </div>
-              <div className="confidence">
-                <p>Confidence</p>
-                <div className="confidence-bar-container">
-                  <div 
-                    className="confidence-bar" 
-                    style={{ width: `${(prediction.confidence * 100).toFixed(2)}%` }}
-                  >
-                    <span>{(prediction.confidence * 100).toFixed(2)}%</span>
-                  </div>
-                </div>
-              </div>
-              <div className="result-details">
-                <h4>Description</h4>
-                <p>{prediction.description}</p>
-                <h4>Prevention</h4>
-                <p>{prediction.prevention}</p>
-              </div>
-              <button 
-                onClick={handleViewResult}
-                className="btn-view-result"
-                style={{width: '100%', marginTop: '1rem'}}
-              >
-                Lihat Penjelasan Detail dari AI <FiArrowRight />
-              </button>
-            </div>
-          )}
         </div>
       </div>
+
+      <div className="detection-results-section">
+        {/* Basic result shown here */}
+        {prediction && !loading && (
+          <div className="result-card" style={{marginTop: '0'}}> {/* Removed margin-top here as it's now in a separate column */}
+            <h3>Ringkasan Analisis</h3>
+            <div className="result-header">
+              <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
+            </div>
+            <div className="confidence">
+              <p>Confidence</p>
+              <div className="confidence-bar-container">
+                <div 
+                  className="confidence-bar" 
+                  style={{ width: `${(prediction.confidence * 100).toFixed(2)}%` }}
+                >
+                  <span>{(prediction.confidence * 100).toFixed(2)}%</span>
+                </div>
+              </div>
+            </div>
+            <div className="result-details">
+              <h4>Description</h4>
+              <p>{prediction.description}</p>
+              <h4>Prevention</h4>
+              <p>{prediction.prevention}</p>
+            </div>
+            <button 
+              onClick={handleViewResult}
+              className="btn-view-result"
+              style={{width: '100%', marginTop: '1rem'}}
+            >
+              Lihat Penjelasan Detail dari AI <FiArrowRight />
+            </button>
+          </div>
+        )}
+        {!prediction && !loading && !error && (
+          <div className="no-results">
+            <p>Upload an image to see the analysis results here.</p>
+          </div>
+        )}
+        {loading && (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Analyzing image...</p>
+          </div>
+        )}
+      </div>
+    </div>
     </div>
   );
 };
