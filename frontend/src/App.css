@@ -1,18 +1,10 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --primary-color: #4CAF50;
-  --secondary-color: #FFC107;
-  --dark-color: #212529;
-  --light-color: #f8f9fa;
-  --text-color: #333;
-}
+/* frontend/src/App.css */
+/* General application-wide styles, leveraging Agrius variables */
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--light-color);
-  color: var(--text-color);
+  font-family: var(--font-family-inter);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  color: var(--color-text-dark); /* Forest Green Dark */
 }
 
 #root {
@@ -30,29 +22,68 @@ body {
 
 .content {
   flex: 1;
-  padding: 2rem;
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-  background-color: #45a049;
-  border-color: #45a049;
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-}
-
-.btn-secondary:hover {
-    background-color: #ffb300;
-    border-color: #ffb300;
+  padding: var(--spacing-xxl); /* Organic spacing */
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--dark-color);
+    color: var(--color-text-dark);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Custom styles for Bootstrap overrides or specific components can go here */
+/* For example, if you need to style a specific container */
+.agrius-container {
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-xxl);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Card styles */
+.agrius-card {
+  background-color: var(--agrius-cream-off-white);
+  border: none;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Button styles (if not fully handled by global button or Bootstrap overrides) */
+.agrius-btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-dark);
+  border-color: var(--color-accent);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  font-weight: var(--font-weight-medium);
+}
+
+.agrius-btn-primary:hover {
+  background-color: var(--agrius-cream-off-white);
+  border-color: var(--agrius-cream-off-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.agrius-btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-dark);
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  font-weight: var(--font-weight-medium);
+}
+
+.agrius-btn-secondary:hover {
+  background-color: rgba(var(--agrius-neutral-gray-1-rgb), 0.1); /* Need RGB for this */
+  border-color: var(--color-text-dark);
 }

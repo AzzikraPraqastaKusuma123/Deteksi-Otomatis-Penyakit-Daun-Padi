@@ -1,80 +1,149 @@
-@import '../variables.css'; /* Asumsi Anda memiliki file ini */
+@import '../variables.css';
 
-.profile-container {
+.agrius-profile-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Mulai dari atas */
-  padding: 120px 2rem 2rem 2rem; /* Padding atas 120px untuk navbar fixed */
-  background-color: var(--light-bg-color, #f8f9fa);
-  min-height: 100vh;
+  align-items: flex-start;
+  padding: var(--spacing-xxl);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  min-height: calc(100vh - var(--navbar-height) - var(--footer-height)); /* Adjust for fixed navbar/footer */
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
 }
 
-.profile-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.agrius-profile-card {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 600px;
 }
 
-.profile-header {
+.agrius-profile-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
 }
 
-.profile-avatar {
+.agrius-profile-avatar {
   font-size: 5rem;
-  color: var(--primary-color, #4CAF50);
-  margin-bottom: 1rem;
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-md);
 }
 
-.profile-header h1 {
-  color: var(--text-color, #333);
-  margin-bottom: 0.5rem;
+.agrius-profile-header h1 {
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-xs);
+  font-size: 2.2rem;
+  font-weight: var(--font-weight-bold);
 }
 
-.profile-header p {
-  color: var(--text-secondary, #6c757d);
+.agrius-profile-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
 }
 
-.profile-body .profile-item {
+.agrius-profile-body .agrius-profile-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 0.5rem;
-  border-bottom: 1px solid #eee;
+  padding: var(--spacing-md) var(--spacing-xs);
+  border-bottom: 1px solid var(--agrius-cream-off-white);
 }
 
-.profile-body .profile-item:last-child {
+.agrius-profile-body .agrius-profile-item:last-child {
   border-bottom: none;
 }
 
-.profile-item strong {
-  color: var(--text-color, #333);
-  font-weight: 600;
+.agrius-profile-item strong {
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
 }
 
-.profile-item span {
-  color: var(--text-secondary, #555);
-  font-weight: 500;
+.agrius-profile-item span {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
 }
 
-.btn-edit-profile {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    margin-top: 1.5rem;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.agrius-btn-edit-profile {
+  /* Inherits from agrius-btn-primary in App.css */
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.agrius-error-message {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--spacing-xl);
+  color: #e74c3c; /* Red for errors */
+}
+
+.agrius-role-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-primary);
+  margin-left: var(--spacing-xs);
+}
+
+.agrius-role-badge.agrius-role-admin {
+  background-color: #e74c3c; /* Red for admin */
+}
+
+.agrius-role-badge.agrius-role-user {
+  background-color: var(--color-primary-bg); /* Forest Green Dark for user */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-profile-card {
+    padding: var(--spacing-xl);
   }
-  
-  .btn-edit-profile:hover {
-    background-color: #43a047;
+  .agrius-profile-header h1 {
+    font-size: 1.8rem;
   }
-  
+  .agrius-profile-subtitle {
+    font-size: 0.9rem;
+  }
+  .agrius-profile-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  .agrius-profile-item span {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-profile-container {
+    padding: var(--spacing-lg);
+  }
+  .agrius-profile-card {
+    padding: var(--spacing-lg);
+  }
+  .agrius-profile-header h1 {
+    font-size: 1.5rem;
+  }
+  .agrius-profile-avatar {
+    font-size: 4rem;
+  }
+  .agrius-btn-edit-profile {
+    font-size: 1rem;
+    padding: var(--spacing-sm);
+  }
+}

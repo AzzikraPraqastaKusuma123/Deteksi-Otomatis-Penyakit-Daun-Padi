@@ -165,112 +165,112 @@ const DetectionPage = () => {
   };
 
   return (
-    <div className="detection-page">
-      <div className="detection-main-layout">
-      <div className="detection-input-section">
-        <div className="detection-controls">
-          <h2>Paddy Leaf Disease Detection</h2>
-          <p>Upload an image or use your camera to detect diseases in rice leaves.</p>
-          <div className="mode-switcher">
-            <button onClick={() => handleModeChange('upload')} className={mode === 'upload' ? 'active' : ''}>
-              <FiUploadCloud /> Upload Image
-            </button>
-            <button onClick={() => handleModeChange('camera')} className={mode === 'camera' ? 'active' : ''}>
-              <FiCamera /> Use Camera
-            </button>
-          </div>
-
-          {mode === 'upload' && (
-            <div {...getRootProps({ className: `dropzone ${isDragActive ? 'active' : ''}` })}>
-              <input {...getInputProps()} />
-              {preview ? (
-                <div className="image-preview-container">
-                  <img src={preview} alt="Preview" className="image-preview" />
-                  <button onClick={clearPreview} className="clear-btn">X</button>
-                </div>
-              ) : (
-                <div className="dropzone-text">
-                  <FiUploadCloud size={50} />
-                  <p>Drag & drop an image here, or click to select</p>
-                  <em>(Supports *.jpeg and *.png)</em>
-                </div>
-              )}
+    <div className="agrius-detection-page">
+      <div className="agrius-detection-main-layout">
+        <div className="agrius-detection-input-section">
+          <div className="agrius-detection-controls">
+            <h2>Paddy Leaf Disease Detection</h2>
+            <p>Upload an image or use your camera to detect diseases in rice leaves.</p>
+            <div className="agrius-mode-switcher">
+              <button onClick={() => handleModeChange('upload')} className={mode === 'upload' ? 'active' : ''}>
+                <FiUploadCloud /> Upload Image
+              </button>
+              <button onClick={() => handleModeChange('camera')} className={mode === 'camera' ? 'active' : ''}>
+                <FiCamera /> Use Camera
+              </button>
             </div>
-          )}
 
-          {mode === 'camera' && (
-            <div className="camera-container">
-              <video ref={videoRef} autoPlay playsInline muted className="camera-feed" />
-              {stream && (
-                <div className="camera-controls">
-                  <button onClick={handleCapture} className="btn-capture"><FiCamera size={24} /></button>
-                  <button onClick={switchCamera} className="btn-switch-camera"><FiRefreshCcw size={24} /></button>
-                </div>
-              )}
+            {mode === 'upload' && (
+              <div {...getRootProps({ className: `agrius-dropzone ${isDragActive ? 'active' : ''}` })}>
+                <input {...getInputProps()} />
+                {preview ? (
+                  <div className="agrius-image-preview-container">
+                    <img src={preview} alt="Preview" className="agrius-image-preview" />
+                    <button onClick={clearPreview} className="agrius-clear-btn">X</button>
+                  </div>
+                ) : (
+                  <div className="agrius-dropzone-text">
+                    <FiUploadCloud size={50} />
+                    <p>Drag & drop an image here, or click to select</p>
+                    <em>(Supports *.jpeg and *.png)</em>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {mode === 'camera' && (
+              <div className="agrius-camera-container">
+                <video ref={videoRef} autoPlay playsInline muted className="agrius-camera-feed" />
+                {stream && (
+                  <div className="agrius-camera-controls">
+                    <button onClick={handleCapture} className="agrius-btn-capture"><FiCamera size={24} /></button>
+                    <button onClick={switchCamera} className="agrius-btn-switch-camera"><FiRefreshCcw size={24} /></button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Action Buttons Area */}
+            <div className="agrius-action-buttons">
+              <button 
+                onClick={handleAnalysis} 
+                disabled={loading || !image || !!prediction} // Disable if analysis is done
+                className="agrius-btn-primary agrius-btn-analyze"
+              >
+                {loading ? 'Analyzing...' : 'Analyze Image'}
+              </button>
             </div>
-          )}
-
-          {/* Action Buttons Area */}
-          <div className="action-buttons">
-            <button 
-              onClick={handleAnalysis} 
-              disabled={loading || !image || !!prediction} // Disable if analysis is done
-              className="btn-analyze"
-            >
-              {loading ? 'Analyzing...' : 'Analyze Image'}
-            </button>
+            {error && <div className="agrius-error-message" style={{marginTop: 'var(--spacing-md)'}}>{error}</div>}
           </div>
-          {error && <div className="error-message" style={{marginTop: '1rem'}}>{error}</div>}
         </div>
-      </div>
 
-      <div className="detection-results-section">
-        {/* Basic result shown here */}
-        {prediction && !loading && (
-          <div className="result-card" style={{marginTop: '0'}}> {/* Removed margin-top here as it's now in a separate column */}
-            <h3>Ringkasan Analisis</h3>
-            <div className="result-header">
-              <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
-            </div>
-            <div className="confidence">
-              <p>Confidence</p>
-              <div className="confidence-bar-container">
-                <div 
-                  className="confidence-bar" 
-                  style={{ width: `${(prediction.confidence * 100).toFixed(2)}%` }}
-                >
-                  <span>{(prediction.confidence * 100).toFixed(2)}%</span>
+        <div className="agrius-detection-results-section">
+          {/* Basic result shown here */}
+          {prediction && !loading && (
+            <div className="agrius-result-card" style={{marginTop: '0'}}>
+              <h3>Ringkasan Analisis</h3>
+              <div className="agrius-result-header">
+                <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
+              </div>
+              <div className="agrius-confidence">
+                <p>Confidence</p>
+                <div className="agrius-confidence-bar-container">
+                  <div 
+                    className="agrius-confidence-bar" 
+                    style={{ width: `${(prediction.confidence * 100).toFixed(2)}%` }}
+                  >
+                    <span>{(prediction.confidence * 100).toFixed(2)}%</span>
+                  </div>
                 </div>
               </div>
+              <div className="agrius-result-details">
+                <h4>Description</h4>
+                <p>{prediction.description}</p>
+                <h4>Prevention</h4>
+                <p>{prediction.prevention}</p>
+              </div>
+              <button 
+                onClick={handleViewResult}
+                className="agrius-btn-primary agrius-btn-view-result"
+                style={{width: '100%', marginTop: 'var(--spacing-md)'}}
+              >
+                Lihat Penjelasan Detail dari AI <FiArrowRight />
+              </button>
             </div>
-            <div className="result-details">
-              <h4>Description</h4>
-              <p>{prediction.description}</p>
-              <h4>Prevention</h4>
-              <p>{prediction.prevention}</p>
+          )}
+          {!prediction && !loading && !error && (
+            <div className="agrius-no-results">
+              <p>Upload an image to see the analysis results here.</p>
             </div>
-            <button 
-              onClick={handleViewResult}
-              className="btn-view-result"
-              style={{width: '100%', marginTop: '1rem'}}
-            >
-              Lihat Penjelasan Detail dari AI <FiArrowRight />
-            </button>
-          </div>
-        )}
-        {!prediction && !loading && !error && (
-          <div className="no-results">
-            <p>Upload an image to see the analysis results here.</p>
-          </div>
-        )}
-        {loading && (
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Analyzing image...</p>
-          </div>
-        )}
+          )}
+          {loading && (
+            <div className="agrius-loading-spinner">
+              <div className="agrius-spinner"></div>
+              <p>Analyzing image...</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

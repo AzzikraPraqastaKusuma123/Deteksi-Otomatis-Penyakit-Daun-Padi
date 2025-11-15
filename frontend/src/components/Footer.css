@@ -1,113 +1,116 @@
-.app-footer {
-  background-color: var(--text-color); /* Dark Blue-Gray from existing palette */
-  color: #ffffff;
-  padding: 2.5rem 2rem 1rem; /* Increased top padding */
-  /* margin-top: 2rem; Removed as flexbox handles spacing */
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: var(--font-family);
+/* frontend/src/components/Footer.css */
+@import '../variables.css';
+
+.agrius-footer {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
+  padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-lg); /* Organic spacing */
+  font-family: var(--font-family-inter);
   text-align: center;
-  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 -5px 15px rgba(4, 13, 12, 0.1); /* Subtle shadow from dark green */
+  border-top-left-radius: var(--border-radius-lg); /* Soft rounded edges */
+  border-top-right-radius: var(--border-radius-lg);
 }
 
-.footer-container {
+.agrius-footer-container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for responsiveness */
-  justify-content: space-around; /* Distribute items evenly */
-  gap: 2rem; /* Space between sections */
-  padding-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: var(--spacing-xxl); /* More organic space between sections */
+  padding-bottom: var(--spacing-xxl);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-section {
-  flex: 1; /* Allow sections to grow */
-  min-width: 250px; /* Minimum width for sections before wrapping */
+.agrius-footer-section {
+  flex: 1;
+  min-width: 250px;
   text-align: left;
 }
 
-.footer-section h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--primary-color); /* Use primary color for headings */
+.agrius-footer-section h3 {
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-accent); /* Soft Lime for headings */
 }
 
-.footer-section p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+.agrius-footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary); /* Neutral Gray for body text */
 }
 
-.social-icons {
+.agrius-social-icons {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
 }
 
-.social-icons a {
-  color: #ffffff;
-  font-size: 1.5rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+.agrius-social-icon {
+  color: var(--color-text-primary); /* Pure White */
+  font-size: 1.6rem;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
 }
 
-.social-icons a:hover {
-  color: var(--primary-color);
+.agrius-social-icon:hover {
+  color: var(--color-accent); /* Soft Lime on hover */
   transform: translateY(-3px);
 }
 
-.contact-info p {
-  margin-bottom: 0.5rem;
+.agrius-contact-info p {
+  margin-bottom: var(--spacing-xs);
 }
 
-.footer-bottom {
-  margin-top: 1.5rem;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+.agrius-footer-bottom {
+  margin-top: var(--spacing-lg);
+  font-size: 0.85rem;
+  color: var(--agrius-neutral-gray-2); /* Darker Neutral Gray */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .app-footer {
-    padding: 2rem 1.5rem 1rem;
+  .agrius-footer {
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-sm);
   }
 
-  .footer-container {
-    flex-direction: column; /* Stack sections vertically */
+  .agrius-footer-container {
+    flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 3rem; /* More space when stacked */
+    gap: var(--spacing-xxl);
   }
 
-  .footer-section {
-    min-width: unset; /* Remove min-width when stacked */
+  .agrius-footer-section {
+    min-width: unset;
     width: 100%;
     text-align: center;
   }
 
-  .social-icons {
-    justify-content: center; /* Center social icons when stacked */
+  .agrius-social-icons {
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .app-footer {
-    padding: 1.5rem 1rem 0.8rem;
+  .agrius-footer {
+    padding: var(--spacing-lg) var(--spacing-xs) var(--spacing-xxs);
   }
 
-  .footer-section h3 {
-    font-size: 1.1rem;
+  .agrius-footer-section h3 {
+    font-size: 1.2rem;
   }
 
-  .footer-section p {
-    font-size: 0.85rem;
+  .agrius-footer-section p {
+    font-size: 0.9rem;
   }
 
-  .social-icons a {
-    font-size: 1.3rem;
+  .agrius-social-icon {
+    font-size: 1.4rem;
   }
 
-  .footer-bottom {
-    font-size: 0.75rem;
+  .agrius-footer-bottom {
+    font-size: 0.8rem;
   }
 }

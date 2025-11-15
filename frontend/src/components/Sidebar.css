@@ -1,250 +1,259 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import '../variables.css';
 
 :root {
-  --sidebar-width: 260px;
-  --sidebar-width-collapsed: 80px;
-  --primary-color: var(--primary-color);
-  --dark-color: var(--dark-color);
-  --light-color: var(--light-color);
-  --text-muted: var(--text-muted);
-  --transition-speed: var(--transition-speed);
+  --agrius-sidebar-width: 260px;
+  --agrius-sidebar-width-collapsed: 80px;
 }
 
-.sidebar {
-  width: var(--sidebar-width);
+.agrius-sidebar {
+  width: var(--agrius-sidebar-width);
   height: 100vh;
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
-  box-shadow: 3px 0 10px var(--shadow-medium); /* Softer shadow */
-  font-family: 'Poppins', sans-serif;
-  transition: width var(--transition-speed);
+  box-shadow: var(--shadow-lg); /* Agrius shadow */
+  font-family: var(--font-family-inter);
+  transition: width var(--transition-speed-normal) var(--transition-ease);
   z-index: 1000;
+  border-top-right-radius: var(--border-radius-lg); /* Soft rounded edges */
+  border-bottom-right-radius: var(--border-radius-lg);
 }
 
-.sidebar.collapsed {
-  width: var(--sidebar-width-collapsed);
+.agrius-sidebar.agrius-sidebar-collapsed {
+  width: var(--agrius-sidebar-width-collapsed);
 }
 
-.sidebar-header {
-  padding: 1.5rem;
+.agrius-sidebar-header {
+  padding: var(--spacing-lg) var(--spacing-md);
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar.collapsed .sidebar-header h3 {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-header h3 {
   display: none;
 }
 
-.sidebar-header h3 {
+.agrius-sidebar-header h3 {
   margin: 0;
   font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  transition: opacity var(--transition-speed);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary); /* Pure White */
+  transition: opacity var(--transition-speed-normal);
 }
 
-.sidebar-nav {
+.agrius-sidebar-nav {
   list-style: none;
-  padding: 1rem 0;
+  padding: var(--spacing-md) 0;
   margin: 0;
   flex-grow: 1;
 }
 
-.sidebar-nav li a {
+.agrius-sidebar-nav li .agrius-nav-link {
   display: flex;
   align-items: center;
-  padding: 1rem 1.5rem;
-  color: var(--light-color); /* Use light color for links */
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--color-text-primary); /* Pure White */
   text-decoration: none;
-  transition: background-color var(--transition-speed), color var(--transition-speed), border-left-color var(--transition-speed);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
   border-left: 4px solid transparent;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.sidebar.collapsed .sidebar-nav li a {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link {
   justify-content: center;
-  padding: 1rem 0;
+  padding: var(--spacing-md) 0;
 }
 
-.sidebar-nav li a:hover {
+.agrius-sidebar-nav li .agrius-nav-link:hover {
   background-color: rgba(255, 255, 255, 0.08); /* Subtle hover background */
-  color: white;
+  color: var(--color-accent); /* Soft Lime on hover */
+  border-left-color: var(--color-accent);
 }
 
-.sidebar-nav li a.active {
-  background-color: rgba(var(--primary-color-rgb), 0.15); /* Use primary color with transparency */
-  color: white;
-  border-left-color: var(--primary-color);
+.agrius-sidebar-nav li .agrius-nav-link.active {
+  background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.15); /* Use accent color with transparency */
+  color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
 }
 
-.sidebar-nav li a i {
-  margin-right: 1rem;
+.agrius-sidebar-nav li .agrius-nav-link i {
+  margin-right: var(--spacing-md);
   width: 22px;
   text-align: center;
   font-size: 1.2rem;
+  color: var(--agrius-cream-off-white); /* Cream Off-White for icons */
 }
 
-.sidebar.collapsed .sidebar-nav li a i {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link i {
   margin-right: 0;
 }
 
-.sidebar.collapsed .sidebar-nav li a span {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link span {
   display: none;
 }
 
-.sidebar-footer {
-  padding: 1rem;
+.agrius-sidebar-footer {
+  padding: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
 }
 
-.sidebar.collapsed .sidebar-footer {
-  padding: 1rem 0;
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-footer {
+  padding: var(--spacing-md) 0;
 }
 
-.logout-btn {
+.agrius-logout-btn {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.8rem 1.5rem;
+  padding: var(--spacing-sm) var(--spacing-lg);
   background-color: transparent;
   border: 1px solid #e53e3e; /* A clear, but not overly bright red */
   color: #e53e3e;
   text-align: left;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color var(--transition-speed), color var(--transition-speed);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  font-weight: var(--font-weight-medium);
 }
 
-.sidebar.collapsed .logout-btn {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-logout-btn {
   justify-content: center;
-  padding: 0.8rem 0;
+  padding: var(--spacing-sm) 0;
   border: none;
 }
 
-.logout-btn:hover {
+.agrius-logout-btn:hover {
   background-color: #e53e3e;
-  color: white;
+  color: var(--color-text-primary);
 }
 
-.logout-btn i {
-  margin-right: 1rem;
+.agrius-logout-btn i {
+  margin-right: var(--spacing-md);
   width: 20px;
   text-align: center;
   font-size: 1.1rem;
 }
 
-.sidebar.collapsed .logout-btn i {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-logout-btn i {
   margin-right: 0;
 }
 
-.sidebar.collapsed .logout-btn span {
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-logout-btn span {
   display: none;
 }
 
-.sidebar-toggle {
+.agrius-sidebar-toggle {
   position: absolute;
-  top: 1.5rem;
-  right: -15px;
-  background-color: var(--primary-color);
-  color: white;
+  top: var(--spacing-md);
+  right: calc(-1 * var(--spacing-lg)); /* Adjust position */
+  background-color: var(--color-accent); /* Soft Lime */
+  color: var(--color-text-dark); /* Forest Green Dark */
   border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 5px var(--shadow-medium); /* Softer shadow */
-  transition: transform var(--transition-speed), background-color var(--transition-speed);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
   z-index: 1001;
 }
 
-.sidebar-toggle:hover {
-  background-color: var(--secondary-color); /* Use secondary color on hover */
-  transform: rotate(180deg); /* Rotate when hovered */
+.agrius-sidebar-toggle:hover {
+  background-color: var(--agrius-cream-off-white);
+  transform: rotate(180deg);
 }
 
-.sidebar.collapsed .sidebar-toggle {
-  transform: rotate(0deg); /* No rotation when collapsed, just default */
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-toggle {
+  transform: rotate(0deg);
+}
+
+.agrius-menu-toggle { /* Mobile menu toggle */
+  display: none; /* Hidden on desktop */
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1002;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .sidebar {
+  .agrius-sidebar {
     width: 100%;
     height: auto;
     position: relative;
     box-shadow: none;
-    border-bottom: 1px solid var(--border-color); /* Use global border color */
+    border-bottom: 1px solid var(--agrius-neutral-gray-1);
+    border-radius: 0;
   }
 
-  .sidebar.collapsed {
+  .agrius-sidebar.agrius-sidebar-collapsed {
     width: 100%;
   }
 
-  .sidebar-header {
+  .agrius-sidebar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: none;
   }
 
-  .sidebar-header h3 {
+  .agrius-sidebar-header h3 {
     display: block;
-    color: var(--text-color); /* Adjust color for mobile header */
+    color: var(--color-text-primary);
   }
 
-  .sidebar-nav {
+  .agrius-sidebar-nav {
     display: none;
     padding: 0;
   }
 
-  .sidebar.open .sidebar-nav {
+  .agrius-sidebar.agrius-sidebar-open .agrius-sidebar-nav {
     display: flex;
     flex-direction: column;
   }
 
-  .sidebar-nav li a {
-    padding: 1rem 1.5rem;
+  .agrius-sidebar-nav li .agrius-nav-link {
+    padding: var(--spacing-md) var(--spacing-lg);
     justify-content: flex-start;
-    color: var(--text-color); /* Adjust color for mobile links */
+    color: var(--color-text-primary);
   }
 
-  .sidebar-nav li a i {
-    margin-right: 1rem;
+  .agrius-sidebar-nav li .agrius-nav-link i {
+    margin-right: var(--spacing-md);
   }
 
-  .sidebar-nav li a span {
+  .agrius-sidebar-nav li .agrius-nav-link span {
     display: inline;
   }
 
-  .sidebar-footer {
+  .agrius-sidebar-footer {
     display: none;
   }
 
-  .sidebar-toggle {
-    position: static;
-    transform: none;
-    background-color: transparent;
-    color: var(--primary-color); /* Adjust color for mobile toggle */
-    box-shadow: none;
-    margin-left: auto;
+  .agrius-sidebar-toggle {
+    display: none; /* Hide desktop toggle on mobile */
   }
 
-  .sidebar-toggle i {
-    font-size: 1.5rem;
-  }
-
-  .sidebar.open .sidebar-toggle {
-    transform: rotate(90deg);
+  .agrius-menu-toggle {
+    display: block; /* Show mobile toggle */
   }
 }

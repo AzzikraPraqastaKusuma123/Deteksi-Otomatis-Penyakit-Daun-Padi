@@ -47,32 +47,32 @@ const Login = ({ setLoggedIn, setUserRole }) => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="agrius-auth-container">
       {/* Bagian kiri dengan teks promosi */}
-      <div className="auth-image-section">
-        <div className="auth-image-content">
+      <div className="agrius-auth-image-section">
+        <div className="agrius-auth-image-content">
           <h1>Welcome to PadiGuard</h1>
           <p>Your partner in protecting rice crops. Login to access your dashboard and start detecting diseases.</p>
         </div>
       </div>
 
       {/* Bagian kanan: form login */}
-      <div className="auth-form-section">
-        <div className="auth-card">
-          <div className="auth-header">
+      <div className="agrius-auth-form-section">
+        <div className="agrius-auth-card">
+          <div className="agrius-auth-header">
             <h1>Login</h1>
             <p>Please enter your credentials.</p>
           </div>
 
           <form onSubmit={handleLogin}>
             {/* Input Username */}
-            <div className="input-group">
-              <span className="input-group-text">
+            <div className="agrius-input-group">
+              <span className="agrius-input-group-text">
                 <i className="fas fa-user"></i>
               </span>
               <input
                 type="text"
-                className="form-control"
+                className="agrius-form-control"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -81,13 +81,13 @@ const Login = ({ setLoggedIn, setUserRole }) => {
             </div>
 
             {/* Input Password */}
-            <div className="input-group">
-              <span className="input-group-text">
+            <div className="agrius-input-group">
+              <span className="agrius-input-group-text">
                 <i className="fas fa-lock"></i>
               </span>
               <input
                 type="password"
-                className="form-control"
+                className="agrius-form-control"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -96,13 +96,13 @@ const Login = ({ setLoggedIn, setUserRole }) => {
             </div>
 
             {/* Tombol login */}
-            <button type="submit" className="btn-auth">Login</button>
+            <button type="submit" className="agrius-btn-primary agrius-auth-btn">Login</button>
           </form>
 
           {/* Link ke register */}
-          <div className="auth-link">
+          <div className="agrius-auth-link">
             <p>
-              Don't have an account? <Link to="/register">Register</Link>
+              Don't have an account? <Link to="/register" className="agrius-link">Register</Link>
             </p>
           </div>
         </div>

@@ -1,15 +1,19 @@
-/* MainLayout.css */
+/* frontend/src/components/MainLayout.css */
+@import '../variables.css';
 
-.main-layout-wrapper {
+.agrius-main-layout-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: var(--color-secondary-bg); /* Cream Off-White for overall background */
+  color: var(--color-text-dark);
+  font-family: var(--font-family-inter);
 }
 
-.main-content {
+.agrius-main-content {
   flex-grow: 1; /* Allows main content to take up available space */
-  padding-top: 70px; /* Adjust based on Navbar height */
-  /* display: flex; Removed vertical centering */
-  /* flex-direction: column; Removed vertical centering */
-  /* justify-content: center; Removed vertical centering */
+  padding-top: calc(var(--spacing-xxl) + var(--spacing-md)); /* Adjust based on Navbar height and organic spacing */
+  padding-bottom: var(--spacing-xxl); /* Add padding at the bottom before footer */
+  position: relative; /* For potential hero sections */
+  overflow-x: hidden; /* Prevent horizontal scroll from wide elements */
 }

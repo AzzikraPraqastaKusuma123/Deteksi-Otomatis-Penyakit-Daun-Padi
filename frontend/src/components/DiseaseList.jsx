@@ -34,17 +34,17 @@ function DiseaseList() {
   // Tentukan apakah ini halaman admin (misal path dimulai dengan /admin)
   const isAdminContext = location.pathname.startsWith('/admin');
 
-  if (loading) return <div className="disease-list-container"><p>Loading diseases...</p></div>;
-  if (error) return <div className="disease-list-container"><p className="error-message">{error}</p></div>;
+  if (loading) return <div className="agrius-disease-list-container"><p className="agrius-loading-text">Loading diseases...</p></div>;
+  if (error) return <div className="agrius-disease-list-container"><p className="agrius-error-message">{error}</p></div>;
 
   return (
-    <div className="disease-list-container">
-      <div className="list-header">
-        <h1>Diseases</h1>
-        {isAdminContext && <Link to="/admin/diseases/add" className="btn-add-new">Add Disease</Link>}
+    <div className="agrius-disease-list-container">
+      <div className="agrius-list-header">
+        <h1>Disease Library</h1>
+        {isAdminContext && <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-btn-add-new">Add Disease</Link>}
       </div>
 
-      <div className="disease-cards-grid">
+      <div className="agrius-disease-cards-grid">
         {diseases.map(disease => {
           // Buat path detail sesuai konteks
           const detailPath = isAdminContext
@@ -52,11 +52,11 @@ function DiseaseList() {
             : `/diseases/${disease.id}`;
 
           return (
-            <div className="disease-card" key={disease.id}>
-              <div className="disease-card-body">
-                <h5 className="card-title">{disease.disease_name}</h5>
-                <p className="card-text">{disease.description || 'No description available.'}</p>
-                <Link to={detailPath} className="btn-view-details">View Details</Link>
+            <div className="agrius-disease-card" key={disease.id}>
+              <div className="agrius-disease-card-body">
+                <h5 className="agrius-card-title">{disease.disease_name}</h5>
+                <p className="agrius-card-text">{disease.description || 'No description available.'}</p>
+                <Link to={detailPath} className="agrius-btn-secondary agrius-btn-view-details">View Details</Link>
               </div>
             </div>
           );

@@ -13,12 +13,12 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className={`admin-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+    <div className={`agrius-admin-layout ${isSidebarCollapsed ? 'agrius-sidebar-collapsed' : ''}`}>
       <Sidebar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
-      <main className="admin-content">
+      <main className="agrius-admin-content">
         <Outlet />
       </main>
-      <Footer /> {/* Move the Footer component back here */}
+      <Footer />
     </div>
   );
 };

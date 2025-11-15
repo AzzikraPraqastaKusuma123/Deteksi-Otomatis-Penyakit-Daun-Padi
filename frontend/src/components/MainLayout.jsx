@@ -6,14 +6,13 @@ import './MainLayout.css';
 
 const MainLayout = ({ loggedIn, setLoggedIn }) => {
   return (
-    <div className="main-layout-wrapper">
+    <div className="agrius-main-layout-wrapper">
       <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      <div className="main-content">
-        <div className="container">
-          <Outlet />
-        </div>
+      <div className="agrius-main-content">
+        {/* Removed Bootstrap 'container' to allow for full-width sections */}
+        <Outlet />
       </div>
-      <Footer /> {/* Move the Footer component back here */}
+      <Footer />
     </div>
   );
 };

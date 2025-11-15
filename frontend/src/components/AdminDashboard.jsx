@@ -39,63 +39,63 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="admin-dashboard">
-      <header className="dashboard-header">
+    <div className="agrius-admin-dashboard">
+      <header className="agrius-dashboard-header">
         <h1>Dashboard</h1>
         <p>Welcome back, Admin! Here's an overview of your application.</p>
       </header>
 
-      <div className="dashboard-stats">
-        <div className="stat-card users">
-          <div className="stat-card-icon">
+      <div className="agrius-dashboard-stats">
+        <div className="agrius-stat-card">
+          <div className="agrius-stat-card-icon">
             <i className="fas fa-users"></i>
           </div>
-          <div className="stat-card-info">
+          <div className="agrius-stat-card-info">
             <p>Total Users</p>
             <h3>{userCount}</h3>
           </div>
         </div>
-        <div className="stat-card detections">
-          <div className="stat-card-icon">
+        <div className="agrius-stat-card">
+          <div className="agrius-stat-card-icon">
             <i className="fas fa-camera-retro"></i>
           </div>
-          <div className="stat-card-info">
+          <div className="agrius-stat-card-info">
             <p>Total Detections</p>
             <h3>{detectionCount}</h3>
           </div>
         </div>
-        <div className="stat-card diseases">
-          <div className="stat-card-icon">
+        <div className="agrius-stat-card">
+          <div className="agrius-stat-card-icon">
             <i className="fas fa-leaf"></i>
           </div>
-          <div className="stat-card-info">
+          <div className="agrius-stat-card-info">
             <p>Total Diseases</p>
             <h3>{diseaseCount}</h3>
           </div>
         </div>
       </div>
 
-      <div className="dashboard-main-content">
-        <div className="chart-container">
+      <div className="agrius-dashboard-main-content">
+        <div className="agrius-chart-container">
           <h2>Detections Overview</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="count" fill="#3498db" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--agrius-neutral-gray-1)" />
+              <XAxis dataKey="name" stroke="var(--agrius-neutral-gray-1)" />
+              <YAxis stroke="var(--agrius-neutral-gray-1)" />
+              <Tooltip cursor={{ fill: 'rgba(255, 251, 239, 0.3)' }} contentStyle={{ backgroundColor: 'var(--agrius-cream-off-white)', borderColor: 'var(--agrius-neutral-gray-1)', color: 'var(--color-text-dark)' }} />
+              <Legend wrapperStyle={{ color: 'var(--color-text-dark)' }} />
+              <Bar dataKey="count" fill="var(--color-primary-bg)" /> {/* Agrius Forest Green Dark */}
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="quick-actions">
+        <div className="agrius-quick-actions">
           <h2>Quick Actions</h2>
-          <Link to="/admin/users" className="quick-action-btn">
+          <Link to="/admin/users" className="agrius-btn-secondary agrius-quick-action-btn">
             <i className="fas fa-user-cog"></i>
             <span>Manage Users</span>
           </Link>
-          <Link to="/admin/diseases/add" className="quick-action-btn">
+          <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-quick-action-btn">
             <i className="fas fa-plus-circle"></i>
             <span>Add New Disease</span>
           </Link>

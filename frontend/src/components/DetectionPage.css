@@ -1,364 +1,465 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import '../variables.css';
 
-:root {
-  --primary-color: #2ecc71; /* Green */
-  --primary-hover: #27ae60;
-  --secondary-color: #3498db; /* Blue */
-  --background-color: #ecf0f1; /* Light Gray */
-  --container-bg: #ffffff;
-  --text-color: #34495e; /* Dark Blue-Gray */
-  --light-text: #7f8c8d;
-  --border-color: #bdc3c7;
-  --error-color: #e74c3c;
-  --font-family: 'Poppins', sans-serif;
-}
-
-.detection-page {
-  font-family: var(--font-family);
-  background-color: var(--background-color);
+.agrius-detection-page {
+  font-family: var(--font-family-inter);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
   min-height: 100vh;
-  padding: 1rem; /* Re-introduce a small padding */
+  padding: var(--spacing-lg);
+  color: var(--color-text-dark);
 }
 
-.detection-main-layout { /* Renamed from .detection-container */
+.agrius-detection-main-layout {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two columns */
-  gap: 1rem;
-  width: 100%; /* Take full width within its parent's padding */
-  /* max-width: 1000px; Removed to make it full width */
-  background-color: var(--container-bg);
-  padding: 1rem; /* Reduced padding to match global .container */
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem; /* Restored original margin-top */
-  min-height: 700px; /* Increased to make it longer */
+  gap: var(--spacing-xxl);
+  width: 100%;
+  max-width: 1200px; /* Max width for content */
+  margin: var(--spacing-xxl) auto; /* Center the layout */
+  background-color: var(--agrius-pure-white); /* Pure White for main layout background */
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xxl);
+  box-shadow: var(--shadow-xl);
+  min-height: 700px;
 }
 
-.detection-input-section {
+.agrius-detection-input-section {
   display: flex;
   flex-direction: column;
 }
 
-.detection-results-section {
+.agrius-detection-results-section {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content to the top */
+  justify-content: flex-start;
   align-items: center;
-  padding: 1rem; /* Add some padding */
-  background-color: #f9f9f9; /* Light background for results */
-  border-radius: 10px;
-  min-height: 500px; /* Ensure it has a good height */
+  padding: var(--spacing-lg);
+  background-color: var(--agrius-cream-off-white); /* Light background for results */
+  border-radius: var(--border-radius-xl);
+  min-height: 500px;
 }
 
-.detection-controls {
+.agrius-detection-controls {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-md);
 }
 
-.detection-controls h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
+.agrius-detection-controls h2 {
+  font-size: 2rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-xs);
 }
 
-.detection-controls > p {
-  color: var(--light-text);
-  margin-bottom: 1rem;
+.agrius-detection-controls > p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
 }
 
-.mode-switcher {
+.agrius-mode-switcher {
   display: flex;
-  margin-bottom: 1rem;
-  border-radius: 10px;
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--agrius-neutral-gray-1);
 }
 
-.mode-switcher button {
+.agrius-mode-switcher button {
   flex: 1;
-  padding: 0.8rem;
+  padding: var(--spacing-sm);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   background: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--light-text);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  color: var(--color-text-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
 }
 
-.mode-switcher button.active {
-  background-color: var(--primary-color);
-  color: white;
+.agrius-mode-switcher button.active {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
 }
 
-.mode-switcher button:not(.active):hover {
-  background-color: #f7f7f7;
+.agrius-mode-switcher button:not(.active):hover {
+  background-color: var(--agrius-cream-off-white);
 }
 
 /* Dropzone Styling */
-.dropzone {
-  border: 2px dashed var(--border-color);
-  border-radius: 10px;
-  padding: 1.5rem;
+.agrius-dropzone {
+  border: 2px dashed var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-xxl);
   text-align: center;
   cursor: pointer;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
   position: relative;
   min-height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-/* ... */
-.image-preview {
-  max-width: 100%;
-  max-height: 250px;
-  border-radius: 8px;
-  object-fit: contain;
+  background-color: var(--agrius-cream-off-white);
 }
 
-.clear-btn {
+.agrius-dropzone.active {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 251, 239, 0.3);
+}
+
+.agrius-image-preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agrius-image-preview {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: var(--border-radius-md);
+  object-fit: contain;
+  box-shadow: var(--shadow-md);
+}
+
+.agrius-clear-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  background: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
   border: none;
   border-radius: 50%;
   width: 30px;
   height: 30px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed-fast) var(--transition-ease);
+}
+
+.agrius-clear-btn:hover {
+  background-color: var(--agrius-neutral-gray-1);
+  transform: scale(1.1);
+}
+
+.agrius-dropzone-text {
+  color: var(--color-text-secondary);
+}
+
+.agrius-dropzone-text svg {
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-sm);
+}
+
+.agrius-dropzone-text p {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.agrius-dropzone-text em {
+  font-size: 0.9rem;
+  color: var(--agrius-neutral-gray-2);
 }
 
 /* Camera Styling */
-.camera-container {
+.agrius-camera-container {
   position: relative;
-  background: #000;
-  border-radius: 10px;
+  background: var(--color-primary-bg);
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
-.camera-feed {
+.agrius-camera-feed {
   width: 100%;
   display: block;
+  border-radius: var(--border-radius-xl);
 }
 
-.btn-capture {
-  background-color: var(--primary-color);
-  color: white;
-  border: 3px solid white;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-capture:hover {
-  background-color: var(--primary-hover);
-}
-
-.camera-controls {
+.agrius-camera-controls {
   position: absolute;
-  bottom: 20px;
+  bottom: var(--spacing-lg);
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 15px; /* Space between buttons */
-  z-index: 10; /* Ensure controls are above video */
+  gap: var(--spacing-md);
+  z-index: 10;
 }
 
-.btn-switch-camera {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: white;
-  border: 3px solid white;
+.agrius-btn-capture, .agrius-btn-switch-camera {
+  background-color: var(--color-accent); /* Soft Lime */
+  color: var(--color-text-dark); /* Forest Green Dark */
+  border: 3px solid var(--agrius-pure-white);
   border-radius: 50%;
   width: 60px;
   height: 60px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: var(--shadow-md);
 }
 
-.btn-switch-camera:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+.agrius-btn-capture:hover, .agrius-btn-switch-camera:hover {
+  background-color: var(--agrius-cream-off-white);
+  transform: scale(1.05);
 }
 
-/* Analyze Button */
-.action-buttons {
-  display: flex; /* Re-enabled flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically (if needed, for single line) */
-  gap: 1rem;
-  margin-top: 1.5rem; /* Reverted to original margin */
+/* Action Buttons Area */
+.agrius-action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 
-/* ... */
-
-.loading-spinner {
-  text-align: center;
-  color: var(--light-text);
-  margin-top: 1.5rem; /* Added margin for spacing */
-}
-
-/* ... */
-
-.no-results {
-  text-align: center;
-  color: var(--light-text);
-  margin-top: 1.5rem; /* Added margin for spacing */
-  font-size: 1.1rem;
-}
-
-.result-card {
+.agrius-btn-analyze {
+  /* Inherits from agrius-btn-primary in App.css */
   width: 100%;
-  background-color: var(--container-bg); /* Ensure result card has background */
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
 }
 
-.result-card h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 1rem;
+.agrius-error-message {
+  color: #e74c3c; /* Red for errors */
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 1px solid #e74c3c;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Result Display */
+.agrius-result-card {
+  width: 100%;
+  background-color: var(--agrius-pure-white); /* Pure White */
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  margin-top: 0; /* Already handled by layout */
+  text-align: left;
+}
+
+.agrius-result-card h3 {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-md);
   text-align: center;
 }
 
-.result-header h2 {
+.agrius-result-header h2 {
   text-transform: capitalize;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-color); /* Changed to primary color for emphasis */
+  font-size: 2.2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-bg); /* Forest Green Dark */
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
 }
 
-.confidence {
-  margin-bottom: 1.5rem;
+.agrius-confidence {
+  margin-bottom: var(--spacing-xl);
 }
 
-/* ... */
-
-.result-details h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 0.3rem;
+.agrius-confidence p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-xs);
 }
 
-.result-details p {
-  color: var(--light-text);
-  line-height: 1.6;
+.agrius-confidence-bar-container {
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-md);
+  height: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(4, 13, 12, 0.1);
+}
+
+.agrius-confidence-bar {
+  background-color: var(--color-accent); /* Soft Lime */
+  height: 100%;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-xs);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-medium);
+  font-size: 0.9rem;
+  transition: width 0.5s ease-out;
+}
+
+.agrius-result-details {
+  margin-top: var(--spacing-xl);
+}
+
+.agrius-result-details h4 {
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-accent); /* Soft Lime underline */
+  padding-bottom: var(--spacing-xs);
+}
+
+.agrius-result-details p {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.agrius-btn-view-result {
+  /* Inherits from agrius-btn-primary in App.css */
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.agrius-no-results {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xxl);
+  font-size: 1.1rem;
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.agrius-loading-spinner {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xxl);
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.agrius-spinner {
+  border: 4px solid rgba(4, 13, 12, 0.1); /* Forest Green Dark transparent */
+  border-top: 4px solid var(--color-primary-bg); /* Forest Green Dark */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: var(--spacing-md) auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
-  .detection-main-layout { /* Apply to the new main layout */
+  .agrius-detection-main-layout {
     grid-template-columns: 1fr; /* Single column on smaller screens */
-    gap: 1rem;
-    padding: 1rem;
-    min-height: auto; /* Allow height to adjust on smaller screens */
-    max-width: 100%; /* Ensure full width on smaller screens */
-    margin: 0 auto; /* Center on smaller screens */
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    min-height: auto;
+    margin: var(--spacing-xl) auto;
   }
 
-  .detection-results-section {
-    min-height: auto; /* Adjust min-height for single column layout */
-    padding: 1.5rem;
+  .agrius-detection-results-section {
+    min-height: auto;
+    padding: var(--spacing-lg);
   }
 
-  .detection-page {
-    padding: 1rem;
+  .agrius-detection-page {
+    padding: var(--spacing-md);
   }
 }
 
 @media (max-width: 576px) {
-  .detection-page {
-    padding: 0.5rem;
+  .agrius-detection-page {
+    padding: var(--spacing-xs);
   }
-  .detection-main-layout {
-    padding: 1rem;
+  .agrius-detection-main-layout {
+    padding: var(--spacing-md);
   }
-  .detection-controls h2 {
-    font-size: 1.5rem;
+  .agrius-detection-controls h2 {
+    font-size: 1.8rem;
   }
-  .mode-switcher button {
+  .agrius-mode-switcher button {
     font-size: 0.9rem;
-    padding: 0.6rem;
+    padding: var(--spacing-xs);
   }
-  .btn-analyze {
+  .agrius-btn-analyze {
     font-size: 1rem;
-    padding: 0.8rem;
+    padding: var(--spacing-sm);
   }
-  .result-card h3 {
-    font-size: 1.2rem;
+  .agrius-result-card h3 {
+    font-size: 1.3rem;
   }
-  .result-header h2 {
-    font-size: 1.5rem;
+  .agrius-result-header h2 {
+    font-size: 1.8rem;
   }
-  .result-details h4 {
-    font-size: 1rem;
+  .agrius-result-details h4 {
+    font-size: 1.1rem;
   }
-  .result-details p {
+  .agrius-result-details p {
     font-size: 0.9rem;
   }
 }
 
 /* Gemini Info Section - Keep as is for now, as it's not directly in DetectionPage */
+/* These styles are likely for DetailedAnalysisPage.jsx */
 .gemini-info {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--agrius-neutral-gray-1);
 }
 
 .gemini-info h3 {
   font-size: 1.4rem;
-  color: #2c3e50;
-  margin-bottom: 15px;
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-md);
   text-align: center;
 }
 
 .gemini-section {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .gemini-section h4 {
   font-size: 1.1rem;
-  color: #34495e;
-  margin-bottom: 8px;
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-xs);
   display: flex;
   align-items: center;
 }
 
 .gemini-section h4 i {
-  margin-right: 8px;
-  color: #16a085;
+  margin-right: var(--spacing-xs);
+  color: var(--color-primary-bg);
 }
 
 .gemini-section p, .gemini-section li {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 
 .product-list {
@@ -367,129 +468,85 @@
 }
 
 .product-item {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-left: 3px solid #16a085;
-  border-radius: 5px;
-  margin-bottom: 8px;
+  background-color: var(--agrius-cream-off-white);
+  padding: var(--spacing-sm);
+  border-left: 3px solid var(--color-primary-bg);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-xs);
 }
 
 .healthy-leaf {
   text-align: center;
-  padding: 20px;
-  background-color: #e8f8f5;
-  border-radius: 8px;
-  border: 1px solid #d1f2eb;
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  border: 1px solid var(--agrius-neutral-gray-1);
 }
 
 .healthy-leaf p {
   font-size: 1.1rem;
-  color: #138d75;
-  font-weight: 500;
+  color: var(--color-primary-bg);
+  font-weight: var(--font-weight-medium);
 }
 
 
 .btn-toggle-gemini {
-  background-color: #28a745; /* Green color */
-  color: white;
-  padding: 10px 15px;
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-md);
   cursor: pointer;
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto; /* Center the button */
-  transition: background-color 0.3s ease;
+  margin: var(--spacing-xl) auto;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
 }
 
 .btn-toggle-gemini:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: var(--agrius-neutral-gray-1);
 }
 
 .btn-toggle-gemini i {
-  margin-left: 8px;
+  margin-left: var(--spacing-xs);
 }
 
 .gemini-toggle-container {
-  text-align: center; /* Ensure button is centered */
-  margin-top: 15px;
-  margin-bottom: 15px;
+  text-align: center;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 
 .gemini-error {
-  background-color: #fff5f5;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 20px;
+  background-color: #fff5f5; /* Light red */
+  border: 1px solid #f5c6cb; /* Red border */
+  color: #721c24; /* Dark red text */
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-xl);
 }
 
 .gemini-error h4 {
   color: #721c24;
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-xs);
   display: flex;
   align-items: center;
 }
 
 .gemini-error h4 i {
-  margin-right: 8px;
+  margin-right: var(--spacing-xs);
   color: #721c24;
 }
 
 .gemini-error pre {
   background-color: #f8d7da;
-  padding: 10px;
-  border-radius: 5px;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
   white-space: pre-wrap;
   word-wrap: break-word;
   font-size: 0.85rem;
-}
-
-
-/* Removed .detection-container-refactored as it's no longer used */
-/* .detection-container-refactored { */
-/*   max-width: 600px; */
-/*   margin: 2rem auto; */
-/*   padding: 2rem; */
-/*   background: #fff; */
-/*   border-radius: 8px; */
-/*   box-shadow: 0 4px 20px rgba(0,0,0,0.08); */
-/* } */
-
-.btn-view-result {
-  background-color: #28a745;
-  color: white;
-  flex-grow: 1;
-  padding: 12px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-view-result:hover {
-  background-color: #218838;
-}
-
-.basic-result {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: #e8f8f5;
-  border-left: 4px solid #1abc9c;
-  border-radius: 4px;
-}
-
-.basic-result p {
-  margin: 0;
-  color: #333;
 }

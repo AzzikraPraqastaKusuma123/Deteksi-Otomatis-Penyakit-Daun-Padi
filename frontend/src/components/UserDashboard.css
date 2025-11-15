@@ -1,86 +1,141 @@
 @import '../variables.css';
 
-.user-dashboard {
-  padding: 2rem 0;
+.agrius-user-dashboard {
+  padding: var(--spacing-xxl) 0;
+  max-width: 1200px; /* Constrain width for better readability */
+  margin: 0 auto; /* Center the dashboard content */
 }
 
-.hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
+.agrius-hero-section {
+  background: linear-gradient(to bottom, rgba(4, 13, 12, 0.2), rgba(4, 13, 12, 0.8)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
   background-size: cover;
   background-position: center;
-  padding: 4rem;
-  border-radius: 12px;
-  color: white;
+  padding: var(--spacing-xxxxl) var(--spacing-xxl); /* Large organic padding */
+  border-radius: var(--border-radius-xxl); /* Smooth rounded edges */
+  color: var(--color-text-primary); /* Pure White */
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: var(--spacing-xxxl);
+  box-shadow: var(--shadow-xl); /* Modern shadow */
 }
 
-.hero-text h1 {
-  margin: 0 0 1rem 0;
-  font-size: 3rem;
-  font-weight: 700;
-  color: white;
+.agrius-hero-text h1 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 3.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary); /* Pure White */
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.hero-text p {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
+.agrius-hero-text p {
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-xl);
   opacity: 0.9;
+  color: var(--agrius-cream-off-white); /* Cream Off-White for body text */
+  line-height: 1.6;
 }
 
-.hero-cta-btn {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 14px 30px;
-  border-radius: 30px;
+.agrius-hero-cta-btn {
+  background-color: var(--color-accent); /* Soft Lime */
+  color: var(--color-text-dark); /* Forest Green Dark */
+  padding: var(--spacing-md) var(--spacing-xxl);
+  border-radius: var(--border-radius-md);
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s, transform 0.3s;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  box-shadow: var(--shadow-md);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
-.hero-cta-btn:hover {
-  background-color: var(--secondary-color);
+.agrius-hero-cta-btn:hover {
+  background-color: var(--agrius-cream-off-white);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-dark);
 }
 
-.dashboard-cards {
+.agrius-dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  gap: var(--spacing-xxl); /* Organic spacing */
+  padding: 0 var(--spacing-lg); /* Some horizontal padding */
 }
 
-.dashboard-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
+.agrius-dashboard-card {
+  background-color: var(--agrius-cream-off-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl); /* Smooth rounded edges */
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md); /* Subtle shadow */
   text-decoration: none;
-  color: var(--text-color);
-  transition: transform 0.3s, box-shadow 0.3s;
+  color: var(--color-text-dark);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.dashboard-card:hover {
+.agrius-dashboard-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
+  box-shadow: var(--shadow-xl); /* More pronounced shadow on hover */
+  color: var(--color-text-dark);
 }
 
-.card-icon {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
+.agrius-card-icon {
+  font-size: 3.8rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary-bg); /* Forest Green Dark for icons */
 }
 
-.dashboard-card.detect .card-icon { color: var(--primary-color); }
-.dashboard-card.history .card-icon { color: #2ecc71; }
-.dashboard-card.diseases .card-icon { color: #e67e22; }
-
-.dashboard-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
+.agrius-dashboard-card h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
 }
 
-.dashboard-card p {
-  color: #7f8c8d;
+.agrius-dashboard-card p {
+  color: var(--agrius-neutral-gray-1); /* Neutral Gray for body text */
   line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-hero-section {
+    padding: var(--spacing-xxxl) var(--spacing-lg);
+  }
+  .agrius-hero-text h1 {
+    font-size: 2.5rem;
+  }
+  .agrius-hero-text p {
+    font-size: 1.1rem;
+  }
+  .agrius-dashboard-cards {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+    padding: 0 var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .agrius-hero-section {
+    padding: var(--spacing-xxl) var(--spacing-md);
+  }
+  .agrius-hero-text h1 {
+    font-size: 2rem;
+  }
+  .agrius-hero-text p {
+    font-size: 1rem;
+  }
+  .agrius-dashboard-card {
+    padding: var(--spacing-xl);
+  }
+  .agrius-card-icon {
+    font-size: 3rem;
+  }
+  .agrius-dashboard-card h3 {
+    font-size: 1.4rem;
+  }
 }

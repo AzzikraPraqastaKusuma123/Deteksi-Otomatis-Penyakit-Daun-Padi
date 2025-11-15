@@ -20,42 +20,43 @@ const AddUser = () => {
       navigate('/admin/users');
     } catch (error) {
       console.error('Error adding user:', error);
+      alert('Failed to add user. Please try again.');
     }
   };
 
   return (
-    <div className="add-user-container">
-      <div className="add-user-card">
+    <div className="agrius-add-user-container">
+      <div className="agrius-card agrius-add-user-card">
         <h2>Add New User</h2>
-        <form onSubmit={handleSubmit} className="add-user-form">
-          <div className="form-group">
-            <label>Username</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <form onSubmit={handleSubmit} className="agrius-add-user-form">
+          <div className="agrius-form-group">
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" className="agrius-form-control" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <div className="agrius-form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" className="agrius-form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <div className="agrius-form-group">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" className="agrius-form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <div className="form-group">
-            <label>Full Name</label>
-            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <div className="agrius-form-group">
+            <label htmlFor="fullName">Full Name</label>
+            <input type="text" id="fullName" className="agrius-form-control" value={fullName} onChange={(e) => setFullName(e.target.value)} />
           </div>
-          <div className="form-group">
-            <label>Location</label>
-            <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
+          <div className="agrius-form-group">
+            <label htmlFor="location">Location</label>
+            <input type="text" id="location" className="agrius-form-control" value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
-          <div className="form-group">
-            <label>Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <div className="agrius-form-group">
+            <label htmlFor="role">Role</label>
+            <select id="role" className="agrius-form-control" value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>
           </div>
-          <button type="submit" className="btn-submit">Add User</button>
+          <button type="submit" className="agrius-btn-primary agrius-btn-submit">Add User</button>
         </form>
       </div>
     </div>

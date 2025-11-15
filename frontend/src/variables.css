@@ -1,14 +1,58 @@
+/* frontend/src/variables.css */
+/* Agrius Webflow Template Visual Style Variables */
+
 :root {
-  --primary-color: #4CAF50; /* A vibrant, yet natural green */
-  --primary-color-rgb: 76, 175, 80;
-  --secondary-color: #8BC34A; /* A lighter, complementary green */
-  --accent-color: #A1887F; /* An earthy brown for accents */
-  --background-color: #F1F8E9; /* A very light, airy green */
-  --card-background: #FFFFFF;
-  --text-color: #333333;
-  --text-muted: #757575;
-  --border-color: #E0E0E0;
-  --input-background: #FAFAFA;
-  --shadow-light: rgba(0, 0, 0, 0.08);
-  --transition-speed: 0.3s;
+  /* Agrius Color Palette */
+  --agrius-forest-green-dark: #040D0C;
+  --agrius-soft-lime-pastel-yellow: #FFFBEF;
+  --agrius-cream-off-white: #F8F5E9;
+  --agrius-neutral-gray-1: #616766;
+  --agrius-neutral-gray-2: #70716D;
+  --agrius-pure-white: #FFFFFF;
+
+  /* Semantic Color Mapping */
+  --color-primary-bg: var(--agrius-forest-green-dark);
+  --color-secondary-bg: var(--agrius-cream-off-white);
+  --color-accent: var(--agrius-soft-lime-pastel-yellow);
+  --color-text-primary: var(--agrius-pure-white);
+  --color-text-secondary: var(--agrius-neutral-gray-1);
+  --color-text-dark: var(--agrius-forest-green-dark);
+  --color-border: var(--agrius-neutral-gray-1);
+
+  /* Typography - Inter Font (assuming it's imported globally) */
+  --font-family-inter: 'Inter', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing Scale (based on 8px grid) */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+  --spacing-xxxxl: 80px;
+
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-xxl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(4, 13, 12, 0.03);
+  --shadow-md: 0 4px 12px rgba(4, 13, 12, 0.05);
+  --shadow-lg: 0 8px 24px rgba(4, 13, 12, 0.08);
+  --shadow-xl: 0 12px 30px rgba(4, 13, 12, 0.12);
+
+  /* Transitions */
+  --transition-speed-fast: 180ms;
+  --transition-speed-normal: 250ms;
+  --transition-speed-slow: 350ms;
+  --transition-ease: ease-in-out;
 }

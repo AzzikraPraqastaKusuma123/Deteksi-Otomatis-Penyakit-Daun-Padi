@@ -39,28 +39,28 @@ function DiseaseDetail() {
   const isAdminContext = location.pathname.startsWith('/admin');
   const backTo = isAdminContext ? '/admin/diseases' : '/diseases';
 
-  if (loading) return <div className="detail-container"><p>Loading details...</p></div>;
-  if (error) return <div className="detail-container"><p className="error-message">{error}</p></div>;
-  if (!disease) return <div className="detail-container"><p>No disease data.</p></div>;
+  if (loading) return <div className="agrius-detail-container"><p className="agrius-loading-text">Loading details...</p></div>;
+  if (error) return <div className="agrius-detail-container"><p className="agrius-error-message">{error}</p></div>;
+  if (!disease) return <div className="agrius-detail-container"><p className="agrius-no-data-message">No disease data.</p></div>;
 
   return (
-    <div className="detail-container">
-      <Link to={backTo} className="back-link"><i className="fas fa-arrow-left me-2"></i>Back to Disease List</Link>
-      <div className="row">
+    <div className="agrius-detail-container">
+      <Link to={backTo} className="agrius-back-link"><i className="fas fa-arrow-left me-2"></i>Back to Disease List</Link>
+      <div className="row agrius-detail-row">
         <div className="col-md-5">
-          <div className="card detail-card">
+          <div className="agrius-card agrius-detail-card">
             <img 
               src={disease.image_url_example || `https://placehold.co/600x400/4CAF50/FFFFFF?text=${encodeURIComponent(disease.disease_name)}`} 
-              className="detail-image" 
+              className="agrius-detail-image" 
               alt={disease.disease_name}
             />
           </div>
         </div>
 
         <div className="col-md-7">
-          <div className="card detail-card">
-            <h1 className="detail-title">{disease.disease_name}</h1>
-            <div className="detail-info">
+          <div className="agrius-card agrius-detail-card">
+            <h1 className="agrius-detail-title">{disease.disease_name}</h1>
+            <div className="agrius-detail-info">
               {disease.scientific_name && <p><strong>Scientific Name:</strong> {disease.scientific_name}</p>}
               <p><strong>Description:</strong> {disease.description}</p>
               {disease.symptoms && <p><strong>Symptoms:</strong> {disease.symptoms}</p>}

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { updateUserProfile } from '../services/api';
-import './EditProfilePage.css'; // Keep this for now, will refactor later
-import './ProfilePage.css'; // Import ProfilePage.css for shared styles
+import './EditProfilePage.css';
 
 const EditProfilePage = () => {
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ const EditProfilePage = () => {
 
       const updatedUser = { ...storedUser, email, full_name: fullName, location };
       localStorage.setItem('user', JSON.stringify(updatedUser));
-
+      
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
       setTimeout(() => navigate('/profile'), 1500);
     } catch (error) {
@@ -62,65 +61,69 @@ const EditProfilePage = () => {
   };
 
   return (
-    <div className="profile-container"> {/* Reusing profile-container */}
-      <div className="profile-card"> {/* Reusing profile-card */}
-        <div className="profile-header"> {/* Reusing profile-header */}
-          <i className="fas fa-user-edit profile-avatar"></i>
-          <h1>Edit Profile</h1> {/* Changed to h1 */}
-          <p>Update your account details below</p>
+    <div className="agrius-edit-profile-container">
+      <div className="agrius-card agrius-edit-profile-card">
+        <div className="agrius-edit-profile-header">
+          <i className="fas fa-user-edit agrius-edit-profile-avatar"></i>
+          <h1>Edit Profile</h1>
+          <p className="agrius-edit-profile-subtitle">Update your account details below</p>
         </div>
 
-        <form onSubmit={handleSave} className="edit-profile-form">
+        <form onSubmit={handleSave} className="agrius-edit-profile-form">
           {message.text && (
-            <div className={`form-message ${message.type}`}>
+            <div className={`agrius-form-message ${message.type}`}>
               {message.text}
             </div>
           )}
-          <div className="profile-edit-grid"> {/* New wrapper for grid layout */}
-            <div className="profile-edit-item"> {/* New class for input rows */}
-              <strong>Email:</strong>
+          <div className="agrius-profile-edit-grid">
+            <div className="agrius-form-group">
+              <label>Email:</label>
               <input
                 type="email"
+                className="agrius-form-control"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
 
-            <div className="profile-edit-item">
-              <strong>Full Name:</strong>
+            <div className="agrius-form-group">
+              <label>Full Name:</label>
               <input
                 type="text"
+                className="agrius-form-control"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
             </div>
 
-            <div className="profile-edit-item">
-              <strong>Location:</strong>
+            <div className="agrius-form-group">
+              <label>Location:</label>
               <input
                 type="text"
+                className="agrius-form-control"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 
-            <div className="profile-edit-item">
-              <strong>New Password (optional):</strong>
+            <div className="agrius-form-group">
+              <label>New Password (optional):</label>
               <input
                 type="password"
+                className="agrius-form-control"
                 placeholder="Enter new password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </div> {/* End of profile-edit-grid */}
+          </div>
 
-          <div className="edit-profile-actions"> {/* New container for buttons */}
-            <button type="submit" className="btn-edit-profile" disabled={loading}> {/* Reusing btn-edit-profile style */}
+          <div className="agrius-edit-profile-actions">
+            <button type="submit" className="agrius-btn-primary agrius-btn-submit" disabled={loading}>
               {loading ? 'Saving...' : 'Save Changes'}
             </button>
-            <Link to="/profile" className="btn-cancel">Cancel</Link>
+            <Link to="/profile" className="agrius-btn-secondary agrius-btn-cancel">Cancel</Link>
           </div>
         </form>
       </div>
@@ -129,4 +132,5 @@ const EditProfilePage = () => {
 };
 
 export default EditProfilePage;
+
 

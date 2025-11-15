@@ -1,61 +1,97 @@
 @import '../variables.css';
 
-.navbar-custom {
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 0.75rem 0;
-  position: fixed;
+.agrius-navbar {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-sm) 0; /* Soft organic spacing */
+  position: sticky; /* Changed from fixed to sticky for better layout flow */
   top: 0;
   left: 0;
   right: 0;
   z-index: 1030;
+  border-bottom-left-radius: var(--border-radius-lg); /* Soft rounded edges */
+  border-bottom-right-radius: var(--border-radius-lg);
 }
 
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--primary-color);
+.agrius-navbar-brand {
+  font-weight: var(--font-weight-bold);
+  font-size: 1.6rem;
+  color: var(--color-text-primary); /* Pure White */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
-.nav-link {
-  color: var(--text-color);
-  font-weight: 500;
-  transition: color 0.3s ease;
-  margin: 0 0.5rem;
+.agrius-logo-icon {
+  font-size: 1.8rem;
+  color: var(--color-accent); /* Soft Lime accent */
 }
 
-.nav-link:hover {
-  color: var(--primary-color);
+.agrius-nav-link {
+  color: var(--color-text-primary); /* Pure White */
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  margin: 0 var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
 }
 
-.nav-link.active {
-  color: var(--primary-color);
-  font-weight: 700;
+.agrius-nav-link:hover {
+  color: var(--color-accent); /* Soft Lime on hover */
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover */
 }
 
-.btn-register {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  border-radius: 20px;
-  padding: 8px 20px;
-  transition: background-color 0.3s;
+.agrius-nav-link.active {
+  color: var(--color-accent); /* Soft Lime for active link */
+  font-weight: var(--font-weight-semibold);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-.btn-register:hover {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
+.agrius-navbar-toggler {
+  border-color: var(--agrius-neutral-gray-1);
 }
 
-.btn-logout {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-  border-radius: 20px;
-  padding: 8px 20px;
+.agrius-navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.btn-logout:hover {
-  color: white;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+/* Agrius Button Styles for Navbar */
+.agrius-btn-primary {
+  background-color: var(--color-accent); /* Soft Lime */
+  color: var(--color-text-dark); /* Forest Green Dark */
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  box-shadow: var(--shadow-sm);
 }
+
+.agrius-btn-primary:hover {
+  background-color: var(--agrius-cream-off-white);
+  color: var(--color-text-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.agrius-btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-primary); /* Pure White */
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.profile-link {
+  font-size: 1.2rem; /* Larger icon */
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+

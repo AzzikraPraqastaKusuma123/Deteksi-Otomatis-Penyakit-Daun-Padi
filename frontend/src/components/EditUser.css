@@ -1,84 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import '../variables.css';
 
-:root {
-  --primary-color: #3498db;
-  --background-color: #f4f7f9;
-  --card-bg: #ffffff;
-  --text-color: #2c3e50;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.edit-user-container {
+.agrius-edit-user-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background-color: var(--background-color);
-  font-family: 'Poppins', sans-serif;
+  padding: var(--spacing-xxl);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
 }
 
-.edit-user-card {
-  background-color: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+.agrius-edit-user-card {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 500px;
 }
 
-.edit-user-card h2 {
+.agrius-edit-user-card h2 {
   text-align: center;
-  margin-bottom: 2rem;
-  color: var(--text-color);
-  font-weight: 600;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+  font-size: 2rem;
 }
 
-.edit-user-form {
+.agrius-edit-user-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
-.form-group {
+.agrius-form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555;
-}
-
-.form-group input,
-.form-group select {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.agrius-form-group label {
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-dark);
   font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.agrius-form-group input,
+.agrius-form-group select {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  background-color: var(--agrius-cream-off-white);
+  color: var(--color-text-dark);
+}
+
+.agrius-form-group input:focus,
+.agrius-form-group select:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255, 251, 239, 0.5);
 }
 
-.btn-submit {
-  padding: 12px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.agrius-btn-submit {
+  /* Inherits from agrius-btn-primary in App.css */
+  padding: var(--spacing-md);
   font-size: 1.1rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s;
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-md);
 }
 
-.btn-submit:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-edit-user-card {
+    padding: var(--spacing-xl);
+  }
+  .agrius-edit-user-card h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-edit-user-container {
+    padding: var(--spacing-lg);
+  }
+  .agrius-edit-user-card {
+    padding: var(--spacing-lg);
+  }
+  .agrius-edit-user-card h2 {
+    font-size: 1.5rem;
+  }
+  .agrius-form-group label {
+    font-size: 0.9rem;
+  }
+  .agrius-form-group input,
+  .agrius-form-group select {
+    padding: var(--spacing-xs);
+    font-size: 0.9rem;
+  }
+  .agrius-btn-submit {
+    padding: var(--spacing-sm);
+    font-size: 1rem;
+  }
 }

@@ -1,99 +1,185 @@
+/* frontend/src/components/UserDetail.css */
+@import '../variables.css';
 
-.detail-container {
-  padding: 2rem;
-  font-family: var(--font-family, 'Poppins', sans-serif);
-  background-color: var(--background-color, #ecf0f1);
+.agrius-detail-container {
+  padding: var(--spacing-xxl);
+  font-family: var(--font-family-inter);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  color: var(--color-text-dark);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  color: var(--primary-color, #2ecc71);
+.agrius-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-primary-bg); /* Forest Green Dark */
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
 }
 
-.back-link:hover {
-  color: var(--primary-hover, #27ae60);
+.agrius-back-link:hover {
+  color: var(--color-accent); /* Soft Lime */
+  background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.1);
 }
 
-.detail-card {
-  background-color: var(--container-bg, #ffffff);
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
-  height: 100%;
-}
-
-.detail-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-color, #34495e);
-  margin-bottom: 1.5rem;
-}
-
-.detail-info p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--light-text, #7f8c8d);
-  margin-bottom: 1rem;
-}
-
-.detail-info p strong {
-  color: var(--text-color, #34495e);
-  font-weight: 600;
-}
-
-/* Simple grid for layout */
-.row {
+.agrius-detail-row {
     display: flex;
     flex-wrap: wrap;
-    margin: -1rem;
+    margin: calc(-1 * var(--spacing-lg)); /* Adjust margin for gap */
 }
 
-.col-md-4,
-.col-md-8 {
-    padding: 1rem;
+.agrius-detail-row > div {
+    padding: var(--spacing-lg); /* Apply padding to columns */
     box-sizing: border-box;
 }
 
-.col-md-4 {
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
+.agrius-detail-card {
+  background-color: var(--agrius-pure-white);
+  border: none;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-xl);
+  height: 100%;
 }
 
-.col-md-8 {
-    flex: 0 0 66.666667%;
-    max-width: 66.666667%;
+.agrius-user-icon {
+  font-size: 5rem; /* Larger icon */
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-md);
 }
 
+.agrius-detail-title {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.agrius-text-muted {
+  color: var(--agrius-neutral-gray-1);
+  font-size: 0.95rem;
+}
+
+.agrius-divider {
+  border-top: 1px solid var(--agrius-cream-off-white);
+  margin: var(--spacing-lg) 0;
+}
+
+.agrius-detail-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.agrius-icon-muted {
+  color: var(--agrius-neutral-gray-1);
+  margin-right: var(--spacing-xs);
+  font-size: 1.1rem;
+}
+
+.agrius-role-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-primary);
+  margin-left: var(--spacing-xs);
+}
+
+.agrius-role-badge.agrius-role-admin {
+  background-color: #e74c3c; /* Red for admin */
+}
+
+.agrius-role-badge.agrius-role-user {
+  background-color: var(--color-primary-bg); /* Forest Green Dark for user */
+}
+
+.agrius-list-group {
+    margin-top: var(--spacing-lg);
+}
+
+.agrius-list-group-item {
+    background-color: var(--agrius-cream-off-white);
+    border: 1px solid var(--agrius-cream-off-white);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-md);
+    transition: all var(--transition-speed-fast) var(--transition-ease);
+}
+
+.agrius-list-group-item:hover {
+    background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.1);
+    border-color: var(--color-accent);
+}
+
+.agrius-list-group-item h5 {
+    color: var(--color-text-dark);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.agrius-list-group-item small {
+    color: var(--agrius-neutral-gray-1);
+    font-size: 0.85rem;
+}
+
+.agrius-list-group-item p {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.agrius-no-data-message, .agrius-loading-text, .agrius-error-message {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--spacing-xl);
+  color: var(--color-text-dark);
+}
+
+.agrius-error-message {
+  color: #e74c3c; /* Red for errors */
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .col-md-4,
-  .col-md-8 {
+  .agrius-detail-row > div {
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .agrius-detail-container {
+    padding: var(--spacing-lg);
+  }
+  .agrius-detail-title {
+    font-size: 2rem;
+  }
 }
 
-.list-group-item {
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-}
-
-.list-group-item h5 {
-    color: var(--text-color);
-    font-weight: 600;
-}
-
-.list-group-item small {
-    color: var(--light-text);
-}
-
-.list-group-item p {
-    color: var(--light-text);
+@media (max-width: 576px) {
+  .agrius-detail-container {
+    padding: var(--spacing-md);
+  }
+  .agrius-detail-title {
+    font-size: 1.8rem;
+  }
+  .agrius-detail-info p {
+    font-size: 0.9rem;
+  }
+  .agrius-user-icon {
+    font-size: 4rem;
+  }
 }

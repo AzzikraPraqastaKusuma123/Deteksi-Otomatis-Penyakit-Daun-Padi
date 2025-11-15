@@ -1,179 +1,243 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import '../variables.css';
 
-:root {
-  --primary-color: #3498db;
-  --background-color: #f4f7f9;
-  --card-bg: #ffffff;
-  --text-color: #2c3e50;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+.agrius-user-list-container {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+  max-width: 1200px;
+  margin: var(--spacing-xxl) auto;
 }
 
-.user-list-container {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  font-family: 'Poppins', sans-serif;
-}
-
-.user-list-header {
+.agrius-user-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xxl);
 }
 
-.user-list-header h1 {
+.agrius-user-list-header h1 {
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-color);
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
 }
 
-.header-actions {
+.agrius-header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-lg);
 }
 
-.search-bar {
+.agrius-search-bar {
   position: relative;
 }
 
-.search-bar i {
+.agrius-search-bar i {
   position: absolute;
-  left: 15px;
+  left: var(--spacing-md);
   top: 50%;
   transform: translateY(-50%);
-  color: #bdc3c7;
+  color: var(--agrius-neutral-gray-1);
 }
 
-.search-bar input {
-  padding: 10px 20px 10px 40px;
-  border-radius: 20px;
-  border: 1px solid #e0e0e0;
+.agrius-search-bar .agrius-form-control {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 40px; /* Adjust padding for icon */
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--agrius-neutral-gray-1);
   width: 280px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  background-color: var(--agrius-cream-off-white);
+  color: var(--color-text-dark);
 }
 
-.search-bar input:focus {
+.agrius-search-bar .agrius-form-control:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255, 251, 239, 0.5);
 }
 
-.btn-add-user {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-decoration: none;
+.agrius-btn-add-user {
+  /* Inherits from agrius-btn-primary in App.css */
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 500;
-  transition: background-color 0.3s, transform 0.2s;
+  gap: var(--spacing-xs);
 }
 
-.btn-add-user:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-}
-
-.table-responsive {
+.agrius-table-responsive {
   overflow-x: auto;
 }
 
-.user-table {
+.agrius-user-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate; /* Use separate for border-radius on cells */
+  border-spacing: 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden; /* Ensures border-radius is applied */
+  box-shadow: var(--shadow-md);
 }
 
-.user-table th,
-.user-table td {
-  padding: 1rem 1.2rem;
+.agrius-user-table th,
+.agrius-user-table td {
+  padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
-  border-bottom: 1px solid #ecf0f1;
+  border-bottom: 1px solid var(--agrius-cream-off-white); /* Lighter border */
 }
 
-.user-table thead th {
-  background-color: #f8f9fa;
-  color: #95a5a6;
-  font-weight: 600;
+.agrius-user-table thead th {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.5px;
 }
 
-.user-table tbody tr {
-  transition: background-color 0.2s ease-in-out;
+.agrius-user-table tbody tr {
+  background-color: var(--agrius-pure-white);
+  transition: background-color var(--transition-speed-fast) var(--transition-ease);
 }
 
-.user-table tbody tr:hover {
-  background-color: #f9f9f9;
+.agrius-user-table tbody tr:hover {
+  background-color: var(--agrius-cream-off-white);
 }
 
-.role-badge {
-  padding: 5px 12px;
-  border-radius: 15px;
+.agrius-role-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: var(--color-text-primary);
 }
 
-.role-badge.role-admin {
-  background-color: #e74c3c;
-  color: white;
+.agrius-role-badge.agrius-role-admin {
+  background-color: #e74c3c; /* Red for admin */
 }
 
-.role-badge.role-user {
-  background-color: #3498db;
-  color: white;
+.agrius-role-badge.agrius-role-user {
+  background-color: var(--color-primary-bg); /* Forest Green Dark for user */
 }
 
-.action-buttons {
+.agrius-action-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
 }
 
-.btn-action {
+.agrius-btn-action {
   border: none;
   background: none;
   cursor: pointer;
   font-size: 1.1rem;
-  padding: 8px;
+  padding: var(--spacing-xs);
   border-radius: 50%;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all var(--transition-speed-fast) var(--transition-ease);
+  color: var(--agrius-neutral-gray-1);
 }
 
-.btn-edit {
+.agrius-btn-action:hover {
+  background-color: rgba(var(--agrius-neutral-gray-1-rgb), 0.1);
+  color: var(--color-text-dark);
+}
+
+.agrius-btn-edit {
+  color: #f39c12; /* Orange for edit */
+}
+.agrius-btn-edit:hover {
+  background-color: rgba(243, 156, 18, 0.1);
   color: #f39c12;
 }
-.btn-edit:hover {
-  background-color: #f39c12;
-  color: white;
-}
 
-.btn-delete {
+.agrius-btn-delete {
+  color: #e74c3c; /* Red for delete */
+}
+.agrius-btn-delete:hover {
+  background-color: rgba(231, 76, 60, 0.1);
   color: #e74c3c;
 }
-.btn-delete:hover {
-  background-color: #e74c3c;
-  color: white;
+
+.agrius-btn-view {
+  color: var(--color-primary-bg); /* Forest Green Dark for view */
+}
+.agrius-btn-view:hover {
+  background-color: rgba(4, 13, 12, 0.1);
+  color: var(--color-primary-bg);
 }
 
-.btn-view {
-  color: #2ecc71;
-}
-.btn-view:hover {
-  background-color: #2ecc71;
-  color: white;
-}
-
-.loading-container,
-.no-users-found {
+.agrius-loading-container,
+.agrius-no-users-found {
   text-align: center;
-  padding: 2rem;
-  color: #7f8c8d;
+  padding: var(--spacing-xxl);
+  color: var(--color-text-secondary);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--spacing-xl);
+}
+
+.agrius-loading-text {
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .agrius-user-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  .agrius-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .agrius-search-bar input {
+    width: 100%;
+  }
+  .agrius-user-list-container {
+    padding: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .agrius-user-list-header h1 {
+    font-size: 2rem;
+  }
+  .agrius-user-table th, .agrius-user-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+  .agrius-role-badge {
+    font-size: 0.7rem;
+  }
+  .agrius-btn-action {
+    font-size: 1rem;
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-user-list-container {
+    padding: var(--spacing-lg);
+  }
+  .agrius-user-list-header h1 {
+    font-size: 1.8rem;
+  }
+  .agrius-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  .agrius-search-bar input {
+    width: 100%;
+  }
+  .agrius-btn-add-user {
+    width: 100%;
+    justify-content: center;
+  }
 }

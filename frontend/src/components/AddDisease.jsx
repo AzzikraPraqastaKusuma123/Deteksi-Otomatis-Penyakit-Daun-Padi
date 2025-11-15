@@ -21,63 +21,69 @@ function AddDisease() {
         symptoms,
         treatment_recommendations: treatment,
       });
-      navigate('/diseases');
+      navigate('/admin/diseases'); // Navigate back to admin disease list
     } catch (error) {
       console.error('Error adding disease:', error);
+      alert('Failed to add disease. Please try again.');
     }
   };
 
   return (
-    <div className="add-disease-container">
-      <h1 className="add-disease-title">Add New Disease</h1>
-      <form onSubmit={handleSubmit} className="add-disease-form">
-        <div className="form-group">
-          <label>Disease Name</label>
+    <div className="agrius-add-disease-container">
+      <h1 className="agrius-add-disease-title">Add New Disease</h1>
+      <form onSubmit={handleSubmit} className="agrius-add-disease-form">
+        <div className="agrius-form-group">
+          <label htmlFor="diseaseName">Disease Name</label>
           <input
             type="text"
-            className="form-control"
+            id="diseaseName"
+            className="agrius-form-control"
             value={diseaseName}
             onChange={(e) => setDiseaseName(e.target.value)}
             required
           />
         </div>
-        <div className="form-group">
-          <label>Scientific Name</label>
+        <div className="agrius-form-group">
+          <label htmlFor="scientificName">Scientific Name</label>
           <input
             type="text"
-            className="form-control"
+            id="scientificName"
+            className="agrius-form-control"
             value={scientificName}
             onChange={(e) => setScientificName(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label>Description</label>
+        <div className="agrius-form-group">
+          <label htmlFor="description">Description</label>
           <textarea
-            className="form-control"
+            id="description"
+            className="agrius-form-control"
             rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label>Symptoms</label>
+        <div className="agrius-form-group">
+          <label htmlFor="symptoms">Symptoms</label>
           <textarea
-            className="form-control"
+            id="symptoms"
+            className="agrius-form-control"
             rows="3"
             value={symptoms}
             onChange={(e) => setSymptoms(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label>Treatment Recommendations</label>
+        <div className="agrius-form-group">
+          <label htmlFor="treatment">Treatment Recommendations</label>
           <textarea
-            className="form-control"
+            id="treatment"
+            className="agrius-form-control"
             rows="3"
             value={treatment}
             onChange={(e) => setTreatment(e.target.value)}
           ></textarea>
         </div>
-        <button type="submit" className="btn-submit">Add Disease</button>
+        <button type="submit" className="agrius-btn-primary agrius-btn-submit">Add Disease</button>
       </form>
     </div>
   );

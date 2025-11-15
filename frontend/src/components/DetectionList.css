@@ -1,121 +1,180 @@
 @import '../variables.css';
 
-.detection-list-container {
-  padding: 2rem;
+.agrius-detection-list-container {
+  padding: var(--spacing-xxl);
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
 }
 
-.list-header {
+.agrius-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xxl);
 }
 
-.list-header h1 {
+.agrius-list-header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
 }
 
-.btn-add-new {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s, transform 0.3s;
+.agrius-btn-add-new {
+  /* Inherits from agrius-btn-primary in App.css */
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: var(--font-weight-semibold);
 }
 
-.btn-add-new:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
-}
-
-.detection-cards-grid {
+.agrius-detection-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: var(--spacing-xxl);
 }
 
-.detection-card {
-  background-color: #ffffff;
-  border-radius: 12px;
+.agrius-detection-card {
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
   display: flex;
   flex-direction: column;
+  text-decoration: none; /* Ensure link styling is removed */
+  color: inherit; /* Inherit text color */
 }
 
-.detection-card:hover {
+.agrius-detection-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-xl);
 }
 
-.detection-card .card-img-top {
+.agrius-card-img-top {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-bottom: 1px solid var(--agrius-cream-off-white);
 }
 
-.detection-card-body {
-  padding: 1.5rem;
+.agrius-detection-card-body {
+  padding: var(--spacing-lg);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.status-badge {
+.agrius-status-badge {
   align-self: flex-start;
-  padding: 6px 15px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: white;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary);
   text-transform: uppercase;
 }
 
-.status-healthy {
-  background-color: #2ecc71; /* Emerald */
+.agrius-status-healthy {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
 }
 
-.status-disease {
-  background-color: #e74c3c; /* Alizarin */
+.agrius-status-disease {
+  background-color: #e74c3c; /* Red for disease */
 }
 
-.detection-card-body .card-title {
-  font-size: 1.25rem;
-  margin: 0 0 0.5rem 0;
-  color: var(--text-color);
+.agrius-detection-card-body .agrius-card-title {
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-xs) 0;
+  color: var(--color-text-dark);
 }
 
-.detection-card-body .card-text {
-  color: #7f8c8d;
-  margin-bottom: 0.25rem;
+.agrius-detection-card-body .agrius-card-text {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.6;
 }
 
-.detection-card-body .card-text strong {
-  color: var(--text-color);
+.agrius-detection-card-body .agrius-card-text strong {
+  color: var(--color-text-dark);
 }
 
-.detection-card-body .text-muted {
+.agrius-detection-card-body .agrius-text-muted {
   font-size: 0.85rem;
-  color: #bdc3c7 !important; /* Silver */
+  color: var(--agrius-neutral-gray-2) !important;
 }
 
-.detection-card-body .btn-view-details {
-  margin-top: auto;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  text-decoration: none;
+.agrius-loading-text, .agrius-error-message {
   text-align: center;
-  transition: background-color 0.3s;
-  align-self: flex-end;
+  padding: var(--spacing-xl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--spacing-xxl);
+  color: var(--color-text-dark);
 }
 
-.detection-card-body .btn-view-details:hover {
-  background-color: var(--secondary-color);
+.agrius-error-message {
+  color: #e74c3c;
+}
+
+.agrius-no-detections {
+  text-align: center;
+  padding: var(--spacing-xxl);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--spacing-xxl);
+  color: var(--color-text-dark);
+}
+
+.agrius-no-detections p {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  .agrius-list-header h1 {
+    font-size: 2rem;
+  }
+  .agrius-btn-add-new {
+    width: 100%;
+    text-align: center;
+  }
+  .agrius-detection-cards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  .agrius-detection-list-container {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .agrius-list-header h1 {
+    font-size: 1.8rem;
+  }
+  .agrius-detection-card-body {
+    padding: var(--spacing-md);
+  }
+  .agrius-card-img-top {
+    height: 180px;
+  }
+  .agrius-card-title {
+    font-size: 1.2rem;
+  }
+  .agrius-card-text {
+    font-size: 0.9rem;
+  }
+  .agrius-status-badge {
+    font-size: 0.75rem;
+  }
 }

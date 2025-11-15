@@ -1,123 +1,182 @@
 @import '../variables.css';
-@import './ProfilePage.css'; /* Import shared styles from ProfilePage */
 
-/* Remove redundant container/card/header styles as they are now inherited from ProfilePage.css */
-
-.edit-profile-form {
-  margin-top: 1.5rem;
+.agrius-edit-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-xxl);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
 }
 
-.profile-edit-grid {
+.agrius-edit-profile-card {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 700px;
+}
+
+.agrius-edit-profile-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.agrius-edit-profile-avatar {
+  font-size: 5rem;
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-md);
+}
+
+.agrius-edit-profile-header h1 {
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-xs);
+  font-size: 2.2rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.agrius-edit-profile-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.agrius-edit-profile-form {
+  margin-top: var(--spacing-lg);
+}
+
+.agrius-profile-edit-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns */
-  gap: 1rem; /* Space between grid items */
-  margin-bottom: 1rem; /* Space below the grid */
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 }
 
-.profile-edit-item {
+.agrius-form-group {
   display: flex;
-  flex-direction: column; /* Stack label and input */
-  padding: 0.75rem 0; /* Adjusted padding */
-  /* border-bottom: 1px solid #eee; /* Removed, as grid items will handle separation */
+  flex-direction: column;
 }
 
-/* Remove last-of-type border-bottom as it's no longer needed with grid */
-.profile-edit-item:last-of-type {
-  border-bottom: none;
-}
-
-.profile-edit-item strong {
-  color: var(--text-color, #333);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.profile-edit-item input {
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color); /* Use variable for border */
-  border-radius: 6px;
+.agrius-form-group label {
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-dark);
   font-size: 1rem;
-  width: 100%; /* Ensure input takes full width */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  background-color: var(--input-background); /* Use variable for background */
 }
 
-.profile-edit-item input:focus {
-  border-color: var(--primary-color, #4CAF50);
-  box-shadow: 0 0 0 3px var(--primary-color-light, #e8f5e9);
+.agrius-form-control {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--agrius-cream-off-white);
+  color: var(--color-text-dark);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-form-control:focus {
   outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255, 251, 239, 0.5);
 }
 
-.edit-profile-actions {
+.agrius-edit-profile-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  justify-content: flex-end; /* Align buttons to the right */
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  justify-content: flex-end;
 }
 
-/* Reusing .btn-edit-profile from ProfilePage.css for the save button */
-.btn-edit-profile {
-  /* No changes needed here if it's already defined in ProfilePage.css and looks good */
-  /* If specific overrides are needed, they would go here */
-  flex-grow: 1; /* Allow button to grow */
-  text-align: center;
+.agrius-btn-submit {
+  /* Inherits from agrius-btn-primary in App.css */
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  flex-grow: 1;
+  max-width: 200px;
 }
 
-.btn-cancel {
-  background-color: #f1f1f1;
-  color: #555;
-  border: 1px solid #ddd;
-  padding: 0.75rem 1rem; /* Adjusted padding to match btn-edit-profile */
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: center;
+.agrius-btn-cancel {
+  /* Inherits from agrius-btn-secondary in App.css */
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  flex-grow: 1;
+  max-width: 200px;
   text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  flex-grow: 1; /* Allow button to grow */
-  display: flex; /* For centering content if needed */
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.btn-cancel:hover {
-  background-color: #e9e9e9;
-}
-
-.form-message {
-  margin-top: 1rem;
-  margin-bottom: 1rem; /* Increased margin for better spacing */
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
+.agrius-form-message {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
   text-align: center;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
+  font-size: 0.95rem;
 }
 
-.form-message.success {
-  background-color: #e8f5e9;
-  color: #388e3c;
-  border: 1px solid #a5d6a7;
+.agrius-form-message.success {
+  background-color: var(--agrius-light-green);
+  color: var(--agrius-dark-green);
+  border: 1px solid var(--agrius-medium-green);
 }
 
-.form-message.error {
-  background-color: #fdecea;
-  color: #d32f2f;
-  border: 1px solid #ef9a9a;
-}
-
-.form-message.info {
-  background-color: #e3f2fd;
-  color: #1976d2;
-  border: 1px solid #90caf9;
+.agrius-form-message.error {
+  background-color: var(--agrius-light-red);
+  color: var(--agrius-dark-red);
+  border: 1px solid var(--agrius-medium-red);
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) { /* Adjusted breakpoint for grid collapse */
-  .profile-edit-grid {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
+@media (max-width: 768px) {
+  .agrius-profile-edit-grid {
+    grid-template-columns: 1fr;
   }
-  .edit-profile-actions {
-    flex-direction: column; /* Stack buttons vertically on small screens */
+  .agrius-edit-profile-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .agrius-btn-submit, .agrius-btn-cancel {
+    max-width: 100%;
+  }
+  .agrius-edit-profile-card {
+    padding: var(--spacing-xl);
+  }
+  .agrius-edit-profile-header h1 {
+    font-size: 1.8rem;
   }
 }
 
+@media (max-width: 576px) {
+  .agrius-edit-profile-container {
+    padding: var(--spacing-lg);
+  }
+  .agrius-edit-profile-card {
+    padding: var(--spacing-lg);
+  }
+  .agrius-edit-profile-header h1 {
+    font-size: 1.5rem;
+  }
+  .agrius-edit-profile-avatar {
+    font-size: 4rem;
+  }
+  .agrius-form-group label {
+    font-size: 0.9rem;
+  }
+  .agrius-form-control {
+    padding: var(--spacing-xs);
+    font-size: 0.9rem;
+  }
+  .agrius-btn-submit, .agrius-btn-cancel {
+    padding: var(--spacing-sm);
+    font-size: 1rem;
+  }
+}
