@@ -10,11 +10,11 @@ const DetailedAnalysisPage = () => {
 
   if (!prediction) {
     return (
-      <div className="agrius-detailed-analysis-page">
-        <div className="agrius-error-container">
+      <div className="detailed-analysis-page">
+        <div className="error-container">
           <h2>Error: No Analysis Data</h2>
           <p>No analysis data was found. Please go back and perform a new detection.</p>
-          <button onClick={() => navigate('/detect')} className="agrius-btn-primary">
+          <button onClick={() => navigate('/detect')} className="btn-back">
             Back to Detection
           </button>
         </div>
@@ -22,53 +22,53 @@ const DetailedAnalysisPage = () => {
     );
   }
 
-  const { disease, generative_info, image_url } = prediction; // Changed to generative_info
+  const { disease, generativeInfo, image_url } = prediction;
   const serverBaseUrl = 'http://localhost:5000';
 
   return (
-    <div className="agrius-detailed-analysis-page">
-      <div className="agrius-analysis-header">
+    <div className="detailed-analysis-page">
+      <div className="analysis-header">
         <h1>In-depth AI Analysis</h1>
-        <button onClick={() => navigate('/detect')} className="agrius-btn-secondary agrius-btn-back">
+        <button onClick={() => navigate('/detect')} className="btn-back">
           <i className="fas fa-arrow-left"></i> New Detection
         </button>
       </div>
 
-      <div className="agrius-content-grid">
-        <div className="agrius-main-content">
-          <div className="agrius-result-card-detailed">
-            <div className="agrius-result-header-detailed">
+      <div className="content-grid">
+        <div className="main-content">
+          <div className="result-card-detailed">
+            <div className="result-header-detailed">
               <h2>{disease.replace(/_/g, ' ')}</h2>
             </div>
 
             {/* Gemini Error Display */}
-            {generative_info && generative_info.error && (
-              <div className="agrius-gemini-error">
+            {generativeInfo && generativeInfo.error && (
+              <div className="gemini-error">
                 <h4><i className="fas fa-exclamation-triangle"></i> Failed to Get AI Info</h4>
                 <p>An error occurred while trying to retrieve additional information from the AI service.</p>
-                <pre>Detail: {JSON.stringify(generative_info.message, null, 2)}</pre>
+                <pre>Detail: {JSON.stringify(generativeInfo.message, null, 2)}</pre>
               </div>
             )}
 
             {/* Gemini Content */}
-            {generative_info && !generative_info.error && disease !== 'Healthy Rice Leaf' && (
-              <div className="agrius-gemini-info-detailed">
-                <div className="agrius-gemini-section-detailed">
+            {generativeInfo && !generativeInfo.error && disease !== 'Healthy Rice Leaf' && (
+              <div className="gemini-info-detailed">
+                <div className="gemini-section-detailed">
                   <h4><i className="fas fa-info-circle"></i> Detailed Information</h4>
-                  <p>{generative_info.informasi_detail}</p>
+                  <p>{generativeInfo.informasi_detail}</p>
                 </div>
 
-                <div className="agrius-gemini-section-detailed">
+                <div className="gemini-section-detailed">
                   <h4><i className="fas fa-seedling"></i> Solution & Healing</h4>
-                  <p>{generative_info.solusi_penyembuhan}</p>
+                  <p>{generativeInfo.solusi_penyembuhan}</p>
                 </div>
 
-                {generative_info.rekomendasi_produk && generative_info.rekomendasi_produk.length > 0 && (
-                  <div className="agrius-gemini-section-detailed">
+                {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (
+                  <div className="gemini-section-detailed">
                     <h4><i className="fas fa-prescription-bottle-alt"></i> Product Recommendations</h4>
-                    <ul className="agrius-product-list-detailed">
-                      {generative_info.rekomendasi_produk.map((product, index) => (
-                        <li key={index} className="agrius-product-item-detailed">
+                    <ul className="product-list-detailed">
+                      {generativeInfo.rekomendasi_produk.map((product, index) => (
+                        <li key={index} className="product-item-detailed">
                           <strong>{product.nama_produk}</strong>: {product.deskripsi_singkat}
                         </li>
                       ))}
@@ -80,16 +80,16 @@ const DetailedAnalysisPage = () => {
 
             {/* Healthy Leaf Message */}
             {disease === 'Healthy Rice Leaf' && (
-              <div className="agrius-gemini-info-detailed agrius-healthy-leaf-detailed">
+              <div className="gemini-info-detailed healthy-leaf-detailed">
                 <p>The rice leaf appears to be healthy! Based on our AI analysis, no treatment is necessary. Continue to maintain good farming practices such as balanced fertilization and proper irrigation to keep your plants healthy.</p>
               </div>
             )}
           </div>
         </div>
-        <div className="agrius-sidebar-content">
-          <div className="agrius-image-card">
+        <div className="sidebar-content">
+          <div className="image-card">
             <h3>Detected Image</h3>
-            <img src={`${serverBaseUrl}${image_url}`} alt="Detected" className="agrius-detected-image" />
+            <img src={`${serverBaseUrl}${image_url}`} alt="Detected" className="detected-image" />
           </div>
         </div>
       </div>

@@ -76,10 +76,13 @@ export async function getGenerativeInfo(diseaseName) {
     );
 
     console.log("✅ Successfully received response from Gemini API.");
+    console.log("Raw Gemini response data:", JSON.stringify(response.data, null, 2)); // Log raw response
+
     try {
-      // The response from Gemini is a JSON string, parse it into an object
       const jsonString = response.data.candidates[0].content.parts[0].text;
-      return JSON.parse(jsonString);
+      const parsedJson = JSON.parse(jsonString);
+      console.log("Parsed Gemini JSON:", JSON.stringify(parsedJson, null, 2)); // Log parsed JSON
+      return parsedJson;
     } catch (parseError) {
       console.error("❌ Failed to parse JSON response from Gemini:", parseError);
       return { 

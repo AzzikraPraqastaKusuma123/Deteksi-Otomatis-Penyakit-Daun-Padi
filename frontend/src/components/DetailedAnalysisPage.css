@@ -1,7 +1,7 @@
 /* frontend/src/components/DetailedAnalysisPage.css */
 @import '../variables.css';
 
-.agrius-detailed-analysis-page {
+.detailed-analysis-page {
   padding: var(--spacing-xxl);
   background-color: var(--color-secondary-bg); /* Cream Off-White */
   min-height: 100vh;
@@ -9,7 +9,7 @@
   color: var(--color-text-dark);
 }
 
-.agrius-analysis-header {
+.analysis-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,13 +19,13 @@
   margin-right: auto;
 }
 
-.agrius-analysis-header h1 {
+.analysis-header h1 {
   font-size: 2.5rem;
   color: var(--color-text-dark);
   font-weight: var(--font-weight-bold);
 }
 
-.agrius-btn-back {
+.btn-back {
   /* Inherits from agrius-btn-secondary in App.css */
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@
   font-weight: var(--font-weight-medium);
 }
 
-.agrius-content-grid {
+.content-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--spacing-xxl);
@@ -42,14 +42,14 @@
   margin: 0 auto;
 }
 
-.agrius-main-content {
+.main-content {
   background: var(--agrius-pure-white);
   padding: var(--spacing-xxl);
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-lg);
 }
 
-.agrius-sidebar-content .agrius-image-card {
+.sidebar-content .image-card {
   background: var(--agrius-pure-white);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-xl);
@@ -57,24 +57,24 @@
   text-align: center;
 }
 
-.agrius-image-card h3 {
+.image-card h3 {
   margin-top: 0;
   margin-bottom: var(--spacing-lg);
   color: var(--color-text-dark);
   font-weight: var(--font-weight-semibold);
 }
 
-.agrius-detected-image {
+.detected-image {
   max-width: 100%;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
 }
 
-.agrius-result-card-detailed {
+.result-card-detailed {
   width: 100%;
 }
 
-.agrius-result-header-detailed h2 {
+.result-header-detailed h2 {
   font-size: 2.2rem;
   color: var(--color-primary-bg); /* Forest Green Dark */
   font-weight: var(--font-weight-bold);
@@ -83,13 +83,13 @@
   padding-bottom: var(--spacing-sm);
 }
 
-.agrius-gemini-info-detailed {
+.gemini-info-detailed {
   margin-top: var(--spacing-xxl);
   padding-top: var(--spacing-xxl);
   border-top: 1px solid var(--agrius-neutral-gray-1);
 }
 
-.agrius-gemini-info-detailed h3 {
+.gemini-info-detailed h3 {
   font-size: 1.6rem;
   color: var(--color-text-dark);
   margin-bottom: var(--spacing-lg);
@@ -97,51 +97,49 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.agrius-gemini-section-detailed {
+.gemini-section-detailed {
   margin-bottom: var(--spacing-xl);
 }
 
-.agrius-gemini-section-detailed h4 {
+.gemini-section-detailed h4 {
   font-size: 1.3rem;
-  color: var(--color-text-dark);
+  color: var(--color-text-dark); /* Ensure h4 color is set */
   font-weight: var(--font-weight-semibold);
   margin-bottom: var(--spacing-sm);
   display: flex;
   align-items: center;
 }
 
-.agrius-gemini-section-detailed h4 i {
+.gemini-section-detailed h4 i {
   margin-right: var(--spacing-xs);
   color: var(--color-accent); /* Soft Lime for icons */
 }
 
-.agrius-gemini-section-detailed p {
+.gemini-section-detailed p {
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--color-text-secondary);
+  color: var(--color-text-secondary); /* Ensure p color is set */
   white-space: pre-wrap;
 }
 
-.agrius-product-list-detailed {
+.product-list-detailed {
   list-style: none;
   padding-left: 0;
 }
 
-.agrius-product-item-detailed {
+.product-item-detailed {
   background-color: var(--agrius-cream-off-white);
   padding: var(--spacing-sm);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-xs);
   border-left: 4px solid var(--color-primary-bg); /* Forest Green Dark accent */
   box-shadow: var(--shadow-sm);
 }
 
-.agrius-product-item-detailed strong {
+.product-item-detailed strong {
   color: var(--color-text-dark);
   font-weight: var(--font-weight-semibold);
 }
 
-.agrius-healthy-leaf-detailed {
+.healthy-leaf-detailed {
   text-align: center;
   padding: var(--spacing-xl);
   background-color: var(--agrius-cream-off-white);
@@ -150,13 +148,13 @@
   box-shadow: var(--shadow-md);
 }
 
-.agrius-healthy-leaf-detailed p {
+.healthy-leaf-detailed p {
   font-size: 1.2rem;
   color: var(--color-primary-bg);
   font-weight: var(--font-weight-medium);
 }
 
-.agrius-gemini-error {
+.gemini-error {
   background-color: #fff5f5; /* Light red */
   border: 1px solid #f5c6cb; /* Red border */
   color: #721c24; /* Dark red text */
@@ -165,7 +163,7 @@
   margin-top: var(--spacing-xl);
 }
 
-.agrius-gemini-error h4 {
+.gemini-error h4 {
   color: #721c24;
   margin-top: 0;
   margin-bottom: var(--spacing-xs);
@@ -173,12 +171,12 @@
   align-items: center;
 }
 
-.agrius-gemini-error h4 i {
+.gemini-error h4 i {
   margin-right: var(--spacing-xs);
   color: #721c24;
 }
 
-.agrius-gemini-error pre {
+.gemini-error pre {
   background-color: #f8d7da;
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
@@ -187,7 +185,7 @@
   font-size: 0.85rem;
 }
 
-.agrius-error-container {
+.error-container {
   text-align: center;
   padding: var(--spacing-xxxl);
   background-color: var(--agrius-pure-white);
@@ -197,57 +195,57 @@
   margin: var(--spacing-xxl) auto;
 }
 
-.agrius-error-container h2 {
+.error-container h2 {
   color: #e74c3c; /* Red for error */
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
 }
 
-.agrius-error-container p {
+.error-container p {
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-xl);
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
-  .agrius-content-grid {
+  .content-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
   }
-  .agrius-analysis-header {
+  .analysis-header {
     flex-direction: column;
     gap: var(--spacing-md);
     text-align: center;
   }
-  .agrius-analysis-header h1 {
+  .analysis-header h1 {
     font-size: 2rem;
   }
-  .agrius-btn-back {
+  .btn-back {
     width: 100%;
     justify-content: center;
   }
 }
 
 @media (max-width: 576px) {
-  .agrius-detailed-analysis-page {
+  .detailed-analysis-page {
     padding: var(--spacing-md);
   }
-  .agrius-analysis-header h1 {
+  .analysis-header h1 {
     font-size: 1.8rem;
   }
-  .agrius-main-content, .agrius-sidebar-content .agrius-image-card {
+  .main-content, .sidebar-content .image-card {
     padding: var(--spacing-lg);
   }
-  .agrius-result-header-detailed h2 {
+  .result-header-detailed h2 {
     font-size: 1.8rem;
   }
-  .agrius-gemini-section-detailed h4 {
+  .gemini-section-detailed h4 {
     font-size: 1.1rem;
   }
-  .agrius-gemini-section-detailed p, .agrius-product-item-detailed {
+  .gemini-section-detailed p, .product-item-detailed {
     font-size: 0.9rem;
   }
-  .agrius-healthy-leaf-detailed p {
+  .healthy-leaf-detailed p {
     font-size: 1rem;
   }
 }
