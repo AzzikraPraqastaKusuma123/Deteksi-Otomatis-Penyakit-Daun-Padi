@@ -333,6 +333,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
 .agrius-btn-view-result svg {
   color: var(--agrius-dark-green-new); /* Apply dark green to icon */
 }
