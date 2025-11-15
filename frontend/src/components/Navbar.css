@@ -76,7 +76,7 @@
 
 .agrius-btn-secondary {
   background-color: transparent;
-  color: var(--color-accent); /* Set to #EAEB9D as requested */
+  color: var(--color-accent) !important; /* Set to #EAEB9D as requested, with !important */
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-xs) var(--spacing-lg);
