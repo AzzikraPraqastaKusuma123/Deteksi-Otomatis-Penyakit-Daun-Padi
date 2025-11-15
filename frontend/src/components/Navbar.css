@@ -22,9 +22,9 @@
   gap: var(--spacing-xs);
 }
 
-.agrius-logo-icon {
-  font-size: 1.8rem;
-  color: var(--color-accent); /* Soft Lime accent */
+.agrius-logo-img {
+  height: 30px; /* Adjust as needed */
+  margin-right: var(--spacing-xs);
 }
 
 .agrius-nav-link {
