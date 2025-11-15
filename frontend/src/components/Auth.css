@@ -91,7 +91,7 @@
 
 .agrius-input-group {
   position: relative;
-  margin-bottom: var(--spacing-xl); /* Increased spacing between input groups */
+  margin-bottom: var(--spacing-xxl); /* Increased spacing between input groups */
 }
 
 .agrius-form-control {
