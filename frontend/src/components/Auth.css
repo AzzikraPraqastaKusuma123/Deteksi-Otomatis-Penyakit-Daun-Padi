@@ -97,6 +97,7 @@
 .agrius-form-control {
   height: 50px;
   padding-left: 70px; /* Increased padding for left icon */
+  padding-right: 50px; /* Added padding for eye icon */
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
   font-size: 1rem;
@@ -121,6 +122,17 @@
   border: none;
   color: var(--agrius-neutral-gray-1); /* Neutral Gray for icons */
   font-size: 1.2rem;
+  z-index: 10;
+}
+
+.agrius-password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px; /* Position to the right */
+  transform: translateY(-50%);
+  color: var(--agrius-neutral-gray-1); /* Same color as other icons */
+  font-size: 1.2rem;
+  cursor: pointer;
   z-index: 10;
 }
 
