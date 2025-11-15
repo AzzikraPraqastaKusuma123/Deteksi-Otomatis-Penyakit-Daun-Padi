@@ -96,7 +96,7 @@
 
 .agrius-form-control {
   height: 50px;
-  padding-left: 90px; /* Increased padding for left icon, shifting text further right */
+  padding-left: 100px; /* Further increased padding for left icon, shifting text further right */
   padding-right: 50px; /* Added padding for eye icon */
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
