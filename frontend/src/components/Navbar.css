@@ -37,12 +37,12 @@
 }
 
 .agrius-nav-link:hover {
-  color: var(--color-text-primary); /* White on hover */
+  color: var(--color-accent); /* #EAEB9D on hover */
   background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover */
 }
 
 .agrius-nav-link.active {
-  color: var(--color-text-primary); /* White for active link */
+  color: var(--color-accent); /* #EAEB9D for active link */
   font-weight: var(--font-weight-semibold);
   background-color: rgba(255, 255, 255, 0.15);
 }
@@ -86,8 +86,8 @@
 
 .agrius-btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-text-primary); /* White on hover */
-  color: var(--color-text-primary); /* White on hover */
+  border-color: var(--color-accent); /* #EAEB9D on hover */
+  color: var(--color-accent); /* #EAEB9D on hover */
 }
 
 .profile-link {
