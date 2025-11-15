@@ -7,7 +7,6 @@ import { loginUser } from '../services/api';
 const Login = ({ setLoggedIn, setUserRole }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -45,10 +44,6 @@ const Login = ({ setLoggedIn, setUserRole }) => {
         alert('Failed to connect to the server');
       }
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -91,16 +86,13 @@ const Login = ({ setLoggedIn, setUserRole }) => {
                 <i className="fas fa-lock"></i>
               </span>
               <input
-                type={showPassword ? 'text' : 'password'} // Dynamic type
+                type="password"
                 className="agrius-form-control"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <span className="agrius-password-toggle-icon" onClick={togglePasswordVisibility}>
-                <i className={showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
-              </span>
             </div>
 
             {/* Tombol login */}
