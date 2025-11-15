@@ -78,7 +78,7 @@
 
 .agrius-status-healthy {
   background-color: var(--agrius-dark-gray-green); /* Keep dark green background */
-  color: var(--agrius-bright-pastel-green); /* Changed to bright pastel green */
+  color: var(--agrius-dark-green-new); /* Changed to dark green */
 }
 
 .agrius-status-disease {

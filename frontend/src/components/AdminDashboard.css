@@ -52,7 +52,7 @@
   margin-right: var(--spacing-md);
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
-  color: var(--agrius-bright-pastel-green); /* Changed to bright pastel green */
+  color: var(--agrius-dark-green-new); /* Changed to dark green */
   background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.2); /* Subtle background for icon */
   display: flex;
   align-items: center;
@@ -118,7 +118,7 @@
 
 .agrius-quick-action-btn i {
   font-size: 1.2rem;
-  color: var(--agrius-bright-pastel-green); /* Changed to bright pastel green */
+  color: var(--agrius-dark-green-new); /* Changed to dark green */
 }
 
 /* Responsive adjustments for AdminDashboard */

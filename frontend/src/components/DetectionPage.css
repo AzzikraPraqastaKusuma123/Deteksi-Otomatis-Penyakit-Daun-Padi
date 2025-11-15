@@ -334,7 +334,7 @@
   align-items: center;
   justify-content: center;
 .agrius-btn-view-result svg {
-  color: var(--agrius-bright-pastel-green); /* Apply bright pastel green to icon */
+  color: var(--agrius-dark-green-new); /* Apply dark green to icon */
 }
 
 .agrius-no-results {
