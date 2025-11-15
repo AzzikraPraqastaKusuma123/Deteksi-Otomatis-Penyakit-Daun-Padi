@@ -42,7 +42,7 @@
 }
 
 .agrius-nav-link.active {
-  color: var(--color-accent); /* #EAEB9D for active link */
+  color: var(--color-accent) !important; /* #EAEB9D for active link, with !important */
   font-weight: var(--font-weight-semibold);
   background-color: rgba(255, 255, 255, 0.15);
 }
