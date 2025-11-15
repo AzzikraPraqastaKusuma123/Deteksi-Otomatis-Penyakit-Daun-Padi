@@ -9,12 +9,11 @@
   --agrius-neutral-gray-1: #616766;
   --agrius-neutral-gray-2: #70716D;
   --agrius-pure-white: #FFFFFF;
-  --agrius-pastel-yellow-new: #EAEB9D; /* New color variant */
 
   /* Semantic Color Mapping */
   --color-primary-bg: var(--agrius-forest-green-dark);
   --color-secondary-bg: var(--agrius-cream-off-white);
-  --color-accent: var(--agrius-soft-lime-pastel-yellow);
+  --color-accent: #EAEB9D; /* Updated to #EAEB9D */
   --color-text-primary: var(--agrius-pure-white);
   --color-text-secondary: var(--agrius-neutral-gray-1);
   --color-text-dark: var(--agrius-forest-green-dark);

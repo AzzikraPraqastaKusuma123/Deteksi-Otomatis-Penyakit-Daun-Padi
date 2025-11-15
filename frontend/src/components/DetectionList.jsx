@@ -57,7 +57,7 @@ function DetectionList() {
     <div className="agrius-detection-list-container">
       <div className="agrius-list-header">
         <h1>Detection History</h1>
-        <Link to="/detect" className="agrius-btn-pastel-yellow agrius-btn-add-new">Start New Detection</Link>
+        <Link to="/detect" className="agrius-btn-primary agrius-btn-add-new">Start New Detection</Link>
       </div>
 
       {/* 7. Tampilkan pesan jika tidak ada data */}

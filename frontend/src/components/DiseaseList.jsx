@@ -41,7 +41,7 @@ function DiseaseList() {
     <div className="agrius-disease-list-container">
       <div className="agrius-list-header">
         <h1>Disease Library</h1>
-        {isAdminContext && <Link to="/admin/diseases/add" className="agrius-btn-pastel-yellow agrius-btn-add-new">Add Disease</Link>}
+        {isAdminContext && <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-btn-add-new">Add Disease</Link>}
       </div>
 
       <div className="agrius-disease-cards-grid">
