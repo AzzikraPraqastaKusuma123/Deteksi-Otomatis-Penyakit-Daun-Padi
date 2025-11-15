@@ -55,7 +55,7 @@ function UserList() {
               className="agrius-form-control"
             />
           </div>
-          <Link to="/admin/users/add" className="agrius-btn-primary agrius-btn-add-user">
+          <Link to="/admin/users/add" className="agrius-btn-pastel-yellow agrius-btn-add-user">
             <i className="fas fa-plus"></i> Add User
           </Link>
         </div>
