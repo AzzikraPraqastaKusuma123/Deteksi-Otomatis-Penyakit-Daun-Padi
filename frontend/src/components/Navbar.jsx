@@ -16,7 +16,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
     <nav className="navbar navbar-expand-lg agrius-navbar">
       <div className="container-fluid">
         <NavLink className="navbar-brand agrius-navbar-brand" to="/">
-          <img src="/logo.png" alt="PadiGuard Logo" className="agrius-logo-img" /> PadiGuard
+          <img src="/logo.png" alt="PadiGuard Logo" className="agrius-logo-img" />
         </NavLink>
         <button className="navbar-toggler agrius-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
