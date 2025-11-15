@@ -91,12 +91,12 @@
 
 .agrius-input-group {
   position: relative;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xxl); /* Increased vertical spacing */
 }
 
 .agrius-form-control {
   height: 50px;
-  padding-left: 50px;
+  padding-left: 70px; /* Increased padding for left icon */
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
   font-size: 1rem;
@@ -115,7 +115,7 @@
 .agrius-input-group-text {
   position: absolute;
   top: 50%;
-  left: 15px;
+  left: 25px; /* Increased left position for icon */
   transform: translateY(-50%);
   background-color: transparent;
   border: none;
