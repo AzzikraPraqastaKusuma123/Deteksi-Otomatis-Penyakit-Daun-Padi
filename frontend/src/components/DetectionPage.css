@@ -73,7 +73,7 @@
   border: none;
   cursor: pointer;
   transition: all var(--transition-speed-normal) var(--transition-ease);
-  color: var(--color-text-dark);
+  color: var(--agrius-dark-gray-green); /* Changed to #4B5A59 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +157,7 @@
 }
 
 .agrius-dropzone-text svg {
-  color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-accent); /* Changed to #EAEB9D */
   margin-bottom: var(--spacing-sm);
 }
 
@@ -198,7 +198,7 @@
 
 .agrius-btn-capture, .agrius-btn-switch-camera {
   background-color: var(--color-accent); /* Soft Lime */
-  color: var(--color-text-dark); /* Forest Green Dark */
+  color: var(--agrius-very-dark-gray); /* Changed to #222222 */
   border: 3px solid var(--agrius-pure-white);
   border-radius: 50%;
   width: 60px;
@@ -336,6 +336,10 @@
   gap: var(--spacing-xs);
 }
 
+.agrius-btn-view-result svg {
+  color: var(--agrius-very-dark-gray); /* Apply #222222 to icon */
+}
+
 .agrius-no-results {
   text-align: center;
   color: var(--color-text-secondary);
@@ -424,12 +428,8 @@
   }
 }
 
-/* Gemini Info Section - Keep as is for now, as it's not directly in DetectionPage */
-/* These styles are likely for DetailedAnalysisPage.jsx */
-.gemini-info {
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-xl);
-  border-top: 1px solid var(--agrius-neutral-gray-1);
+.agrius-btn-view-result svg {
+  color: var(--agrius-very-dark-gray); /* Apply #222222 to icon */
 }
 
 .gemini-info h3 {

@@ -9,6 +9,8 @@
   --agrius-neutral-gray-1: #616766;
   --agrius-neutral-gray-2: #70716D;
   --agrius-pure-white: #FFFFFF;
+  --agrius-dark-gray-green: #4B5A59; /* New color */
+  --agrius-very-dark-gray: #222222; /* New color */
 
   /* Semantic Color Mapping */
   --color-primary-bg: var(--agrius-forest-green-dark);

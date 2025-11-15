@@ -77,11 +77,13 @@
 }
 
 .agrius-status-healthy {
-  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  background-color: var(--agrius-dark-gray-green); /* Changed to #4B5A59 */
+  color: var(--color-accent); /* Changed to #EAEB9D */
 }
 
 .agrius-status-disease {
-  background-color: #e74c3c; /* Red for disease */
+  background-color: #e74c3c; /* Keep red for disease */
+  color: var(--color-text-primary); /* Ensure white text for contrast */
 }
 
 .agrius-detection-card-body .agrius-card-title {
