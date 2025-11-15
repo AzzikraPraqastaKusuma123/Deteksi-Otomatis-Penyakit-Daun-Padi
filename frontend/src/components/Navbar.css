@@ -76,7 +76,7 @@
 
 .agrius-btn-secondary {
   background-color: transparent;
-  color: var(--color-text-dark); /* Changed to dark text for visibility before hover */
+  color: var(--color-text-primary); /* Pure White */
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-xs) var(--spacing-lg);
