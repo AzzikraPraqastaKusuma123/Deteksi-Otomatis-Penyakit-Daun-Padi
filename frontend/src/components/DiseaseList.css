@@ -79,7 +79,7 @@
   padding: var(--spacing-sm) var(--spacing-lg);
   font-weight: var(--font-weight-medium);
   align-self: flex-start; /* Align to start */
-  color: var(--agrius-dark-gray-green); /* Changed to #4B5A59 */
+  color: var(--agrius-bright-pastel-green); /* Changed to bright pastel green */
 }
 
 /* Loading and Error messages */

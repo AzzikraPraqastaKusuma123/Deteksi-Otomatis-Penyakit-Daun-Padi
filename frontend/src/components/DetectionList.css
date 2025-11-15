@@ -77,8 +77,8 @@
 }
 
 .agrius-status-healthy {
-  background-color: var(--agrius-dark-gray-green); /* Changed to #4B5A59 */
-  color: var(--color-accent); /* Changed to #EAEB9D */
+  background-color: var(--agrius-dark-gray-green); /* Keep dark green background */
+  color: var(--agrius-bright-pastel-green); /* Changed to bright pastel green */
 }
 
 .agrius-status-disease {
