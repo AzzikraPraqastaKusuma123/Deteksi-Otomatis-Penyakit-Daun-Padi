@@ -86,7 +86,7 @@
 .agrius-card-icon {
   font-size: 3.8rem;
   margin-bottom: var(--spacing-lg);
-  color: var(--color-accent); /* Changed to #EAEB9D for icons */
+  color: var(--agrius-very-dark-gray); /* Changed to #222222 */
 }
 
 .agrius-dashboard-card h3 {
