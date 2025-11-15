@@ -90,50 +90,49 @@
 }
 
 .agrius-input-group {
-  position: relative;
-  margin-bottom: var(--spacing-xxxl); /* Maximized vertical spacing */
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-lg); /* Reduced vertical spacing */
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  background-color: var(--agrius-cream-off-white);
+  padding: 0 var(--spacing-md); /* Add horizontal padding to the container */
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-input-group:focus-within {
+  border-color: var(--color-accent); /* Soft Lime */
+  box-shadow: 0 0 0 3px rgba(205, 255, 180, 0.5); /* Soft Lime focus ring */
 }
 
 .agrius-form-control {
   height: 50px;
-  padding-left: 100px; /* Further increased padding for left icon, shifting text further right */
-  padding-right: 50px; /* Added padding for eye icon */
-  border: 1px solid var(--agrius-neutral-gray-1);
-  border-radius: var(--border-radius-md);
+  border: 0 !important; /* Force remove border, which is now on the parent */
+  outline: none; /* Outline is handled by parent */
+  flex: 1; /* Allow input to grow */
   font-size: 1rem;
   color: var(--color-text-dark);
-  background-color: var(--agrius-cream-off-white); /* Cream Off-White for input background */
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  width: 100%; /* Ensure it takes full width */
+  background-color: transparent; /* Input is transparent, parent has bg color */
+  width: 100%;
+  padding: 0 var(--spacing-sm); /* Add space between icon and text */
 }
 
 .agrius-form-control:focus {
-  outline: none;
-  border-color: var(--color-accent); /* Soft Lime */
-  box-shadow: 0 0 0 3px rgba(255, 251, 239, 0.5); /* Soft Lime focus ring */
+  box-shadow: none; /* Focus is now on the parent */
 }
 
 .agrius-input-group-text {
-  position: absolute;
-  top: 50%;
-  left: 30px; /* Maximized left position for icon */
-  transform: translateY(-50%);
+  /* Remove all absolute positioning */
   background-color: transparent;
   border: none;
-  color: var(--agrius-neutral-gray-1); /* Neutral Gray for icons */
+  color: var(--agrius-neutral-gray-1);
   font-size: 1.2rem;
-  z-index: 10;
 }
 
 .agrius-password-toggle-icon {
-  position: absolute;
-  top: 50%;
-  right: 15px; /* Position to the right */
-  transform: translateY(-50%);
-  color: var(--agrius-neutral-gray-1); /* Same color as other icons */
+  color: var(--agrius-neutral-gray-1);
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 10;
 }
 
 .agrius-auth-btn {
