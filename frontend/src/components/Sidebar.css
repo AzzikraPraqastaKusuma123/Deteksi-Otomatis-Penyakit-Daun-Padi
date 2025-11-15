@@ -116,9 +116,9 @@
   align-items: center;
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-lg);
-  background-color: transparent;
-  border: 1px solid #e53e3e; /* A clear, but not overly bright red */
-  color: #e53e3e;
+  background-color: var(--color-accent); /* Set background to #EAEB9D */
+  color: var(--color-text-dark); /* Dark text for contrast */
+  border: 1px solid var(--color-accent); /* Border matches background */
   text-align: left;
   cursor: pointer;
   border-radius: var(--border-radius-md);
@@ -129,12 +129,13 @@
 .agrius-sidebar.agrius-sidebar-collapsed .agrius-logout-btn {
   justify-content: center;
   padding: var(--spacing-sm) 0;
-  border: none;
+  border: none; /* Remove border when collapsed */
 }
 
 .agrius-logout-btn:hover {
-  background-color: #e53e3e;
-  color: var(--color-text-primary);
+  background-color: var(--agrius-cream-off-white); /* Lighter background on hover */
+  color: var(--color-text-dark); /* Keep text dark */
+  border-color: var(--agrius-cream-off-white);
 }
 
 .agrius-logout-btn i {
