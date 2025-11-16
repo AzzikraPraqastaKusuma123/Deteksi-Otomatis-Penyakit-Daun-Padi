@@ -1,7 +1,5 @@
 ![PadiGuard Logo](frontend/public/logo.png)
 
-# Deteksi-Otomatis-Penyakit-Daun-Padi
-
 ## 🌾 Sistem Deteksi Otomatis Penyakit Daun Padi
 
 Proyek ini adalah aplikasi web full-stack yang dirancang untuk deteksi otomatis penyakit pada daun padi. Pengguna dapat mengunggah gambar daun padi, dan sistem akan menganalisisnya menggunakan model machine learning yang telah dilatih sebelumnya. Aplikasi ini menyediakan informasi rinci tentang penyakit yang terdeteksi, termasuk deskripsi, metode pencegahan, dan rekomendasi kaya yang dihasilkan secara dinamis oleh Google Gemini API.
