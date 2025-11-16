@@ -118,7 +118,7 @@
 
 .agrius-disease-card {
   width: 18rem;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   border: none;
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-lg);

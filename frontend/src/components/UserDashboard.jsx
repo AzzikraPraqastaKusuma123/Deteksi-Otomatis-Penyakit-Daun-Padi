@@ -81,7 +81,7 @@ const UserDashboard = () => {
           <Carousel indicators={false} interval={5000}>
             {diseaseChunks.map((chunk, index) => (
               <Carousel.Item key={index}>
-                <div className="d-flex justify-content-around">
+                <div className="d-flex justify-content-center">
                   {chunk.map((disease) => (
                     <Card key={disease.id} className="agrius-disease-card">
                       <Card.Img 
