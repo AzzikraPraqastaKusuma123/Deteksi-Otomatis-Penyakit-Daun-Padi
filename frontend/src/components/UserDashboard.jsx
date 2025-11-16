@@ -43,7 +43,8 @@ const UserDashboard = () => {
           </div>
         </div>
 
-        <div className="agrius-dashboard-cards">
+        {/* Desktop/Tablet Grid View */}
+        <div className="agrius-dashboard-cards d-none d-md-grid">
           <Link to="/detect" className="agrius-dashboard-card">
             <div className="agrius-card-icon">
               <i className="fas fa-upload"></i>
@@ -67,6 +68,41 @@ const UserDashboard = () => {
             <h3>Disease Library</h3>
             <p>Browse the library of known rice diseases and their treatments.</p>
           </Link>
+        </div>
+
+        {/* Mobile Carousel View */}
+        <div className="agrius-dashboard-cards-carousel d-md-none">
+          <Carousel indicators={false} interval={null}> {/* Disable auto-scroll and indicators for manual swipe */}
+            <Carousel.Item>
+              <Link to="/detect" className="agrius-dashboard-card">
+                <div className="agrius-card-icon">
+                  <i className="fas fa-upload"></i>
+                </div>
+                <h3>Upload Image</h3>
+                <p>Upload an image of a rice leaf to detect diseases.</p>
+              </Link>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <Link to="/detections" className="agrius-dashboard-card">
+                <div className="agrius-card-icon">
+                  <i className="fas fa-history"></i>
+                </div>
+                <h3>Detection History</h3>
+                <p>View your past disease detection results and recommendations.</p>
+              </Link>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <Link to="/diseases" className="agrius-dashboard-card">
+                <div className="agrius-card-icon">
+                  <i className="fas fa-leaf"></i>
+                </div>
+                <h3>Disease Library</h3>
+                <p>Browse the library of known rice diseases and their treatments.</p>
+              </Link>
+            </Carousel.Item>
+          </Carousel>
         </div>
       </div>
 

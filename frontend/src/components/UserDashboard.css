@@ -6,6 +6,7 @@
   margin: 0 auto; /* Center the dashboard content */
 }
 
+/* Hero Section Styles */
 .agrius-hero-section {
   background: linear-gradient(to bottom, rgba(4, 13, 12, 0.2), rgba(4, 13, 12, 0.8)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
   background-size: cover;
@@ -55,11 +56,25 @@
   color: var(--color-text-dark);
 }
 
+/* Dashboard Cards (Upload Image, Detection History) */
 .agrius-dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xxl); /* Organic spacing */
   padding: 0 var(--spacing-lg); /* Some horizontal padding */
+}
+
+/* Styles for the mobile carousel view of dashboard cards */
+.agrius-dashboard-cards-carousel .carousel-item {
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--spacing-md); /* Add some horizontal padding to carousel items */
+}
+
+.agrius-dashboard-cards-carousel .agrius-dashboard-card {
+  width: 100%; /* Take full width of carousel item */
+  max-width: 220px; /* Limit max width to maintain card size */
+  margin: 0 auto; /* Center the card within the carousel item */
 }
 
 .agrius-dashboard-card {
@@ -117,7 +132,7 @@
 }
 
 .agrius-disease-card {
-  width: 18rem;
+  width: 18rem; /* Original fixed width */
   margin: 0 0.5rem;
   border: none;
   border-radius: var(--border-radius-xl);
@@ -168,61 +183,12 @@
     width: 5%;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .agrius-hero-section {
-    padding: var(--spacing-xxxl) var(--spacing-lg);
-  }
-  .agrius-hero-text h1 {
-    font-size: 2.5rem;
-  }
-  .agrius-hero-text p {
-    font-size: 1.1rem;
-  }
-  .agrius-dashboard-cards {
-    grid-template-columns: 1fr; /* Stack cards on small screens */
-    padding: 0 var(--spacing-md);
-  }
-  .agrius-disease-card {
-    width: 90%;
-    margin-bottom: var(--spacing-lg);
-  }
-  .d-flex.justify-content-around {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .agrius-hero-section {
-    padding: var(--spacing-xxl) var(--spacing-md);
-  }
-  .agrius-hero-text h1 {
-    font-size: 2rem;
-  }
-  .agrius-hero-text p {
-    font-size: 1rem;
-  }
-  .agrius-dashboard-card {
-    padding: var(--spacing-xl);
-  }
-  .agrius-card-icon {
-    font-size: 3rem;
-  }
-  .agrius-dashboard-card h3 {
-    font-size: 1.4rem;
-  }
-  .agrius-section-title {
-    font-size: 2rem;
-  }
-}
-
 /* Specific style for View Details button in disease card */
 .agrius-disease-card .agrius-btn-primary {
   color: var(--agrius-very-dark-gray);
 }
 
-/* New Split-Screen Section Styles */
+/* First Split-Screen Section Styles */
 .agrius-split-screen-section {
   display: flex;
   justify-content: center;
@@ -283,86 +249,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Responsive adjustments for Split-Screen */
-@media (max-width: 992px) {
-  .agrius-split-screen-section {
-    flex-direction: column;
-    padding: var(--spacing-xl);
-  }
-  .agrius-split-screen-left {
-    padding-right: 0;
-    padding-bottom: var(--spacing-xl);
-    text-align: center;
-  }
-  .agrius-split-screen-right {
-    padding-left: 0;
-    padding-top: var(--spacing-xl);
-  }
-  .agrius-split-screen-left h2 {
-    font-size: 2rem;
-  }
-  .agrius-split-screen-left p {
-    font-size: 1rem;
-  }
-
-  /* Responsive for Split-Screen Section 2 */
-  .agrius-split-screen-section-2 {
-    flex-direction: column; /* Stack columns */
-    padding: var(--spacing-xl);
-  }
-  .agrius-split-screen-left-2 {
-    padding-right: 0;
-    padding-bottom: var(--spacing-xl);
-  }
-  .agrius-split-screen-right-2 {
-    padding-left: 0;
-    padding-top: var(--spacing-xl);
-    text-align: center;
-  }
-  .agrius-split-screen-left-2 h2, .agrius-split-screen-right-2 h2 {
-    font-size: 2rem;
-  }
-  .agrius-split-screen-left-2 p, .agrius-split-screen-right-2 p {
-    font-size: 1rem;
-  }
-  .agrius-split-screen-cta-2 {
-    font-size: 1rem;
-    padding: var(--spacing-sm) var(--spacing-lg);
-  }
-}
-
-@media (max-width: 576px) {
-  .agrius-split-screen-section {
-    padding: var(--spacing-lg);
-  }
-  .agrius-split-screen-left h2 {
-    font-size: 1.8rem;
-  }
-  .agrius-split-screen-left p {
-    font-size: 0.9rem;
-  }
-  .agrius-split-screen-cta {
-    font-size: 1rem;
-    padding: var(--spacing-sm) var(--spacing-lg);
-  }
-
-  /* Responsive for Split-Screen Section 2 */
-  .agrius-split-screen-section-2 {
-    padding: var(--spacing-lg);
-  }
-  .agrius-split-screen-left-2 h2, .agrius-split-screen-right-2 h2 {
-    font-size: 1.8rem;
-  }
-  .agrius-split-screen-left-2 p, .agrius-split-screen-right-2 p {
-    font-size: 0.9rem;
-  }
-  .agrius-split-screen-cta-2 {
-    font-size: 1rem;
-    padding: var(--spacing-sm) var(--spacing-lg);
-  }
-}
-
-/* New Split-Screen Section 2 Styles */
+/* Second Split-Screen Section Styles */
 .agrius-split-screen-section-2 {
   display: flex;
   justify-content: center;
@@ -444,7 +331,7 @@
   margin-top: var(--spacing-xl); /* Add margin to separate from cards */
 }
 
-/* New Feature Cards Grid Styles */
+/* Feature Cards Grid Styles */
 .agrius-feature-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Enforce 2x2 grid */
@@ -493,24 +380,298 @@
   line-height: 1.5;
 }
 
-/* Responsive adjustments for feature cards */
-@media (max-width: 576px) {
-  .agrius-feature-cards-grid {
-    grid-template-columns: 1fr; /* Stack cards on small screens */
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 1200px) {
+  .agrius-user-dashboard {
+    padding: var(--spacing-xxl) var(--spacing-lg);
   }
-  .agrius-feature-card {
-    padding: var(--spacing-md);
-  }
-  .agrius-feature-card-icon {
-    font-size: 2rem;
-  }
-  .agrius-feature-card h3 {
-    font-size: 1.1rem;
-  }
-  .agrius-feature-card p {
-    font-size: 0.85rem;
+  .agrius-split-screen-section {
+    padding: var(--spacing-xxl) var(--spacing-lg);
   }
 }
 
+@media (max-width: 1024px) {
+  .agrius-user-dashboard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+  .agrius-hero-section {
+    padding: var(--spacing-xxxl) var(--spacing-xl);
+  }
+  .agrius-hero-text h1 {
+    font-size: 3rem;
+  }
+  .agrius-hero-text p {
+    font-size: 1.2rem;
+  }
+  .agrius-section-title {
+    font-size: 2.2rem;
+  }
+  .agrius-dashboard-cards {
+    gap: var(--spacing-xl);
+  }
+  .agrius-split-screen-left h2,
+  .agrius-split-screen-right-2 h2 {
+    font-size: 2.2rem;
+  }
+  .agrius-split-screen-left p,
+  .agrius-split-screen-right-2 p {
+    font-size: 1rem;
+  }
+  .agrius-split-screen-cta {
+    font-size: 1rem;
+  }
+  .agrius-split-screen-cta-2 {
+    font-size: 1rem;
+  }
+  .agrius-feature-card h3 {
+    font-size: 1rem;
+  }
+  .agrius-feature-card p {
+    font-size: 0.8rem;
+  }
+}
 
+@media (max-width: 768px) {
+  .agrius-user-dashboard {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+  .agrius-hero-section {
+    padding: var(--spacing-xxl) var(--spacing-lg);
+    border-radius: var(--border-radius-xl);
+  }
+  .agrius-hero-text h1 {
+    font-size: 2.5rem;
+  }
+  .agrius-hero-text p {
+    font-size: 1.1rem;
+  }
+  .agrius-dashboard-cards {
+    grid-template-columns: 1fr; /* Stack cards */
+    gap: var(--spacing-lg);
+    padding: 0 var(--spacing-md);
+  }
+  .agrius-dashboard-card {
+    padding: var(--spacing-xl);
+  }
+  .agrius-card-icon {
+    font-size: 3rem;
+  }
+  .agrius-dashboard-card h3 {
+    font-size: 1.4rem;
+  }
+  .agrius-dashboard-card p {
+    font-size: 0.9rem;
+  }
+  .agrius-section-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xl);
+  }
+  .agrius-disease-library-section {
+    padding: 0 var(--spacing-md);
+  }
+  .agrius-disease-card {
+    width: 100%; /* Make card width flexible within its container */
+    max-width: 300px; /* Optional: limit max width for better appearance */
+    margin: 0 auto var(--spacing-lg) auto; /* Center individual cards */
+  }
+  .agrius-split-screen-section {
+    flex-direction: column;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-xl);
+  }
+  .agrius-split-screen-left {
+    padding-right: 0;
+    padding-bottom: var(--spacing-xl);
+    text-align: center;
+  }
+  .agrius-split-screen-right {
+    padding-left: 0;
+    padding-top: var(--spacing-xl);
+  }
+  .agrius-split-screen-left h2 {
+    font-size: 1.8rem;
+  }
+  .agrius-split-screen-left p {
+    font-size: 0.9rem;
+  }
+  .agrius-split-screen-cta {
+    font-size: 0.9rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  .agrius-split-screen-section-2 {
+    flex-direction: column;
+    padding: var(--spacing-xl);
+    min-height: auto;
+  }
+  .agrius-split-screen-left-2 {
+    padding-right: 0;
+    padding-bottom: var(--spacing-xl);
+  }
+  .agrius-split-screen-right-2 {
+    padding-left: 0;
+    padding-top: var(--spacing-xl);
+    text-align: center;
+  }
+  .agrius-split-screen-content-wrapper-2 {
+    padding: var(--spacing-xl); /* Adjust padding for content inside */
+  }
+  .agrius-split-screen-left-2 h2,
+  .agrius-split-screen-right-2 h2 {
+    font-size: 2rem;
+  }
+  .agrius-split-screen-left-2 p,
+  .agrius-split-screen-right-2 p {
+    font-size: 1rem;
+  }
+  .agrius-split-screen-cta-2 { /* This class currently empty in JSX, if it existed on a button it would be styled */
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  .agrius-feature-cards-grid {
+    grid-template-columns: 1fr; /* Stack cards */
+    gap: var(--spacing-md);
+  }
+  .agrius-feature-card {
+    max-width: 200px; /* Limit width of stacked feature cards */
+    margin: 0 auto; /* Center feature cards */
+    padding: var(--spacing-md);
+  }
+  .agrius-feature-card-icon {
+    font-size: 1.5rem;
+  }
+  .agrius-feature-card h3 {
+    font-size: 1rem;
+  }
+  .agrius-feature-card p {
+    font-size: 0.75rem;
+  }
+}
 
+@media (max-width: 576px) {
+  .agrius-user-dashboard {
+    padding: var(--spacing-md) var(--spacing-xs);
+  }
+  .agrius-hero-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+  }
+  .agrius-hero-text h1 {
+    font-size: 1.8rem;
+  }
+  .agrius-hero-text p {
+    font-size: 0.9rem;
+  }
+  .agrius-dashboard-card { /* Applies to cards in carousel too */
+    padding: var(--spacing-md); /* Adjusted padding for smaller screens */
+    border-radius: var(--border-radius-lg);
+  }
+  .agrius-card-icon { /* Applies to cards in carousel too */
+    font-size: 2.5rem; /* Adjusted icon size */
+  }
+  .agrius-dashboard-card h3 { /* Applies to cards in carousel too */
+    font-size: 1.2rem; /* Adjusted heading size */
+  }
+  .agrius-dashboard-card p { /* Applies to cards in carousel too */
+    font-size: 0.8rem; /* Adjusted paragraph size */
+  }
+  .agrius-section-title {
+    font-size: 1.6rem;
+    margin-bottom: var(--spacing-lg);
+  }
+  .agrius-disease-card {
+    max-width: 250px;
+  }
+  .agrius-split-screen-section {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+  }
+  .agrius-split-screen-left h2,
+  .agrius-split-screen-right-2 h2 {
+    font-size: 1.6rem;
+  }
+  .agrius-split-screen-left p,
+  .agrius-split-screen-right-2 p {
+    font-size: 0.8rem;
+  }
+  .agrius-split-screen-section-2 {
+    padding: var(--spacing-lg);
+  }
+  .agrius-split-screen-content-wrapper-2 {
+    padding: var(--spacing-lg);
+  }
+  .agrius-feature-card {
+    max-width: 150px;
+    padding: var(--spacing-sm);
+  }
+  .agrius-feature-card-icon {
+    font-size: 1.2rem;
+  }
+  .agrius-feature-card h3 {
+    font-size: 0.8rem;
+  }
+  .agrius-feature-card p {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 400px) { /* Extra small devices */
+  .agrius-user-dashboard {
+    padding: var(--spacing-sm);
+  }
+  .agrius-hero-section {
+    padding: var(--spacing-md);
+  }
+  .agrius-hero-text h1 {
+    font-size: 1.6rem;
+  }
+  .agrius-hero-text p {
+    font-size: 0.8rem;
+  }
+  .agrius-dashboard-card { /* Applies to cards in carousel too */
+    padding: var(--spacing-sm); /* Adjusted padding for extra small screens */
+  }
+  .agrius-card-icon { /* Applies to cards in carousel too */
+    font-size: 2rem; /* Adjusted icon size */
+  }
+  .agrius-dashboard-card h3 { /* Applies to cards in carousel too */
+    font-size: 1rem; /* Adjusted heading size */
+  }
+  .agrius-section-title {
+    font-size: 1.4rem;
+  }
+  .agrius-disease-card {
+    max-width: 200px;
+  }
+  .agrius-split-screen-section {
+    padding: var(--spacing-md);
+  }
+  .agrius-split-screen-left h2,
+  .agrius-split-screen-right-2 h2 {
+    font-size: 1.4rem;
+  }
+  .agrius-split-screen-left p,
+  .agrius-split-screen-right-2 p {
+    font-size: 0.7rem;
+  }
+  .agrius-split-screen-section-2 {
+    padding: var(--spacing-md);
+  }
+  .agrius-split-screen-content-wrapper-2 {
+    padding: var(--spacing-md);
+  }
+  .agrius-feature-card {
+    max-width: 120px;
+    padding: var(--spacing-xs);
+  }
+  .agrius-feature-card-icon {
+    font-size: 1rem;
+  }
+  .agrius-feature-card h3 {
+    font-size: 0.7rem;
+  }
+  .agrius-feature-card p {
+    font-size: 0.6rem;
+  }
+}
