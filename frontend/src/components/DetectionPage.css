@@ -73,7 +73,7 @@
   border: none;
   cursor: pointer;
   transition: all var(--transition-speed-normal) var(--transition-ease);
-  color: var(--color-text-dark);
+  color: var(--agrius-very-dark-gray);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +157,7 @@
 }
 
 .agrius-dropzone-text svg {
-  color: var(--color-text-dark);
+  color: var(--agrius-very-dark-gray);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -198,7 +198,7 @@
 
 .agrius-btn-capture, .agrius-btn-switch-camera {
   background-color: var(--color-accent); /* Soft Lime */
-  color: var(--color-text-dark);
+  color: var(--agrius-very-dark-gray);
   border: 3px solid var(--agrius-pure-white);
   border-radius: 50%;
   width: 60px;
