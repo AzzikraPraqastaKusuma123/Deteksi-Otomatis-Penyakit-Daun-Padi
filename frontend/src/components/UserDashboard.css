@@ -441,6 +441,76 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-top: var(--spacing-xl); /* Add margin to separate from cards */
 }
+
+/* New Feature Cards Grid Styles */
+.agrius-feature-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Enforce 2x2 grid */
+  gap: var(--spacing-md); /* Adjusted gap */
+  margin-top: var(--spacing-xxl);
+}
+
+.agrius-feature-card {
+  background-color: #EAEB9D; /* Changed background color */
+  padding: var(--spacing-sm); /* Reduced padding */
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  text-align: center; /* Center text */
+  text-decoration: none;
+  color: var(--color-text-dark);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Removed max-width and margin: 0 auto; as grid will handle sizing */
+}
+
+.agrius-feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-dark);
+}
+
+.agrius-feature-card-icon {
+  font-size: 1.8rem; /* Further reduced font size */
+  color: #1E3F2B; /* Changed icon color */
+  margin-bottom: var(--spacing-xs); /* Reduced margin */
+}
+
+.agrius-feature-card h3 {
+  font-size: 0.9rem; /* Further reduced font size */
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-dark);
+}
+
+.agrius-feature-card p {
+  font-size: 0.75rem; /* Further reduced font size */
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Responsive adjustments for feature cards */
+@media (max-width: 576px) {
+  .agrius-feature-cards-grid {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+  }
+  .agrius-feature-card {
+    padding: var(--spacing-md);
+  }
+  .agrius-feature-card-icon {
+    font-size: 2rem;
+  }
+  .agrius-feature-card h3 {
+    font-size: 1.1rem;
+  }
+  .agrius-feature-card p {
+    font-size: 0.85rem;
+  }
+}
+
 
 

@@ -79,9 +79,31 @@ const UserDashboard = () => {
         </div>
         <div className="agrius-split-screen-right-2">
           <div className="agrius-split-screen-content-wrapper-2">
-            <h2>Sustainable Farming Practices</h2>
-            <p>Explore best practices for sustainable rice farming, from water management to organic pest control. Our resources help you cultivate healthier crops while protecting the environment for future generations.</p>
-            <Link to="/practices" className="agrius-btn-primary agrius-split-screen-cta-2">Discover Practices</Link>
+            <h2>PadiGuard: Modern Rice Farming Solutions</h2>
+            <p>PadiGuard is here to help rice farmers manage their crops more intelligently and efficiently. With advanced AI technology, we provide accurate disease detection, in-depth information, and practical recommendations to increase your harvest.</p>
+
+            <div className="agrius-feature-cards-grid">
+              <div className="agrius-feature-card">
+                <i className="fas fa-leaf agrius-feature-card-icon"></i>
+                <h3>Disease Detection</h3>
+                <p>Upload an image of your rice leaf and get an instant, highly accurate disease diagnosis.</p>
+              </div>
+              <div className="agrius-feature-card">
+                <i className="fas fa-history agrius-feature-card-icon"></i>
+                <h3>Detection History</h3>
+                <p>Review all your detection history, monitor progress, and access previous recommendations.</p>
+              </div>
+              <div className="agrius-feature-card">
+                <i className="fas fa-book-open agrius-feature-card-icon"></i>
+                <h3>Disease Library</h3>
+                <p>Access a comprehensive database of rice diseases, symptoms, prevention, and treatment solutions.</p>
+              </div>
+              <div className="agrius-feature-card">
+                <i className="fas fa-user-cog agrius-feature-card-icon"></i>
+                <h3>Profile Management</h3>
+                <p>Manage your account information, update personal details, and change your password easily.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
