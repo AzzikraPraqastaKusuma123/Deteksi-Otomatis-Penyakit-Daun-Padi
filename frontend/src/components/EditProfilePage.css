@@ -68,7 +68,7 @@
 
 .agrius-form-control {
   padding: var(--spacing-sm);
-  border: 1px solid var(--agrius-neutral-gray-1);
+  border: 1px solid var(--agrius-very-dark-gray) !important;
   border-radius: var(--border-radius-md);
   font-size: 1rem;
   width: 100%;

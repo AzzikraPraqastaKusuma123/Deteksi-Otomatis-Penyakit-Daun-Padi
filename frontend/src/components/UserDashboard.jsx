@@ -94,7 +94,7 @@ const UserDashboard = () => {
                         <Card.Text className="agrius-disease-card-text">
                           {disease.description.substring(0, 100)}...
                         </Card.Text>
-                        <Button as={Link} to={`/diseases/${disease.id}`} variant="primary" className="agrius-btn-primary">View Details</Button>
+                        <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">View Details</Button>
                       </Card.Body>
                     </Card>
                   ))}

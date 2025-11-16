@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Button styles (if not fully handled by global button or Bootstrap overrides) */
 .agrius-btn-primary {
   background-color: var(--color-accent);
-  color: var(--color-text-dark);
+  color: var(--agrius-very-dark-gray);
   border-color: var(--color-accent);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .agrius-btn-secondary {
   background-color: transparent;
-  color: var(--color-text-dark);
+  color: var(--agrius-very-dark-gray);
   border: 1px solid var(--agrius-neutral-gray-1);
   border-radius: var(--border-radius-md);
   transition: all var(--transition-speed-normal) var(--transition-ease);

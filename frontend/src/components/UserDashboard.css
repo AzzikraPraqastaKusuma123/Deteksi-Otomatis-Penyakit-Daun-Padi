@@ -216,3 +216,9 @@
     font-size: 2rem;
   }
 }
+
+/* Specific style for View Details button in disease card */
+.agrius-disease-card .agrius-btn-primary {
+  color: var(--agrius-very-dark-gray);
+}
+
