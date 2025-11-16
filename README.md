@@ -1,3 +1,5 @@
+![PadiGuard Logo](frontend/public/logo.png)
+
 # Deteksi-Otomatis-Penyakit-Daun-Padi
 
 ## 🌾 Sistem Deteksi Otomatis Penyakit Daun Padi
