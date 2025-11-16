@@ -74,7 +74,7 @@ const UserDashboard = () => {
       <div className="agrius-split-screen-section-2">
         <div className="agrius-split-screen-left-2">
           <div className="agrius-split-screen-content-wrapper-2">
-            <img src="https://via.placeholder.com/600x400.png?text=Rice+Field" alt="Rice Field" className="agrius-split-screen-image-2" />
+            <img src="/image/petani1.png" alt="Petani Padi" className="agrius-split-screen-image-2" />
           </div>
         </div>
         <div className="agrius-split-screen-right-2">

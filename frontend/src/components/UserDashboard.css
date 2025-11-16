@@ -379,21 +379,27 @@
   margin-right: -50vw;
   border-radius: 0; /* Remove border-radius for full width */
   overflow: hidden; /* Hide horizontal scrollbar if content overflows */
+  min-height: 500px; /* Make it taller */
 }
 
 .agrius-split-screen-left-2 {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Removed padding-right here, padding will be on content-wrapper */
+  /* Removed justify-content: center; and align-items: center; to allow content to stretch */
+}
+
+.agrius-split-screen-left-2 .agrius-split-screen-content-wrapper-2 {
+  padding: 0; /* Remove padding for the image wrapper */
 }
 
 .agrius-split-screen-image-2 {
   max-width: 100%;
   height: auto;
-  border-radius: var(--border-radius-xl);
+  border-radius: 0; /* Make corners sharp */
   box-shadow: var(--shadow-lg);
+  width: 100%; /* Ensure it takes full width of its parent */
+  height: 100%; /* Ensure it takes full height of its parent */
+  object-fit: cover; /* Cover the area while maintaining aspect ratio */
 }
 
 .agrius-split-screen-right-2 {
