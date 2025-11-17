@@ -94,7 +94,6 @@
   align-items: center;
   margin-bottom: var(--spacing-lg);
   border: none; /* Remove the surrounding border */
-  border-bottom: 1px solid var(--agrius-neutral-gray-1); /* Add only a bottom border */
   border-radius: 0; /* Remove rounded corners */
   background-color: transparent; /* Make background transparent */
   padding: 0; /* Remove padding */
@@ -102,7 +101,6 @@
 }
 
 .agrius-input-group:focus-within {
-  border-bottom-color: var(--color-accent); /* Highlight bottom border on focus */
   box-shadow: none; /* Remove the focus ring */
 }
 
