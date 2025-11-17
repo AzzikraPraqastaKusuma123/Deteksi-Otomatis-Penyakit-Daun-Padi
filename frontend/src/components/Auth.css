@@ -92,17 +92,18 @@
 .agrius-input-group {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-lg); /* Reduced vertical spacing */
-  border: 1px solid var(--agrius-neutral-gray-1);
-  border-radius: var(--border-radius-md);
-  background-color: var(--agrius-cream-off-white);
-  padding: 0 var(--spacing-md); /* Add horizontal padding to the container */
+  margin-bottom: var(--spacing-lg);
+  border: none; /* Remove the surrounding border */
+  border-bottom: 1px solid var(--agrius-neutral-gray-1); /* Add only a bottom border */
+  border-radius: 0; /* Remove rounded corners */
+  background-color: transparent; /* Make background transparent */
+  padding: 0; /* Remove padding */
   transition: all var(--transition-speed-normal) var(--transition-ease);
 }
 
 .agrius-input-group:focus-within {
-  border-color: var(--color-accent); /* Soft Lime */
-  box-shadow: 0 0 0 3px rgba(205, 255, 180, 0.5); /* Soft Lime focus ring */
+  border-bottom-color: var(--color-accent); /* Highlight bottom border on focus */
+  box-shadow: none; /* Remove the focus ring */
 }
 
 .agrius-form-control {
