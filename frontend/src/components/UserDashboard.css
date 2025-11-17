@@ -60,8 +60,8 @@
 .agrius-dashboard-cards-flex {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-xxl);
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
   padding: 0 var(--spacing-lg);
 }
 
