@@ -44,7 +44,7 @@ function DiseaseList() {
         {isAdminContext && <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-btn-add-new">Add Disease</Link>}
       </div>
 
-      <div className="agrius-disease-cards-grid">
+      <div className="agrius-disease-cards-flex">
         {diseases.map(disease => {
           // Buat path detail sesuai konteks
           const detailPath = isAdminContext

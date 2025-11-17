@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllDiseases } from '../services/api';
-import { Carousel, Card, Button, Spinner } from 'react-bootstrap';
+import { Card, Button, Spinner } from 'react-bootstrap';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
@@ -24,13 +24,7 @@ const UserDashboard = () => {
     fetchDiseases();
   }, []);
 
-  // Helper function to chunk the diseases array for carousel slides
-  const chunk = (arr, size) =>
-    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-      arr.slice(i * size, i * size + size)
-    );
 
-  const diseaseChunks = chunk(diseases, 3); // Show 3 cards per slide
 
   return (
     <>
@@ -43,8 +37,8 @@ const UserDashboard = () => {
           </div>
         </div>
 
-        {/* Desktop/Tablet Grid View */}
-        <div className="agrius-dashboard-cards d-none d-md-grid">
+        {/* Responsive Dashboard Cards */}
+        <div className="agrius-dashboard-cards-flex">
           <Link to="/detect" className="agrius-dashboard-card">
             <div className="agrius-card-icon">
               <i className="fas fa-upload"></i>
@@ -68,41 +62,6 @@ const UserDashboard = () => {
             <h3>Disease Library</h3>
             <p>Browse the library of known rice diseases and their treatments.</p>
           </Link>
-        </div>
-
-        {/* Mobile Carousel View */}
-        <div className="agrius-dashboard-cards-carousel d-md-none">
-          <Carousel indicators={false} interval={null}> {/* Disable auto-scroll and indicators for manual swipe */}
-            <Carousel.Item>
-              <Link to="/detect" className="agrius-dashboard-card">
-                <div className="agrius-card-icon">
-                  <i className="fas fa-upload"></i>
-                </div>
-                <h3>Upload Image</h3>
-                <p>Upload an image of a rice leaf to detect diseases.</p>
-              </Link>
-            </Carousel.Item>
-
-            <Carousel.Item>
-              <Link to="/detections" className="agrius-dashboard-card">
-                <div className="agrius-card-icon">
-                  <i className="fas fa-history"></i>
-                </div>
-                <h3>Detection History</h3>
-                <p>View your past disease detection results and recommendations.</p>
-              </Link>
-            </Carousel.Item>
-
-            <Carousel.Item>
-              <Link to="/diseases" className="agrius-dashboard-card">
-                <div className="agrius-card-icon">
-                  <i className="fas fa-leaf"></i>
-                </div>
-                <h3>Disease Library</h3>
-                <p>Browse the library of known rice diseases and their treatments.</p>
-              </Link>
-            </Carousel.Item>
-          </Carousel>
         </div>
       </div>
 
@@ -155,30 +114,24 @@ const UserDashboard = () => {
               </Spinner>
             </div>
           ) : (
-            <Carousel indicators={false} interval={5000}>
-              {diseaseChunks.map((chunk, index) => (
-                <Carousel.Item key={index}>
-                  <div className="d-flex justify-content-center">
-                    {chunk.map((disease) => (
-                      <Card key={disease.id} className="agrius-disease-card">
-                        <Card.Img 
-                          variant="top" 
-                          src={disease.image_url || 'https://via.placeholder.com/300x200.png?text=No+Image'} 
-                          className="agrius-disease-card-img"
-                        />
-                        <Card.Body>
-                          <Card.Title>{disease.disease_name}</Card.Title>
-                          <Card.Text className="agrius-disease-card-text">
-                            {disease.description.substring(0, 100)}...
-                          </Card.Text>
-                          <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">View Details</Button>
-                        </Card.Body>
-                      </Card>
-                    ))}
-                  </div>
-                </Carousel.Item>
+            <div className="agrius-disease-cards-container">
+              {diseases.map((disease) => (
+                <Card key={disease.id} className="agrius-disease-card">
+                  <Card.Img 
+                    variant="top" 
+                    src={disease.image_url || 'https://via.placeholder.com/300x200.png?text=No+Image'} 
+                    className="agrius-disease-card-img"
+                  />
+                  <Card.Body>
+                    <Card.Title>{disease.disease_name}</Card.Title>
+                    <Card.Text className="agrius-disease-card-text">
+                      {disease.description.substring(0, 100)}...
+                    </Card.Text>
+                    <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">View Details</Button>
+                  </Card.Body>
+                </Card>
               ))}
-            </Carousel>
+            </div>
           )}
         </div>
 

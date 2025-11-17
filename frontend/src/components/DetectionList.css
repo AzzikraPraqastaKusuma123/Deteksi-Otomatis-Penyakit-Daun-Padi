@@ -28,10 +28,11 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.agrius-detection-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.agrius-detection-cards-flex {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-xxl);
+  justify-content: center;
 }
 
 .agrius-detection-card {
@@ -137,46 +138,40 @@
   color: var(--color-text-secondary);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .agrius-list-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-md);
-  }
-  .agrius-list-header h1 {
-    font-size: 2rem;
-  }
-  .agrius-btn-add-new {
-    width: 100%;
-    text-align: center;
-  }
-  .agrius-detection-cards-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-  }
-  .agrius-detection-list-container {
-    padding: var(--spacing-lg);
+  .agrius-detection-cards-flex {
+    flex-direction: row;
+    align-items: stretch;
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
 }
 
-@media (max-width: 480px) {
-  .agrius-list-header h1 {
-    font-size: 1.8rem;
+@media (max-width: 576px) {
+  .agrius-detection-card {
+    flex: 0 0 180px; /* Smaller fixed width for extra small screens */
   }
-  .agrius-detection-card-body {
-    padding: var(--spacing-md);
-  }
+
   .agrius-card-img-top {
-    height: 180px;
+    height: 120px; /* Smaller image height */
   }
-  .agrius-card-title {
-    font-size: 1.2rem;
+
+  .agrius-detection-card-body {
+    padding: var(--spacing-sm); /* Adjusted padding */
   }
-  .agrius-card-text {
-    font-size: 0.9rem;
+
+  .agrius-detection-card-body .agrius-card-title {
+    font-size: 1rem; /* Smaller title font size */
   }
+
+  .agrius-detection-card-body .agrius-card-text {
+    font-size: 0.75rem; /* Smaller text font size */
+  }
+
   .agrius-status-badge {
-    font-size: 0.75rem;
+    font-size: 0.65rem; /* Smaller badge font size */
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
 }
+
+

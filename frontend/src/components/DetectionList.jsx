@@ -67,7 +67,7 @@ function DetectionList() {
           <p>Start your first analysis!</p>
         </div>
       ) : (
-        <div className="agrius-detection-cards-grid">
+        <div className="agrius-detection-cards-flex">
           {/* 8. Render data dinamis dari state 'detections' */}
           {detections.map(detection => {
             // Cek apakah sehat berdasarkan nama penyakit
