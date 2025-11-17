@@ -378,3 +378,27 @@
   }
 }
 
+@media (max-width: 768px) {
+  .agrius-split-screen-section-2 {
+    flex-direction: column;
+    width: auto;
+    position: static;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: auto;
+  }
+
+  .agrius-split-screen-image-2 {
+    height: 300px; /* Set a fixed height for mobile */
+    object-fit: cover;
+  }
+
+  .agrius-split-screen-right-2 {
+    text-align: center;
+  }
+
+  .agrius-split-screen-content-wrapper-2 {
+    padding: var(--spacing-xl);
+  }
+}
+
