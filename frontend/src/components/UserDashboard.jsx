@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getAllDiseases } from '../services/api';
 import { Card, Button, Spinner } from 'react-bootstrap';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
+  const { t } = useTranslation();
   const user = JSON.parse(localStorage.getItem('user'));
   const [diseases, setDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,9 +33,9 @@ const UserDashboard = () => {
       <div className="agrius-user-dashboard">
         <div className="agrius-hero-section">
           <div className="agrius-hero-text">
-            <h1>Welcome, {user?.username}!</h1>
-            <p>Your partner in protecting rice crops. Ready to detect diseases and get recommendations?</p>
-            <Link to="/detect" className="agrius-btn-primary agrius-hero-cta-btn">Start Detection</Link>
+            <h1>{t('userDashboard.welcome', { username: user?.username })}</h1>
+            <p>{t('userDashboard.promo')}</p>
+            <Link to="/detect" className="agrius-btn-primary agrius-hero-cta-btn">{t('userDashboard.startDetection')}</Link>
           </div>
         </div>
 
@@ -43,24 +45,24 @@ const UserDashboard = () => {
             <div className="agrius-card-icon">
               <i className="fas fa-upload"></i>
             </div>
-            <h3>Upload Image</h3>
-            <p>Upload an image of a rice leaf to detect diseases.</p>
+            <h3>{t('userDashboard.uploadImage')}</h3>
+            <p>{t('userDashboard.uploadImageDesc')}</p>
           </Link>
 
           <Link to="/detections" className="agrius-dashboard-card">
             <div className="agrius-card-icon">
               <i className="fas fa-history"></i>
             </div>
-            <h3>Detection History</h3>
-            <p>View your past disease detection results and recommendations.</p>
+            <h3>{t('userDashboard.detectionHistory')}</h3>
+            <p>{t('userDashboard.detectionHistoryDesc')}</p>
           </Link>
 
           <Link to="/diseases" className="agrius-dashboard-card">
             <div className="agrius-card-icon">
               <i className="fas fa-leaf"></i>
             </div>
-            <h3>Disease Library</h3>
-            <p>Browse the library of known rice diseases and their treatments.</p>
+            <h3>{t('userDashboard.diseaseLibrary')}</h3>
+            <p>{t('userDashboard.diseaseLibraryDesc')}</p>
           </Link>
         </div>
       </div>
@@ -74,29 +76,29 @@ const UserDashboard = () => {
         </div>
         <div className="agrius-split-screen-right-2">
           <div className="agrius-split-screen-content-wrapper-2">
-            <h2>PadiGuard: Modern Rice Farming Solutions</h2>
-            <p>PadiGuard is here to help rice farmers manage their crops more intelligently and efficiently. With advanced AI technology, we provide accurate disease detection, in-depth information, and practical recommendations to increase your harvest.</p>
+            <h2>{t('userDashboard.modernSolutionsTitle')}</h2>
+            <p>{t('userDashboard.modernSolutionsDesc')}</p>
 
             <div className="agrius-feature-cards-grid">
               <div className="agrius-feature-card">
                 <i className="fas fa-leaf agrius-feature-card-icon"></i>
-                <h3>Disease Detection</h3>
-                <p>Upload an image of your rice leaf and get an instant, highly accurate disease diagnosis.</p>
+                <h3>{t('userDashboard.featureDetection')}</h3>
+                <p>{t('userDashboard.featureDetectionDesc')}</p>
               </div>
               <div className="agrius-feature-card">
                 <i className="fas fa-history agrius-feature-card-icon"></i>
-                <h3>Detection History</h3>
-                <p>Review all your detection history, monitor progress, and access previous recommendations.</p>
+                <h3>{t('userDashboard.featureHistory')}</h3>
+                <p>{t('userDashboard.featureHistoryDesc')}</p>
               </div>
               <div className="agrius-feature-card">
                 <i className="fas fa-book-open agrius-feature-card-icon"></i>
-                <h3>Disease Library</h3>
-                <p>Access a comprehensive database of rice diseases, symptoms, prevention, and treatment solutions.</p>
+                <h3>{t('userDashboard.featureLibrary')}</h3>
+                <p>{t('userDashboard.featureLibraryDesc')}</p>
               </div>
               <div className="agrius-feature-card">
                 <i className="fas fa-user-cog agrius-feature-card-icon"></i>
-                <h3>Profile Management</h3>
-                <p>Manage your account information, update personal details, and change your password easily.</p>
+                <h3>{t('userDashboard.featureProfile')}</h3>
+                <p>{t('userDashboard.featureProfileDesc')}</p>
               </div>
             </div>
           </div>
@@ -106,11 +108,11 @@ const UserDashboard = () => {
       <div className="agrius-user-dashboard">
         {/* Disease Library Carousel Section */}
         <div className="agrius-disease-library-section">
-          <h2 className="agrius-section-title">Disease Library</h2>
+          <h2 className="agrius-section-title">{t('userDashboard.diseaseLibrarySectionTitle')}</h2>
           {loading ? (
             <div className="text-center">
               <Spinner animation="border" role="status" variant="success">
-                <span className="visually-hidden">Loading...</span>
+                <span className="visually-hidden">{t('userDashboard.loading')}</span>
               </Spinner>
             </div>
           ) : (
@@ -119,7 +121,7 @@ const UserDashboard = () => {
                 <Card key={disease.id} className="agrius-disease-card">
                   <Card.Img 
                     variant="top" 
-                    src={disease.image_url || 'https://via.placeholder.com/300x200.png?text=No+Image'} 
+                    src={disease.image_url || 'https://via.placeholder.com/300x200.png?text=' + t('userDashboard.noImage')} 
                     className="agrius-disease-card-img"
                   />
                   <Card.Body>
@@ -127,7 +129,7 @@ const UserDashboard = () => {
                     <Card.Text className="agrius-disease-card-text">
                       {disease.description.substring(0, 100)}...
                     </Card.Text>
-                    <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">View Details</Button>
+                    <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
                   </Card.Body>
                 </Card>
               ))}
@@ -138,9 +140,9 @@ const UserDashboard = () => {
         {/* New Split-Screen Section */}
         <div className="agrius-split-screen-section">
           <div className="agrius-split-screen-left">
-            <h2>Empowering Farmers with Smart Solutions</h2>
-            <p>Discover how our advanced AI-powered system helps you identify rice leaf diseases quickly and accurately, providing timely insights for better crop management and higher yields. Join our community of successful farmers today!</p>
-            <Link to="/about" className="agrius-btn-primary agrius-split-screen-cta">Learn More</Link>
+            <h2>{t('userDashboard.empoweringFarmersTitle')}</h2>
+            <p>{t('userDashboard.empoweringFarmersDesc')}</p>
+            <Link to="/about" className="agrius-btn-primary agrius-split-screen-cta">{t('userDashboard.learnMore')}</Link>
           </div>
           <div className="agrius-split-screen-right">
             <img src="https://via.placeholder.com/600x400.png?text=Rice+Farmer" alt="Rice Farmer" className="agrius-split-screen-image" />

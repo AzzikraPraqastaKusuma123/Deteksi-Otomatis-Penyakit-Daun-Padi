@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Auth.css';
 
 const Register = () => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -23,14 +25,14 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Registration successful!');
+        alert(t('register.alert.success'));
         navigate('/login');
       } else {
-        alert(data.message || 'Registration failed');
+        alert(data.message || t('register.alert.failed'));
       }
     } catch (error) {
       console.error('Error during registration:', error);
-      alert('Failed to connect to the server');
+      alert(t('register.alert.serverError'));
     }
   };
 
@@ -38,15 +40,15 @@ const Register = () => {
     <div className="agrius-auth-container">
       <div className="agrius-auth-image-section">
         <div className="agrius-auth-image-content">
-          <h1>Join PadiGuard</h1>
-          <p>Create an account to start protecting your rice crops today. Get access to our powerful detection tools and community support.</p>
+          <h1>{t('register.welcome')}</h1>
+          <p>{t('register.promo')}</p>
         </div>
       </div>
       <div className="agrius-auth-form-section">
         <div className="agrius-auth-card">
           <div className="agrius-auth-header">
-            <h1>Register</h1>
-            <p>Create a new account.</p>
+            <h1>{t('register.title')}</h1>
+            <p>{t('register.subtitle')}</p>
           </div>
           <form onSubmit={handleRegister}>
             <div className="agrius-input-group">
@@ -56,7 +58,7 @@ const Register = () => {
               <input
                 type="text"
                 className="agrius-form-control"
-                placeholder="Username"
+                placeholder={t('register.username')}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -69,7 +71,7 @@ const Register = () => {
               <input
                 type="email"
                 className="agrius-form-control"
-                placeholder="Email address"
+                placeholder={t('register.email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -82,7 +84,7 @@ const Register = () => {
               <input
                 type="text"
                 className="agrius-form-control"
-                placeholder="Full Name"
+                placeholder={t('register.fullName')}
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
@@ -94,7 +96,7 @@ const Register = () => {
               <input
                 type="text"
                 className="agrius-form-control"
-                placeholder="Location"
+                placeholder={t('register.location')}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
@@ -106,16 +108,16 @@ const Register = () => {
               <input
                 type="password"
                 className="agrius-form-control"
-                placeholder="Password"
+                placeholder={t('register.password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <button type="submit" className="agrius-btn-primary agrius-auth-btn">Register</button>
+            <button type="submit" className="agrius-btn-primary agrius-auth-btn">{t('register.button')}</button>
           </form>
           <div className="agrius-auth-link">
-            <p>Already have an account? <Link to="/login" className="agrius-link">Login</Link></p>
+            <p>{t('register.hasAccount')} <Link to="/login" className="agrius-link">{t('register.loginLink')}</Link></p>
           </div>
         </div>
       </div>

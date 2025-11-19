@@ -4,8 +4,10 @@ import { detectImage } from '../services/api';
 import './DetectionPage.css';
 import { FiUploadCloud, FiCamera, FiArrowRight, FiRefreshCcw } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const DetectionPage = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [prediction, setPrediction] = useState(null); // Still needed to know when analysis is done
@@ -34,7 +36,7 @@ const DetectionPage = () => {
       }
     } catch (err) {
       console.error("Error accessing camera: ", err);
-      setError('Could not access the camera. Please ensure you have granted permission and are on a secure connection (HTTPS).');
+      setError(t('detectionPage.cameraAccessError'));
     }
   };
 
@@ -100,7 +102,7 @@ const DetectionPage = () => {
 
   const handleAnalysis = async () => {
     if (!image) {
-      setError('Please provide an image first.');
+      setError(t('detectionPage.imageRequiredError'));
       return;
     }
 
@@ -119,12 +121,12 @@ const DetectionPage = () => {
     } catch (err) {
       console.error('Error detecting disease:', err);
       if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-        setError('Your session has expired. Please log in again.');
+        setError(t('detectionPage.sessionExpiredError'));
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setTimeout(() => navigate('/login'), 2000);
       } else {
-        setError('Failed to analyze the image. Please try again.');
+        setError(t('detectionPage.analysisFailedError'));
       }
     } finally {
       setLoading(false);
@@ -169,14 +171,14 @@ const DetectionPage = () => {
       <div className="agrius-detection-main-layout">
         <div className="agrius-detection-input-section">
           <div className="agrius-detection-controls">
-            <h2>Paddy Leaf Disease Detection</h2>
-            <p>Upload an image or use your camera to detect diseases in rice leaves.</p>
+            <h2>{t('detectionPage.pageTitle')}</h2>
+            <p>{t('detectionPage.pageSubtitle')}</p>
             <div className="agrius-mode-switcher">
               <button onClick={() => handleModeChange('upload')} className={mode === 'upload' ? 'active' : ''}>
-                <FiUploadCloud /> Upload Image
+                <FiUploadCloud /> {t('detectionPage.uploadImageButton')}
               </button>
               <button onClick={() => handleModeChange('camera')} className={mode === 'camera' ? 'active' : ''}>
-                <FiCamera /> Use Camera
+                <FiCamera /> {t('detectionPage.useCameraButton')}
               </button>
             </div>
 
@@ -191,8 +193,8 @@ const DetectionPage = () => {
                 ) : (
                   <div className="agrius-dropzone-text">
                     <FiUploadCloud size={50} />
-                    <p>Drag & drop an image here, or click to select</p>
-                    <em>(Supports *.jpeg and *.png)</em>
+                    <p>{t('detectionPage.dropzoneText')}</p>
+                    <em>{t('detectionPage.dropzoneSupport')}</em>
                   </div>
                 )}
               </div>
@@ -217,7 +219,7 @@ const DetectionPage = () => {
                 disabled={loading || !image || !!prediction} // Disable if analysis is done
                 className="agrius-btn-primary agrius-btn-analyze"
               >
-                {loading ? 'Analyzing...' : 'Analyze Image'}
+                {loading ? t('detectionPage.analyzingButton') : t('detectionPage.analyzeImageButton')}
               </button>
             </div>
             {error && <div className="agrius-error-message" style={{marginTop: 'var(--spacing-md)'}}>{error}</div>}
@@ -228,12 +230,12 @@ const DetectionPage = () => {
           {/* Basic result shown here */}
           {prediction && !loading && (
             <div className="agrius-result-card" style={{marginTop: '0'}}>
-              <h3>Ringkasan Analisis</h3>
+              <h3>{t('detectionPage.summaryTitle')}</h3>
               <div className="agrius-result-header">
                 <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
               </div>
               <div className="agrius-confidence">
-                <p>Confidence</p>
+                <p>{t('detectionPage.confidenceLabel')}</p>
                 <div className="agrius-confidence-bar-container">
                   <div 
                     className="agrius-confidence-bar" 
@@ -244,9 +246,9 @@ const DetectionPage = () => {
                 </div>
               </div>
               <div className="agrius-result-details">
-                <h4>Description</h4>
+                <h4>{t('detectionPage.descriptionLabel')}</h4>
                 <p>{prediction.description}</p>
-                <h4>Prevention</h4>
+                <h4>{t('detectionPage.preventionLabel')}</h4>
                 <p>{prediction.prevention}</p>
               </div>
               <button 
@@ -254,19 +256,19 @@ const DetectionPage = () => {
                 className="agrius-btn-primary agrius-btn-view-result"
                 style={{width: '100%', marginTop: 'var(--spacing-md)'}}
               >
-                Lihat Penjelasan Detail dari AI <FiArrowRight />
+                {t('detectionPage.viewDetailsButton')} <FiArrowRight />
               </button>
             </div>
           )}
           {!prediction && !loading && !error && (
             <div className="agrius-no-results">
-              <p>Upload an image to see the analysis results here.</p>
+              <p>{t('detectionPage.noResultsMessage')}</p>
             </div>
           )}
           {loading && (
             <div className="agrius-loading-spinner">
               <div className="agrius-spinner"></div>
-              <p>Analyzing image...</p>
+              <p>{t('detectionPage.analyzingImageMessage')}</p>
             </div>
           )}
         </div>

@@ -95,3 +95,24 @@
   padding: var(--spacing-xs) var(--spacing-sm);
 }
 
+/* Language Switcher Styles */
+.language-switcher-item {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-sm); /* Adjust spacing as needed */
+}
+
+.agrius-lang-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem; /* Adjust flag size */
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  margin: 0 var(--spacing-xs);
+  transition: transform var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-lang-btn:hover {
+  transform: scale(1.1);
+}
+

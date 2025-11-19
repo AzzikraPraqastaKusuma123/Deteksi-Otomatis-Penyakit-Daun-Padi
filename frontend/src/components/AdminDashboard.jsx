@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import './AdminDashboard.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const AdminDashboard = () => {
+  const { t } = useTranslation();
   const [userCount, setUserCount] = useState(0);
   const [detectionCount, setDetectionCount] = useState(0);
   const [diseaseCount, setDiseaseCount] = useState(0);
@@ -18,31 +20,33 @@ const AdminDashboard = () => {
           api.get('/detections/count'),
           api.get('/diseases/count')
         ]);
-        console.log('users:', users);
-        console.log('detections:', detections);
-        console.log('diseases:', diseases);
-        setUserCount(users.data.length);
-        setDetectionCount(detections.data.count);
-        setDiseaseCount(diseases.data.count);
+        
+        const uCount = users.data.length;
+        const dCount = detections.data.count;
+        const disCount = diseases.data.count;
 
-        // Mock data for the chart
+        setUserCount(uCount);
+        setDetectionCount(dCount);
+        setDiseaseCount(disCount);
+
+        // Set translated data for the chart
         setChartData([
-          { name: 'Users', count: users.data.length },
-          { name: 'Detections', count: detections.data.count },
-          { name: 'Diseases', count: diseases.data.count },
+          { name: t('adminDashboard.totalUsers'), count: uCount },
+          { name: t('adminDashboard.totalDetections'), count: dCount },
+          { name: t('adminDashboard.totalDiseases'), count: disCount },
         ]);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
     };
     fetchCounts();
-  }, []);
+  }, [t]); // Add `t` as a dependency
 
   return (
     <div className="agrius-admin-dashboard">
       <header className="agrius-dashboard-header">
-        <h1>Dashboard</h1>
-        <p>Welcome back, Admin! Here's an overview of your application.</p>
+        <h1>{t('adminDashboard.dashboardTitle')}</h1>
+        <p>{t('adminDashboard.welcomeMessage')}</p>
       </header>
 
       <div className="agrius-dashboard-stats">
@@ -51,7 +55,7 @@ const AdminDashboard = () => {
             <i className="fas fa-users"></i>
           </div>
           <div className="agrius-stat-card-info">
-            <p>Total Users</p>
+            <p>{t('adminDashboard.totalUsers')}</p>
             <h3>{userCount}</h3>
           </div>
         </div>
@@ -60,7 +64,7 @@ const AdminDashboard = () => {
             <i className="fas fa-camera-retro"></i>
           </div>
           <div className="agrius-stat-card-info">
-            <p>Total Detections</p>
+            <p>{t('adminDashboard.totalDetections')}</p>
             <h3>{detectionCount}</h3>
           </div>
         </div>
@@ -69,7 +73,7 @@ const AdminDashboard = () => {
             <i className="fas fa-leaf"></i>
           </div>
           <div className="agrius-stat-card-info">
-            <p>Total Diseases</p>
+            <p>{t('adminDashboard.totalDiseases')}</p>
             <h3>{diseaseCount}</h3>
           </div>
         </div>
@@ -77,7 +81,7 @@ const AdminDashboard = () => {
 
       <div className="agrius-dashboard-main-content">
         <div className="agrius-chart-container">
-          <h2>Detections Overview</h2>
+          <h2>{t('adminDashboard.detectionsOverview')}</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--agrius-neutral-gray-1)" />
@@ -90,14 +94,14 @@ const AdminDashboard = () => {
           </ResponsiveContainer>
         </div>
         <div className="agrius-quick-actions">
-          <h2>Quick Actions</h2>
+          <h2>{t('adminDashboard.quickActions')}</h2>
           <Link to="/admin/users" className="agrius-btn-secondary agrius-quick-action-btn">
             <i className="fas fa-user-cog"></i>
-            <span>Manage Users</span>
+            <span>{t('adminDashboard.manageUsers')}</span>
           </Link>
           <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-quick-action-btn">
             <i className="fas fa-plus-circle"></i>
-            <span>Add New Disease</span>
+            <span>{t('adminDashboard.addNewDisease')}</span>
           </Link>
         </div>
       </div>

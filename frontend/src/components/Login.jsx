@@ -1,10 +1,12 @@
 // frontend/src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Auth.css';
 import { loginUser } from '../services/api';
 
 const Login = ({ setLoggedIn, setUserRole }) => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
@@ -26,7 +28,7 @@ const Login = ({ setLoggedIn, setUserRole }) => {
         setLoggedIn(true);
         if (setUserRole) setUserRole(data.user.role);
 
-        alert('Login successful!');
+        alert(t('login.alert.success'));
 
         // Arahkan user sesuai perannya
         if (data.user.role === 'admin') {
@@ -35,14 +37,14 @@ const Login = ({ setLoggedIn, setUserRole }) => {
           navigate('/dashboard');
         }
       } else {
-        alert(data.message || 'Invalid credentials');
+        alert(data.message || t('login.alert.invalid'));
       }
     } catch (error) {
       console.error('Error during login:', error);
       if (error.response) {
-        alert(error.response.data.message || 'Invalid credentials');
+        alert(error.response.data.message || t('login.alert.invalid'));
       } else {
-        alert('Failed to connect to the server');
+        alert(t('login.alert.serverError'));
       }
     }
   };
@@ -56,8 +58,8 @@ const Login = ({ setLoggedIn, setUserRole }) => {
       {/* Bagian kiri dengan teks promosi */}
       <div className="agrius-auth-image-section">
         <div className="agrius-auth-image-content">
-          <h1>Welcome to PadiGuard</h1>
-          <p>Your partner in protecting rice crops. Login to access your dashboard and start detecting diseases.</p>
+          <h1>{t('login.welcome')}</h1>
+          <p>{t('login.promo')}</p>
         </div>
       </div>
 
@@ -65,8 +67,8 @@ const Login = ({ setLoggedIn, setUserRole }) => {
       <div className="agrius-auth-form-section">
         <div className="agrius-auth-card">
           <div className="agrius-auth-header">
-            <h1>Login</h1>
-            <p>Please enter your credentials.</p>
+            <h1>{t('login.title')}</h1>
+            <p>{t('login.subtitle')}</p>
           </div>
 
           <form onSubmit={handleLogin}>
@@ -78,7 +80,7 @@ const Login = ({ setLoggedIn, setUserRole }) => {
               <input
                 type="text"
                 className="agrius-form-control"
-                placeholder="Username"
+                placeholder={t('login.username')}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -93,7 +95,7 @@ const Login = ({ setLoggedIn, setUserRole }) => {
               <input
                 type={showPassword ? 'text' : 'password'} // Dynamic type
                 className="agrius-form-control"
-                placeholder="Password"
+                placeholder={t('login.password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -104,13 +106,13 @@ const Login = ({ setLoggedIn, setUserRole }) => {
             </div>
 
             {/* Tombol login */}
-            <button type="submit" className="agrius-btn-primary agrius-auth-btn">Login</button>
+            <button type="submit" className="agrius-btn-primary agrius-auth-btn">{t('login.button')}</button>
           </form>
 
           {/* Link ke register */}
           <div className="agrius-auth-link">
             <p>
-              Don't have an account? <Link to="/register" className="agrius-link">Register</Link>
+              {t('login.noAccount')} <Link to="/register" className="agrius-link">{t('login.registerLink')}</Link>
             </p>
           </div>
         </div>

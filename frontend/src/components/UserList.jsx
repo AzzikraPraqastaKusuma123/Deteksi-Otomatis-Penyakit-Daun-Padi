@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import './UserList.css';
 
 function UserList() {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +27,7 @@ function UserList() {
   };
 
   const handleDelete = async (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
+    if (window.confirm(t('userList.deleteConfirm'))) {
       try {
         await api.delete(`/users/${userId}`);
         fetchUsers();
@@ -43,37 +45,37 @@ function UserList() {
   return (
     <div className="agrius-user-list-container">
       <div className="agrius-user-list-header">
-        <h1>Manage Users</h1>
+        <h1>{t('userList.pageTitle')}</h1>
         <div className="agrius-header-actions">
           <div className="agrius-search-bar">
             <i className="fas fa-search"></i>
             <input 
               type="text" 
-              placeholder="Search by username or email..."
+              placeholder={t('userList.searchPlaceholder')}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               className="agrius-form-control"
             />
           </div>
           <Link to="/admin/users/add" className="agrius-btn-primary agrius-btn-add-user">
-            <i className="fas fa-plus"></i> Add User
+            <i className="fas fa-plus"></i> {t('userList.addUser')}
           </Link>
         </div>
       </div>
 
       {loading ? (
-        <div className="agrius-loading-container"><p className="agrius-loading-text">Loading users...</p></div>
+        <div className="agrius-loading-container"><p className="agrius-loading-text">{t('userList.loadingUsers')}</p></div>
       ) : (
         <div className="agrius-table-responsive">
           <table className="agrius-user-table">
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Full Name</th>
-                <th>Location</th>
-                <th>Role</th>
-                <th>Actions</th>
+                <th>{t('userList.tableHeaderUsername')}</th>
+                <th>{t('userList.tableHeaderEmail')}</th>
+                <th>{t('userList.tableHeaderFullName')}</th>
+                <th>{t('userList.tableHeaderLocation')}</th>
+                <th>{t('userList.tableHeaderRole')}</th>
+                <th>{t('userList.tableHeaderActions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -102,7 +104,7 @@ function UserList() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="agrius-no-users-found">No users found matching your search.</td>
+                  <td colSpan="6" className="agrius-no-users-found">{t('userList.noUsersFound')}</td>
                 </tr>
               )}
             </tbody>
