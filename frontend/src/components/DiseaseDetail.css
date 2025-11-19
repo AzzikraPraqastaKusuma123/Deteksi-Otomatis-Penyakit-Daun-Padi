@@ -60,6 +60,7 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-dark);
   margin-bottom: var(--spacing-lg);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Added shadow */
 }
 
 .agrius-detail-info p {
@@ -67,11 +68,13 @@
   line-height: 1.7;
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-md);
+  text-align: justify; /* Added for cleaner text blocks */
 }
 
 .agrius-detail-info p strong {
   color: var(--color-text-dark);
   font-weight: var(--font-weight-semibold);
+  margin-right: var(--spacing-xs); /* Added space after label */
 }
 
 .agrius-loading-text, .agrius-error-message, .agrius-no-data-message {
