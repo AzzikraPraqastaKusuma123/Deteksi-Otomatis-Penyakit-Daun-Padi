@@ -63,11 +63,34 @@ function DiseaseDetail() {
           <div className="agrius-card agrius-detail-card">
             <h1 className="agrius-detail-title">{disease.disease_name}</h1>
             <div className="agrius-detail-info">
-              {disease.scientific_name && <p><strong>{t('diseaseDetail.scientificName')}</strong> {disease.scientific_name}</p>}
-              <p><strong>{t('diseaseDetail.description')}</strong> {disease.description}</p>
-              {disease.symptoms && <p><strong>{t('diseaseDetail.symptoms')}</strong> {disease.symptoms}</p>}
-              {disease.prevention && <p><strong>{t('diseaseDetail.prevention')}</strong> {disease.prevention}</p>}
-              {disease.treatment_recommendations && <p><strong>{t('diseaseDetail.treatment')}</strong> {disease.treatment_recommendations}</p>}
+              {disease.scientific_name && (
+                <div className="agrius-detail-section">
+                  <h3><i className="fas fa-flask agrius-section-icon"></i> {t('diseaseDetail.scientificName')}</h3>
+                  <p>{disease.scientific_name}</p>
+                </div>
+              )}
+              <div className="agrius-detail-section">
+                <h3><i className="fas fa-info-circle agrius-section-icon"></i> {t('diseaseDetail.description')}</h3>
+                <p>{disease.description}</p>
+              </div>
+              {disease.symptoms && (
+                <div className="agrius-detail-section">
+                  <h3><i className="fas fa-leaf agrius-section-icon"></i> {t('diseaseDetail.symptoms')}</h3>
+                  <p>{disease.symptoms}</p>
+                </div>
+              )}
+              {disease.prevention && (
+                <div className="agrius-detail-section">
+                  <h3><i className="fas fa-shield-alt agrius-section-icon"></i> {t('diseaseDetail.prevention')}</h3>
+                  <p>{disease.prevention}</p>
+                </div>
+              )}
+              {disease.treatment_recommendations && (
+                <div className="agrius-detail-section">
+                  <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('diseaseDetail.treatment')}</h3>
+                  <p>{disease.treatment_recommendations}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -63,12 +63,43 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Added shadow */
 }
 
+.agrius-detail-info {
+  padding-top: var(--spacing-md); /* Add some padding to the top of the info section */
+}
+
+.agrius-detail-section {
+  margin-bottom: var(--spacing-md); /* Further reduced spacing between sections */
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(var(--agrius-neutral-gray-1-rgb), 0.1); /* Subtle separator */
+}
+
+.agrius-detail-section:last-child {
+  margin-bottom: 0;
+  border-bottom: none; /* No border for the last section */
+}
+
+.agrius-detail-section h3 {
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-bg); /* Use primary color for headings */
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.agrius-section-icon {
+  font-size: 1.2rem;
+  margin-right: var(--spacing-sm);
+  color: #1E3F2B; /* Updated icon color */
+}
+
 .agrius-detail-info p {
   font-size: 1rem;
   line-height: 1.7;
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-md);
   text-align: justify; /* Added for cleaner text blocks */
+  padding-left: var(--spacing-lg); /* Indent paragraph slightly */
 }
 
 .agrius-detail-info p strong {
