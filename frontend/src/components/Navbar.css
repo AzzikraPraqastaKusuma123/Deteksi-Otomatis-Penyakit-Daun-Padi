@@ -96,23 +96,80 @@
 }
 
 /* Language Switcher Styles */
-.language-switcher-item {
-  display: flex;
+.agrius-language-buttons-wrapper {
+  display: flex; /* Always a flex container */
   align-items: center;
-  margin-left: var(--spacing-sm); /* Adjust spacing as needed */
+  margin-left: auto; /* Push to the right on desktop */
+  list-style: none;
+  padding: 0;
+  width: auto; /* Default width */
 }
 
 .agrius-lang-btn {
   background: none;
   border: none;
-  font-size: 1.5rem; /* Adjust flag size */
+  font-size: 1.4rem; /* Slightly smaller flag size */
   cursor: pointer;
   padding: var(--spacing-xs);
   margin: 0 var(--spacing-xs);
-  transition: transform var(--transition-speed-normal) var(--transition-ease);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  border-radius: var(--border-radius-sm); /* Subtle rounded corners */
+  line-height: 1; /* Ensure flags align well */
 }
 
 .agrius-lang-btn:hover {
   transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover */
+}
+
+.agrius-lang-btn.active {
+  background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.2); /* Accent background for active */
+  border: 1px solid var(--color-accent); /* Accent border for active */
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments for Navbar */
+@media (max-width: 991.98px) { /* Bootstrap's default lg breakpoint */
+  .navbar-collapse {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensure children stretch to full width */
+  }
+
+  .navbar-nav { /* Apply to all navbar-nav ul elements */
+    width: 100%;
+    margin-bottom: var(--spacing-md); /* Consistent spacing between nav groups */
+  }
+
+  .navbar-nav:last-child {
+    margin-bottom: 0; /* No bottom margin for the last nav group */
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%; /* Ensure nav items take full width */
+  }
+
+  .agrius-nav-link { /* Targets the actual links */
+    text-align: center; /* Align text to the center */
+    margin: 0; /* Remove horizontal margin */
+    padding: var(--spacing-sm) var(--spacing-lg); /* Adjust padding for stacked items */
+  }
+
+  .agrius-language-buttons-wrapper { /* Targets the language switcher */
+    margin-left: 0 !important; /* Override auto margin */
+    margin-top: var(--spacing-md); /* Add some top margin */
+    margin-bottom: var(--spacing-md); /* Add bottom margin for separation */
+    display: flex; /* Ensure it's a flex container */
+    width: 100%; /* Ensure it takes full width */
+    flex-grow: 1; /* Ensure it grows to fill space */
+    justify-content: center; /* Center buttons */
+    gap: var(--spacing-lg); /* Add gap between buttons */
+  }
+
+  .agrius-lang-btn { /* Targets the language flag buttons */
+    font-size: 1.8rem; /* Larger flags in collapsed menu */
+    padding: var(--spacing-sm);
+    margin: 0 var(--spacing-sm);
+  }
 }
 

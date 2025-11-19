@@ -28,7 +28,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav">
             {loggedIn && (
               <>
                 <li className="nav-item">
@@ -43,19 +43,29 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
               </>
             )}
           </ul>
-          <ul className="navbar-nav">
-            {/* Language Switcher */}
+          {/* Language Switcher Group - Separated for better control */}
+          <ul className="agrius-language-buttons-wrapper">
             <li className="nav-item language-switcher-item">
-              <button className="btn agrius-lang-btn" onClick={() => changeLanguage('en')} title={t('language.english')}>
+              <button 
+                className={`btn agrius-lang-btn ${i18n.language === 'en' ? 'active' : ''}`} 
+                onClick={() => changeLanguage('en')} 
+                title={t('language.english')}
+              >
                 🇬🇧
               </button>
             </li>
             <li className="nav-item language-switcher-item">
-              <button className="btn agrius-lang-btn" onClick={() => changeLanguage('id')} title={t('language.indonesian')}>
+              <button 
+                className={`btn agrius-lang-btn ${i18n.language === 'id' ? 'active' : ''}`} 
+                onClick={() => changeLanguage('id')} 
+                title={t('language.indonesian')}
+              >
                 🇮🇩
               </button>
             </li>
+          </ul>
 
+          <ul className="navbar-nav">
             {loggedIn ? (
               <>
                 <li className="nav-item">
