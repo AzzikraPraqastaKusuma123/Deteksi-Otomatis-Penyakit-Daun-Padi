@@ -121,7 +121,7 @@ const UserDashboard = () => {
                 <Card key={disease.id} className="agrius-disease-card">
                   <Card.Img 
                     variant="top" 
-                    src={disease.image_url || 'https://via.placeholder.com/300x200.png?text=' + t('userDashboard.noImage')} 
+                    src={disease.image_url_example ? `http://localhost:5000${disease.image_url_example}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
                     className="agrius-disease-card-img"
                   />
                   <Card.Body>
@@ -145,7 +145,7 @@ const UserDashboard = () => {
             <Link to="/about" className="agrius-btn-primary agrius-split-screen-cta">{t('userDashboard.learnMore')}</Link>
           </div>
           <div className="agrius-split-screen-right">
-            <img src="https://via.placeholder.com/600x400.png?text=Rice+Farmer" alt="Rice Farmer" className="agrius-split-screen-image" />
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Rice Farmer" className="agrius-split-screen-image" />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 @import '../variables.css';
 
 .agrius-add-disease-container {
-  max-width: 700px;
+  max-width: 900px; /* Increased max-width for wider layout */
   margin: var(--spacing-xxl) auto;
   padding: var(--spacing-xxl);
   background-color: var(--agrius-pure-white);
@@ -21,13 +21,17 @@
 }
 
 .agrius-add-disease-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two-column grid */
   gap: var(--spacing-lg);
 }
 
 .agrius-form-group {
-  margin-bottom: var(--spacing-xs); /* Smaller margin as gap handles main spacing */
+  /* No margin-bottom needed as gap handles spacing */
+}
+
+.form-group-full-width {
+  grid-column: span 2; /* Make element span both columns */
 }
 
 .agrius-form-group label {
@@ -61,7 +65,7 @@ textarea.agrius-form-control {
 }
 
 .agrius-btn-submit {
-  /* Inherits from agrius-btn-primary in App.css */
+  grid-column: span 2; /* Make button span both columns */
   padding: var(--spacing-md);
   font-size: 1.1rem;
   font-weight: var(--font-weight-semibold);
@@ -70,6 +74,15 @@ textarea.agrius-form-control {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .agrius-add-disease-form {
+    grid-template-columns: 1fr; /* Revert to single column */
+  }
+  .form-group-full-width {
+    grid-column: span 1; /* Reset span for single column */
+  }
+  .agrius-btn-submit {
+    grid-column: span 1; /* Reset span for single column */
+  }
   .agrius-add-disease-container {
     margin: var(--spacing-xl) auto;
     padding: var(--spacing-xl);

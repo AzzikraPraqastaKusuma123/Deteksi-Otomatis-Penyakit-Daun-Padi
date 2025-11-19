@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import UserList from "./components/UserList";
 import DetectionList from "./components/DetectionList";
 import AddDisease from "./components/AddDisease";
+import EditDisease from "./components/EditDisease"; // Import EditDisease
 import DiseaseList from "./components/DiseaseList";
 import DiseaseDetail from "./components/DiseaseDetail";
 import UserDetail from "./components/UserDetail";
@@ -57,6 +58,7 @@ function App() {
           <Route path="/admin/users/:userId" element={<UserDetail />} />
           <Route path="/admin/diseases" element={<DiseaseList />} />
           <Route path="/admin/diseases/add" element={<AddDisease />} />
+          <Route path="/admin/diseases/edit/:id" element={<EditDisease />} />
           <Route path="/admin/diseases/:diseaseId" element={<DiseaseDetail />} />
         </Route>
 

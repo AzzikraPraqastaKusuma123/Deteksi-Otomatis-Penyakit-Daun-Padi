@@ -45,6 +45,18 @@ export const addDisease = (diseaseData) => {
   return api.post('/diseases', diseaseData);
 };
 
+export const updateDisease = (id, formData) => {
+  // PUT /diseases/:id
+  return api.put(`/diseases/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const deleteDisease = (id) => {
+  // DELETE /diseases/:id
+  return api.delete(`/diseases/${id}`);
+};
+
 export const getDiseasesCount = () => {
   // GET /diseases/count
   return api.get('/diseases/count');

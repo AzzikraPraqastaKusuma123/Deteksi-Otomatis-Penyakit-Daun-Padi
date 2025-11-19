@@ -52,7 +52,7 @@ function DiseaseDetail() {
         <div className="col-md-5">
           <div className="agrius-card agrius-detail-card">
             <img 
-              src={disease.image_url_example || `https://placehold.co/600x400/4CAF50/FFFFFF?text=${encodeURIComponent(disease.disease_name)}`} 
+              src={disease.image_url_example ? `http://localhost:5000${disease.image_url_example}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
               className="agrius-detail-image" 
               alt={disease.disease_name}
             />
