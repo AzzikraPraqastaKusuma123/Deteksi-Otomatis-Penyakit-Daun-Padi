@@ -1,0 +1,85 @@
+/* AgriculturalResourcesPage.css */
+
+.agricultural-resources-page {
+  padding: 2rem 0;
+}
+
+.agricultural-resources-page .agrius-page-title {
+  text-align: center;
+  color: var(--color-primary-bg); /* Using defined variable from variables.css */
+  margin-bottom: 1rem;
+}
+
+.agricultural-resources-page .agrius-page-description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--color-text-secondary); /* Using defined variable from variables.css */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.agricultural-resources-page .agrius-content-section {
+  background-color: var(--agrius-pure-white); /* Using defined variable from variables.css */
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.agricultural-resources-page .agrius-content-section h2 {
+  color: var(--color-text-dark); /* Using defined variable from variables.css */
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border); /* Using defined variable from variables.css */
+  padding-bottom: 0.5rem;
+}
+
+.agricultural-resources-page .agrius-content-section p {
+  line-height: 1.6;
+  color: var(--color-text-dark); /* Using defined variable from variables.css */
+  margin-bottom: 1rem;
+}
+
+.agricultural-resources-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Limit the image width */
+}
+
+/* Internal Navigation (Anchor Links) */
+.agricultural-resources-nav {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.agricultural-resources-nav a {
+  display: inline-block;
+  margin: 0 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-secondary-bg);
+  color: var(--color-text-dark);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: var(--font-weight-medium);
+}
+
+.agricultural-resources-nav a:hover {
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-primary);
+}
+
+/* Responsive adjustments for the navigation */
+@media (max-width: 768px) {
+  .agricultural-resources-nav a {
+    display: block;
+    margin: 0.5rem 0;
+    width: auto;
+  }
+}

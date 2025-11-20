@@ -1,0 +1,97 @@
+/* PageLayout.css */
+@import '../variables.css';
+
+.agrius-page-container {
+  padding: var(--spacing-xxl);
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  margin-top: var(--spacing-xxl);
+  margin-bottom: var(--spacing-xxl);
+}
+
+.agrius-page-title {
+  font-size: 2.8rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.agrius-page-description {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+  line-height: 1.7;
+}
+
+.agrius-content-section {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.agrius-content-section h2 {
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-bg);
+  margin-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: var(--spacing-xs);
+}
+
+.agrius-content-section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-dark);
+  text-align: justify;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-page-container {
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+  }
+  .agrius-page-title {
+    font-size: 2.2rem;
+  }
+  .agrius-page-description {
+    font-size: 1rem;
+  }
+  .agrius-content-section {
+    padding: var(--spacing-lg);
+  }
+  .agrius-content-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .agrius-page-container {
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+  .agrius-page-title {
+    font-size: 1.8rem;
+  }
+  .agrius-page-description {
+    font-size: 0.9rem;
+  }
+  .agrius-content-section h2 {
+    font-size: 1.3rem;
+  }
+  .agrius-content-section p {
+    font-size: 0.9rem;
+  }
+}
