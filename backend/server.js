@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import detectionRoutes from "./routes/detectionRoutes.js";
 import diseaseRoutes from "./routes/diseaseRoutes.js";
+import agriculturalResourceRoutes from "./routes/agriculturalResourceRoutes.js";
 import { loadModel } from "./services/detectionService.js";
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/detections", detectionRoutes);
 app.use("/api/diseases", diseaseRoutes);
+app.use("/api/agricultural-resources", agriculturalResourceRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

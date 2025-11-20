@@ -1,0 +1,72 @@
+/* frontend/src/components/ManageAgriculturalResources.css */
+@import '../variables.css';
+
+.agrius-resource-list-container {
+  padding: var(--spacing-xxl);
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+}
+
+.agrius-resource-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.agrius-resource-list-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.agrius-resources-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: var(--shadow-lg);
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+}
+
+.agrius-resources-table th,
+.agrius-resources-table td {
+  padding: var(--spacing-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--agrius-neutral-gray-1);
+}
+
+.agrius-resources-table th {
+  background-color: var(--agrius-cream-off-white);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.agrius-resources-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.agrius-resources-table tbody tr:hover {
+  background-color: var(--agrius-light-green-background);
+}
+
+.agrius-resource-image-thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--border-radius-md);
+}
+
+.agrius-resource-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.agrius-resource-actions .agrius-btn-action {
+  font-size: 1.2rem;
+}

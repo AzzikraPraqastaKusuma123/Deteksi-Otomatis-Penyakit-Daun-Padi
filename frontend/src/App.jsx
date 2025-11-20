@@ -22,6 +22,10 @@ import ProfilePage from "./components/ProfilePage";
 import EditProfilePage from "./components/EditProfilePage";
 import DetailedAnalysisPage from "./components/DetailedAnalysisPage"; // Import the new component
 import AgriculturalResourcesPage from "./components/AgriculturalResourcesPage"; // Import AgriculturalResourcesPage
+import AgriculturalResourceDetail from "./components/AgriculturalResourceDetail";
+import ManageAgriculturalResources from "./components/ManageAgriculturalResources";
+import AddAgriculturalResource from "./components/AddAgriculturalResource";
+import EditAgriculturalResource from "./components/EditAgriculturalResource";
 import "./App.css";
 
 function App() {
@@ -61,6 +65,9 @@ function App() {
           <Route path="/admin/diseases/add" element={<AddDisease />} />
           <Route path="/admin/diseases/edit/:id" element={<EditDisease />} />
           <Route path="/admin/diseases/:diseaseId" element={<DiseaseDetail />} />
+          <Route path="/admin/agricultural-resources" element={<ManageAgriculturalResources />} />
+          <Route path="/admin/agricultural-resources/add" element={<AddAgriculturalResource />} />
+          <Route path="/admin/agricultural-resources/edit/:id" element={<EditAgriculturalResource />} />
         </Route>
 
         {/* User Routes with MainLayout */}
@@ -80,7 +87,8 @@ function App() {
           <Route path="/diseases/:diseaseId" element={<DiseaseDetail />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<EditProfilePage />} />
-          <Route path="/agricultural-resources" element={<AgriculturalResourcesPage />} /> {/* New combined route */}
+          <Route path="/agricultural-resources" element={<AgriculturalResourcesPage />} />
+          <Route path="/agricultural-resources/:id" element={<AgriculturalResourceDetail />} />
         </Route>
       </Routes>
     </Router>

@@ -217,6 +217,35 @@ ALTER TABLE `users`
 --
 ALTER TABLE `detections`
   ADD CONSTRAINT `detections_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agricultural_resources`
+--
+
+CREATE TABLE `agricultural_resources` (
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` enum('Obat','Pupuk','Pestisida') COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for table `agricultural_resources`
+--
+ALTER TABLE `agricultural_resources`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `agricultural_resources`
+--
+ALTER TABLE `agricultural_resources`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,75 @@
+/* frontend/src/components/AgriculturalResourceForm.css */
+@import '../variables.css';
+
+.agrius-resource-form-container {
+  max-width: 900px;
+  margin: var(--spacing-xxl) auto;
+  padding: var(--spacing-xxl);
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-family-inter);
+}
+
+.agrius-resource-form-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+  font-size: 2.2rem;
+}
+
+.agrius-resource-form {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.agrius-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.agrius-form-group label {
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-dark);
+}
+
+.agrius-form-control {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--agrius-neutral-gray-1);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  background-color: var(--agrius-cream-off-white);
+  transition: border-color var(--transition-speed-normal);
+}
+
+.agrius-form-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+textarea.agrius-form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.agrius-image-preview-container {
+  margin-top: var(--spacing-md);
+}
+
+.agrius-image-preview {
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--agrius-neutral-gray-1);
+}
+
+.agrius-btn-submit {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-md);
+}

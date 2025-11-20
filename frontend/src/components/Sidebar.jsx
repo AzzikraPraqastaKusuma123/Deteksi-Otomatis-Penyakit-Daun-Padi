@@ -47,6 +47,12 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             <span>Diseases</span>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/admin/agricultural-resources" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
+            <i className="fas fa-tractor"></i>
+            <span>Sumber Daya</span>
+          </NavLink>
+        </li>
         {/* Add more admin links here */}
       </ul>
       <div className="agrius-sidebar-footer">

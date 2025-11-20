@@ -117,6 +117,37 @@ export const getUserProfile = (id) => {
   return api.get(`/users/${id}`);
 };
 
-// === 8. Ekspor default ===
+// === 8. AGRICULTURAL RESOURCES ===
+export const getAgriculturalResources = () => {
+  // GET /agricultural-resources
+  return api.get('/agricultural-resources');
+};
+
+export const getAgriculturalResourceById = (id) => {
+  // GET /agricultural-resources/:id
+  return api.get(`/agricultural-resources/${id}`);
+};
+
+export const createAgriculturalResource = (formData) => {
+  // POST /agricultural-resources
+  return api.post('/agricultural-resources', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const updateAgriculturalResource = (id, formData) => {
+  // PUT /agricultural-resources/:id
+  return api.put(`/agricultural-resources/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const deleteAgriculturalResource = (id) => {
+  // DELETE /agricultural-resources/:id
+  return api.delete(`/agricultural-resources/${id}`);
+};
+
+
+// === 9. Ekspor default ===
 export { api };
 export default api;

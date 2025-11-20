@@ -1,78 +1,92 @@
-import React from 'react';
+// frontend/src/components/AgriculturalResourcesPage.jsx
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import './PageLayout.css'; // Use the shared PageLayout.css
-import './AgriculturalResourcesPage.css'; // Import custom styling for this page
+import { getAgriculturalResources } from '../services/api';
+import './DiseaseList.css'; // Borrow styles from DiseaseList for card consistency
+import './AgriculturalResourcesPage.css'; // Keep original page styles for headers etc.
 
 const AgriculturalResourcesPage = () => {
-  const { t, i18n } = useTranslation(); // Include i18n instance to ensure reactivity
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  
+  const [resources, setResources] = useState({ Pupuk: [], Pestisida: [], Obat: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Ensure translations are loaded and react to language changes
-  const pageTitle = t('agriculturalResources.pageTitle', 'Agricultural Resources');
-  const pageDescription = t('agriculturalResources.pageDescription', 'Comprehensive information on medicines, fertilizers, and pesticides for healthy rice cultivation.');
-  const medicineTitle = t('agriculturalResources.medicineSectionTitle', 'Medicine');
-  const fertilizerTitle = t('agriculturalResources.fertilizerSectionTitle', 'Fertilizer');
-  const pesticideTitle = t('agriculturalResources.pesticideSectionTitle', 'Pesticide');
+  const fetchResources = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await getAgriculturalResources();
+      // Group resources by category
+      const groupedResources = response.data.reduce((acc, resource) => {
+        const { category } = resource;
+        if (!acc[category]) {
+          // Initialize with an empty array if category doesn't exist
+          acc[category] = [];
+        }
+        acc[category].push(resource);
+        return acc;
+      }, { Pupuk: [], Pestisida: [], Obat: [] }); // Ensure all categories are initialized
+      setResources(groupedResources);
+    } catch (err) {
+      console.error('Error fetching resources:', err);
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        setError(t('diseaseList.sessionExpired')); // Reusing translation
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        setError(t('agriculturalResources.failedToLoad', 'Gagal memuat sumber daya.'));
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate, t]);
 
-  // Medicine content with fallbacks
-  const medicineContent1 = t('agriculturalResources.medicineSectionContent1', 'Explore a comprehensive list of common diseases and their treatments.');
-  const medicineContent2 = t('agriculturalResources.medicineSectionContent2', 'Understand the proper application methods for medicines.');
+  useEffect(() => {
+    fetchResources();
+  }, [fetchResources]);
 
-  // Fertilizer content with fallbacks
-  const fertilizerContent1 = t('agriculturalResources.fertilizerSectionContent1', 'Discover various types of fertilizers suitable for different growth stages.');
-  const fertilizerContent2 = t('agriculturalResources.fertilizerSectionContent2', 'Master the best practices for applying fertilizers.');
-  const fertilizerContent3 = t('agriculturalResources.fertilizerSectionContent3', 'Guide on different types of fertilizers.');
-  const fertilizerContent4 = t('agriculturalResources.fertilizerSectionContent4', 'Types of Fertilizers.');
-  const fertilizerContent5 = t('agriculturalResources.fertilizerSectionContent5', 'Fertilizer Application Techniques.');
+  const renderResourceSection = (title, resourceList) => (
+    <div id={`${title.toLowerCase()}-section`} className="agrius-content-section">
+      <div className="agrius-list-header" style={{ marginBottom: 'var(--spacing-lg)' }}>
+        <h2>{title}</h2>
+      </div>
+      {resourceList.length > 0 ? (
+        <div className="agrius-disease-cards-flex">
+          {resourceList.map(resource => (
+            <Link to={`/agricultural-resources/${resource.id}`} key={resource.id} className="agrius-disease-card">
+              <img 
+                src={resource.image || 'https://via.placeholder.com/300x200'} 
+                alt={resource.name} 
+                className="agrius-disease-card-img"
+              />
+              <div className="agrius-disease-card-body">
+                <h5 className="agrius-card-title">{resource.name}</h5>
+                <p className="agrius-card-text">{resource.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <p>{t('agriculturalResources.noItems', `Belum ada item untuk kategori ${title}`)}</p>
+      )}
+    </div>
+  );
 
-  // Pesticide content with fallbacks
-  const pesticideContent1 = t('agriculturalResources.pesticideSectionContent1', 'Identify common pests and effective pesticide solutions.');
-  const pesticideContent2 = t('agriculturalResources.pesticideSectionContent2', 'Understand safe handling and application of pesticides.');
-  const pesticideContent3 = t('agriculturalResources.pesticideSectionContent3', 'Important information about pesticides for controlling pests.');
-  const pesticideContent4 = t('agriculturalResources.pesticideSectionContent4', 'Pest Identification & Control.');
-  const pesticideContent5 = t('agriculturalResources.pesticideSectionContent5', 'Safe Pesticide Use & Alternatives.');
+  if (loading) return <div className="agrius-page-container"><p>{t('diseaseList.loading', 'Loading...')}</p></div>;
+  if (error) return <div className="agrius-page-container"><p className="agrius-error-message">{error}</p></div>;
 
   return (
     <div className="agrius-page-container agricultural-resources-page">
-      <h1 className="agrius-page-title">{pageTitle}</h1>
-      <p className="agrius-page-description">{pageDescription}</p>
+      <h1 className="agrius-page-title">{t('agriculturalResources.pageTitle', 'Sumber Daya Pertanian')}</h1>
+      <p className="agrius-page-description">{t('agriculturalResources.pageDescription', 'Informasi lengkap mengenai obat, pupuk, dan pestisida untuk budidaya padi yang sehat.')}</p>
 
-      {/* Internal Navigation */}
-      <nav className="agricultural-resources-nav">
-        <a href="#medicine-section">{medicineTitle}</a>
-        <a href="#fertilizer-section">{fertilizerTitle}</a>
-        <a href="#pesticide-section">{pesticideTitle}</a>
-      </nav>
-
-      <img src="/image/petani.jpg" alt={pageTitle} className="agricultural-resources-image" />
-
-      {/* Medicine Section */}
-      <div id="medicine-section" className="agrius-content-section">
-        <h2>{medicineTitle}</h2>
-        <p>{medicineContent1}</p>
-        <p>{medicineContent2}</p>
-      </div>
-
-      {/* Fertilizer Section */}
-      <div id="fertilizer-section" className="agrius-content-section">
-        <h2>{fertilizerTitle}</h2>
-        <p>{fertilizerContent1}</p>
-        <p>{fertilizerContent2}</p>
-        <p>{fertilizerContent3}</p>
-        <p>{fertilizerContent4}</p>
-        <p>{fertilizerContent5}</p>
-      </div>
-
-      {/* Pesticide Section */}
-      <div id="pesticide-section" className="agrius-content-section">
-        <h2>{pesticideTitle}</h2>
-        <p>{pesticideContent1}</p>
-        <p>{pesticideContent2}</p>
-        <p>{pesticideContent3}</p>
-        <p>{pesticideContent4}</p>
-        <p>{pesticideContent5}</p>
-      </div>
+      {renderResourceSection(t('agriculturalResources.fertilizerSectionTitle', 'Pupuk'), resources.Pupuk)}
+      {renderResourceSection(t('agriculturalResources.pesticideSectionTitle', 'Pestisida'), resources.Pestisida)}
+      {renderResourceSection(t('agriculturalResources.medicineSectionTitle', 'Obat'), resources.Obat)}
     </div>
   );
 };
 
 export default AgriculturalResourcesPage;
+
