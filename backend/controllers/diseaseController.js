@@ -4,16 +4,52 @@ import fs from "fs";
 import path from "path";
 
 export const getAllDiseases = (req, res) => {
-  const query = "SELECT * FROM diseases ORDER BY disease_name ASC";
-  db.query(query, (err, results) => {
-    if (err) return res.status(500).json({ message: "Failed to get diseases", error: err });
-    res.json(results);
-  });
+  const query = `
+    SELECT 
+      id,
+      disease_name_id,
+      disease_name_en,
+      scientific_name,
+      description_id,
+      description_en,
+      prevention_id,
+      prevention_en,
+      symptoms_id,
+      symptoms_en,
+      treatment_recommendations_id,
+      treatment_recommendations_en,
+      image_url_example
+    FROM diseases 
+    ORDER BY disease_name_id ASC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).json({ message: "Failed to get diseases", error: err });
+    res.json(results);
+  });
 };
 
 export const getDiseaseById = (req, res) => {
   const { id } = req.params;
-  const diseaseQuery = "SELECT * FROM diseases WHERE id = ?";
+
+  const diseaseQuery = `
+    SELECT
+      id,
+      disease_name_id,
+      disease_name_en,
+      scientific_name,
+      description_id,
+      description_en,
+      prevention_id,
+      prevention_en,
+      symptoms_id,
+      symptoms_en,
+      treatment_recommendations_id,
+      treatment_recommendations_en,
+      image_url_example
+    FROM diseases 
+    WHERE id = ?
+  `;
   
   db.query(diseaseQuery, [id], (err, diseaseResults) => {
     if (err) {
@@ -35,7 +71,6 @@ export const getDiseaseById = (req, res) => {
     
     db.query(solutionsQuery, [id], (solutionsErr, solutionsResults) => {
       if (solutionsErr) {
-        // If solutions query fails, still return the main disease info
         console.error("Failed to get recommended solutions:", solutionsErr);
         return res.json({ disease, recommendedSolutions: [] });
       }
@@ -51,52 +86,60 @@ export const getDiseaseById = (req, res) => {
 };
 
 export const addDisease = (req, res) => {
+  const { 
+    disease_name_id, disease_name_en,
+    scientific_name, // scientific_name is assumed to be language-agnostic
+    description_id, description_en, 
+    prevention_id, prevention_en,
+    symptoms_id, symptoms_en,
+    treatment_recommendations_id, treatment_recommendations_en,
+    image_url_example 
+  } = req.body;
 
-  const { 
-    disease_name, 
-    scientific_name, 
-    description, 
-    prevention, 
-    symptoms, 
-    treatment_recommendations,
-    image_url_example 
-  } = req.body;
+  // Validate required fields for at least one language
+  if (!disease_name_id && !disease_name_en) {
+    return res.status(400).json({ message: "Disease name (ID or EN) is required" });
+  }
 
-  // Pastikan kolom 'disease_name' ada
-  if (!disease_name) {
-    return res.status(400).json({ message: "disease_name is required" });
-  }
+  const query = `
+    INSERT INTO diseases (
+      disease_name_id, disease_name_en, scientific_name, 
+      description_id, description_en, prevention_id, prevention_en,
+      symptoms_id, symptoms_en, treatment_recommendations_id, treatment_recommendations_en, 
+      image_url_example
+    ) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  
+  const values = [
+    disease_name_id || null, disease_name_en || null,
+    scientific_name || null,
+    description_id || null, description_en || null,
+    prevention_id || null, prevention_en || null,
+    symptoms_id || null, symptoms_en || null,
+    treatment_recommendations_id || null, treatment_recommendations_en || null,
+    image_url_example || null
+  ];
 
-  const query = `
-    INSERT INTO diseases (
-      disease_name, scientific_name, description, 
-      prevention, symptoms, treatment_recommendations, image_url_example
-    ) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `;
-  
-  const values = [
-    disease_name,
-    scientific_name || null,
-    description || null,
-    prevention || null,
-    symptoms || null,
-    treatment_recommendations || null,
-    image_url_example || null
-  ];
-
-  db.query(query, values, (err, results) => {
-    if (err) {
-      console.error("Failed to add disease:", err);
-      return res.status(500).json({ message: "Failed to add disease", error: err });
-    }
-    res.status(201).json({ message: "Disease added successfully", id: results.insertId });
-  });
+  db.query(query, values, (err, results) => {
+    if (err) {
+      console.error("Failed to add disease:", err);
+      return res.status(500).json({ message: "Failed to add disease", error: err });
+    }
+    res.status(201).json({ message: "Disease added successfully", id: results.insertId });
+  });
 };
 
 export const updateDisease = async (req, res) => {
   const { id } = req.params;
-  const { disease_name, scientific_name, description, prevention, symptoms, treatment_recommendations } = req.body;
+  const { 
+    disease_name_id, disease_name_en,
+    scientific_name, 
+    description_id, description_en, 
+    prevention_id, prevention_en,
+    symptoms_id, symptoms_en,
+    treatment_recommendations_id, treatment_recommendations_en
+  } = req.body;
   let imageUrl = req.body.image_url_example; // Keep existing image by default
 
   // Check if a new file is uploaded
@@ -129,23 +172,23 @@ export const updateDisease = async (req, res) => {
 
   const query = `
     UPDATE diseases SET
-      disease_name = ?,
+      disease_name_id = ?, disease_name_en = ?,
       scientific_name = ?,
-      description = ?,
-      prevention = ?,
-      symptoms = ?,
-      treatment_recommendations = ?,
+      description_id = ?, description_en = ?,
+      prevention_id = ?, prevention_en = ?,
+      symptoms_id = ?, symptoms_en = ?,
+      treatment_recommendations_id = ?, treatment_recommendations_en = ?,
       image_url_example = ?
     WHERE id = ?
   `;
 
   const values = [
-    disease_name,
-    scientific_name,
-    description,
-    prevention,
-    symptoms,
-    treatment_recommendations,
+    disease_name_id || null, disease_name_en || null,
+    scientific_name || null,
+    description_id || null, description_en || null,
+    prevention_id || null, prevention_en || null,
+    symptoms_id || null, symptoms_en || null,
+    treatment_recommendations_id || null, treatment_recommendations_en || null,
     imageUrl,
     id
   ];

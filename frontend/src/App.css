@@ -87,3 +87,28 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(var(--agrius-neutral-gray-1-rgb), 0.1); /* Need RGB for this */
   border-color: var(--color-text-dark);
 }
+
+/* Global Form Control Styling */
+.agrius-form-control {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--agrius-neutral-gray-1); /* Subtle border */
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-inter);
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  background-color: var(--agrius-pure-white); /* Clean white background */
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  box-shadow: inset 0 1px 3px rgba(4, 13, 12, 0.03); /* Very subtle inner shadow */
+}
+
+.agrius-form-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(234, 235, 157, 0.3); /* Accent focus ring */
+  background-color: var(--agrius-pure-white);
+}
+
+.agrius-form-control.error {
+  border-color: #e74c3c; /* Red for error states */
+}

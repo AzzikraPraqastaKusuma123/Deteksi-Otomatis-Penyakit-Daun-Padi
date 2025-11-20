@@ -30,14 +30,14 @@ export const registerUser = (data) => {
 };
 
 // === 4. DISEASE MANAGEMENT ===
-export const getAllDiseases = () => {
-  // GET /diseases
-  return api.get('/diseases');
+export const getAllDiseases = (lang = 'id') => {
+  // GET /diseases?lang=id OR /diseases?lang=en
+  return api.get(`/diseases?lang=${lang}`);
 };
 
-export const getDiseaseById = (id) => {
-  // GET /diseases/:id
-  return api.get(`/diseases/${id}`);
+export const getDiseaseById = (id, lang = 'id') => {
+  // GET /diseases/:id?lang=id OR /diseases/:id?lang=en
+  return api.get(`/diseases/${id}?lang=${lang}`);
 };
 
 export const addDisease = (diseaseData) => {

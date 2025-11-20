@@ -7,7 +7,7 @@ import './DiseaseDetail.css';
 import './DiseaseList.css'; // Import for recommendation card styles
 
 function DiseaseDetail() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { diseaseId } = useParams();
   const [disease, setDisease] = useState(null);
   const [recommendedSolutions, setRecommendedSolutions] = useState([]);
@@ -20,7 +20,7 @@ function DiseaseDetail() {
     const fetchDiseaseDetails = async () => {
       setLoading(true);
       try {
-        const response = await getDiseaseById(diseaseId);
+        const response = await getDiseaseById(diseaseId, i18n.language);
         setDisease(response.data.disease);
         setRecommendedSolutions(response.data.recommendedSolutions || []);
       } catch (err) {
@@ -39,7 +39,7 @@ function DiseaseDetail() {
     };
 
     fetchDiseaseDetails();
-  }, [diseaseId, navigate, t]);
+  }, [diseaseId, navigate, t, i18n.language]);
 
   const isAdminContext = location.pathname.startsWith('/admin');
   const backTo = isAdminContext ? '/admin/diseases' : '/diseases';

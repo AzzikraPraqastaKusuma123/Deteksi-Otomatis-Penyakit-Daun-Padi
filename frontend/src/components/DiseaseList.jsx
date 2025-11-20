@@ -8,6 +8,8 @@ import './DiseaseList.css';
 function DiseaseList() {
   const { t } = useTranslation();
   const [diseases, setDiseases] = useState([]);
+  const { t, i18n } = useTranslation();
+  const [diseases, setDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ function DiseaseList() {
   const fetchDiseases = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getAllDiseases();
+      const response = await getAllDiseases(i18n.language);
       setDiseases(response.data);
     } catch (err) {
       console.error('Error fetching diseases:', err);
@@ -29,11 +31,11 @@ function DiseaseList() {
     } finally {
       setLoading(false);
     }
-  }, [navigate, t]);
+  }, [navigate, t, i18n.language]);
 
   useEffect(() => {
     fetchDiseases();
-  }, [fetchDiseases]);
+  }, [fetchDiseases, i18n.language]);
 
   const handleDelete = async (diseaseId) => {
     if (window.confirm('Are you sure you want to delete this disease?')) {

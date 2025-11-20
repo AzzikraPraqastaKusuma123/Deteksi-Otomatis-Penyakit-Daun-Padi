@@ -114,11 +114,13 @@
   font-size: 1rem;
   font-weight: var(--font-weight-medium);
   box-shadow: var(--shadow-sm);
+  background-color: var(--color-accent); /* Use accent color */
+  color: var(--color-primary-bg); /* Text color for contrast */
 }
 
 .agrius-quick-action-btn i {
   font-size: 1.2rem;
-  color: var(--agrius-dark-green-new); /* Changed to dark green */
+  color: var(--color-primary-bg); /* Icon color for contrast */
 }
 
 /* Responsive adjustments for AdminDashboard */
