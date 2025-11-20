@@ -42,7 +42,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
                   <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/diseases">{t('navbar.diseaseList')}</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/agricultural-resources">{t('navbar.agriculturalResources')}</NavLink>
+                  <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/agricultural-resources">{t('agriculturalResources.pageTitle')}</NavLink>
                 </li>
               </>
             )}
@@ -61,7 +61,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             <li className="nav-item language-switcher-item">
               <button 
                 className={`btn agrius-lang-btn ${i18n.language === 'id' ? 'active' : ''}`} 
-                onClick={() => changeLanguage('id')} 
+                onClick={() => i18n.changeLanguage('id')} 
                 title={t('language.indonesian')}
               >
                 🇮🇩

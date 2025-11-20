@@ -1,20 +1,39 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
+import Backend from 'i18next-http-backend';
+
+import enTranslation from '../public/locales/en.json';
+import idTranslation from '../public/locales/id.json';
 
 i18n
-  .use(HttpApi)
+  .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    fallbackLng: 'en',
     debug: true,
-    fallbackLng: 'id',
+    load: 'languageOnly',
+    detection: {
+      order: ['cookie', 'localStorage', 'navigator'], // Prioritize explicit user choices
+      caches: ['cookie'],
+    },
+    resources: {
+      en: {
+        translation: enTranslation,
+      },
+      id: {
+        translation: idTranslation,
+      },
+    },
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: false,
     },
     backend: {
-      loadPath: '/locales/{{lng}}.json',
+      loadPath: '/locales/{{lng}}.json', // Still keep for potential dynamic loading or if needed
     },
   });
 
