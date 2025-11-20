@@ -4,23 +4,27 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getDiseaseById } from '../services/api';
 import './DiseaseDetail.css';
+import './DiseaseList.css'; // Import for recommendation card styles
 
 function DiseaseDetail() {
   const { t } = useTranslation();
-  const { diseaseId } = useParams(); // sesuai route '/:diseaseId'
+  const { diseaseId } = useParams();
   const [disease, setDisease] = useState(null);
+  const [recommendedSolutions, setRecommendedSolutions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const fetchDisease = async () => {
+    const fetchDiseaseDetails = async () => {
+      setLoading(true);
       try {
         const response = await getDiseaseById(diseaseId);
-        setDisease(response.data);
+        setDisease(response.data.disease);
+        setRecommendedSolutions(response.data.recommendedSolutions || []);
       } catch (err) {
-        console.error("Error fetching disease:", err);
+        console.error("Error fetching disease details:", err);
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           setError(t('diseaseDetail.sessionExpired'));
           setTimeout(() => navigate('/login'), 1500);
@@ -34,10 +38,9 @@ function DiseaseDetail() {
       }
     };
 
-    fetchDisease();
+    fetchDiseaseDetails();
   }, [diseaseId, navigate, t]);
 
-  // Tentukan konteks (admin atau user) agar tombol Back mengarah ke list yang sesuai
   const isAdminContext = location.pathname.startsWith('/admin');
   const backTo = isAdminContext ? '/admin/diseases' : '/diseases';
 
@@ -95,6 +98,28 @@ function DiseaseDetail() {
           </div>
         </div>
       </div>
+
+      {/* Recommended Solutions Section */}
+      {recommendedSolutions.length > 0 && (
+        <div className="agrius-recommendations-section">
+          <h2 className="agrius-recommendations-title">{t('diseaseDetail.solutionRecs', 'Rekomendasi Solusi')}</h2>
+          <div className="agrius-disease-cards-flex">
+            {recommendedSolutions.map(solution => (
+              <Link to={`/agricultural-resources/${solution.id}`} key={solution.id} className="agrius-disease-card">
+                <img 
+                  src={solution.image || 'https://via.placeholder.com/300x200'} 
+                  alt={solution.name} 
+                  className="agrius-disease-card-img"
+                />
+                <div className="agrius-disease-card-body">
+                  <p className="agrius-card-subcategory">{solution.category}</p>
+                  <h5 className="agrius-card-title">{solution.name}</h5>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

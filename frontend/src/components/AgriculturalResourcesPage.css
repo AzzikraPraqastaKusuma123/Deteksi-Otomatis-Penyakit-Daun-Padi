@@ -83,3 +83,39 @@
     width: auto;
   }
 }
+
+.agrius-subsection-title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-bg);
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--agrius-neutral-gray-1);
+}
+
+.agrius-filter-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-lg);
+}
+
+.agrius-filter-dropdown {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--agrius-neutral-gray-1);
+  background-color: var(--agrius-pure-white);
+  color: var(--color-text-dark);
+}
+
+.agrius-card-subcategory {
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-bg);
+  margin-bottom: var(--spacing-sm);
+  padding: 2px 8px;
+  background-color: rgba(45, 106, 79, 0.1);
+  border-radius: var(--border-radius-lg);
+  display: inline-block;
+}

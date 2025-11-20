@@ -12,16 +12,42 @@ export const getAllDiseases = (req, res) => {
 };
 
 export const getDiseaseById = (req, res) => {
-  const { id } = req.params;
-  const query = "SELECT * FROM diseases WHERE id = ?";
-  
-  db.query(query, [id], (err, results) => {
-    if (err) return res.status(500).json({ message: "Failed to get disease", error: err });
-    if (results.length === 0) {
-      return res.status(404).json({ message: "Disease not found" });
-    }
-    res.json(results[0]); 
-  });
+  const { id } = req.params;
+  const diseaseQuery = "SELECT * FROM diseases WHERE id = ?";
+  
+  db.query(diseaseQuery, [id], (err, diseaseResults) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to get disease", error: err });
+    }
+    if (diseaseResults.length === 0) {
+      return res.status(404).json({ message: "Disease not found" });
+    }
+    
+    const disease = diseaseResults[0];
+    
+    // Query for all recommended solutions (pupuk, obat, pestisida)
+    const solutionsQuery = `
+      SELECT ar.* 
+      FROM agricultural_resources ar
+      JOIN disease_solutions ds ON ar.id = ds.resource_id
+      WHERE ds.disease_id = ?
+    `;
+    
+    db.query(solutionsQuery, [id], (solutionsErr, solutionsResults) => {
+      if (solutionsErr) {
+        // If solutions query fails, still return the main disease info
+        console.error("Failed to get recommended solutions:", solutionsErr);
+        return res.json({ disease, recommendedSolutions: [] });
+      }
+      
+      const recommendedSolutions = solutionsResults.map(resource => ({
+        ...resource,
+        image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null
+      }));
+
+      res.json({ disease, recommendedSolutions });
+    });
+  });
 };
 
 export const addDisease = (req, res) => {
