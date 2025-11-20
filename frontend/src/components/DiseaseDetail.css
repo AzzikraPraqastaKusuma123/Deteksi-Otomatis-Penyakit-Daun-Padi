@@ -148,15 +148,68 @@
   }
 }
 
-.agrius-recommendations-section {
-  margin-top: var(--spacing-xxl);
-  padding-top: var(--spacing-xl);
-  border-top: 1px solid var(--agrius-neutral-gray-1);
+/* New styles for Recommendations Section (integrated) */
+.agrius-recommendations-wrapper {
+  margin-top: var(--spacing-xl); /* Space below the image */
+  padding-top: var(--spacing-xl); /* Padding above the title */
+  border-top: 1px solid var(--agrius-neutral-gray-1); /* Separator line */
 }
 
-.agrius-recommendations-title {
-  font-size: 1.8rem;
-  font-weight: var(--font-weight-bold);
+.agrius-recommendations-title-small {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-dark);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-sm); /* Align with main card padding */
+  padding-right: var(--spacing-sm);
 }
+
+.agrius-disease-cards-carousel {
+  display: flex;
+  flex-wrap: nowrap; /* Keep cards in a single line */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding-bottom: var(--spacing-xs); /* Space for scrollbar */
+  padding-left: var(--spacing-sm); /* Align with main card padding */
+  padding-right: var(--spacing-sm);
+  gap: var(--spacing-md); /* Space between cards */
+  scroll-snap-type: x mandatory; /* Optional: Snap to cards */
+  scrollbar-width: thin; /* Firefox scrollbar */
+  scrollbar-color: var(--color-accent) var(--agrius-cream-off-white); /* Firefox scrollbar color */
+}
+
+/* Style for Webkit browsers (Chrome, Safari) scrollbar */
+.agrius-disease-cards-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.agrius-disease-cards-carousel::-webkit-scrollbar-track {
+  background: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-md);
+}
+
+.agrius-disease-cards-carousel::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--agrius-cream-off-white);
+}
+
+.agrius-carousel-card {
+  flex: 0 0 auto; /* Prevent cards from stretching/shrinking */
+  width: 180px; /* Fixed width for each card */
+  height: auto; /* Adjust height based on content */
+  scroll-snap-align: start; /* Optional: Snap to start of card */
+}
+
+.agrius-carousel-card .agrius-disease-card-img {
+  height: 120px; /* Adjust image height for smaller cards */
+}
+
+.agrius-carousel-card .agrius-card-title {
+  font-size: 1rem;
+}
+
+.agrius-carousel-card .agrius-card-subcategory {
+  font-size: 0.75rem;
+}
+
