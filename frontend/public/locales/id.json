@@ -154,5 +154,28 @@
     "tableHeaderRole": "Peran",
     "tableHeaderActions": "Aksi",
     "noUsersFound": "Tidak ada pengguna yang cocok dengan pencarian Anda."
+  },
+    "agriculturalResources": {
+      "pageTitle": "Sumber Daya Pertanian untuk Tanaman Padi",
+      "pageDescription": "Informasi komprehensif tentang obat-obatan, pupuk, dan pestisida untuk budidaya padi yang sehat.",
+  
+      "medicineSectionTitle": "Obat Tanaman Padi",
+      "medicineSectionContent1": "Jelajahi daftar lengkap penyakit umum tanaman padi, gejala-gejalanya, dan pengobatan medis yang efektif. Pelajari tentang fungisida, bakterisida, dan solusi kimia atau organik lainnya untuk melindungi tanaman Anda.",
+      "medicineSectionContent2": "Pahami metode aplikasi yang tepat, dosis, dan tindakan pencegahan keamanan saat menggunakan obat pada tanaman padi. Pastikan perlindungan lingkungan dan keamanan pangan dengan mengikuti panduan yang direkomendasikan.",
+  
+      "fertilizerSectionTitle": "Pupuk Tanaman Padi",
+      "fertilizerSectionContent1": "Panduan mengenai berbagai jenis pupuk untuk meningkatkan pertumbuhan dan hasil tanaman padi.",
+      "fertilizerSectionContent2": "Jenis Pupuk untuk Padi",
+      "fertilizerSectionContent3": "Temukan berbagai jenis pupuk, termasuk pilihan organik dan anorganik, yang cocok untuk berbagai tahap pertumbuhan tanaman padi. Pelajari tentang rasio NPK, mikronutrien, dan dampaknya terhadap kesehatan tanaman.",
+      "fertilizerSectionContent4": "Teknik Aplikasi Pupuk",
+      "fertilizerSectionContent5": "Kuasai praktik terbaik untuk mengaplikasikan pupuk guna memaksimalkan penyerapan dan meminimalkan pemborosan. Pahami waktu, metode (penyebaran, penempatan dalam), dan pertimbangan lingkungan.",
+  
+      "pesticideSectionTitle": "Pestisida Tanaman Padi",
+      "pesticideSectionContent1": "Informasi penting mengenai pestisida untuk mengendalikan hama dan serangga yang menyerang tanaman padi.",
+      "pesticideSectionContent2": "Identifikasi & Pengendalian Hama",
+      "pesticideSectionContent3": "Identifikasi hama padi umum seperti penggerek batang, penggulung daun, dan wereng. Pelajari tentang strategi pengelolaan hama terpadu (PHT) dan solusi pestisida yang efektif untuk melindungi hasil panen Anda.",
+      "pesticideSectionContent4": "Penggunaan Pestisida Aman & Alternatif",
+      "pesticideSectionContent5": "Pahami penanganan, penyimpanan, dan aplikasi pestisida yang aman. Jelajahi alternatif pengendalian hama organik dan biologis untuk mengurangi ketergantungan kimia dan mempromosikan pertanian berkelanjutan."
+    }
   }
 }

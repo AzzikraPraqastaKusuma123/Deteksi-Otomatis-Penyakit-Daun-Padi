@@ -15,6 +15,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
   };
 
   const changeLanguage = (lng) => {
+    console.log(`Attempting to change language to: ${lng}`);
     i18n.changeLanguage(lng);
   };
 
@@ -40,6 +41,9 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
                 <li className="nav-item">
                   <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/diseases">{t('navbar.diseaseList')}</NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/agricultural-resources">{t('navbar.agriculturalResources')}</NavLink>
+                </li>
               </>
             )}
           </ul>
@@ -48,7 +52,7 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             <li className="nav-item language-switcher-item">
               <button 
                 className={`btn agrius-lang-btn ${i18n.language === 'en' ? 'active' : ''}`} 
-                onClick={() => changeLanguage('en')} 
+                onClick={() => i18n.changeLanguage('en')} 
                 title={t('language.english')}
               >
                 🇬🇧
