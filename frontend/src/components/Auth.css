@@ -1,215 +1,217 @@
 /* frontend/src/components/Auth.css */
 @import '../variables.css';
 
+/* --- LAYOUT UTAMA --- */
 .agrius-auth-container {
   display: flex;
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
-  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  background-color: var(--color-secondary-bg);
   font-family: var(--font-family-inter);
 }
 
-.agrius-auth-image-section {
+.agrius-auth-container .agrius-auth-image-section {
   width: 50%;
-  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1374&auto=format&fit=crop') center center/cover no-repeat;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--color-text-primary); /* Pure White */
-  text-align: center;
+  color: var(--color-text-primary);
   padding: var(--spacing-xxl);
 }
 
-.agrius-auth-image-section::before {
+.agrius-auth-container .agrius-auth-image-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(4, 13, 12, 0.6); /* Forest Green Dark overlay */
+  inset: 0;
+  background: rgba(4, 13, 12, 0.6);
   z-index: 1;
 }
 
-.agrius-auth-image-content {
+.agrius-auth-container .agrius-auth-image-content {
   position: relative;
   z-index: 2;
   max-width: 450px;
+  text-align: center;
 }
 
-.agrius-auth-image-content h1 {
+.agrius-auth-container .agrius-auth-image-content h1 {
   font-size: 3rem;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-md);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  color: var(--color-text-primary); /* Pure White */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
 }
 
-.agrius-auth-image-content p {
+.agrius-auth-container .agrius-auth-image-content p {
   font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--agrius-cream-off-white); /* Cream Off-White for body text */
+  color: #f0f0f0;
 }
 
-.agrius-auth-form-section {
+.agrius-auth-container .agrius-auth-form-section {
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-xxxl);
-  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  padding: 2rem;
+  background-color: var(--color-secondary-bg);
 }
 
-.agrius-auth-card {
+.agrius-auth-container .agrius-auth-card {
   width: 100%;
   max-width: 400px;
-  background-color: var(--agrius-pure-white); /* Pure White for card background */
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-lg);
-  padding: var(--spacing-xxl);
+  background-color: #fff; /* Hardcode putih jika var tidak load */
+  background-color: var(--agrius-pure-white);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  padding: 40px;
   animation: fadeIn 0.6s ease-out;
 }
 
-.agrius-auth-header {
+.agrius-auth-container .agrius-auth-header {
   text-align: center;
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: 2rem;
 }
 
-.agrius-auth-header h1 {
-  font-size: 2.5rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark); /* Forest Green Dark */
-  margin-bottom: var(--spacing-xs);
+.agrius-auth-container .agrius-auth-header h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
 }
 
-.agrius-auth-header p {
-  color: var(--color-text-secondary); /* Neutral Gray */
-  font-size: 1rem;
-}
+/* --- PERBAIKAN TOTAL INPUT (HAPUS BORDER KOTAK) --- */
 
-.agrius-input-group {
+/* 1. Wrapper (Hanya garis bawah) */
+.agrius-auth-container .agrius-input-group {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-lg);
-  border: none; /* Remove the surrounding border */
-  border-radius: 0; /* Remove rounded corners */
-  background-color: transparent; /* Make background transparent */
-  padding: 0; /* Remove padding */
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-}
-
-.agrius-input-group:focus-within {
-  box-shadow: none; /* Remove the focus ring */
-}
-
-.agrius-form-control {
-  height: 50px;
-  border: 0 !important; /* Force remove border, which is now on the parent */
-  outline: none; /* Outline is handled by parent */
-  flex: 1; /* Allow input to grow */
-  font-size: 1rem;
-  color: var(--color-text-dark);
-  background-color: transparent; /* Input is transparent, parent has bg color */
-  width: 100%;
-  padding: 0 var(--spacing-sm); /* Add space between icon and text */
-}
-
-.agrius-form-control:focus {
-  box-shadow: none; /* Focus is now on the parent */
-}
-
-.agrius-input-group-text {
-  /* Remove all absolute positioning */
+  margin-bottom: 1.5rem;
+  border: none;
+  border-bottom: 2px solid #e0e0e0; /* Warna abu soft */
+  border-radius: 0;
   background-color: transparent;
+  padding: 5px 0;
+  position: relative;
+}
+
+.agrius-auth-container .agrius-input-group:focus-within {
+  border-bottom-color: var(--color-primary-bg, #2d6a4f);
+}
+
+/* 2. Input Field (Hapus Kotak Border & Background) */
+.agrius-auth-container input.agrius-form-control,
+.agrius-auth-container input[type="text"].agrius-form-control,
+.agrius-auth-container input[type="password"].agrius-form-control,
+.agrius-auth-container input[type="email"].agrius-form-control {
+  display: block !important;
+  width: 100% !important;
+  height: 45px !important;
+  padding: 10px 0 !important;
+  
+  /* HAPUS TOTAL BORDER */
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  
+  /* HAPUS OUTLINE & SHADOW */
+  outline: none !important;
+  box-shadow: none !important;
+  
+  /* BACKGROUND TRANSPARAN */
+  background: transparent !important;
+  background-color: rgba(0,0,0,0) !important;
+  background-image: none !important;
+  
+  /* RESET STYLE BROWSER */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+
+  font-size: 1rem !important;
+  color: #333 !important;
+}
+
+/* Fix warna background kuning saat autofill (Chrome/Edge) */
+.agrius-auth-container input.agrius-form-control:-webkit-autofill,
+.agrius-auth-container input.agrius-form-control:-webkit-autofill:hover, 
+.agrius-auth-container input.agrius-form-control:-webkit-autofill:focus, 
+.agrius-auth-container input.agrius-form-control:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset; /* Ubah #ffffff sesuai warna background card */
+  background-color: transparent;
+  -webkit-text-fill-color: #333;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --- ICON --- */
+.agrius-auth-container .agrius-input-group-text {
   border: none;
-  color: var(--agrius-neutral-gray-1);
-  font-size: 1.2rem;
+  background: transparent;
+  color: #888;
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
 }
 
-.agrius-password-toggle-icon {
-  color: var(--agrius-neutral-gray-1);
-  font-size: 1.2rem;
+.agrius-auth-container .agrius-password-toggle-icon {
+  background: transparent;
+  border: none;
+  color: #888;
   cursor: pointer;
+  padding: 0 8px;
 }
 
-.agrius-auth-btn {
+/* --- TOMBOL --- */
+.agrius-auth-container .agrius-auth-btn {
   width: 100%;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-accent); /* Soft Lime */
-  color: var(--color-text-dark); /* Forest Green Dark */
-  font-weight: var(--font-weight-semibold);
-  font-size: 1.1rem;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: var(--color-accent, #d4e09b);
+  color: var(--color-text-dark, #1a1a1a);
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
-.agrius-auth-btn:hover {
+.agrius-auth-container .agrius-auth-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  background-color: var(--agrius-cream-off-white); /* Lighter on hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  filter: brightness(1.05);
 }
 
-.agrius-auth-link {
+.agrius-auth-container .agrius-auth-link {
   text-align: center;
-  margin-top: var(--spacing-xl);
-  font-size: 0.95rem;
-  color: var(--color-text-secondary); /* Neutral Gray */
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.agrius-auth-link p {
-  color: var(--color-text-secondary);
-}
-
-.agrius-link {
-  color: var(--color-primary-bg); /* Forest Green Dark for links */
-  font-weight: var(--font-weight-semibold);
+.agrius-auth-container .agrius-link {
+  color: var(--color-primary-bg, #2d6a4f);
   text-decoration: none;
-  transition: color var(--transition-speed-normal) var(--transition-ease);
+  font-weight: 600;
 }
 
-.agrius-link:hover {
-  color: var(--color-accent); /* Soft Lime on hover */
+.agrius-auth-container .agrius-link:hover {
   text-decoration: underline;
 }
 
-/* Responsive adjustments */
+/* RESPONSIVE */
 @media (max-width: 992px) {
-  .agrius-auth-image-section {
-    display: none;
-  }
-  .agrius-auth-form-section {
-    width: 100%;
-  }
+  .agrius-auth-container .agrius-auth-image-section { display: none; }
+  .agrius-auth-container .agrius-auth-form-section { width: 100%; }
 }
 
 @media (max-width: 576px) {
-  .agrius-auth-form-section {
-    padding: var(--spacing-lg);
-  }
-  .agrius-auth-card {
-    padding: var(--spacing-lg);
-  }
-  .agrius-auth-image-content h1 {
-    font-size: 2.2rem;
-  }
-  .agrius-auth-header h1 {
-    font-size: 2rem;
-  }
+  .agrius-auth-container .agrius-auth-card { padding: 25px; box-shadow: none; }
+  .agrius-auth-container .agrius-auth-form-section { padding: 1rem; }
 }
 
-/* Keyframe for fade-in animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
