@@ -156,16 +156,16 @@
     "noUsersFound": "No users found matching your search."
   },
   "agriculturalResources": {
-    "pageTitle": "Agricultural Resources for Rice Plants",
-    "pageDescription": "Comprehensive information on medicines, fertilizers, and pesticides for healthy rice cultivation.",
-    "medicineSectionTitle": "Rice Plant Medicine",
-    "medicineSectionContent1": "Explore a comprehensive list of common rice plant diseases, their symptoms, and effective medicinal treatments. Learn about fungicides, bactericides, and other chemical or organic solutions to protect your crops.",
-    "medicineSectionContent2": "Understand the proper application methods, dosage, and safety precautions when using medicines on rice plants. Ensure environmental protection and food safety by following recommended guidelines.",
-    "fertilizerSectionTitle": "Rice Plant Fertilizer",
-    "fertilizerSectionContent1": "Discover various types of fertilizers, including organic and inorganic options, suitable for different growth stages of rice plants. Learn about NPK ratios, micronutrients, and their impact on plant health.",
+    "pageTitle": "Agriculture",
+    "pageDescription": "Comprehensive information on medicines, fertilizers, and pesticides for healthy cultivation.",
+    "medicineSectionTitle": "Medicine",
+    "medicineSectionContent1": "Explore a comprehensive list of common diseases, their symptoms, and effective medicinal treatments. Learn about fungicides, bactericides, and other chemical or organic solutions to protect your crops.",
+    "medicineSectionContent2": "Understand the proper application methods, dosage, and safety precautions when using medicines. Ensure environmental protection and food safety by following recommended guidelines.",
+    "fertilizerSectionTitle": "Fertilizer",
+    "fertilizerSectionContent1": "Discover various types of fertilizers, including organic and inorganic options, suitable for different growth stages. Learn about NPK ratios, micronutrients, and their impact on plant health.",
     "fertilizerSectionContent2": "Master the best practices for applying fertilizers to maximize absorption and minimize waste. Understand timing, methods (broadcasting, deep placement), and environmental considerations.",
-    "pesticideSectionTitle": "Rice Plant Pesticide",
-    "pesticideSectionContent1": "Identify common rice pests such as stem borers, leaf folders, and planthoppers. Learn about integrated pest management (IPM) strategies and effective pesticide solutions to protect your harvest.",
+    "pesticideSectionTitle": "Pesticide",
+    "pesticideSectionContent1": "Identify common pests such as stem borers, leaf folders, and planthoppers. Learn about integrated pest management (IPM) strategies and effective pesticide solutions to protect your harvest.",
     "pesticideSectionContent2": "Understand the safe handling, storage, and application of pesticides. Explore organic and biological pest control alternatives to reduce chemical reliance and promote sustainable farming."
   }
 }
