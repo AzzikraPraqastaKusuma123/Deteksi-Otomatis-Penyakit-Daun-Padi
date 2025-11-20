@@ -29,20 +29,43 @@ export const getAllResources = (req, res) => {
   });
 };
 
-// Get a single agricultural resource by ID
+// Get a single agricultural resource by ID, now including related diseases
 export const getResourceById = (req, res) => {
   const { id } = req.params;
-  const query = "SELECT * FROM agricultural_resources WHERE id = ?";
+  const resourceQuery = "SELECT * FROM agricultural_resources WHERE id = ?";
   
-  db.query(query, [id], (err, results) => {
+  db.query(resourceQuery, [id], (err, resourceResults) => {
     if (err) return res.status(500).json({ message: "Failed to get resource", error: err });
-    if (results.length === 0) {
+    if (resourceResults.length === 0) {
       return res.status(404).json({ message: "Resource not found" });
     }
-    const resource = results[0];
-    // Prepend backend public URL to the image path
+    
+    const resource = resourceResults[0];
+    // Prepend backend public URL to the main resource image path
     resource.image = resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null;
-    res.json(resource);
+
+    // Now, find related diseases
+    const diseasesQuery = `
+      SELECT d.* 
+      FROM diseases d
+      JOIN disease_solutions ds ON d.id = ds.disease_id
+      WHERE ds.resource_id = ?
+    `;
+
+    db.query(diseasesQuery, [id], (diseaseErr, diseaseResults) => {
+      if (diseaseErr) {
+        console.error("Failed to get related diseases:", diseaseErr);
+        return res.json({ resource, relatedDiseases: [] });
+      }
+      
+      // Prepend backend public URL to the related disease image paths
+      const relatedDiseases = diseaseResults.map(disease => ({
+        ...disease,
+        image_url_example: disease.image_url_example ? `${req.protocol}://${req.get('host')}${disease.image_url_example}` : null
+      }));
+
+      res.json({ resource, relatedDiseases });
+    });
   });
 };
 

@@ -3,9 +3,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getAgriculturalResourceById } from '../services/api';
 import './DiseaseDetail.css'; // Reusing the existing CSS for consistency
+import './DiseaseList.css';   // Reusing for the card styles
 
 function AgriculturalResourceDetail() {
   const [resource, setResource] = useState(null);
+  const [relatedDiseases, setRelatedDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { id } = useParams();
@@ -15,7 +17,8 @@ function AgriculturalResourceDetail() {
     setLoading(true);
     try {
       const response = await getAgriculturalResourceById(id);
-      setResource(response.data);
+      setResource(response.data.resource);
+      setRelatedDiseases(response.data.relatedDiseases || []);
     } catch (err) {
       console.error('Error fetching resource details:', err);
       setError('Gagal memuat detail sumber daya. Mungkin tidak ada atau terjadi kesalahan server.');
@@ -49,7 +52,6 @@ function AgriculturalResourceDetail() {
       
       <div className="agrius-detail-card">
         <h1 className="agrius-detail-title">{resource.name}</h1>
-        
         <div className="agrius-detail-row">
           <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
             {resource.image && (
@@ -76,6 +78,27 @@ function AgriculturalResourceDetail() {
           </div>
         </div>
       </div>
+
+      {/* Related Diseases Section */}
+      {relatedDiseases.length > 0 && (
+        <div className="agrius-recommendations-section">
+          <h2 className="agrius-recommendations-title">Efektif Untuk Mengatasi</h2>
+          <div className="agrius-disease-cards-flex">
+            {relatedDiseases.map(disease => (
+              <Link to={`/diseases/${disease.id}`} key={disease.id} className="agrius-disease-card">
+                <img 
+                  src={disease.image_url_example || 'https://via.placeholder.com/300x200'} 
+                  alt={disease.disease_name} 
+                  className="agrius-disease-card-img"
+                />
+                <div className="agrius-disease-card-body">
+                  <h5 className="agrius-card-title">{disease.disease_name}</h5>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
