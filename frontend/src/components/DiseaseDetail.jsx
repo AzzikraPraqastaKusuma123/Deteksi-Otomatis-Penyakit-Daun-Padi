@@ -76,7 +76,8 @@ function DiseaseDetail() {
                                             <h5 className="agrius-card-title">{solution.name}</h5>
                                           </div>
                                         </Link>
-                                    ))}                </div>
+                                    ))}
+                                </div>
               </div>
             )}
           </div>

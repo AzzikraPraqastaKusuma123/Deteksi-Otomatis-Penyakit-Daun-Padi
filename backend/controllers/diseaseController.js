@@ -1,5 +1,11 @@
 import db from '../config/db.js';
 import upload from '../middleware/uploadMiddleware.js'; // Assuming this handles image uploads
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getAllDiseases = (req, res) => {
   const lang = ['id', 'en'].includes(req.query.lang) ? req.query.lang : 'id';
@@ -49,6 +55,16 @@ export const getAllDiseases = (req, res) => {
     });
     res.json(diseasesWithParsedGemini);
   });
+};
+
+export const getDiseasesCount = async (req, res) => {
+  try {
+    const [results] = await db.promise().query('SELECT COUNT(*) AS count FROM diseases');
+    res.json({ count: results[0].count });
+  } catch (error) {
+    console.error('Error getting diseases count:', error);
+    res.status(500).json({ message: 'Failed to get diseases count', error: error.message });
+  }
 };
 
 import { getGenerativeInfo } from '../services/detectionService.js';
@@ -401,4 +417,47 @@ export const updateDisease = async (req, res) => {
     }
     res.status(200).json({ message: "Disease updated successfully" });
   });
+};
+
+export const deleteDisease = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // 1. Get image path before deleting the disease record
+    const [diseaseResults] = await db.promise().query('SELECT image_url_example FROM diseases WHERE id = ?', [id]);
+    const imageUrlExample = diseaseResults.length > 0 ? diseaseResults[0].image_url_example : null;
+
+    // 2. Delete associated solutions first (due to foreign key constraints)
+    await db.promise().query('DELETE FROM disease_solutions WHERE disease_id = ?', [id]);
+
+    // 3. Delete the disease record
+    const [deleteResult] = await db.promise().query('DELETE FROM diseases WHERE id = ?', [id]);
+
+    if (deleteResult.affectedRows === 0) {
+      return res.status(404).json({ message: 'Disease not found' });
+    }
+
+    // 4. Delete the associated image file if it exists
+    if (imageUrlExample) {
+      // The image_url_example comes in the format /images/diseases/filename.jpg
+      // We need to construct the absolute path to the file on the server.
+      // Assuming 'public' is the root for static files, and images are in public/images/diseases
+      const relativeImagePath = imageUrlExample.startsWith('/') ? imageUrlExample.substring(1) : imageUrlExample;
+      const imagePath = path.join(__dirname, '..', '..', 'backend', 'public', relativeImagePath);
+      
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error(`Error deleting image file ${imagePath}:`, err);
+          // Log error but don't prevent disease deletion from succeeding
+        } else {
+          console.log(`Successfully deleted image file: ${imagePath}`);
+        }
+      });
+    }
+
+    res.status(200).json({ message: 'Disease deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting disease:', error);
+    res.status(500).json({ message: 'Failed to delete disease', error: error.message });
+  }
 };
