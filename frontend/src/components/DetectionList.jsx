@@ -89,6 +89,29 @@ function DetectionList() {
                   <p className="agrius-card-text">{t('detectionList.confidence')}: <strong>{(detection.confidence * 100).toFixed(2)}%</strong></p>
                   {/* Tampilkan detected_at dari DB (timestamp) */}
                   <p className="agrius-card-text"><small className="agrius-text-muted">{new Date(detection.detected_at).toLocaleString()}</small></p>
+
+                  {/* Display Gemini Info Summary */}
+                  {detection.gemini_informasi_detail && (
+                    <div className="agrius-gemini-summary mt-2">
+                      <p className="agrius-gemini-info-text">
+                        <strong>{t('detectionList.aiInfo', 'Informasi AI')}:</strong> {detection.gemini_informasi_detail}{detection.gemini_informasi_detail.length > 100 ? '' : ''}
+                      </p>
+                    </div>
+                  )}
+                  {detection.gemini_solusi_penyembuhan && (
+                    <div className="agrius-gemini-summary">
+                      <p className="agrius-gemini-info-text">
+                        <strong>{t('detectionList.aiSolution', 'Solusi AI')}:</strong> {detection.gemini_solusi_penyembuhan}{detection.gemini_solusi_penyembuhan.length > 100 ? '' : ''}
+                      </p>
+                    </div>
+                  )}
+                  {detection.gemini_rekomendasi_produk && detection.gemini_rekomendasi_produk.length > 0 && (
+                    <div className="agrius-gemini-summary">
+                      <p className="agrius-gemini-info-text">
+                        <strong>{t('detectionList.productRecs', 'Rekomendasi Produk')}:</strong> {detection.gemini_rekomendasi_produk.length} {t('detectionList.productsFound', 'produk ditemukan')}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             );

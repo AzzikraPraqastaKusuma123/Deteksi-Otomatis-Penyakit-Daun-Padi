@@ -61,23 +61,22 @@ function DiseaseDetail() {
             />
             {/* Recommended Solutions Section moved here, below the image */}
             {recommendedSolutions.length > 0 && (
-              <div className="agrius-recommendations-wrapper"> {/* New wrapper for styling */}
-                <h3 className="agrius-recommendations-title-small">{t('diseaseDetail.solutionRecs', 'Rekomendasi Solusi')}</h3>
-                <div className="agrius-disease-cards-carousel"> {/* New class for carousel */}
-                  {recommendedSolutions.map(solution => (
-                    <Link to={`/agricultural-resources/${solution.id}`} key={solution.id} className="agrius-disease-card agrius-carousel-card"> {/* Added class */}
-                      <img 
-                        src={solution.image || 'https://via.placeholder.com/300x200'} 
-                        alt={solution.name} 
-                        className="agrius-disease-card-img"
-                      />
-                      <div className="agrius-disease-card-body">
-                        <p className="agrius-card-subcategory">{solution.category}</p>
-                        <h5 className="agrius-card-title">{solution.name}</h5>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+              <div className="agrius-recommendations-wrapper">
+                <h3 className="agrius-recommendations-title-small">{t('diseaseDetail.solutionRecs')}</h3>
+                <div className="agrius-disease-cards-carousel">
+                                    {recommendedSolutions.map((solution, index) => (
+                                      <Link to={`/agricultural-resources/${solution.id}`} key={solution.id || index} className="agrius-disease-card agrius-carousel-card">
+                                          <img
+                                            src={solution.image ? `http://localhost:5000/images/agricultural_resources/${solution.image}` : 'https://via.placeholder.com/300x200'}
+                                            alt={solution.name}
+                                            className="agrius-disease-card-img"
+                                          />
+                                          <div className="agrius-disease-card-body">
+                                            <p className="agrius-card-subcategory">{solution.category}</p>
+                                            <h5 className="agrius-card-title">{solution.name}</h5>
+                                          </div>
+                                        </Link>
+                                    ))}                </div>
               </div>
             )}
           </div>
@@ -93,26 +92,65 @@ function DiseaseDetail() {
                   <p>{disease.scientific_name}</p>
                 </div>
               )}
-              <div className="agrius-detail-section">
-                <h3><i className="fas fa-info-circle agrius-section-icon"></i> {t('diseaseDetail.description')}</h3>
-                <p>{disease.description}</p>
-              </div>
-              {disease.symptoms && (
-                <div className="agrius-detail-section">
-                  <h3><i className="fas fa-leaf agrius-section-icon"></i> {t('diseaseDetail.symptoms')}</h3>
-                  <p>{disease.symptoms}</p>
-                </div>
+              
+              {/* Render Gemini Summaries */}
+              {disease.gemini_summary ? (
+                <>
+                  <div className="agrius-detail-section">
+                    <h3><i className="fas fa-leaf agrius-section-icon"></i> {t('diseaseDetail.symptoms')}</h3>
+                    <p>{disease.gemini_summary.symptoms?.toString()}</p>
+                  </div>
+                  <div className="agrius-detail-section">
+                    <h3><i className="fas fa-shield-alt agrius-section-icon"></i> {t('diseaseDetail.prevention')}</h3>
+                    <p>{disease.gemini_summary.prevention?.toString()}</p>
+                  </div>
+                  <div className="agrius-detail-section">
+                    <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('diseaseDetail.treatment')}</h3>
+                    <p>{disease.gemini_summary.treatment?.toString()}</p>
+                  </div>
+                  {/* The solutions from gemini_summary are a paragraph, not product list */}
+                  {disease.gemini_summary.solutions && (
+                    <div className="agrius-detail-section">
+                      <h3><i className="fas fa-lightbulb agrius-section-icon"></i> {t('diseaseDetail.geminiSolutionsSummary')}</h3>
+                      <p>{disease.gemini_summary.solutions.toString()}</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  {/* Fallback to original data if gemini_summary is not available */}
+                  {disease.symptoms_original && (
+                    <div className="agrius-detail-section">
+                      <h3><i className="fas fa-leaf agrius-section-icon"></i> {t('diseaseDetail.symptoms')}</h3>
+                      <p>{disease.symptoms_original}</p>
+                    </div>
+                  )}
+                  {disease.prevention_original && (
+                    <div className="agrius-detail-section">
+                      <h3><i className="fas fa-shield-alt agrius-section-icon"></i> {t('diseaseDetail.prevention')}</h3>
+                      <p>{disease.prevention_original}</p>
+                    </div>
+                  )}
+                  {disease.treatment_original && (
+                    <div className="agrius-detail-section">
+                      <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('diseaseDetail.treatment')}</h3>
+                      <p>{disease.treatment_original}</p>
+                    </div>
+                  )}
+                </>
               )}
-              {disease.prevention && (
+
+              {/* Render Gemini Product Recommendations if available */}
+              {disease.gemini_rekomendasi_produk_json && disease.gemini_rekomendasi_produk_json.length > 0 && (
                 <div className="agrius-detail-section">
-                  <h3><i className="fas fa-shield-alt agrius-section-icon"></i> {t('diseaseDetail.prevention')}</h3>
-                  <p>{disease.prevention}</p>
-                </div>
-              )}
-              {disease.treatment_recommendations && (
-                <div className="agrius-detail-section">
-                  <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('diseaseDetail.treatment')}</h3>
-                  <p>{disease.treatment_recommendations}</p>
+                  <h3><i className="fas fa-seedling agrius-section-icon"></i> {t('diseaseDetail.geminiProductRecs')}</h3>
+                  <ul className="agrius-product-list">
+                    {disease.gemini_rekomendasi_produk_json.map((product, index) => (
+                      <li key={product.nama_produk || index} className="agrius-product-item">
+                        <strong>{product.nama_produk}:</strong> {product.deskripsi_singkat}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>

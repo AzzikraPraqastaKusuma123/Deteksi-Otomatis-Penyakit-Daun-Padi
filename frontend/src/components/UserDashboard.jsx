@@ -6,7 +6,7 @@ import { Card, Button, Spinner } from 'react-bootstrap';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const user = JSON.parse(localStorage.getItem('user'));
   const [diseases, setDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchDiseases = async () => {
       try {
-        const response = await getAllDiseases();
+        const response = await getAllDiseases(i18n.language);
         setDiseases(response.data);
       } catch (error) {
         console.error("Failed to fetch diseases:", error);
@@ -24,7 +24,7 @@ const UserDashboard = () => {
     };
 
     fetchDiseases();
-  }, []);
+  }, [i18n.language]);
 
 
 
@@ -125,10 +125,29 @@ const UserDashboard = () => {
                     className="agrius-disease-card-img"
                   />
                   <Card.Body>
-                    <Card.Title>{disease.disease_name}</Card.Title>
-                    <Card.Text className="agrius-disease-card-text">
-                      {disease.description.substring(0, 100)}...
-                    </Card.Text>
+                    <Card.Title>{disease[`disease_name_${i18n.language}`]}</Card.Title>
+                    {/* Display Gemini Info */}
+                    {disease.gemini_informasi_detail && (
+                      <Card.Text className="agrius-disease-card-text">
+                        <strong>{t('diseaseList.aiInfo')}:</strong> {disease.gemini_informasi_detail}
+                      </Card.Text>
+                    )}
+                    {disease.gemini_solusi_penyembuhan && (
+                      <Card.Text className="agrius-disease-card-text">
+                        <strong>{t('diseaseList.aiSolution')}:</strong> {disease.gemini_solusi_penyembuhan}
+                      </Card.Text>
+                    )}
+                    {disease.gemini_rekomendasi_produk && disease.gemini_rekomendasi_produk.length > 0 && (
+                      <Card.Text className="agrius-disease-card-text">
+                        <strong>{t('diseaseList.productRecs')}:</strong> {disease.gemini_rekomendasi_produk.length} {t('diseaseList.productsFound')}
+                      </Card.Text>
+                    )}
+                    {/* Fallback to original description if no Gemini info is available */}
+                    {!disease.gemini_informasi_detail && !disease.gemini_solusi_penyembuhan && (
+                      <Card.Text className="agrius-disease-card-text">
+                        {disease[`description_${i18n.language}`] || t('diseaseList.noDescription')}
+                      </Card.Text>
+                    )}
                     <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
                   </Card.Body>
                 </Card>

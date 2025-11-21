@@ -32,34 +32,41 @@ export async function loadModel() {
   }
 }
 
-export async function getGenerativeInfo(diseaseName) {
+export async function getGenerativeInfo(diseaseName, lang = 'id') {
   if (!process.env.GEMINI_API_KEY) {
     console.warn("GEMINI_API_KEY not found. Skipping generative info.");
     return null;
   }
 
+  const languageInstruction = lang === 'id' ? 'dalam Bahasa Indonesia' : 'in English';
+
   if (diseaseName === 'Healthy Rice Leaf') {
-    return {
-      informasi_detail: "Daun padi dalam kondisi sehat, tidak menunjukkan gejala penyakit.",
-      solusi_penyembuhan: "Tidak diperlukan penyembuhan. Pertahankan praktik pertanian yang baik untuk menjaga kesehatan tanaman.",
-      rekomendasi_produk: []
-    };
+    if (lang === 'id') {
+      return {
+        informasi_detail: "Daun padi dalam kondisi sehat, tidak menunjukkan gejala penyakit. Pertahankan praktik pertanian yang baik untuk menjaga kesehatan tanaman. Penting untuk terus memantau kondisi tanaman secara rutin.",
+        solusi_penyembuhan: "Tidak diperlukan tindakan penyembuhan atau pencegahan khusus karena tanaman sehat. Fokus pada praktik budidaya optimal untuk mempertahankan kondisi ini.",
+        rekomendasi_produk: []
+      };
+    } else {
+      return {
+        description: "Healthy rice leaves show no disease symptoms. Maintain good agricultural practices to keep plants healthy.",
+        prevention: "No specific prevention needed as the plant is healthy. Continue routine monitoring and optimal cultivation practices.",
+        cultivation_tips: "Ensure adequate soil nutrients, proper irrigation, and weed control. Choose superior varieties resistant to various environmental conditions. Implement crop rotation regularly."
+      };
+    }
   }
 
   const prompt = `
-    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi dari Indonesia yang sangat berpengalaman.
-
-    Berikan penjelasan yang sangat mendalam, detail, dan panjang untuk setiap bagian. Anggap setiap bagian adalah sebuah esai singkat. Gunakan bahasa yang mudah dipahami namun tetap akurat, seolah-olah Anda sedang memberikan konsultasi langsung kepada seorang petani.
+    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani, seolah-olah Anda sedang memberikan informasi cepat.
 
     Berdasarkan nama penyakit berikut: "${diseaseName}"
 
-    Tolong berikan jawaban HANYA dalam format JSON dengan struktur berikut:
+    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks harus berupa SATU paragraf yang padat dan informatif, dan rekomendasi produk dalam format array:
     {
-      "informasi_detail": "Jelaskan secara mendalam dengan minimal 100 kata tentang penyakit ini. Mulai dari gejala awal yang samar, bagaimana perkembangan gejala menjadi parah, apa nama ilmiah penyebabnya (jamur/bakteri), bagaimana cara patogen tersebut menyerang jaringan tanaman, kondisi cuaca dan lingkungan (suhu, kelembaban) yang paling ideal untuk wabah, dan apa dampak ekonomi jika dibiarkan.",
-      "solusi_penyembuhan": "Berikan panduan langkah-demi-langkah yang sangat komprehensif dengan minimal 150 kata. Untuk bagian (A) Metode Pengendalian Kultural & Organik, jelaskan setidaknya 3-4 teknik secara detail, seperti rotasi tanaman, penggunaan varietas tahan, sanitasi (pembersihan gulma/sisa tanaman), dan penggunaan musuh alami atau pestisida nabati. Untuk bagian (B) Metode Pengendalian Kimiawi, sebutkan 2-3 jenis zat aktif yang berbeda, jelaskan perbedaan cara kerjanya (sistemik vs. kontak), berikan contoh waktu aplikasi (misal: pagi hari, tidak hujan), dan tekankan pentingnya mengikuti dosis anjuran untuk menghindari resistensi.",
+      "informasi_detail": "Jelaskan penyakit ini secara ringkas, meliputi gejala utama, penyebab, dan dampaknya pada tanaman padi dalam satu paragraf.",
+      "solusi_penyembuhan": "Sajikan panduan pencegahan dan penyembuhan utama dalam satu paragraf yang mencakup metode kultural, organik, dan, jika relevan, kimiawi.",
       "rekomendasi_produk": [
-        { "nama_produk": "Contoh Merek Dagang Fungisida/Bakterisida", "deskripsi_singkat": "Jelaskan secara singkat produk ini mengandung zat aktif apa dan untuk apa." },
-        { "nama_produk": "Contoh Merek Dagang Pupuk/Produk Pendukung", "deskripsi_singkat": "Jelaskan mengapa produk ini direkomendasikan untuk pemulihan atau pencegahan." }
+        {"nama_produk": "Nama Produk 1 (misal: Pupuk Urea)", "deskripsi_singkat": "Deskripsi singkat tentang manfaat produk ini untuk penyakit tersebut atau kesehatan tanaman."}
       ]
     }
   `;
@@ -106,6 +113,8 @@ function softmax(arr) {
   const sum = exp.reduce((a, b) => a + b, 0);
   return exp.map(x => x / sum);
 }
+
+
 
 export async function runInference(imageBuffer) {
   if (!session) throw new Error('Model not initialized. Run loadModel() first.');

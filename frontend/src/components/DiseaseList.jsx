@@ -2,14 +2,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAllDiseases, deleteDisease } from '../services/api';
+import { getAllDiseases } from '../services/api';
 import './DiseaseList.css';
 
 function DiseaseList() {
-  const { t } = useTranslation();
   const [diseases, setDiseases] = useState([]);
   const { t, i18n } = useTranslation();
-  const [diseases, setDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -37,17 +35,17 @@ function DiseaseList() {
     fetchDiseases();
   }, [fetchDiseases, i18n.language]);
 
-  const handleDelete = async (diseaseId) => {
-    if (window.confirm('Are you sure you want to delete this disease?')) {
-      try {
-        await deleteDisease(diseaseId);
-        fetchDiseases(); // Refresh the list
-      } catch (err) {
-        console.error('Error deleting disease:', err);
-        alert('Failed to delete disease.');
-      }
-    }
-  };
+  // const handleDelete = async (diseaseId) => {
+  //   if (window.confirm('Are you sure you want to delete this disease?')) {
+  //     try {
+  //       await deleteDisease(diseaseId);
+  //       fetchDiseases(); // Refresh the list
+  //     } catch (err) {
+  //       console.error('Error deleting disease:', err);
+  //       alert('Failed to delete disease.');
+  //     }
+  //   }
+  // };
 
   const isAdminContext = location.pathname.startsWith('/admin');
 
@@ -77,7 +75,35 @@ function DiseaseList() {
               />
               <div className="agrius-disease-card-body">
                 <h5 className="agrius-card-title">{disease.disease_name}</h5>
-                <p className="agrius-card-text">{disease.description || t('diseaseList.noDescription')}</p>
+                
+                {(() => {
+                  const explanation = disease.gemini_informasi_detail || disease.description;
+                  const solution = disease.gemini_solusi_penyembuhan;
+
+                  const truncate = (text, length) => (text && text.length > length) ? text.substring(0, length) + '...' : text;
+                  
+                  const truncatedExplanation = truncate(explanation, 100);
+
+                  if (!truncatedExplanation && !solution) {
+                    return <p className="agrius-card-text">{t('diseaseList.noDescription', 'No description available.')}</p>;
+                  }
+
+                  return (
+                    <>
+                      {truncatedExplanation && (
+                        <p className="agrius-card-text">{truncatedExplanation}</p>
+                      )}
+                      {solution && (
+                        <div className="agrius-gemini-summary mt-2">
+                           <p className="agrius-gemini-info-text">
+                            <strong>{t('diseaseList.aiSolution', 'Solusi AI')}:</strong> {truncate(solution, 80)}
+                           </p>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+                
                 <div className="agrius-card-actions">
                   <Link to={detailPath} className="agrius-btn-secondary agrius-btn-view-details">{t('diseaseList.viewDetails')}</Link>
                   {isAdminContext && (

@@ -106,7 +106,11 @@
     "startFirstAnalysis": "Start your first analysis!",
     "healthy": "Healthy",
     "disease": "Disease",
-    "confidence": "Confidence"
+    "confidence": "Confidence",
+    "aiInfo": "AI Information",
+    "aiSolution": "AI Solution",
+    "productRecs": "Product Recommendations",
+    "productsFound": "products found"
   },
   "diseaseList": {
     "sessionExpired": "Your session has expired. Please log in again.",
@@ -115,7 +119,11 @@
     "pageTitle": "Disease Library",
     "addDisease": "Add Disease",
     "noDescription": "No description available.",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "aiInfo": "AI Information",
+    "aiSolution": "AI Solution",
+    "productRecs": "Product Recommendations",
+    "productsFound": "products found"
   },
   "diseaseDetail": {
     "sessionExpired": "Your session has expired. Please log in again.",
@@ -128,7 +136,10 @@
     "description": "Description:",
     "symptoms": "Symptoms:",
     "prevention": "Prevention:",
-    "treatment": "Treatment:"
+    "treatment": "Treatment:",
+    "solutionRecs": "Solution Recommendations",
+    "geminiSolutionsSummary": "Gemini Solutions Summary",
+    "geminiProductRecs": "Gemini Product Recommendations"
   },
   "adminDashboard": {
     "dashboardTitle": "Dashboard",

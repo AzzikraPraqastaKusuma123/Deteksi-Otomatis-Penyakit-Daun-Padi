@@ -57,6 +57,26 @@ function AgriculturalResourceDetail() {
             {resource.image && (
               <img src={resource.image} alt={resource.name} className="agrius-detail-image" />
             )}
+            {/* Related Diseases Section moved here, below the image */}
+            {relatedDiseases.length > 0 && (
+              <div className="agrius-recommendations-wrapper"> {/* Reusing wrapper for styling */}
+                <h3 className="agrius-recommendations-title-small">Efektif Untuk Mengatasi</h3>
+                <div className="agrius-disease-cards-carousel"> {/* Reusing class for carousel */}
+                  {relatedDiseases.map(disease => (
+                    <Link to={`/diseases/${disease.id}`} key={disease.id} className="agrius-disease-card agrius-carousel-card"> {/* Added class */}
+                      <img 
+                        src={disease.image_url_example || 'https://via.placeholder.com/300x200'} 
+                        alt={disease.disease_name} 
+                        className="agrius-disease-card-img"
+                      />
+                      <div className="agrius-disease-card-body">
+                        <h5 className="agrius-card-title">{disease.disease_name}</h5>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <div style={{ flex: '1 1 500px' }}>
             <div className="agrius-detail-info">
@@ -78,27 +98,6 @@ function AgriculturalResourceDetail() {
           </div>
         </div>
       </div>
-
-      {/* Related Diseases Section */}
-      {relatedDiseases.length > 0 && (
-        <div className="agrius-recommendations-section">
-          <h2 className="agrius-recommendations-title">Efektif Untuk Mengatasi</h2>
-          <div className="agrius-disease-cards-flex">
-            {relatedDiseases.map(disease => (
-              <Link to={`/diseases/${disease.id}`} key={disease.id} className="agrius-disease-card">
-                <img 
-                  src={disease.image_url_example || 'https://via.placeholder.com/300x200'} 
-                  alt={disease.disease_name} 
-                  className="agrius-disease-card-img"
-                />
-                <div className="agrius-disease-card-body">
-                  <h5 className="agrius-card-title">{disease.disease_name}</h5>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

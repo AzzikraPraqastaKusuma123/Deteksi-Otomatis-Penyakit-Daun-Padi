@@ -20,7 +20,16 @@ export const detectDisease = async (req, res) => {
     const prediction = await runInference(imageBuffer);
 
     // Get additional info from Gemini
-    const generativeInfo = await getGenerativeInfo(prediction.disease);
+    let generativeInfo = null;
+    try {
+      generativeInfo = await getGenerativeInfo(prediction.disease);
+    } catch (geminiError) {
+      console.error("Error getting Gemini details during detection:", geminiError);
+      generativeInfo = {
+        error: true,
+        message: "Failed to get AI details for detection." // Simplified message
+      };
+    }
 
     // Simpan gambar hasil upload di folder /uploads/
     const uploadDir = path.join(process.cwd(), "uploads");
@@ -32,22 +41,33 @@ export const detectDisease = async (req, res) => {
 
     const imageUrl = `/uploads/${filename}`;
 
-    console.log("SQL:");
-    console.log(`
-      INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention, treatment_recommendations)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `);
+    let geminiInformasiDetail = null;
+    let geminiSolusiPenyembuhan = null;
+    let geminiRekomendasiProdukJson = null;
 
+    if (generativeInfo && !generativeInfo.error) {
+      geminiInformasiDetail = generativeInfo.informasi_detail;
+      geminiSolusiPenyembuhan = generativeInfo.solusi_penyembuhan;
+      if (generativeInfo.rekomendasi_produk) {
+        geminiRekomendasiProdukJson = JSON.stringify(generativeInfo.rekomendasi_produk);
+      }
+    }
+
+    // Use Gemini info for saving, if available. Otherwise, use prediction (from DB).
+    // Note: 'description' and 'prevention' columns in DB will now store Gemini info,
+    // or fallback to original prediction.description/prevention if Gemini failed or was not available.
+    const descriptionToSave = geminiInformasiDetail || prediction.description;
+    const preventionToSave = geminiSolusiPenyembuhan || prediction.prevention;
+    
     const params = [
       userId,
       prediction.disease,
       prediction.confidence,
       imageUrl,
-      prediction.description,
-      prediction.prevention,
-      prediction.treatment_recommendations // Added
+      descriptionToSave,
+      preventionToSave,
+      prediction.treatment_recommendations, // Still saving this from prediction (DB)
     ];
-    console.log("PARAMS:", params);
 
     db.query(
       `
@@ -65,11 +85,11 @@ export const detectDisease = async (req, res) => {
           message: "Detection success",
           disease: prediction.disease,
           confidence: prediction.confidence,
-          description: prediction.description,
-          prevention: prediction.prevention,
-          treatment_recommendations: prediction.treatment_recommendations, // Added
+          description: descriptionToSave, // Reflect what was saved
+          prevention: preventionToSave,   // Reflect what was saved
+          treatment_recommendations: prediction.treatment_recommendations, // From DB
           image_url: imageUrl,
-          generativeInfo: generativeInfo // Added Gemini response
+          generativeInfo: generativeInfo // Still sending the direct Gemini response
         });
       }
     );
@@ -83,7 +103,19 @@ export const getAllDetections = (req, res) => {
   const userId = req.user?.id;
   if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-  const query = "SELECT * FROM detections WHERE user_id = ?";
+  const query = `
+    SELECT
+      id,
+      user_id,
+      disease_name,
+      confidence,
+      image_url,
+      description,
+      prevention,
+      treatment_recommendations
+    FROM detections
+    WHERE user_id = ?
+  `;
   db.query(query, [userId], (err, results) => {
     if (err) return res.status(500).json({ message: "Failed to get detections", error: err });
     res.json(results);

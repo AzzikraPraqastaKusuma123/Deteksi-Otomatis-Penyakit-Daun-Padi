@@ -21,18 +21,20 @@ db.connect((err) => {
 const originalQuery = db.query;
 db.query = function (...args) {
   const [sql, params, callback] = args;
-  console.log("SQL:", sql);
+  // console.log("SQL:", sql); // Removed debug log
   if (typeof params === 'function') {
     // (sql, callback)
     return originalQuery.call(this, sql, (err, results) => {
-      console.log("RESULTS:", results);
+      // if (err) console.log("ERROR:", err); // Removed debug log
+      // console.log("RESULTS:", results); // Removed debug log
       params(err, results);
     });
   } else {
     // (sql, params, callback)
-    console.log("PARAMS:", params);
+    // console.log("PARAMS:", params); // Removed debug log
     return originalQuery.call(this, sql, params, (err, results) => {
-      console.log("RESULTS:", results);
+      // if (err) console.log("ERROR:", err); // Removed debug log
+      // console.log("RESULTS:", results); // Removed debug log
       callback(err, results);
     });
   }

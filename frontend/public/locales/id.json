@@ -106,7 +106,11 @@
     "startFirstAnalysis": "Mulai analisis pertama Anda!",
     "healthy": "Sehat",
     "disease": "Penyakit",
-    "confidence": "Keyakinan"
+    "confidence": "Keyakinan",
+    "aiInfo": "Informasi AI",
+    "aiSolution": "Solusi AI",
+    "productRecs": "Rekomendasi Produk",
+    "productsFound": "produk ditemukan"
   },
   "diseaseList": {
     "sessionExpired": "Sesi Anda telah berakhir. Silakan masuk kembali.",
@@ -115,7 +119,11 @@
     "pageTitle": "Pustaka Penyakit",
     "addDisease": "Tambah Penyakit",
     "noDescription": "Tidak ada deskripsi tersedia.",
-    "viewDetails": "Lihat Detail"
+    "viewDetails": "Lihat Detail",
+    "aiInfo": "Informasi AI",
+    "aiSolution": "Solusi AI",
+    "productRecs": "Rekomendasi Produk",
+    "productsFound": "produk ditemukan"
   },
   "diseaseDetail": {
     "sessionExpired": "Sesi Anda telah berakhir. Silakan masuk kembali.",
@@ -128,7 +136,10 @@
     "description": "Deskripsi:",
     "symptoms": "Gejala:",
     "prevention": "Pencegahan:",
-    "treatment": "Pengobatan:"
+    "treatment": "Pengobatan:",
+    "solutionRecs": "Rekomendasi Solusi",
+    "geminiSolutionsSummary": "Ringkasan Solusi Gemini",
+    "geminiProductRecs": "Rekomendasi Produk Gemini"
   },
   "adminDashboard": {
     "dashboardTitle": "Dasbor",
