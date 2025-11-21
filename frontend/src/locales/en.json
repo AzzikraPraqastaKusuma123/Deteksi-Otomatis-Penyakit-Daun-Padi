@@ -178,5 +178,13 @@
     "pesticideSectionTitle": "Pesticide",
     "pesticideSectionContent1": "Identify common pests such as stem borers, leaf folders, and planthoppers. Learn about integrated pest management (IPM) strategies and effective pesticide solutions to protect your harvest.",
     "pesticideSectionContent2": "Understand the safe handling, storage, and application of pesticides. Explore organic and biological pest control alternatives to reduce chemical reliance and promote sustainable farming."
+  },
+  "resourceDetail": {
+    "category": "Category",
+    "overview": "Overview",
+    "usageTips": "Usage Tips",
+    "benefits": "Benefits",
+    "additionalRecommendations": "Additional Recommendations",
+    "originalDescription": "Original Description"
   }
 }

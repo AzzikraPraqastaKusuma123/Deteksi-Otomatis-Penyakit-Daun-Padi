@@ -184,5 +184,13 @@
     "pesticideSectionContent3": "Informasi penting mengenai pestisida untuk mengendalikan hama dan serangga.",
     "pesticideSectionContent4": "Identifikasi & Pengendalian Hama",
     "pesticideSectionContent5": "Penggunaan Pestisida Aman & Alternatif"
+  },
+  "resourceDetail": {
+    "category": "Kategori",
+    "overview": "Ringkasan Umum",
+    "usageTips": "Tips Penggunaan",
+    "benefits": "Manfaat",
+    "additionalRecommendations": "Rekomendasi Tambahan",
+    "originalDescription": "Deskripsi Asli"
   }
 }

@@ -1,11 +1,13 @@
 // frontend/src/components/AgriculturalResourceDetail.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Add this import
 import { getAgriculturalResourceById } from '../services/api';
 import './DiseaseDetail.css'; // Reusing the existing CSS for consistency
 import './DiseaseList.css';   // Reusing for the card styles
 
 function AgriculturalResourceDetail() {
+  const { t } = useTranslation(); // Initialize useTranslation
   const [resource, setResource] = useState(null);
   const [relatedDiseases, setRelatedDiseases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,14 +85,72 @@ function AgriculturalResourceDetail() {
               <div className="agrius-detail-section">
                 <h3>
                   <i className="fas fa-tag agrius-section-icon"></i>
-                  Kategori
+                  {t('resourceDetail.category')}
                 </h3>
                 <p><strong>{resource.category}</strong></p>
               </div>
+              
+              {/* Gemini Overview */}
+              {resource.gemini_summary && resource.gemini_summary.overview && (
+                <div className="agrius-detail-section">
+                  <h3>
+                    <i className="fas fa-info-circle agrius-section-icon"></i>
+                    {t('resourceDetail.overview')}
+                  </h3>
+                  <p>{resource.gemini_summary.overview}</p>
+                </div>
+              )}
+
+              {/* Gemini Usage Tips */}
+              {resource.gemini_summary && resource.gemini_summary.usage_tips && (
+                <div className="agrius-detail-section">
+                  <h3>
+                    <i className="fas fa-lightbulb agrius-section-icon"></i>
+                    {t('resourceDetail.usageTips')}
+                  </h3>
+                  <p>{resource.gemini_summary.usage_tips}</p>
+                </div>
+              )}
+
+              {/* Gemini Benefits */}
+              {resource.gemini_benefits && resource.gemini_benefits.length > 0 && (
+                <div className="agrius-detail-section">
+                  <h3>
+                    <i className="fas fa-hand-holding-heart agrius-section-icon"></i>
+                    {t('resourceDetail.benefits')}
+                  </h3>
+                  <ul className="agrius-product-list">
+                    {resource.gemini_benefits.map((item, index) => (
+                      <li key={index} className="agrius-product-item">
+                        {item.point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Gemini Additional Recommendations */}
+              {resource.gemini_additional_recommendations && resource.gemini_additional_recommendations.length > 0 && (
+                <div className="agrius-detail-section">
+                  <h3>
+                    <i className="fas fa-seedling agrius-section-icon"></i>
+                    {t('resourceDetail.additionalRecommendations')}
+                  </h3>
+                  <ul className="agrius-product-list">
+                    {resource.gemini_additional_recommendations.map((item, index) => (
+                      <li key={index} className="agrius-product-item">
+                        {item.recommendation}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Original Description as a fallback or additional info */}
               <div className="agrius-detail-section">
                 <h3>
                   <i className="fas fa-align-left agrius-section-icon"></i>
-                  Deskripsi Lengkap
+                  {t('resourceDetail.originalDescription')}
                 </h3>
                 <p>{resource.description}</p>
               </div>

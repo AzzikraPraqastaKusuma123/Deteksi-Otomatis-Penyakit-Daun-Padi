@@ -107,6 +107,69 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
   }
 }
 
+export async function getGenerativeAgriculturalResourceInfo(resourceName, lang = 'id') {
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn("GEMINI_API_KEY not found. Skipping generative info for agricultural resource.");
+    return null;
+  }
+
+  const languageInstruction = lang === 'id' ? 'dalam Bahasa Indonesia' : 'in English';
+
+  const prompt = `
+    Anda adalah seorang ahli pertanian dan pakar sumber daya pertanian (pupuk, pestisida, obat). Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani.
+
+    Berdasarkan nama sumber daya pertanian berikut: "${resourceName}"
+
+    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks ("overview", "usage_tips") harus berupa SATU paragraf yang padat dan informatif. Bidang "benefits" dan "additional_recommendations" harus berupa array objek, di mana setiap objek memiliki satu properti string.
+    {
+      "overview": "Deskripsi umum atau pengantar singkat tentang sumber daya ini (misal: apa itu, fungsi utamanya).",
+      "usage_tips": "Cara penggunaan, dosis, atau instruksi aplikasi yang penting dan praktis untuk petani.",
+      "benefits": [
+        {"point": "Manfaat utama 1 dari penggunaan sumber daya ini."},
+        {"point": "Manfaat utama 2 dari penggunaan sumber daya ini."}
+      ],
+      "additional_recommendations": [
+        {"recommendation": "Rekomendasi tambahan 1 (misal: kombinasi yang baik dengan produk lain, kondisi terbaik penggunaan)."},
+        {"recommendation": "Rekomendasi tambahan 2."}
+      ]
+    }
+  `;
+
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          response_mime_type: "application/json",
+        },
+      }
+    );
+
+    console.log("✅ Successfully received response from Gemini API for agricultural resource.");
+    // console.log("Raw Gemini resource response data:", JSON.stringify(response.data, null, 2)); // Log raw response
+
+    try {
+      const jsonString = response.data.candidates[0].content.parts[0].text;
+      const parsedJson = JSON.parse(jsonString);
+      // console.log("Parsed Gemini Resource JSON:", JSON.stringify(parsedJson, null, 2)); // Log parsed JSON
+      return parsedJson;
+    } catch (parseError) {
+      console.error("❌ Failed to parse JSON response from Gemini for agricultural resource:", parseError);
+      return { 
+        error: true, 
+        message: "Failed to parse AI response for agricultural resource." 
+      };
+    }
+  } catch (error) {
+    console.error("❌ Error calling Gemini API for agricultural resource:", error.response ? error.response.data : error.message);
+    return { 
+      error: true, 
+      message: error.response ? error.response.data : error.message 
+    };
+  }
+}
+
 function softmax(arr) {
   const max = Math.max(...arr);
   const exp = arr.map(x => Math.exp(x - max));

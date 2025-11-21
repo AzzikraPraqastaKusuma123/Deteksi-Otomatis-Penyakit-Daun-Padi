@@ -2,6 +2,7 @@
 import db from "../config/db.js";
 import fs from "fs";
 import path from "path";
+import { getGenerativeAgriculturalResourceInfo } from "../services/detectionService.js";
 
 const UPLOAD_DIR = path.join(process.cwd(), 'backend', 'public', 'images', 'agricultural_resources');
 
@@ -30,19 +31,21 @@ export const getAllResources = (req, res) => {
 };
 
 // Get a single agricultural resource by ID, now including related diseases
-export const getResourceById = (req, res) => {
+export const getResourceById = async (req, res) => {
   const { id } = req.params;
-  const resourceQuery = "SELECT * FROM agricultural_resources WHERE id = ?";
-  
-  db.query(resourceQuery, [id], (err, resourceResults) => {
-    if (err) return res.status(500).json({ message: "Failed to get resource", error: err });
+  const lang = ['id', 'en'].includes(req.query.lang) ? req.query.lang : 'id';
+
+  try {
+    const resourceQuery = "SELECT * FROM agricultural_resources WHERE id = ?";
+    const [resourceResults] = await db.promise().query(resourceQuery, [id]);
+
     if (resourceResults.length === 0) {
       return res.status(404).json({ message: "Resource not found" });
     }
     
-    const resource = resourceResults[0];
+    const resourceData = resourceResults[0];
     // Prepend backend public URL to the main resource image path
-    resource.image = resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null;
+    resourceData.image = resourceData.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resourceData.image}` : null;
 
     // Now, find related diseases
     const diseasesQuery = `
@@ -52,25 +55,54 @@ export const getResourceById = (req, res) => {
       WHERE ds.resource_id = ?
     `;
 
-    db.query(diseasesQuery, [id], (diseaseErr, diseaseResults) => {
-      if (diseaseErr) {
-        console.error("Failed to get related diseases:", diseaseErr);
-        return res.json({ resource, relatedDiseases: [] });
-      }
-      
-      // Prepend backend public URL to the related disease image paths
-      const relatedDiseases = diseaseResults.map(disease => ({
-        ...disease,
-        image_url_example: disease.image_url_example ? `${req.protocol}://${req.get('host')}${disease.image_url_example}` : null
-      }));
+    const [diseaseResults] = await db.promise().query(diseasesQuery, [id]);
+    
+    const relatedDiseases = diseaseResults.map(disease => ({
+      ...disease,
+      image_url_example: disease.image_url_example ? `${req.protocol}://${req.get('host')}${disease.image_url_example}` : null
+    }));
 
-      res.json({ resource, relatedDiseases });
+    // Construct Gemini Summary for the response
+    const geminiSummary = {
+      overview: resourceData[`gemini_overview_${lang}`] || resourceData.description, // Fallback to original description
+      usage_tips: resourceData[`gemini_usage_tips_${lang}`] || null
+    };
+
+    let geminiBenefits = [];
+    try {
+      if (resourceData.gemini_benefits_json) {
+        geminiBenefits = JSON.parse(resourceData.gemini_benefits_json);
+      }
+    } catch (parseError) {
+      console.error("Error parsing gemini_benefits_json:", parseError);
+    }
+
+    let geminiAdditionalRecommendations = [];
+    try {
+      if (resourceData.gemini_rekomendasi_tambahan_json) {
+        geminiAdditionalRecommendations = JSON.parse(resourceData.gemini_rekomendasi_tambahan_json);
+      }
+    } catch (parseError) {
+      console.error("Error parsing gemini_rekomendasi_tambahan_json:", parseError);
+    }
+
+    res.json({ 
+      resource: {
+        ...resourceData,
+        gemini_summary: geminiSummary,
+        gemini_benefits: geminiBenefits,
+        gemini_additional_recommendations: geminiAdditionalRecommendations
+      }, 
+      relatedDiseases 
     });
-  });
+  } catch (err) {
+    console.error("Failed to get resource or related diseases:", err);
+    return res.status(500).json({ message: "Failed to get resource details", error: err.message });
+  }
 };
 
 // Create a new agricultural resource
-export const createResource = (req, res) => {
+export const createResource = async (req, res) => {
   const { name, category, description } = req.body;
 
   if (!name || !category || !description) {
@@ -87,12 +119,62 @@ export const createResource = (req, res) => {
     imageName = filename;
   }
 
+  // --- Generate Gemini Info ---
+  let geminiOverviewId = null;
+  let geminiUsageTipsId = null;
+  let geminiBenefitsJson = null; // Stored as JSON string
+  let geminiRekomendasiTambahanJson = null; // Stored as JSON string
+
+  // For English
+  let geminiOverviewEn = null;
+  let geminiUsageTipsEn = null;
+
+
+  try {
+    const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, 'id');
+    if (geminiInfoId && !geminiInfoId.error) {
+      geminiOverviewId = geminiInfoId.overview;
+      geminiUsageTipsId = geminiInfoId.usage_tips;
+      if (geminiInfoId.benefits) {
+        geminiBenefitsJson = JSON.stringify(geminiInfoId.benefits);
+      }
+      if (geminiInfoId.additional_recommendations) {
+        geminiRekomendasiTambahanJson = JSON.stringify(geminiInfoId.additional_recommendations);
+      }
+    }
+  } catch (geminiError) {
+    console.error("Error generating Gemini info for agricultural resource (ID):", geminiError);
+  }
+
+  try {
+    const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, 'en');
+    if (geminiInfoEn && !geminiInfoEn.error) {
+      geminiOverviewEn = geminiInfoEn.overview;
+      geminiUsageTipsEn = geminiInfoEn.usage_tips;
+      // Note: benefits and recommendations are language-agnostic for now,
+      // so we use the ID version for the shared JSON fields.
+    }
+  } catch (geminiError) {
+    console.error("Error generating Gemini info for agricultural resource (EN):", geminiError);
+  }
+  // --- End Gemini Info Generation ---
+
   const query = `
-    INSERT INTO agricultural_resources (name, category, description, image) 
-    VALUES (?, ?, ?, ?)
+    INSERT INTO agricultural_resources (
+      name, category, description, image,
+      gemini_overview_id, gemini_overview_en,
+      gemini_usage_tips_id, gemini_usage_tips_en,
+      gemini_benefits_json, gemini_rekomendasi_tambahan_json
+    ) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   
-  const values = [name, category, description, imageName];
+  const values = [
+    name, category, description, imageName,
+    geminiOverviewId, geminiOverviewEn,
+    geminiUsageTipsId, geminiUsageTipsEn,
+    geminiBenefitsJson, geminiRekomendasiTambahanJson
+  ];
 
   db.query(query, values, (err, results) => {
     if (err) {
@@ -104,7 +186,7 @@ export const createResource = (req, res) => {
 };
 
 // Update an existing agricultural resource
-export const updateResource = (req, res) => {
+export const updateResource = async (req, res) => {
   const { id } = req.params;
   const { name, category, description } = req.body;
 
@@ -112,54 +194,111 @@ export const updateResource = (req, res) => {
     return res.status(400).json({ message: "Name, category, and description are required" });
   }
 
-  // First, get the old image name to delete it if a new one is uploaded
-  db.query("SELECT image FROM agricultural_resources WHERE id = ?", [id], (err, results) => {
-    if (err) {
-      return res.status(500).json({ message: "Database error fetching old resource.", error: err });
+  // First, get the old image name and current Gemini info to potentially re-generate or retain
+  const [currentResourceResults] = await db.promise().query("SELECT image, name, gemini_overview_id, gemini_overview_en, gemini_usage_tips_id, gemini_usage_tips_en, gemini_benefits_json, gemini_rekomendasi_tambahan_json FROM agricultural_resources WHERE id = ?", [id]);
+
+  if (currentResourceResults.length === 0) {
+    return res.status(404).json({ message: "Resource not found to update." });
+  }
+
+  const currentResource = currentResourceResults[0];
+  const oldImageName = currentResource.image;
+  let newImageName = oldImageName;
+
+  if (req.file) {
+    const imageBuffer = req.file.buffer;
+    const filename = `resource_${Date.now()}${path.extname(req.file.originalname)}`;
+    const imagePath = path.join(UPLOAD_DIR, filename);
+    
+    fs.writeFileSync(imagePath, imageBuffer);
+    newImageName = filename;
+
+    if (oldImageName) {
+      const oldImagePath = path.join(UPLOAD_DIR, oldImageName);
+      fs.unlink(oldImagePath, (unlinkErr) => {
+        if (unlinkErr) console.error("Error deleting old image:", unlinkErr);
+      });
     }
-    if (results.length === 0) {
-      return res.status(404).json({ message: "Resource not found to update." });
-    }
+  }
 
-    const oldImageName = results[0].image;
-    let newImageName = oldImageName;
+  // --- Generate Gemini Info ---
+  let geminiOverviewId = currentResource.gemini_overview_id;
+  let geminiUsageTipsId = currentResource.gemini_usage_tips_id;
+  let geminiBenefitsJson = currentResource.gemini_benefits_json; 
+  let geminiRekomendasiTambahanJson = currentResource.gemini_rekomendasi_tambahan_json; 
 
-    if (req.file) {
-      // A new file is uploaded, so we process it
-      const imageBuffer = req.file.buffer;
-      const filename = `resource_${Date.now()}${path.extname(req.file.originalname)}`;
-      const imagePath = path.join(UPLOAD_DIR, filename);
-      
-      fs.writeFileSync(imagePath, imageBuffer);
-      newImageName = filename;
+  let geminiOverviewEn = currentResource.gemini_overview_en;
+  let geminiUsageTipsEn = currentResource.gemini_usage_tips_en;
 
-      // And delete the old file if it existed
-      if (oldImageName) {
-        const oldImagePath = path.join(UPLOAD_DIR, oldImageName);
-        fs.unlink(oldImagePath, (unlinkErr) => {
-          if (unlinkErr) console.error("Error deleting old image:", unlinkErr);
-        });
+  const nameChanged = currentResource.name !== name;
+
+  // Re-generate if name changed or if any Gemini info is missing
+  if (nameChanged || !geminiOverviewId || !geminiUsageTipsId || !geminiBenefitsJson || !geminiRekomendasiTambahanJson) {
+    try {
+      const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, 'id');
+      if (geminiInfoId && !geminiInfoId.error) {
+        geminiOverviewId = geminiInfoId.overview;
+        geminiUsageTipsId = geminiInfoId.usage_tips;
+        if (geminiInfoId.benefits) {
+          geminiBenefitsJson = JSON.stringify(geminiInfoId.benefits);
+        }
+        if (geminiInfoId.additional_recommendations) {
+          geminiRekomendasiTambahanJson = JSON.stringify(geminiInfoId.additional_recommendations);
+        }
+      } else {
+        console.warn("Gemini ID generation failed or returned error. Retaining old ID info.");
       }
+    } catch (geminiError) {
+      console.error("Error re-generating Gemini info for agricultural resource (ID):", geminiError);
     }
+  }
 
-    const query = `
+  // Re-generate if name changed or if any Gemini info is missing for EN
+  if (nameChanged || !geminiOverviewEn || !geminiUsageTipsEn) {
+    try {
+      const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, 'en');
+      if (geminiInfoEn && !geminiInfoEn.error) {
+        geminiOverviewEn = geminiInfoEn.overview;
+        geminiUsageTipsEn = geminiInfoEn.usage_tips;
+        // Shared JSON fields (benefits, recommendations) are already handled by ID call
+      } else {
+        console.warn("Gemini EN generation failed or returned error. Retaining old EN info.");
+      }
+    } catch (geminiError) {
+      console.error("Error re-generating Gemini info for agricultural resource (EN):", geminiError);
+    }
+  }
+  // --- End Gemini Info Generation ---
+
+  const query = `
       UPDATE agricultural_resources SET
         name = ?,
         category = ?,
         description = ?,
-        image = ?
+        image = ?,
+        gemini_overview_id = ?,
+        gemini_overview_en = ?,
+        gemini_usage_tips_id = ?,
+        gemini_usage_tips_en = ?,
+        gemini_benefits_json = ?,
+        gemini_rekomendasi_tambahan_json = ?
       WHERE id = ?
     `;
 
-    const values = [name, category, description, newImageName, id];
+  const values = [
+    name, category, description, newImageName,
+    geminiOverviewId, geminiOverviewEn,
+    geminiUsageTipsId, geminiUsageTipsEn,
+    geminiBenefitsJson, geminiRekomendasiTambahanJson,
+    id
+  ];
 
-    db.query(query, values, (err, updateResult) => {
-      if (err) {
-        console.error("Failed to update resource:", err);
-        return res.status(500).json({ message: "Failed to update resource", error: err });
-      }
-      res.json({ message: "Resource updated successfully" });
-    });
+  db.query(query, values, (err, updateResult) => {
+    if (err) {
+      console.error("Failed to update resource:", err);
+      return res.status(500).json({ message: "Failed to update resource", error: err });
+    }
+    res.json({ message: "Resource updated successfully" });
   });
 };
 
