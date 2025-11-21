@@ -58,7 +58,8 @@ const AgriculturalResourcesPage = () => {
           <div className="agrius-disease-card-body">
             <p className="agrius-card-subcategory">{resource.category}</p>
             <h5 className="agrius-card-title">{resource.name}</h5>
-            <p className="agrius-card-text">{resource.description}</p>
+            {/* Display gemini_overview if available, otherwise fallback to original description */}
+            <p className="agrius-card-text">{resource.gemini_overview || resource.description}</p>
           </div>
         </Link>
       ))}

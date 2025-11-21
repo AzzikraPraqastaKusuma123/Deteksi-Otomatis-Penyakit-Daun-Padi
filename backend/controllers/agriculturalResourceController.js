@@ -16,14 +16,32 @@ const getImagePath = (imageName) => `/images/agricultural_resources/${imageName}
 
 // Get all agricultural resources
 export const getAllResources = (req, res) => {
-  const query = "SELECT * FROM agricultural_resources ORDER BY category, name ASC";
+  const lang = ['id', 'en'].includes(req.query.lang) ? req.query.lang : 'id';
+
+  const query = `
+    SELECT 
+      id,
+      name,
+      category,
+      description,
+      image,
+      gemini_overview_id,
+      gemini_overview_en,
+      gemini_usage_tips_id,
+      gemini_usage_tips_en,
+      gemini_benefits_json,
+      gemini_rekomendasi_tambahan_json
+    FROM agricultural_resources 
+    ORDER BY category, name ASC
+  `;
   db.query(query, (err, results) => {
     if (err) return res.status(500).json({ message: "Failed to get resources", error: err });
     
-    // Prepend backend public URL to image paths
+    // Prepend backend public URL to image paths and add language-specific gemini_overview
     const resources = results.map(resource => ({
       ...resource,
-      image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null
+      image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null,
+      gemini_overview: resource[`gemini_overview_${lang}`] || resource.description // Provide language-specific overview or fallback
     }));
     
     res.json(resources);
