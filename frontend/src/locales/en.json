@@ -185,6 +185,7 @@
     "usageTips": "Usage Tips",
     "benefits": "Benefits",
     "additionalRecommendations": "Additional Recommendations",
-    "originalDescription": "Original Description"
+    "originalDescription": "Original Description",
+    "generatingAiExplanation": "Loading AI explanation..."
   }
 }

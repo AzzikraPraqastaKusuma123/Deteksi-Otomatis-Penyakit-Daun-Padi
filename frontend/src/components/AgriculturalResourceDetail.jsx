@@ -34,17 +34,26 @@ function AgriculturalResourceDetail() {
   }, [fetchResource]);
 
   if (loading) {
-    return <div className="agrius-detail-container"><p className="agrius-loading-text">Loading...</p></div>;
+    return <div className="agrius-detail-container"><p className="agrius-loading-text">{t('loading', 'Loading...')}</p></div>;
   }
 
   if (error) {
     return <div className="agrius-detail-container"><p className="agrius-error-message">{error}</p></div>;
   }
 
-  if (!resource) {
-    return <div className="agrius-detail-container"><p className="agrius-no-data-message">Sumber daya tidak ditemukan.</p></div>;
+  // If resource data is loaded but Gemini overview is still missing, display a specific loading message for AI explanation.
+  // This covers cases where the Gemini API might have failed to populate the overview, even if the resource itself exists.
+  if (!resource || !resource.gemini_summary || !resource.gemini_summary.overview) {
+    return (
+      <div className="agrius-detail-container">
+        <p className="agrius-loading-text">
+          {t('resourceDetail.generatingAiExplanation', 'Memuat penjelasan AI...')}
+        </p>
+      </div>
+    );
   }
 
+  // --- Only render the full content if resource and its Gemini overview are available ---
   return (
     <div className="agrius-detail-container">
       <Link to="/agricultural-resources" className="agrius-back-link">

@@ -86,23 +86,9 @@ export const getResourceById = async (req, res) => {
       usage_tips: resourceData[`gemini_usage_tips_${lang}`] || null
     };
 
-    let geminiBenefits = [];
-    try {
-      if (resourceData.gemini_benefits_json) {
-        geminiBenefits = JSON.parse(resourceData.gemini_benefits_json);
-      }
-    } catch (parseError) {
-      console.error("Error parsing gemini_benefits_json:", parseError);
-    }
+    let geminiBenefits = resourceData.gemini_benefits_json || [];
 
-    let geminiAdditionalRecommendations = [];
-    try {
-      if (resourceData.gemini_rekomendasi_tambahan_json) {
-        geminiAdditionalRecommendations = JSON.parse(resourceData.gemini_rekomendasi_tambahan_json);
-      }
-    } catch (parseError) {
-      console.error("Error parsing gemini_rekomendasi_tambahan_json:", parseError);
-    }
+    let geminiAdditionalRecommendations = resourceData.gemini_rekomendasi_tambahan_json || [];
 
     res.json({ 
       resource: {
