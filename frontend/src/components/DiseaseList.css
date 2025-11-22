@@ -93,24 +93,24 @@
   align-items: center;
 }
 
-.agrius-btn-view-details {
-  background-color: transparent; /* Transparent background */
-  color: var(--agrius-dark-green-new); /* Dark Green text color */
-  border: 1px solid var(--agrius-dark-green-new); /* Dark Green border */
-  border-radius: var(--border-radius-md);
-  box-shadow: none; /* No shadow initially */
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  font-weight: var(--font-weight-semibold); /* Semibold font weight */
-  text-decoration: none;
-  padding: var(--spacing-sm) var(--spacing-lg);
+.agrius-disease-card .agrius-card-actions .agrius-btn-view-details {
+  background-color: transparent !important;
+  color: #1b5e20 !important; /* Dark Green */
+  border: 1px solid #1b5e20 !important; /* Dark Green outline */
+  font-weight: var(--font-weight-semibold) !important; /* Ensure legible font weight */
+  text-decoration: none !important;
+  border-radius: var(--border-radius-md); /* Keep original border-radius */
+  padding: var(--spacing-sm) var(--spacing-lg); /* Keep original padding */
+  transition: all var(--transition-speed-normal) var(--transition-ease); /* Keep original transition */
+  box-shadow: none !important; /* Explicitly remove shadow */
 }
 
-.agrius-btn-view-details:hover {
-  background-color: var(--agrius-dark-green-new); /* Dark Green background on hover */
-  border-color: var(--agrius-dark-green-new); /* Dark Green border on hover */
-  color: var(--agrius-pure-white); /* White text on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
-  box-shadow: var(--shadow-md); /* Add a subtle shadow on hover */
+.agrius-disease-card .agrius-card-actions .agrius-btn-view-details:hover {
+  background-color: #1b5e20 !important; /* Dark Green background on hover */
+  border-color: #1b5e20 !important; /* Dark Green border on hover */
+  color: #ffffff !important; /* White text on hover */
+  transform: translateY(-2px); /* Slight lift on hover, keep */
+  box-shadow: var(--shadow-md) !important; /* Add a subtle shadow on hover */
 }
 
 .agrius-btn-action {
