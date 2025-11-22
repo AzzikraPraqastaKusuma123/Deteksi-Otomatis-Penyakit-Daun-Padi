@@ -149,7 +149,7 @@ export const createResource = async (req, res) => {
 
 
   try {
-    const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, 'id');
+    const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, description, 'id');
     if (geminiInfoId && !geminiInfoId.error) {
       geminiOverviewId = geminiInfoId.overview;
       geminiUsageTipsId = geminiInfoId.usage_tips;
@@ -165,7 +165,7 @@ export const createResource = async (req, res) => {
   }
 
   try {
-    const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, 'en');
+    const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, description, 'en');
     if (geminiInfoEn && !geminiInfoEn.error) {
       geminiOverviewEn = geminiInfoEn.overview;
       geminiUsageTipsEn = geminiInfoEn.usage_tips;
@@ -253,7 +253,7 @@ export const updateResource = async (req, res) => {
   // Re-generate if name changed or if any Gemini info is missing
   if (nameChanged || !geminiOverviewId || !geminiUsageTipsId || !geminiBenefitsJson || !geminiRekomendasiTambahanJson) {
     try {
-      const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, 'id');
+      const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, description, 'id');
       if (geminiInfoId && !geminiInfoId.error) {
         geminiOverviewId = geminiInfoId.overview;
         geminiUsageTipsId = geminiInfoId.usage_tips;
@@ -274,7 +274,7 @@ export const updateResource = async (req, res) => {
   // Re-generate if name changed or if any Gemini info is missing for EN
   if (nameChanged || !geminiOverviewEn || !geminiUsageTipsEn) {
     try {
-      const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, 'en');
+      const geminiInfoEn = await getGenerativeAgriculturalResourceInfo(name, description, 'en');
       if (geminiInfoEn && !geminiInfoEn.error) {
         geminiOverviewEn = geminiInfoEn.overview;
         geminiUsageTipsEn = geminiInfoEn.usage_tips;

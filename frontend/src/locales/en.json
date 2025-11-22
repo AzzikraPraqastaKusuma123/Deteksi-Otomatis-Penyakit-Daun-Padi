@@ -181,7 +181,7 @@
   },
   "resourceDetail": {
     "category": "Category",
-    "overview": "Overview",
+    "llmDescription": "Description",
     "usageTips": "Usage Tips",
     "benefits": "Benefits",
     "additionalRecommendations": "Additional Recommendations",

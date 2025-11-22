@@ -95,7 +95,7 @@ function AgriculturalResourceDetail() {
                 <div className="agrius-detail-section">
                   <h3>
                     <i className="fas fa-info-circle agrius-section-icon"></i>
-                    {t('resourceDetail.overview')}
+                    {t('resourceDetail.llmDescription')}
                   </h3>
                   <p>{resource.gemini_summary.overview}</p>
                 </div>
@@ -146,14 +146,7 @@ function AgriculturalResourceDetail() {
                 </div>
               )}
 
-              {/* Original Description as a fallback or additional info */}
-              <div className="agrius-detail-section">
-                <h3>
-                  <i className="fas fa-align-left agrius-section-icon"></i>
-                  {t('resourceDetail.originalDescription')}
-                </h3>
-                <p>{resource.description}</p>
-              </div>
+
             </div>
           </div>
         </div>

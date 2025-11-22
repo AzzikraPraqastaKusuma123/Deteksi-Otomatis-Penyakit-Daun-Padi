@@ -75,6 +75,13 @@
     "empoweringFarmersDesc": "Temukan bagaimana sistem bertenaga AI canggih kami membantu Anda mengidentifikasi penyakit daun padi dengan cepat dan akurat, memberikan wawasan tepat waktu untuk pengelolaan tanaman yang lebih baik dan hasil yang lebih tinggi. Bergabunglah dengan komunitas petani sukses kami hari ini!",
     "learnMore": "Pelajari Lebih Lanjut"
   },
+  "filter": {
+    "search_fertilizer": "Cari nama pupuk...",
+    "all_fertilizers": "Semua Pupuk",
+    "organic_fertilizer": "Pupuk Organik",
+    "inorganic_fertilizer": "Pupuk Anorganik",
+    "no_results": "Tidak ada item yang cocok dengan filter Anda."
+  },
   "detectionPage": {
     "cameraAccessError": "Tidak dapat mengakses kamera. Pastikan Anda telah memberikan izin dan terhubung ke koneksi yang aman (HTTPS).",
     "imageRequiredError": "Harap berikan gambar terlebih dahulu.",
@@ -115,6 +122,7 @@
   "diseaseList": {
     "sessionExpired": "Sesi Anda telah berakhir. Silakan masuk kembali.",
     "failedToLoad": "Gagal memuat data penyakit.",
+    "loading": "Memuat...",
     "loadingDiseases": "Memuat penyakit...",
     "pageTitle": "Pustaka Penyakit",
     "addDisease": "Tambah Penyakit",
@@ -187,7 +195,7 @@
   },
   "resourceDetail": {
     "category": "Kategori",
-    "overview": "Ringkasan Umum",
+    "llmDescription": "Deskripsi",
     "usageTips": "Tips Penggunaan",
     "benefits": "Manfaat",
     "additionalRecommendations": "Rekomendasi Tambahan",

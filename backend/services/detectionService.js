@@ -107,7 +107,7 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
   }
 }
 
-export async function getGenerativeAgriculturalResourceInfo(resourceName, lang = 'id') {
+export async function getGenerativeAgriculturalResourceInfo(resourceName, resourceDescription, lang = 'id') {
   if (!process.env.GEMINI_API_KEY) {
     console.warn("GEMINI_API_KEY not found. Skipping generative info for agricultural resource.");
     return null;
@@ -118,12 +118,12 @@ export async function getGenerativeAgriculturalResourceInfo(resourceName, lang =
   const prompt = `
     Anda adalah seorang ahli pertanian dan pakar sumber daya pertanian (pupuk, pestisida, obat). Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani.
 
-    Berdasarkan nama sumber daya pertanian berikut: "${resourceName}"
+    Berdasarkan nama sumber daya pertanian berikut: "${resourceName}" dan deskripsi aslinya: "${resourceDescription}"
 
-    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks ("overview", "usage_tips") harus berupa SATU paragraf yang padat dan informatif. Bidang "benefits" dan "additional_recommendations" harus berupa array objek, di mana setiap objek memiliki satu properti string.
+    Tolong ringkas dan jelaskan deskripsi asli di atas secara sangat mendetail, komprehensif, dan jelas, seolah-olah Anda adalah seorang ahli pertanian yang memberikan informasi lengkap dan mendalam yang mudah dipahami oleh petani. Berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Bidang "overview" harus berupa penjelasan yang sangat mendetail dan jelas, dapat mencakup beberapa paragraf panjang. Bidang "usage_tips" harus tetap ringkas dan informatif dalam satu paragraf. Bidang "benefits" dan "additional_recommendations" harus berupa array objek, di mana setiap objek memiliki satu properti string.
     {
-      "overview": "Deskripsi umum atau pengantar singkat tentang sumber daya ini (misal: apa itu, fungsi utamanya).",
-      "usage_tips": "Cara penggunaan, dosis, atau instruksi aplikasi yang penting dan praktis untuk petani.",
+      "overview": "Jelaskan sumber daya ini secara komprehensif dan mendalam, meliputi apa itu, fungsi utamanya, bagaimana cara kerjanya, serta pentingnya bagi pertanian padi. Penjelasan ini harus mudah dipahami oleh petani dan dapat mencakup beberapa paragraf panjang untuk memberikan pemahaman yang menyeluruh.",
+      "usage_tips": "Sajikan panduan penggunaan, dosis anjuran, waktu aplikasi yang tepat, dan tips praktis lainnya yang mendetail dan berguna bagi petani untuk memaksimalkan efektivitas sumber daya ini.",
       "benefits": [
         {"point": "Manfaat utama 1 dari penggunaan sumber daya ini."},
         {"point": "Manfaat utama 2 dari penggunaan sumber daya ini."}
