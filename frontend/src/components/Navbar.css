@@ -1,7 +1,7 @@
 @import '../variables.css';
 
 .agrius-navbar {
-  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  background-color: black; /* Changed to black background */
   box-shadow: var(--shadow-md);
   padding: var(--spacing-sm) 0; /* Soft organic spacing */
   position: sticky; /* Changed from fixed to sticky for better layout flow */
@@ -47,6 +47,17 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+.agrius-dropdown-item.active,
+.agrius-dropdown-item:active { /* Active state for dropdown item */
+  background-color: rgba(0, 0, 0, 0.2) !important; /* Darker gray for active item in dropdown */
+  color: var(--color-accent) !important;
+}
+
+.agrius-nav-link.active-dropdown-parent { /* Custom class for active dropdown parent */
+  background-color: rgba(60, 60, 60, 0.7); /* Dark gray rectangle */
+  border-radius: var(--border-radius-sm); /* Slightly rounded corners */
+}
+
 .agrius-navbar-toggler {
   border-color: var(--agrius-neutral-gray-1);
 }
@@ -56,38 +67,22 @@
 }
 
 /* Agrius Button Styles for Navbar */
-.agrius-btn-primary {
-  background-color: var(--color-accent); /* Soft Lime */
-  color: var(--color-text-dark); /* Forest Green Dark */
-  border: none;
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-xs) var(--spacing-lg);
-  font-weight: var(--font-weight-medium);
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  box-shadow: var(--shadow-sm);
-}
-
-.agrius-btn-primary:hover {
-  background-color: var(--agrius-cream-off-white);
-  color: var(--color-text-dark);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.agrius-btn-secondary {
+.agrius-btn-outline-accent { /* New outline style button */
   background-color: transparent;
-  color: var(--color-accent) !important; /* Set to #EAEB9D as requested, with !important */
-  border: 1px solid var(--agrius-neutral-gray-1);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-xs) var(--spacing-lg);
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-speed-normal) var(--transition-ease);
+  box-shadow: none;
 }
 
-.agrius-btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-accent); /* #EAEB9D on hover */
-  color: var(--color-accent); /* #EAEB9D on hover */
+.agrius-btn-outline-accent:hover {
+  background-color: var(--color-accent);
+  color: black; /* Text becomes black on hover */
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .profile-link {
