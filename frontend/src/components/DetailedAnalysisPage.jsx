@@ -26,6 +26,16 @@ const DetailedAnalysisPage = () => {
   const { disease, generativeInfo, image_url, recommendedSolutions } = prediction; // Destructure recommendedSolutions
   const serverBaseUrl = 'http://localhost:5000';
 
+  // Helper function to format text with bold for asterisks
+  const formatTextWithBold = (text) => {
+    if (!text) return { __html: '' };
+    // Replace single asterisks with <strong> tags, handling cases like *word* or *phrase with spaces*
+    // It specifically looks for patterns like *text* where 'text' doesn't contain spaces around asterisks,
+    // and correctly ignores multiplication signs or other non-formatting asterisks.
+    const formattedText = text.replace(/\*(.+?)\*/g, '<strong>$1</strong>');
+    return { __html: formattedText.replace(/\n/g, '<br />') }; // Replace newlines with <br /> for proper rendering
+  };
+
   return (
     <div className="detailed-analysis-page">
       <div className="analysis-header">
@@ -56,12 +66,12 @@ const DetailedAnalysisPage = () => {
               <div className="gemini-info-detailed">
                 <div className="gemini-section-detailed">
                   <h4><i className="fas fa-info-circle"></i> Detailed Information</h4>
-                  <p>{generativeInfo.informasi_detail}</p>
+                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.informasi_detail)}></p>
                 </div>
 
                 <div className="gemini-section-detailed">
                   <h4><i className="fas fa-seedling"></i> Solution & Healing</h4>
-                  <p>{generativeInfo.solusi_penyembuhan}</p>
+                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.solusi_penyembuhan)}></p>
                 </div>
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (

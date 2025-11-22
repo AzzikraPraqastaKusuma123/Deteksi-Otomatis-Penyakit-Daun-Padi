@@ -62,10 +62,13 @@
   margin-bottom: var(--spacing-lg);
   color: var(--color-text-dark);
   font-weight: var(--font-weight-semibold);
+  font-size: 1.4rem; /* Consistent with other card titles */
 }
 
 .detected-image {
   max-width: 100%;
+  height: 300px; /* Make image-card image larger by default */
+  object-fit: cover; /* Ensure image covers the area */
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
 }
@@ -79,8 +82,7 @@
   color: var(--color-primary-bg); /* Forest Green Dark */
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-lg);
-  border-bottom: 2px solid var(--color-accent); /* Soft Lime underline */
-  padding-bottom: var(--spacing-sm);
+  /* Removed border-bottom and padding-bottom */
 }
 
 .gemini-info-detailed {
@@ -225,6 +227,13 @@
     width: 100%;
     justify-content: center;
   }
+  .sidebar-content .image-card { /* Adjust image card padding on medium screens */
+    padding: var(--spacing-xl);
+  }
+  .detected-image {
+    height: 250px; /* Adjust height for consistency when stacked */
+    object-fit: cover;
+  }
 }
 
 @media (max-width: 576px) {
@@ -248,5 +257,8 @@
   }
   .healthy-leaf-detailed p {
     font-size: 1rem;
+  }
+  .detected-image {
+    height: 180px; /* Further adjust height for small screens */
   }
 }
