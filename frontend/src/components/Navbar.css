@@ -13,18 +13,44 @@
   border-bottom-right-radius: var(--border-radius-lg);
 }
 
-.agrius-navbar-brand {
+.agrius-navbar-brand.agrius-logo-only { /* Style for when only logo is present */
+  /* This ensures the logo maintains its specific brand styling */
+  padding: var(--spacing-xs) var(--spacing-sm); /* Add some padding to the logo link */
+}
+
+.agrius-logo-img {
+  height: 30px; /* Adjust as needed */
+  margin-right: 0; /* No margin when text is removed */
+}
+
+.agrius-menu-pill-container { /* New style for the centered menu pill */
+  background-color: #1f1f1f; /* Dark Gray */
+  border-radius: 50px; /* Pill shape */
+  padding: var(--spacing-xs) var(--spacing-xl); /* Internal padding */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md); /* Gap between nav items inside the pill */
+  margin: 0 auto; /* Center the pill container */
+}
+
+/* Adjust navbar-nav inside the pill */
+.agrius-menu-pill-container .navbar-nav {
+  flex-direction: row; /* Ensure links are horizontal in the pill */
+  margin: 0; /* Remove default ul margins */
+  padding: 0; /* Remove default ul padding */
+}
+
+.agrius-menu-pill-container .navbar-nav .nav-item {
+  margin: 0 var(--spacing-xs); /* Spacing between items inside the pill */
+}
+
+.agrius-navbar-brand { /* Keep this as original, but ensure it doesn't conflict with .agrius-logo-only */
   font-weight: var(--font-weight-bold);
   font-size: 1.6rem;
   color: var(--color-accent); /* Changed to #EAEB9D */
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-}
-
-.agrius-logo-img {
-  height: 30px; /* Adjust as needed */
-  margin-right: var(--spacing-xs);
 }
 
 .agrius-nav-link {
@@ -38,7 +64,8 @@
 
 .agrius-nav-link:hover {
   color: var(--color-accent); /* #EAEB9D on hover */
-  background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover */
+  background-color: rgba(0, 0, 0, 0.2); /* Dark gray background on hover */
+  border-radius: var(--border-radius-sm); /* Ensure rounded corners on hover */
 }
 
 .agrius-nav-link.active {
@@ -85,6 +112,24 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Dropdown specific styling */
+.dropdown-menu {
+  background-color: #333; /* Dark gray background */
+  border: none;
+  border-radius: var(--border-radius-sm); /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle dark shadow */
+}
+
+.dropdown-item {
+  color: lightgray; /* Light text */
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
+  color: var(--color-accent); /* Yellow/lime on hover */
+}
+
 .profile-link {
   font-size: 1.2rem; /* Larger icon */
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -125,6 +170,9 @@
 
 /* Responsive adjustments for Navbar */
 @media (max-width: 991.98px) { /* Bootstrap's default lg breakpoint */
+  .agrius-menu-pill-container {
+    display: none !important; /* Hide the pill menu on mobile */
+  }
   .navbar-collapse {
     display: flex;
     flex-direction: column;

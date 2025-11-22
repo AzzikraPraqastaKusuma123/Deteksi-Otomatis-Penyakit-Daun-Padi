@@ -1,13 +1,13 @@
-import React, { useState } from 'react'; // Import useState for dropdown
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
+import React, { useState } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import './Navbar.css'; // Keep custom CSS for specific overrides
+import './Navbar.css';
 
 const Navbar = ({ loggedIn, setLoggedIn }) => {
-  const { t, i18n } = useTranslation(); // Destructure i18n here
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation(); // To check active path for dropdown
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+  const location = useLocation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -17,59 +17,123 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
   };
 
   const changeLanguage = (lng) => {
-    console.log(`Attempting to change language to: ${lng}`);
     i18n.changeLanguage(lng);
   };
 
-  // Determine if 'Beranda' dropdown parent link should be active
-  const isBerandaActive = location.pathname === '/dashboard' || location.pathname === '/realtime-detect';
-
   return (
-    <nav className="navbar navbar-expand-lg agrius-navbar d-flex justify-content-between align-items-center">
-      {/* Left Section: Logo and Nav Links */}
-      <div className="d-flex align-items-center"> {/* Group for Left Section */}
-        <NavLink className="navbar-brand agrius-navbar-brand" to="/">
-          <img src="/logo.png" alt="PadiGuard Logo" className="agrius-logo-img" />
-          <span className="agrius-brand-text">PadiGuard</span> {/* Consolidated brand text */}
-        </NavLink>
-        <button className="navbar-toggler agrius-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <nav className="navbar navbar-expand-lg agrius-navbar">
+      {/* Section 1: Logo (Far Left) */}
+      <NavLink className="navbar-brand agrius-navbar-brand agrius-logo-only" to="/">
+        <img src="/logo.png" alt="PadiGuard Logo" className="agrius-logo-img" />
+      </NavLink>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-2 mb-2 mb-lg-0"> {/* Adjusted margin for spacing */}
+      {/* Bootstrap Toggler (for mobile) */}
+      <button className="navbar-toggler agrius-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      {/* Section 2 & 3 - Collapsible content for mobile / Flex for desktop */}
+      <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
+        {/* Hidden on desktop, takes full width on mobile */}
+        <div className="d-lg-none"> {/* This div acts as a placeholder or can contain mobile-specific elements */}
+          {loggedIn && (
+            <ul className="navbar-nav mb-2">
+              <li className={`nav-item dropdown ${dropdownOpen ? 'agrius-nav-link active-dropdown-parent' : ''}`}>
+                <a
+                  className="nav-link dropdown-toggle agrius-nav-link"
+                  href="#"
+                  id="navbarDropdownMobile"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  {t('navbar.home')}
+                </a>
+                <ul className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdownMobile">
+                  <li>
+                    <NavLink
+                      className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
+                      to="/dashboard"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      {t('navbar.dashboard')}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
+                      to="/detections"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      {t('navbar.detection')} {/* Changed from realtimeDetect to detection */}
+                    </NavLink>
+                  </li>
+                   <li>
+                    <NavLink
+                      className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
+                      to="/detect"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      {t('navbar.liveDetect')} {/* New key for real-time detect */}
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/diseases">{t('navbar.diseaseList')}</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => (isActive ? "nav-link agrius-nav-link active" : "nav-link agrius-nav-link")} to="/agricultural-resources">{t('agriculturalResources.pageTitle')}</NavLink>
+              </li>
+            </ul>
+          )}
+        </div>
+
+        {/* Section 2: The Menu Container (Absolute Center - Pill Shaped for desktop) */}
+        <div className="agrius-menu-pill-container d-none d-lg-flex justify-content-center">
+          <ul className="navbar-nav mb-2 mb-lg-0">
             {loggedIn && (
               <>
                 {/* Dropdown for Beranda (Home) */}
-                <li className={`nav-item dropdown ${isBerandaActive ? 'agrius-nav-link active-dropdown-parent' : ''}`}>
-                  <a 
-                    className="nav-link dropdown-toggle agrius-nav-link" 
-                    href="#" 
-                    id="navbarDropdown" 
-                    role="button" 
-                    data-bs-toggle="dropdown" 
+                <li className={`nav-item dropdown ${dropdownOpen ? 'agrius-nav-link active-dropdown-parent' : ''}`}>
+                  <a
+                    className="nav-link dropdown-toggle agrius-nav-link"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown state manually
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     {t('navbar.home')}
                   </a>
                   <ul className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdown">
                     <li>
-                      <NavLink 
-                        className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")} 
+                      <NavLink
+                        className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
                         to="/dashboard"
-                        onClick={() => setDropdownOpen(false)} // Close dropdown on item click
+                        onClick={() => setDropdownOpen(false)}
                       >
                         {t('navbar.dashboard')}
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink 
-                        className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")} 
-                        to="/realtime-detect"
-                        onClick={() => setDropdownOpen(false)} // Close dropdown on item click
+                      <NavLink
+                        className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
+                        to="/detections"
+                        onClick={() => setDropdownOpen(false)}
                       >
-                        {t('navbar.realtimeDetect')} {/* This is the new "Deteksi" */}
+                        {t('navbar.detection')} {/* Changed from realtimeDetect to detection */}
+                      </NavLink>
+                    </li>
+                     <li>
+                      <NavLink
+                        className={({ isActive }) => (isActive ? "dropdown-item agrius-dropdown-item active" : "dropdown-item agrius-dropdown-item")}
+                        to="/detect"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        {t('navbar.liveDetect')} {/* New key for real-time detect */}
                       </NavLink>
                     </li>
                   </ul>
@@ -85,49 +149,49 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
             )}
           </ul>
         </div>
-      </div>
 
-      {/* Right Section: Language Switcher, Profile, Action Button */}
-      <div className="d-flex align-items-center"> {/* Group for Right Section */}
-        {/* Language Switcher */}
-        <div className="agrius-language-buttons-wrapper d-flex align-items-center me-2"> {/* Added me-2 for spacing */}
-          <button 
-            className={`btn agrius-lang-btn ${i18n.language === 'en' ? 'active' : ''}`} 
-            onClick={() => changeLanguage('en')} 
-            title={t('language.english')}
-          >
-            🇬🇧
-          </button>
-          <button 
-            className={`btn agrius-lang-btn ${i18n.language === 'id' ? 'active' : ''}`} 
-            onClick={() => changeLanguage('id')} 
-            title={t('language.indonesian')}
-          >
-            🇮🇩
-          </button>
-        </div>
-
-        {loggedIn ? (
-          <>
-            {/* User Profile Icon */}
-            <NavLink 
-              className={({ isActive }) => (isActive ? "nav-link agrius-nav-link profile-link active" : "nav-link agrius-nav-link profile-link")} 
-              to="/profile" 
-              title={t('navbar.profile')}
+        {/* Section 3: Utilities (Far Right) - Inside collapse for mobile, but visible desktop flex item */}
+        <div className="d-flex align-items-center agrius-utilities-right">
+          {/* Language Switcher */}
+          <div className="agrius-language-buttons-wrapper d-flex align-items-center me-2">
+            <button
+              className={`btn agrius-lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
+              onClick={() => changeLanguage('en')}
+              title={t('language.english')}
             >
-              <i className="fas fa-user"></i>
-            </NavLink>
-            {/* Logout Button (Outline Style) */}
-            <button className="btn agrius-btn-outline-accent ms-2" onClick={handleLogout}>{t('navbar.logout')}</button>
-          </>
-        ) : (
-          <>
-            {/* Login Link (now outline style button) */}
-            <NavLink className="btn agrius-btn-outline-accent" to="/login">{t('navbar.login')}</NavLink>
-            {/* Register Link (now outline style button) */}
-            <NavLink className="btn agrius-btn-outline-accent ms-2" to="/register">{t('navbar.register')}</NavLink>
-          </>
-        )}
+              🇬🇧
+            </button>
+            <button
+              className={`btn agrius-lang-btn ${i18n.language === 'id' ? 'active' : ''}`}
+              onClick={() => changeLanguage('id')}
+              title={t('language.indonesian')}
+            >
+              🇮🇩
+            </button>
+          </div>
+
+          {loggedIn ? (
+            <>
+              {/* User Profile Icon */}
+              <NavLink
+                className={({ isActive }) => (isActive ? "nav-link agrius-nav-link profile-link active" : "nav-link agrius-nav-link profile-link")}
+                to="/profile"
+                title={t('navbar.profile')}
+              >
+                <i className="fas fa-user"></i>
+              </NavLink>
+              {/* Logout Button (Outline Style) */}
+              <button className="btn agrius-btn-outline-accent ms-2" onClick={handleLogout}>{t('navbar.logout')}</button>
+            </>
+          ) : (
+            <>
+              {/* Login Link (outline style button) */}
+              <NavLink className="btn agrius-btn-outline-accent" to="/login">{t('navbar.login')}</NavLink>
+              {/* Register Link (outline style button) */}
+              <NavLink className="btn agrius-btn-outline-accent ms-2" to="/register">{t('navbar.register')}</NavLink>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

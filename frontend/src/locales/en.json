@@ -6,7 +6,11 @@
     "login": "Login",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dashboard": "Home",
+    "realtimeDetect": "Real-time Detect",
+    "detection": "History",
+    "liveDetect": "Detect"
   },
   "language": {
     "english": "English",

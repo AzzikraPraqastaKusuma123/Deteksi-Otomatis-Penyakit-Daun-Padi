@@ -6,7 +6,11 @@
     "login": "Masuk",
     "register": "Daftar",
     "profile": "Profil",
-    "logout": "Keluar"
+    "logout": "Keluar",
+    "dashboard": "Beranda",
+    "realtimeDetect": "Deteksi Langsung",
+    "detection": "Riwayat",
+    "liveDetect": "Deteksi"
   },
   "language": {
     "english": "Bahasa Inggris",
