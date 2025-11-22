@@ -112,7 +112,7 @@
 
 .gemini-section-detailed h4 i {
   margin-right: var(--spacing-xs);
-  color: var(--color-accent); /* Soft Lime for icons */
+  color: var(--color-text-dark); /* Changed to --color-text-dark */
 }
 
 .gemini-section-detailed p {
@@ -120,6 +120,7 @@
   line-height: 1.7;
   color: var(--color-text-secondary); /* Ensure p color is set */
   white-space: pre-wrap;
+  text-align: justify; /* Justify text as requested */
 }
 
 .product-list-detailed {
@@ -173,7 +174,7 @@
 
 .gemini-error h4 i {
   margin-right: var(--spacing-xs);
-  color: #721c24;
+  color: var(--color-text-dark); /* Changed for consistency */
 }
 
 .gemini-error pre {

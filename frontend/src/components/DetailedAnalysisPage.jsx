@@ -66,7 +66,7 @@ const DetailedAnalysisPage = () => {
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (
                   <div className="gemini-section-detailed">
-                    <h4><i className="fas fa-prescription-bottle-alt"></i> Gemini Product Recommendations</h4>
+                    <h4><i className="fas fa-prescription-bottle-alt"></i> Product Recommendations</h4>
                     <ul className="product-list-detailed">
                       {generativeInfo.rekomendasi_produk.map((product, index) => (
                         <li key={index} className="product-item-detailed">
