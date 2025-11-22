@@ -69,6 +69,42 @@ export const detectDisease = async (req, res) => {
       prediction.treatment_recommendations, // Still saving this from prediction (DB)
     ];
 
+    // Find the disease_id based on prediction.disease
+    let diseaseId = null;
+    let diseaseNameFromDb = prediction.disease; // Default to prediction.disease
+
+    try {
+      const [diseaseRow] = await db.promise().query(
+        'SELECT id, disease_name_id FROM diseases WHERE disease_name_id = ? OR disease_name_en = ?',
+        [prediction.disease, prediction.disease]
+      );
+      if (diseaseRow.length > 0) {
+        diseaseId = diseaseRow[0].id;
+        diseaseNameFromDb = diseaseRow[0].disease_name_id; // Use the localized name from DB if available
+      }
+    } catch (dbError) {
+      console.error("Error finding disease ID for prediction:", dbError);
+    }
+    
+    let recommendedSolutions = [];
+    if (diseaseId) {
+      try {
+        const [solutionsResults] = await db.promise().query(`
+          SELECT ar.id, ar.name, ar.category, ar.image, ar.description 
+          FROM agricultural_resources ar
+          JOIN disease_solutions ds ON ar.id = ds.resource_id
+          WHERE ds.disease_id = ?
+        `, [diseaseId]);
+
+        recommendedSolutions = solutionsResults.map(resource => ({
+          ...resource,
+          image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null
+        }));
+      } catch (solutionsError) {
+        console.error("Error fetching recommended solutions during detection:", solutionsError);
+      }
+    }
+
     db.query(
       `
       INSERT INTO detections (user_id, disease_name, confidence, image_url, description, prevention, treatment_recommendations)
@@ -83,13 +119,14 @@ export const detectDisease = async (req, res) => {
         console.log("✅ Detection saved successfully!");
         res.json({
           message: "Detection success",
-          disease: prediction.disease,
+          disease: diseaseNameFromDb, // Use localized name if found, otherwise prediction.disease
           confidence: prediction.confidence,
           description: descriptionToSave, // Reflect what was saved
           prevention: preventionToSave,   // Reflect what was saved
           treatment_recommendations: prediction.treatment_recommendations, // From DB
           image_url: imageUrl,
-          generativeInfo: generativeInfo // Still sending the direct Gemini response
+          generativeInfo: generativeInfo, // Still sending the direct Gemini response
+          recommendedSolutions: recommendedSolutions // Include fetched agricultural resources
         });
       }
     );

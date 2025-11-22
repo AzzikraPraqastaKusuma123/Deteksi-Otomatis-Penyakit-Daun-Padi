@@ -1,6 +1,7 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom'; // Import Link
 import './DetailedAnalysisPage.css';
+import './DiseaseList.css'; // Import for recommendation card styles
 
 const DetailedAnalysisPage = () => {
   const location = useLocation();
@@ -22,7 +23,7 @@ const DetailedAnalysisPage = () => {
     );
   }
 
-  const { disease, generativeInfo, image_url } = prediction;
+  const { disease, generativeInfo, image_url, recommendedSolutions } = prediction; // Destructure recommendedSolutions
   const serverBaseUrl = 'http://localhost:5000';
 
   return (
@@ -46,7 +47,7 @@ const DetailedAnalysisPage = () => {
               <div className="gemini-error">
                 <h4><i className="fas fa-exclamation-triangle"></i> Failed to Get AI Info</h4>
                 <p>An error occurred while trying to retrieve additional information from the AI service.</p>
-                <pre>Detail: {JSON.stringify(generativeInfo.message, null, 2)}</pre>
+                <pre>Detail: {JSON.stringify(generativeInfo.message || 'Unknown error', null, 2)}</pre>
               </div>
             )}
 
@@ -65,7 +66,7 @@ const DetailedAnalysisPage = () => {
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (
                   <div className="gemini-section-detailed">
-                    <h4><i className="fas fa-prescription-bottle-alt"></i> Product Recommendations</h4>
+                    <h4><i className="fas fa-prescription-bottle-alt"></i> Gemini Product Recommendations</h4>
                     <ul className="product-list-detailed">
                       {generativeInfo.rekomendasi_produk.map((product, index) => (
                         <li key={index} className="product-item-detailed">
@@ -82,6 +83,28 @@ const DetailedAnalysisPage = () => {
             {disease === 'Healthy Rice Leaf' && (
               <div className="gemini-info-detailed healthy-leaf-detailed">
                 <p>The rice leaf appears to be healthy! Based on our AI analysis, no treatment is necessary. Continue to maintain good farming practices such as balanced fertilization and proper irrigation to keep your plants healthy.</p>
+              </div>
+            )}
+
+            {/* Recommended Solutions Section from DB */}
+            {recommendedSolutions && recommendedSolutions.length > 0 && (
+              <div className="agrius-recommendations-wrapper">
+                <h3 className="agrius-recommendations-title-small">Recommended Agricultural Resources</h3>
+                <div className="agrius-disease-cards-carousel">
+                  {recommendedSolutions.map((solution, index) => (
+                    <Link to={`/agricultural-resources/${solution.id}`} key={solution.id || index} className="agrius-disease-card agrius-carousel-card">
+                      <img
+                        src={solution.image ? `${serverBaseUrl}${solution.image}` : 'https://via.placeholder.com/300x200'}
+                        alt={solution.name}
+                        className="agrius-disease-card-img"
+                      />
+                      <div className="agrius-disease-card-body">
+                        <p className="agrius-card-subcategory">{solution.category}</p>
+                        <h5 className="agrius-card-title">{solution.name}</h5>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>
