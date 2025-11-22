@@ -97,7 +97,7 @@
   /* Inherits from agrius-btn-secondary in App.css */
   padding: var(--spacing-sm) var(--spacing-lg);
   font-weight: var(--font-weight-medium);
-  color: var(--agrius-dark-green-new); /* Changed to dark green */
+  color: black; /* Changed to black as requested */
   text-decoration: none;
   border-radius: var(--border-radius-md);
   border: 1px solid var(--agrius-neutral-gray-1);
