@@ -66,12 +66,12 @@ const DetailedAnalysisPage = () => {
               <div className="gemini-info-detailed">
                 <div className="gemini-section-detailed">
                   <h4><i className="fas fa-info-circle"></i> Detailed Information</h4>
-                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.informasi_detail)}></p>
+                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.informasi_detail || 'No detailed information available from AI.')}></p>
                 </div>
 
                 <div className="gemini-section-detailed">
                   <h4><i className="fas fa-seedling"></i> Solution & Healing</h4>
-                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.solusi_penyembuhan)}></p>
+                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.solusi_penyembuhan || 'No solution and healing information available from AI.')}></p>
                 </div>
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (

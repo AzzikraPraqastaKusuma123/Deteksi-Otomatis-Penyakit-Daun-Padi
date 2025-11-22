@@ -57,14 +57,14 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
   }
 
   const prompt = `
-    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani, seolah-olah Anda sedang memberikan informasi cepat.
+    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani. Pastikan informasi yang diberikan komprehensif dan selalu terisi.
 
     Berdasarkan nama penyakit berikut: "${diseaseName}"
 
-    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks harus berupa SATU paragraf yang padat dan informatif, dan rekomendasi produk dalam format array:
+    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks untuk "informasi_detail" dan "solusi_penyembuhan" harus berupa beberapa paragraf singkat yang padat dan informatif. Jika Anda tidak menemukan informasi spesifik, berikan penjelasan umum atau nyatakan bahwa informasi tersebut belum tersedia. Bidang "rekomendasi_produk" harus dalam format array:
     {
-      "informasi_detail": "Jelaskan penyakit ini secara ringkas, meliputi gejala utama, penyebab, dan dampaknya pada tanaman padi dalam satu paragraf.",
-      "solusi_penyembuhan": "Sajikan panduan pencegahan dan penyembuhan utama dalam satu paragraf yang mencakup metode kultural, organik, dan, jika relevan, kimiawi.",
+      "informasi_detail": "Jelaskan penyakit ini secara ringkas namun komprehensif, meliputi gejala utama, penyebab, dan dampaknya pada tanaman padi. Gunakan beberapa paragraf singkat jika diperlukan untuk kejelasan.",
+      "solusi_penyembuhan": "Sajikan panduan pencegahan dan penyembuhan utama secara komprehensif, mencakup metode kultural, organik, dan, jika relevan, kimiawi. Gunakan beberapa paragraf singkat jika diperlukan untuk kejelasan.",
       "rekomendasi_produk": [
         {"nama_produk": "Nama Produk 1 (misal: Pupuk Urea)", "deskripsi_singkat": "Deskripsi singkat tentang manfaat produk ini untuk penyakit tersebut atau kesehatan tanaman."}
       ]
