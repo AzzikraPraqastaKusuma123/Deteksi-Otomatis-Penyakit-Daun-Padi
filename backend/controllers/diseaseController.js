@@ -461,3 +461,95 @@ export const deleteDisease = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete disease', error: error.message });
   }
 };
+
+export const getDiseaseDetailsByName = async (req, res) => {
+  const { name } = req.query; // Get disease name from query parameter
+  const lang = ['id', 'en'].includes(req.query.lang) ? req.query.lang : 'id';
+
+  try {
+    // Find disease by name (either ID or EN name)
+    const diseaseQuery = `SELECT * FROM diseases WHERE disease_name_id = ? OR disease_name_en = ?`;
+    const [diseaseResults] = await db.promise().query(diseaseQuery, [name, name]);
+
+    if (diseaseResults.length === 0) {
+      return res.status(404).json({ message: "Disease not found" });
+    }
+    const diseaseData = diseaseResults[0]; // Assuming name is unique or we take the first match
+
+    const solutionsQuery = `
+      SELECT ar.id, ar.name, ar.category, ar.image, ar.description 
+      FROM agricultural_resources ar
+      JOIN disease_solutions ds ON ar.id = ds.resource_id
+      WHERE ds.disease_id = ?
+    `;
+    const [solutionsResults] = await db.promise().query(solutionsQuery, [diseaseData.id]);
+
+    // Use the disease name for the current language for the Gemini call
+    const currentDiseaseName = diseaseData[`disease_name_${lang}`] || diseaseData.disease_name_id; 
+
+    let geminiResponse = null;
+    if (currentDiseaseName) {
+      // Use the service function to get Gemini info
+      geminiResponse = await getGenerativeInfo(currentDiseaseName, lang);
+    }
+    
+    // Helper to safely extract string from Gemini response or fallback
+    const getSummaryOrDefault = (geminiObj, key, originalText, defaultMessage) => {
+      if (geminiObj && geminiObj[key] && typeof geminiObj[key] === 'string') {
+        return geminiObj[key];
+      }
+      return originalText || defaultMessage;
+    };
+    
+    // Extract original texts based on language
+    const symptomsOriginal = diseaseData[`symptoms_${lang}`];
+    const preventionOriginal = diseaseData[`prevention_${lang}`];
+    const treatmentOriginal = diseaseData[`treatment_recommendations_${lang}`];
+
+    const geminiSummary = {
+      symptoms: getSummaryOrDefault(geminiResponse, 'informasi_detail', symptomsOriginal, "Informasi gejala tidak dapat dimuat dari AI."),
+      prevention: getSummaryOrDefault(geminiResponse, 'solusi_penyembuhan', preventionOriginal, "Informasi pencegahan tidak dapat dimuat dari AI."),
+      treatment: getSummaryOrDefault(geminiResponse, 'solusi_penyembuhan', treatmentOriginal, "Informasi pengobatan tidak dapat dimuat dari AI."), // Assuming 'solusi_penyembuhan' also covers treatment
+      solutions: (geminiResponse && geminiResponse.rekomendasi_produk && Array.isArray(geminiResponse.rekomendasi_produk) && geminiResponse.rekomendasi_produk.length > 0)
+        ? geminiResponse.rekomendasi_produk.map(p => `${p.nama_produk}: ${p.deskripsi_singkat}`).join('\n')
+        : (lang === 'id' ? "Rekomendasi solusi tidak dapat dimuat dari AI." : "Solution recommendations could not be loaded from AI.")
+    };
+    
+    // If Gemini generation failed (e.g., geminiResponse has an error property), fallback to original data
+    if (geminiResponse && geminiResponse.error) {
+      geminiSummary.symptoms = symptomsOriginal || (lang === 'id' ? "Informasi gejala tidak dapat dimuat dari AI." : "Symptoms information could not be loaded from AI.");
+      geminiSummary.prevention = preventionOriginal || (lang === 'id' ? "Informasi pencegahan tidak dapat dimuat dari AI." : "Prevention information could not be loaded from AI.");
+      geminiSummary.treatment = treatmentOriginal || (lang === 'id' ? "Informasi pengobatan tidak dapat dimuat dari AI." : "Treatment information could not be loaded from AI.");
+      geminiSummary.solutions = (lang === 'id' ? "Rekomendasi solusi tidak dapat dimuat dari AI." : "Solution recommendations could not be loaded from AI.");
+    }
+
+    const response = {
+      disease: {
+        id: diseaseData.id,
+        disease_name: diseaseData[`disease_name_${lang}`],
+        scientific_name: diseaseData.scientific_name,
+        image_url_example: diseaseData.image_url_example,
+        
+        // Original data from admin
+        symptoms_original: symptomsOriginal,
+        prevention_original: preventionOriginal,
+        treatment_original: treatmentOriginal,
+
+        // Gemini-generated summaries
+        gemini_summary: geminiSummary,
+        // Include parsed product recommendations directly
+        gemini_rekomendasi_produk_json: (geminiResponse && geminiResponse.rekomendasi_produk) ? geminiResponse.rekomendasi_produk : []
+      },
+      recommendedSolutions: solutionsResults.map(resource => ({
+        ...resource,
+        image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null
+      }))
+    };
+
+    res.json(response);
+
+  } catch (error) {
+    console.error("Error in getDiseaseDetailsByName:", error);
+    res.status(500).json({ message: "Failed to process request for disease details by name.", error: error.message });
+  }
+};

@@ -62,6 +62,12 @@ export const getDiseasesCount = () => {
   return api.get('/diseases/count');
 };
 
+export const getDiseaseDetailsByName = (name, lang = 'id') => {
+  // GET /diseases/byName?name=...&lang=...
+  return api.get(`/diseases/byName?name=${name}&lang=${lang}`);
+};
+
+
 // === 5. DETECTION SYSTEM ===
 export const detectImage = (formData) => {
   // POST /detections/detect
@@ -78,6 +84,14 @@ export const getDetections = () => {
 export const getDetectionsCount = () => {
   // GET /detections/count
   return api.get('/detections/count');
+};
+
+export const detectRealtimeImage = (imageData) => {
+  const formData = new FormData();
+  formData.append('image', imageData, 'frame.jpeg'); // imageData should be a Blob or File object
+  return api.post('/detections/realtime', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 // === 6. USER MANAGEMENT (Admin) ===

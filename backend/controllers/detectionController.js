@@ -169,3 +169,29 @@ export const getDetectionsCount = (req, res) => {
     res.json(results[0]);
   });
 };
+
+export const detectRealtime = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No image file uploaded.' });
+  }
+
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: 'User not authenticated.' });
+    }
+
+    const imageBuffer = req.file.buffer;
+    const prediction = await runInference(imageBuffer); // Run inference
+
+    // Return only disease and confidence for real-time
+    res.json({
+      disease: prediction.disease,
+      confidence: prediction.confidence,
+    });
+
+  } catch (error) {
+    console.error("Error during real-time inference:", error);
+    res.status(500).json({ message: "Failed to process image in real-time", error: error.message });
+  }
+};

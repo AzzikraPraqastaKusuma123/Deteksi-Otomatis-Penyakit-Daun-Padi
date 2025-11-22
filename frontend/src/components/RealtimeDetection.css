@@ -1,0 +1,211 @@
+/* frontend/src/components/RealtimeDetection.css */
+@import '../variables.css';
+@import './DiseaseList.css'; /* Import card styles */
+
+.realtime-detection-container {
+  padding: var(--spacing-xxl);
+  background-color: var(--color-secondary-bg); /* Cream Off-White */
+  min-height: 100vh;
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.realtime-detection-container h1 {
+  font-size: 2.5rem;
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.video-feed-container {
+  position: relative;
+  width: 100%;
+  max-width: 640px; /* Limit video width */
+  margin: 0 auto var(--spacing-xl) auto;
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background-color: var(--color-primary-dark); /* Dark background for video area */
+  display: flex; /* Center video */
+  justify-content: center; /* Center video */
+  align-items: center; /* Center video */
+}
+
+.realtime-video {
+  width: 100%;
+  height: auto;
+  display: block; /* Remove extra space below video */
+  transform: scaleX(-1); /* Mirror the video feed */
+}
+
+.detection-results {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xxl);
+  text-align: center;
+}
+
+.detection-results h2 {
+  font-size: 1.8rem;
+  color: var(--color-primary-bg); /* Forest Green Dark */
+  margin-bottom: var(--spacing-sm);
+}
+
+.detection-results p {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.llm-explanation {
+  background-color: var(--agrius-pure-white);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.llm-explanation h3 {
+  font-size: 2rem;
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.llm-explanation .gemini-section-detailed {
+  margin-bottom: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--agrius-neutral-gray-1);
+}
+
+.llm-explanation .gemini-section-detailed:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.llm-explanation .gemini-section-detailed h4 {
+  font-size: 1.3rem;
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.llm-explanation .gemini-section-detailed h4 i {
+  margin-right: var(--spacing-xs);
+  color: var(--color-text-dark); /* Consistent with DetailedAnalysisPage */
+}
+
+.llm-explanation .gemini-section-detailed p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+.llm-explanation .error-message {
+  color: var(--agrius-red-error);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+}
+
+.llm-explanation .product-list-detailed {
+  list-style: none;
+  padding-left: 0;
+}
+
+.llm-explanation .product-item-detailed {
+  background-color: var(--agrius-cream-off-white);
+  padding: var(--spacing-sm);
+  border-left: 4px solid var(--color-primary-bg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.llm-explanation .product-item-detailed strong {
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Loading and Error message styling */
+.loading-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-primary-bg); /* Use a distinct color for loading */
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm);
+}
+
+.error-message {
+  color: var(--agrius-red-error);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm);
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-sm);
+}
+
+
+.llm-explanation .agrius-recommendations-wrapper { /* Re-use from DiseaseDetail */
+  margin-top: var(--spacing-xl);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .realtime-detection-container {
+    padding: var(--spacing-xl);
+  }
+  .realtime-detection-container h1 {
+    font-size: 2rem;
+  }
+  .detection-results h2 {
+    font-size: 1.5rem;
+  }
+  .llm-explanation h3 {
+    font-size: 1.8rem;
+  }
+  .llm-explanation .gemini-section-detailed h4 {
+    font-size: 1.2rem;
+  }
+  .llm-explanation .gemini-section-detailed p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .realtime-detection-container {
+    padding: var(--spacing-lg);
+  }
+  .realtime-detection-container h1 {
+    font-size: 1.8rem;
+  }
+  .detection-results h2 {
+    font-size: 1.3rem;
+  }
+  .llm-explanation h3 {
+    font-size: 1.5rem;
+  }
+  .llm-explanation .gemini-section-detailed h4 {
+    font-size: 1.1rem;
+  }
+  .llm-explanation .gemini-section-detailed p {
+    font-size: 0.9rem;
+  }
+  .video-feed-container {
+    margin-bottom: var(--spacing-lg);
+  }
+  .detection-results {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+  .llm-explanation {
+    padding: var(--spacing-lg);
+  }
+}
