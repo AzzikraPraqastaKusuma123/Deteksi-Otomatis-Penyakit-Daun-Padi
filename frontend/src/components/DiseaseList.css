@@ -94,20 +94,23 @@
 }
 
 .agrius-btn-view-details {
-  /* Inherits from agrius-btn-secondary in App.css */
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-weight: var(--font-weight-medium);
-  color: black; /* Changed to black as requested */
-  text-decoration: none;
+  background-color: var(--color-accent); /* From agrius-btn-primary */
+  color: var(--agrius-very-dark-gray); /* From agrius-btn-primary */
+  border-color: var(--color-accent); /* From agrius-btn-primary */
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--agrius-neutral-gray-1);
+  box-shadow: var(--shadow-md); /* From agrius-btn-primary */
   transition: all var(--transition-speed-normal) var(--transition-ease);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
 }
 
 .agrius-btn-view-details:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background-color: var(--agrius-cream-off-white); /* From agrius-btn-primary:hover */
+  border-color: var(--agrius-cream-off-white); /* From agrius-btn-primary:hover */
+  color: var(--color-accent); /* Revert color for hover for contrast */
+  transform: translateY(-2px); /* From agrius-btn-primary:hover */
+  box-shadow: var(--shadow-lg); /* From agrius-btn-primary:hover */
 }
 
 .agrius-btn-action {
