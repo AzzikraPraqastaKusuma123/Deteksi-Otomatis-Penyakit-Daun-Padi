@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2025 at 04:36 AM
+-- Generation Time: Nov 21, 2025 at 11:34 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.16
 
@@ -34,39 +34,45 @@ CREATE TABLE `agricultural_resources` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `gemini_overview_id` text COLLATE utf8mb4_general_ci,
+  `gemini_overview_en` text COLLATE utf8mb4_general_ci,
+  `gemini_usage_tips_id` text COLLATE utf8mb4_general_ci,
+  `gemini_usage_tips_en` text COLLATE utf8mb4_general_ci,
+  `gemini_benefits_json` json DEFAULT NULL,
+  `gemini_rekomendasi_tambahan_json` json DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `agricultural_resources`
 --
 
-INSERT INTO `agricultural_resources` (`id`, `name`, `category`, `description`, `image`, `created_at`, `updated_at`) VALUES
-(17, 'Urea (Nitrogen 46%)', 'Pupuk Anorganik', 'Sumber Nitrogen tinggi. PERINGATAN: Kurangi dosis saat tanaman terserang penyakit Blas atau Kresek agar jamur tidak menyebar.', 'urea_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(18, 'KCL Mahkota', 'Pupuk Anorganik', 'Pupuk Kalium tinggi (60%). Wajib untuk mencegah Brown Spot, memperkuat batang, dan mengisi bulir padi agar bernas.', 'kcl_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(19, 'SP-36 (Super Phosphate)', 'Pupuk Anorganik', 'Memacu pertumbuhan akar. Akar kuat membantu tanaman bertahan dari Hawar Pelepah (Sheath Blight).', 'sp36_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(20, 'NPK Phonska Plus', 'Pupuk Anorganik', 'Pupuk majemuk lengkap dengan tambahan Zinc (Zn). Sangat baik untuk pemulihan tanaman yang kerdil atau kuning.', 'npk_phonska.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(21, 'Gandasil D (Daun)', 'Pupuk Anorganik', 'Pupuk daun foliar yang disemprot. Mempercepat pemulihan warna daun hijau setelah serangan hama Hispa.', 'gandasil_d.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(22, 'MKP (Mono Kalium Phosphate)', 'Pupuk Anorganik', 'Pupuk bebas Nitrogen. Sangat aman dan disarankan dipakai saat tanaman sedang sakit parah (Blas/Kresek) sebagai sumber energi.', 'mkp_pak_tani.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(23, 'ZA (Zwavelzure Ammoniak)', 'Pupuk Anorganik', 'Sumber Nitrogen dan Sulfur. Memperbaiki rasa beras dan ketahanan simpan. Alternatif Urea yang lebih aman.', 'pupuk_za.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(24, 'Pupuk Kandang Fermentasi', 'Pupuk Organik', 'Solusi utama penyakit Brown Spot akibat tanah kurus. Memperbaiki biologi tanah jangka panjang.', 'pupuk_kandang.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(25, 'Pupuk Silika Cair', 'Pupuk Organik', 'Melapisi daun padi jadi sekeras kaca. Hama Hispa tidak doyan, dan spora jamur Blas gagal menembus daun.', 'silika_cair.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(26, 'Asam Humat (Humic Acid)', 'Pupuk Organik', 'Pembenah tanah (Soil Conditioner). Membantu akar menyerap pupuk kimia lebih efisien.', 'asam_humat.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(27, 'Trichokompos', 'Pupuk Organik', 'Kompos plus agen hayati Trichoderma. Membunuh jamur patogen tular tanah penyebab Hawar Pelepah.', 'trichokompos.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(28, 'PGPR (Rhizobacteria)', 'Pupuk Organik', 'Bakteri pemacu tumbuh akar. Melindungi akar dari infeksi bakteri jahat dan menyuburkan tanah.', 'pgpr.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(29, 'POC Nasa', 'Pupuk Organik', 'Pupuk Organik Cair populer. Meningkatkan jumlah anakan padi dan kesuburan daun secara menyeluruh.', 'poc_nasa.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(30, 'Eco Farming', 'Pupuk Organik', 'Bio-fertilizer briket. Mengembalikan kesuburan tanah fisik, kimia, dan biologi yang rusak akibat kimia.', 'eco_farming.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(31, 'Agrept 20WP', 'Obat', 'Bakterisida spesialis untuk penyakit Hawar Daun Bakteri (Kresek/Xanthomonas).', 'agrept.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(32, 'Nordox 56WP', 'Obat', 'Fungisida & Bakterisida berbahan aktif Tembaga Oksida. Kuat menempel di daun saat hujan. Untuk Kresek & Blas.', 'nordox.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(33, 'Fujiwan 400EC', 'Obat', 'Fungisida sistemik paling populer khusus untuk penyakit Blas (Leaf Blast) pada padi.', 'fujiwan.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(34, 'Amistartop 325SC', 'Obat', 'Fungisida kelas atas. Efektif membasmi Hawar Pelepah dan membuat daun tetap hijau royo-royo (efek fitotonik).', 'amistartop.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(35, 'Antracol 70WP', 'Obat', 'Fungisida kontak (tepung) dengan kandungan Zinc. Cocok untuk pencegahan bercak daun (Brown Spot).', 'antracol.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(36, 'Score 250EC', 'Obat', 'Fungisida sistemik Difenokonazol. Menyembuhkan tanaman dan bikin bulir padi bening mengkilap.', 'score.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(37, 'Corrin', 'Obat', 'Agens hayati (Organik) pembasmi bakteri Kresek dan jamur Blas. Aman bagi lingkungan.', 'corrin.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(38, 'Spontan 400SL', 'Pestisida', 'Insektisida racun kontak/lambung. Sangat ampuh membasmi Hama Putih Palsu (Rice Hispa) dan Penggerek Batang.', 'spontan.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(39, 'Regent 50SC', 'Pestisida', 'Insektisida sistemik + ZPT. Membasmi hama sekaligus merangsang akar. Efektif untuk wereng dan walang sangit.', 'regent.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(40, 'Curacron 500EC', 'Pestisida', 'Insektisida racun kuat berbau menyengat. Tuntaskan ulat penggulung daun dan hama kutu-kutuan.', 'curacron.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02'),
-(41, 'Pestisida Nabati Mimba', 'Pestisida', 'Ekstrak daun Mimba/Neem Oil. Mengacaukan hormon makan hama Hispa secara alami.', 'pestisida_mimba.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02');
+INSERT INTO `agricultural_resources` (`id`, `name`, `category`, `description`, `image`, `created_at`, `updated_at`, `gemini_overview_id`, `gemini_overview_en`, `gemini_usage_tips_id`, `gemini_usage_tips_en`, `gemini_benefits_json`, `gemini_rekomendasi_tambahan_json`) VALUES
+(17, 'Urea (Nitrogen 46%)', 'Pupuk Anorganik', 'Sumber Nitrogen tinggi. PERINGATAN: Kurangi dosis saat tanaman terserang penyakit Blas atau Kresek agar jamur tidak menyebar.', 'urea_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'KCL Mahkota', 'Pupuk Anorganik', 'Pupuk Kalium tinggi (60%). Wajib untuk mencegah Brown Spot, memperkuat batang, dan mengisi bulir padi agar bernas.', 'kcl_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'SP-36 (Super Phosphate)', 'Pupuk Anorganik', 'Memacu pertumbuhan akar. Akar kuat membantu tanaman bertahan dari Hawar Pelepah (Sheath Blight).', 'sp36_pupuk.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'NPK Phonska Plus', 'Pupuk Anorganik', 'Pupuk majemuk lengkap dengan tambahan Zinc (Zn). Sangat baik untuk pemulihan tanaman yang kerdil atau kuning.', 'npk_phonska.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'Gandasil D (Daun)', 'Pupuk Anorganik', 'Pupuk daun foliar yang disemprot. Mempercepat pemulihan warna daun hijau setelah serangan hama Hispa.', 'gandasil_d.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'MKP (Mono Kalium Phosphate)', 'Pupuk Anorganik', 'Pupuk bebas Nitrogen. Sangat aman dan disarankan dipakai saat tanaman sedang sakit parah (Blas/Kresek) sebagai sumber energi.', 'mkp_pak_tani.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 'ZA (Zwavelzure Ammoniak)', 'Pupuk Anorganik', 'Sumber Nitrogen dan Sulfur. Memperbaiki rasa beras dan ketahanan simpan. Alternatif Urea yang lebih aman.', 'pupuk_za.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'Pupuk Kandang Fermentasi', 'Pupuk Organik', 'Solusi utama penyakit Brown Spot akibat tanah kurus. Memperbaiki biologi tanah jangka panjang.', 'pupuk_kandang.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 'Pupuk Silika Cair', 'Pupuk Organik', 'Melapisi daun padi jadi sekeras kaca. Hama Hispa tidak doyan, dan spora jamur Blas gagal menembus daun.', 'silika_cair.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 'Asam Humat (Humic Acid)', 'Pupuk Organik', 'Pembenah tanah (Soil Conditioner). Membantu akar menyerap pupuk kimia lebih efisien.', 'asam_humat.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'Trichokompos', 'Pupuk Organik', 'Kompos plus agen hayati Trichoderma. Membunuh jamur patogen tular tanah penyebab Hawar Pelepah.', 'trichokompos.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'PGPR (Rhizobacteria)', 'Pupuk Organik', 'Bakteri pemacu tumbuh akar. Melindungi akar dari infeksi bakteri jahat dan menyuburkan tanah.', 'pgpr.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 'POC Nasa', 'Pupuk Organik', 'Pupuk Organik Cair populer. Meningkatkan jumlah anakan padi dan kesuburan daun secara menyeluruh.', 'poc_nasa.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 'Eco Farming', 'Pupuk Organik', 'Bio-fertilizer briket. Mengembalikan kesuburan tanah fisik, kimia, dan biologi yang rusak akibat kimia.', 'eco_farming.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'Agrept 20WP', 'Obat', 'Bakterisida spesialis untuk penyakit Hawar Daun Bakteri (Kresek/Xanthomonas).', 'agrept.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 'Nordox 56WP', 'Obat', 'Fungisida & Bakterisida berbahan aktif Tembaga Oksida. Kuat menempel di daun saat hujan. Untuk Kresek & Blas.', 'nordox.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 'Fujiwan 400EC', 'Obat', 'Fungisida sistemik paling populer khusus untuk penyakit Blas (Leaf Blast) pada padi.', 'fujiwan.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(34, 'Amistartop 325SC', 'Obat', 'Fungisida kelas atas. Efektif membasmi Hawar Pelepah dan membuat daun tetap hijau royo-royo (efek fitotonik).', 'amistartop.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 'Antracol 70WP', 'Obat', 'Fungisida kontak (tepung) dengan kandungan Zinc. Cocok untuk pencegahan bercak daun (Brown Spot).', 'antracol.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(36, 'Score 250EC', 'Obat', 'Fungisida sistemik Difenokonazol. Menyembuhkan tanaman dan bikin bulir padi bening mengkilap.', 'score.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 'Corrin', 'Obat', 'Agens hayati (Organik) pembasmi bakteri Kresek dan jamur Blas. Aman bagi lingkungan.', 'corrin.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(38, 'Spontan 400SL', 'Pestisida', 'Insektisida racun kontak/lambung. Sangat ampuh membasmi Hama Putih Palsu (Rice Hispa) dan Penggerek Batang.', 'spontan.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(39, 'Regent 50SC', 'Pestisida', 'Insektisida sistemik + ZPT. Membasmi hama sekaligus merangsang akar. Efektif untuk wereng dan walang sangit.', 'regent.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(40, 'Curacron 500EC', 'Pestisida', 'Insektisida racun kuat berbau menyengat. Tuntaskan ulat penggulung daun dan hama kutu-kutuan.', 'curacron.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL),
+(41, 'Pestisida Nabati Mimba', 'Pestisida', 'Ekstrak daun Mimba/Neem Oil. Mengacaukan hormon makan hama Hispa secara alami.', 'pestisida_mimba.jpg', '2025-11-20 06:25:02', '2025-11-20 06:25:02', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -164,7 +170,9 @@ INSERT INTO `detections` (`id`, `user_id`, `disease_name`, `confidence`, `image_
 (71, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763351944934.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-17 03:59:04'),
 (72, 1, 'Rice Hispa', '0.1900', '/uploads/detection_1763352535874.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', 'Gunakan insektisida sistemik seperti fipronil atau carbofuran jika populasi hama tinggi.', '2025-11-17 04:08:55'),
 (73, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763523611678.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-19 03:40:11'),
-(74, 1, 'Leaf Blast', '0.2037', '/uploads/detection_1763528294792.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-19 04:58:14');
+(74, 1, 'Leaf Blast', '0.2037', '/uploads/detection_1763528294792.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-19 04:58:14'),
+(75, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763716300944.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \r\n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-21 09:11:40'),
+(76, 1, 'Bacterial Leaf Blight', '0.1845', '/uploads/detection_1763716341345.jpg', 'Bacterial Leaf Blight (BLB) atau Hawar Daun Bakteri disebabkan oleh bakteri *Xanthomonas oryzae pv. oryzae*. Gejala utamanya adalah bercak kuning pada daun yang kemudian meluas dan mengering, terutama pada saat padi memasuki fase pertumbuhan vegetatif hingga generatif. Serangan parah dapat menyebabkan penurunan hasil panen yang signifikan karena mengganggu proses fotosintesis dan pengisian bulir padi.', 'Pencegahan BLB meliputi penggunaan varietas padi yang tahan, pengelolaan air irigasi yang baik (hindari penggenangan terus-menerus), pemupukan berimbang (kurangi penggunaan nitrogen berlebihan), dan sanitasi lahan (membersihkan sisa-sisa tanaman). Secara organik, dapat digunakan agens hayati seperti *Bacillus subtilis*. Jika serangan parah, dapat digunakan bakterisida berbahan aktif streptomisin sulfat atau bahan aktif lainnya yang sesuai dengan rekomendasi setempat, namun penggunaannya harus bijaksana dan sesuai dosis.', 'Pengendalian kimia sulit. Gunakan bakterisida berbasis tembaga pada tahap awal. Fokus pada pencegahan.', '2025-11-21 09:12:21');
 
 -- --------------------------------------------------------
 
@@ -355,7 +363,7 @@ ALTER TABLE `agricultural_resources`
 -- AUTO_INCREMENT for table `detections`
 --
 ALTER TABLE `detections`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `diseases`
