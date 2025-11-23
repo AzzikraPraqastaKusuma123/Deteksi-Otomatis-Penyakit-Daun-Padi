@@ -4,11 +4,15 @@ import fs from "fs";
 import path from "path";
 import { getGenerativeAgriculturalResourceInfo } from "../services/detectionService.js";
 
-const UPLOAD_DIR = path.join(process.cwd(), 'backend', 'public', 'images', 'agricultural_resources');
+const UPLOAD_DIR = path.join(process.cwd(), 'public', 'images', 'agricultural_resources');
 
 // Ensure the upload directory exists
 if (!fs.existsSync(UPLOAD_DIR)) {
+  console.log(`Creating UPLOAD_DIR: ${UPLOAD_DIR}`);
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+  console.log('UPLOAD_DIR created successfully.');
+} else {
+  console.log(`UPLOAD_DIR already exists: ${UPLOAD_DIR}`);
 }
 
 // Function to get the full public path for an image
@@ -136,17 +140,16 @@ export const createResource = async (req, res) => {
 
   try {
     const geminiInfoId = await getGenerativeAgriculturalResourceInfo(name, description, 'id');
-    if (geminiInfoId && !geminiInfoId.error) {
-      geminiOverviewId = geminiInfoId.overview;
-      geminiUsageTipsId = geminiInfoId.usage_tips;
-      if (geminiInfoId.benefits) {
-        geminiBenefitsJson = JSON.stringify(geminiInfoId.benefits);
-      }
-      if (geminiInfoId.additional_recommendations) {
-        geminiRekomendasiTambahanJson = JSON.stringify(geminiInfoId.additional_recommendations);
-      }
-    }
-  } catch (geminiError) {
+          if (geminiInfoId && !geminiInfoId.error) {
+            geminiOverviewId = geminiInfoId.overview;
+            geminiUsageTipsId = geminiInfoId.usage_tips;
+            if (geminiInfoId.benefits) {
+              geminiBenefitsJson = JSON.stringify(geminiInfoId.benefits);
+            }
+            if (geminiInfoId.additional_recommendations) {
+              geminiRekomendasiTambahanJson = JSON.stringify(geminiInfoId.additional_recommendations);
+            }
+          }  } catch (geminiError) {
     console.error("Error generating Gemini info for agricultural resource (ID):", geminiError);
   }
 
@@ -173,13 +176,23 @@ export const createResource = async (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   
+  const finalGeminiBenefitsJson = typeof geminiBenefitsJson === 'object' && geminiBenefitsJson !== null
+    ? JSON.stringify(geminiBenefitsJson)
+    : geminiBenefitsJson;
+
+  const finalGeminiRekomendasiTambahanJson = typeof geminiRekomendasiTambahanJson === 'object' && geminiRekomendasiTambahanJson !== null
+    ? JSON.stringify(geminiRekomendasiTambahanJson)
+    : geminiRekomendasiTambahanJson;
+
   const values = [
     name, category, description, imageName,
     geminiOverviewId, geminiOverviewEn,
     geminiUsageTipsId, geminiUsageTipsEn,
-    geminiBenefitsJson, geminiRekomendasiTambahanJson
+    finalGeminiBenefitsJson, finalGeminiRekomendasiTambahanJson
   ];
 
+  console.log('Final geminiBenefitsJson (create):', finalGeminiBenefitsJson);
+  console.log('Final geminiRekomendasiTambahanJson (create):', finalGeminiRekomendasiTambahanJson);
   db.query(query, values, (err, results) => {
     if (err) {
       console.error("Failed to add resource:", err);
@@ -289,14 +302,24 @@ export const updateResource = async (req, res) => {
       WHERE id = ?
     `;
 
+  const finalGeminiBenefitsJson = typeof geminiBenefitsJson === 'object' && geminiBenefitsJson !== null
+    ? JSON.stringify(geminiBenefitsJson)
+    : geminiBenefitsJson;
+
+  const finalGeminiRekomendasiTambahanJson = typeof geminiRekomendasiTambahanJson === 'object' && geminiRekomendasiTambahanJson !== null
+    ? JSON.stringify(geminiRekomendasiTambahanJson)
+    : geminiRekomendasiTambahanJson;
+
   const values = [
     name, category, description, newImageName,
     geminiOverviewId, geminiOverviewEn,
     geminiUsageTipsId, geminiUsageTipsEn,
-    geminiBenefitsJson, geminiRekomendasiTambahanJson,
+    finalGeminiBenefitsJson, finalGeminiRekomendasiTambahanJson,
     id
   ];
 
+  console.log('Final geminiBenefitsJson (update):', finalGeminiBenefitsJson);
+  console.log('Final geminiRekomendasiTambahanJson (update):', finalGeminiRekomendasiTambahanJson);
   db.query(query, values, (err, updateResult) => {
     if (err) {
       console.error("Failed to update resource:", err);

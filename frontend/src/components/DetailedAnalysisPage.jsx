@@ -94,11 +94,12 @@ const DetailedAnalysisPage = () => {
             {recommendedSolutions && recommendedSolutions.length > 0 && (
               <div className="agrius-recommendations-wrapper">
                 <h3 className="agrius-recommendations-title-small">Recommended Agricultural Resources</h3>
+
                 <div className="agrius-disease-cards-carousel">
                   {recommendedSolutions.map((solution, index) => (
                     <Link to={`/agricultural-resources/${solution.id}`} key={solution.id || index} className="agrius-disease-card agrius-carousel-card">
                       <img
-                        src={solution.image ? `${serverBaseUrl}${solution.image}` : 'https://via.placeholder.com/300x200'}
+                        src={solution.image || 'https://via.placeholder.com/300x200'}
                         alt={solution.name}
                         className="agrius-disease-card-img"
                       />

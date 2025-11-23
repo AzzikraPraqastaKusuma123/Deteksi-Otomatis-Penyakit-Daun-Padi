@@ -8,15 +8,18 @@ function EditAgriculturalResource() {
   const [initialData, setInitialData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const fetchResource = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const response = await getAgriculturalResourceById(id);
-      setInitialData(response.data);
-    } catch (err) {
+      const { id } = useParams();
+      console.log("EditAgriculturalResource: Resource ID from URL params:", id);
+      const navigate = useNavigate();
+    
+      const fetchResource = useCallback(async () => {
+        setIsLoading(true);
+        try {
+          const response = await getAgriculturalResourceById(id);
+          console.log("EditAgriculturalResource: Fetched resource data:", response.data);
+          setInitialData(response.data);
+        } catch (err) {
+  
       console.error('Error fetching resource details:', err);
       setError('Gagal memuat data sumber daya.');
     } finally {
@@ -53,13 +56,12 @@ function EditAgriculturalResource() {
     <>
       {error && <p className="agrius-error-message" style={{ maxWidth: '900px', margin: '0 auto 20px' }}>{error}</p>}
       {initialData && (
-        <AgriculturalResourceForm
-          onSubmit={handleUpdateResource}
-          initialData={initialData}
-          isEditing={true}
-          isLoading={isLoading}
-        />
-      )}
+                  <AgriculturalResourceForm
+                    onSubmit={handleUpdateResource}
+                    initialData={initialData.resource} // Pass the nested resource object
+                    isEditing={true}
+                    isLoading={isLoading}
+                  />      )}
     </>
   );
 }

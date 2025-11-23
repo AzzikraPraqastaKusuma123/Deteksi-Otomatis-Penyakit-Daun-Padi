@@ -21,7 +21,36 @@
 
 .agrius-resource-form {
   display: grid;
-  gap: var(--spacing-xl); /* Increased vertical spacing, consistent with AddDisease */
+  grid-template-columns: 1fr; /* Default to single column for small screens */
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .agrius-resource-form {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for larger screens */
+    gap: var(--spacing-xl) var(--spacing-xxl); /* Adjust gap for wider layout */
+  }
+
+  .agrius-form-row-two-cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+    grid-column: span 2; /* Make this row span both columns of the parent grid */
+  }
+
+  .agrius-form-row-two-cols .agrius-form-group:nth-child(1) {
+    grid-column: 1 / 2; /* First child takes the first column */
+  }
+
+  .agrius-form-row-two-cols .agrius-form-group:nth-child(2) {
+    grid-column: 2 / 3; /* Second child takes the second column */
+  }
+
+  .agrius-form-group:has(#description),
+  .agrius-form-group:has(#image),
+  .agrius-btn-submit {
+    grid-column: span 2; /* These elements span both columns */
+  }
 }
 
 .agrius-form-group {
@@ -32,8 +61,8 @@
 .agrius-form-group label {
   margin-bottom: var(--spacing-xs);
   font-weight: var(--font-weight-medium);
-  color: var(--agrius-neutral-gray-2); /* Dark gray for labels, consistent with AddDisease */
-  font-size: 0.9rem; /* text-sm equivalent, consistent with AddDisease */
+  color: var(--agrius-neutral-gray-2);
+  font-size: 0.9rem;
 }
 
 textarea.agrius-form-control {
@@ -56,6 +85,6 @@ textarea.agrius-form-control {
   width: 100%;
   padding: var(--spacing-md);
   font-size: 1.1rem;
-  font-weight: var(--font-weight-bold); /* Bold text for button, consistent with AddDisease */
+  font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-md);
 }
