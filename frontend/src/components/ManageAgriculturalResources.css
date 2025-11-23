@@ -1,72 +1,164 @@
-/* frontend/src/components/ManageAgriculturalResources.css */
 @import '../variables.css';
 
-.agrius-resource-list-container {
+/* Consistent container styling with UserList */
+.agrius-user-list-container {
+  background-color: var(--agrius-pure-white);
   padding: var(--spacing-xxl);
-  max-width: 1200px;
-  margin: 0 auto;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
   font-family: var(--font-family-inter);
   color: var(--color-text-dark);
+  max-width: 1200px;
+  margin: var(--spacing-xxl) auto;
 }
 
-.agrius-resource-list-header {
+/* Consistent header styling with UserList */
+.agrius-user-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xxl);
 }
 
-.agrius-resource-list-header h1 {
+.agrius-user-list-header h1 {
   margin: 0;
   font-size: 2.5rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-dark);
 }
 
-.agrius-resources-table {
+/* Button styling - reusing global agrius-btn-primary */
+.agrius-btn-primary {
+    /* Defined in App.css, just ensure it's used */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Responsive table wrapper */
+.agrius-table-responsive {
+  overflow-x: auto;
+}
+
+/* Table styling consistent with UserList */
+.agrius-user-table {
   width: 100%;
-  border-collapse: collapse;
-  box-shadow: var(--shadow-lg);
-  background-color: var(--agrius-pure-white);
-  border-radius: var(--border-radius-xl);
-  overflow: hidden;
+  border-collapse: separate; /* Use separate for border-radius on cells */
+  border-spacing: 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden; /* Ensures border-radius is applied */
+  box-shadow: var(--shadow-md);
 }
 
-.agrius-resources-table th,
-.agrius-resources-table td {
-  padding: var(--spacing-lg);
+.agrius-user-table th,
+.agrius-user-table td {
+  padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
-  border-bottom: 1px solid var(--agrius-neutral-gray-1);
+  border-bottom: 1px solid var(--agrius-cream-off-white); /* Lighter border */
 }
 
-.agrius-resources-table th {
-  background-color: var(--agrius-cream-off-white);
+.agrius-user-table thead th {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
   font-weight: var(--font-weight-semibold);
-  font-size: 1rem;
   text-transform: uppercase;
+  font-size: 0.85rem;
   letter-spacing: 0.5px;
 }
 
-.agrius-resources-table tbody tr:last-child td {
-  border-bottom: none;
+.agrius-user-table tbody tr {
+  background-color: var(--agrius-pure-white);
+  transition: background-color var(--transition-speed-fast) var(--transition-ease);
 }
 
-.agrius-resources-table tbody tr:hover {
-  background-color: var(--agrius-light-green-background);
+.agrius-user-table tbody tr:hover {
+  background-color: var(--agrius-cream-off-white);
 }
 
+/* Image thumbnail specific to agricultural resources table */
 .agrius-resource-image-thumbnail {
-  width: 80px;
-  height: 60px;
+  width: 70px; /* Slightly smaller for table row */
+  height: 50px; /* Consistent height */
   object-fit: cover;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-sm); /* Slightly smaller radius */
+  box-shadow: var(--shadow-xs); /* Subtle shadow */
 }
 
-.agrius-resource-actions {
+
+/* Action buttons styling consistent with UserList */
+.agrius-action-buttons {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-xs);
+  justify-content: center; /* Center actions in their column */
 }
 
-.agrius-resource-actions .agrius-btn-action {
-  font-size: 1.2rem;
+.agrius-btn-action {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: var(--spacing-xs);
+  border-radius: 50%;
+  transition: all var(--transition-speed-fast) var(--transition-ease);
+  color: var(--agrius-neutral-gray-1);
+}
+
+.agrius-btn-action:hover {
+  background-color: rgba(var(--agrius-neutral-gray-1-rgb), 0.1);
+  color: var(--color-text-dark);
+}
+
+.agrius-btn-edit {
+  color: #f39c12; /* Orange for edit */
+}
+.agrius-btn-edit:hover {
+  background-color: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+}
+
+.agrius-btn-delete {
+  color: #e74c3c; /* Red for delete */
+}
+.agrius-btn-delete:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .agrius-user-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  .agrius-user-list-container {
+    padding: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .agrius-user-list-header h1 {
+    font-size: 2rem;
+  }
+  .agrius-user-table th, .agrius-user-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-user-list-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  .agrius-user-list-header h1 {
+    font-size: 1.8rem;
+  }
+  .agrius-btn-add-user {
+    width: 100%;
+    justify-content: center;
+  }
 }

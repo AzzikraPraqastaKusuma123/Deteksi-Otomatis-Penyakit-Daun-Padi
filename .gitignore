@@ -6,3 +6,6 @@
 
 # Ignore backend upload folder for detection images
 /backend/uploads/
+
+# Ignore test image screenshots
+/tes_gambar/foto ss/

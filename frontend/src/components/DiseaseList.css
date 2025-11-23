@@ -1,208 +1,172 @@
-/* frontend/src/components/DiseaseList.css */
 @import '../variables.css';
 
-.agrius-disease-list-container {
+/* Consistent container styling with UserList */
+.agrius-user-list-container {
+  background-color: var(--agrius-pure-white);
   padding: var(--spacing-xxl);
-  max-width: 1200px;
-  margin: 0 auto;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
   font-family: var(--font-family-inter);
   color: var(--color-text-dark);
+  max-width: 1200px;
+  margin: var(--spacing-xxl) auto;
 }
 
-.agrius-list-header {
+/* Consistent header styling with UserList */
+.agrius-user-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xxl);
 }
 
-.agrius-list-header h1 {
+.agrius-user-list-header h1 {
   margin: 0;
   font-size: 2.5rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-dark);
 }
 
-.agrius-btn-add-new {
-  /* Inherits from agrius-btn-primary in App.css */
-  padding: var(--spacing-sm) var(--spacing-lg);
+/* Button styling - reusing global agrius-btn-primary */
+.agrius-btn-primary {
+    /* Defined in App.css, just ensure it's used */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Responsive table wrapper */
+.agrius-table-responsive {
+  overflow-x: auto;
+}
+
+/* Table styling consistent with UserList */
+.agrius-user-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate for border-radius on cells */
+  border-spacing: 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden; /* Ensures border-radius is applied */
+  box-shadow: var(--shadow-md);
+}
+
+.agrius-user-table th,
+.agrius-user-table td {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--agrius-cream-off-white); /* Lighter border */
+}
+
+.agrius-user-table thead th {
+  background-color: var(--color-primary-bg); /* Forest Green Dark */
+  color: var(--color-text-primary); /* Pure White */
   font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
 }
 
-.agrius-disease-cards-flex {
-  display: grid; /* Changed to grid */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid columns */
-  gap: var(--spacing-xxl);
-  /* justify-content: center; This might not be needed with grid */
-}
-
-.agrius-disease-card {
+.agrius-user-table tbody tr {
   background-color: var(--agrius-pure-white);
-  border-radius: var(--border-radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  transition: all var(--transition-speed-normal) var(--transition-ease);
+  transition: background-color var(--transition-speed-fast) var(--transition-ease);
+}
+
+.agrius-user-table tbody tr:hover {
+  background-color: var(--agrius-cream-off-white);
+}
+
+/* Image thumbnail specific to disease table */
+.agrius-resource-image-thumbnail {
+  width: 70px; /* Slightly smaller for table row */
+  height: 50px; /* Consistent height */
+  object-fit: cover;
+  border-radius: var(--border-radius-sm); /* Slightly smaller radius */
+  box-shadow: var(--shadow-xs); /* Subtle shadow */
+}
+
+
+/* Action buttons styling consistent with UserList */
+.agrius-action-buttons {
   display: flex;
-  flex-direction: column;
-  text-decoration: none; /* Ensure link styling is removed */
-  color: inherit; /* Inherit text color */
-}
-
-.agrius-disease-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-xl);
-}
-
-.agrius-disease-card-img {
- width: 100%;
- height: 200px; /* Fixed height for images */
- object-fit: cover; /* Cover the area, cropping if necessary */
-}
-
-.agrius-disease-card-body {
-  padding: var(--spacing-lg);
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.agrius-disease-card-body .agrius-card-title {
-  font-size: 1.4rem;
-  font-weight: var(--font-weight-semibold);
-  margin: 0 0 var(--spacing-sm) 0; /* Increased margin */
-  color: var(--color-text-dark);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Added shadow */
-}
-
-.agrius-disease-card-body .agrius-card-text {
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-md);
-  line-height: 1.6;
-  flex-grow: 1;
-  /* 3-line truncation */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-}
-
-.agrius-card-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-md);
-  align-items: center;
-}
-
-.agrius-disease-card .agrius-card-actions .agrius-btn-view-details {
-  background-color: transparent !important;
-  color: #1b5e20 !important; /* Dark Green */
-  border: 1px solid #1b5e20 !important; /* Dark Green outline */
-  font-weight: var(--font-weight-semibold) !important; /* Ensure legible font weight */
-  text-decoration: none !important;
-  border-radius: var(--border-radius-md); /* Keep original border-radius */
-  padding: var(--spacing-sm) var(--spacing-lg); /* Keep original padding */
-  transition: all var(--transition-speed-normal) var(--transition-ease); /* Keep original transition */
-  box-shadow: none !important; /* Explicitly remove shadow */
-}
-
-.agrius-disease-card .agrius-card-actions .agrius-btn-view-details:hover {
-  background-color: #1b5e20 !important; /* Dark Green background on hover */
-  border-color: #1b5e20 !important; /* Dark Green border on hover */
-  color: #ffffff !important; /* White text on hover */
-  transform: translateY(-2px); /* Slight lift on hover, keep */
-  box-shadow: var(--shadow-md) !important; /* Add a subtle shadow on hover */
+  gap: var(--spacing-xs);
+  justify-content: center; /* Center actions in their column */
 }
 
 .agrius-btn-action {
-  background-color: transparent;
   border: none;
-  color: var(--color-text-secondary);
-  font-size: 1.1rem;
+  background: none;
   cursor: pointer;
-  transition: color var(--transition-speed-normal) var(--transition-ease);
+  font-size: 1.1rem;
   padding: var(--spacing-xs);
-  border-radius: var(--border-radius-sm);
+  border-radius: 50%;
+  transition: all var(--transition-speed-fast) var(--transition-ease);
+  color: var(--agrius-neutral-gray-1);
 }
 
 .agrius-btn-action:hover {
-  color: var(--color-accent);
-  background-color: rgba(var(--agrius-soft-lime-pastel-yellow-rgb), 0.1);
-}
-
-.agrius-btn-action.agrius-btn-delete:hover {
-  color: var(--agrius-red-error);
-  background-color: rgba(var(--agrius-red-error-rgb), 0.1);
-}
-
-/* Loading and Error messages */
-.agrius-loading-text, .agrius-error-message {
-  text-align: center;
-  padding: var(--spacing-xl);
-  background-color: var(--agrius-cream-off-white);
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-md);
-  margin-top: var(--spacing-xxl);
+  background-color: rgba(var(--agrius-neutral-gray-1-rgb), 0.1);
   color: var(--color-text-dark);
 }
 
-.agrius-error-message {
-  color: #e74c3c; /* Red for errors */
+.agrius-btn-edit {
+  color: #f39c12; /* Orange for edit */
+}
+.agrius-btn-edit:hover {
+  background-color: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+}
+
+.agrius-btn-delete {
+  color: #e74c3c; /* Red for delete */
+}
+.agrius-btn-delete:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.agrius-btn-view {
+  color: var(--color-primary-bg); /* Forest Green Dark for view */
+}
+.agrius-btn-view:hover {
+  background-color: rgba(4, 13, 12, 0.1);
+  color: var(--color-primary-bg);
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .agrius-disease-list-container {
-    padding: var(--spacing-xl);
-  }
-  .agrius-list-header h1 {
-    font-size: 2rem;
-  }
-  .agrius-disease-cards-flex {
-    grid-template-columns: repeat(2, 1fr); /* Two columns on tablets/small desktops */
-    gap: var(--spacing-lg);
-  }
-  .agrius-disease-card-img {
-    height: 150px; /* Adjust height for smaller screens */
-  }
-  .agrius-disease-card-body {
-    padding: var(--spacing-md);
-  }
-  .agrius-disease-card-body .agrius-card-title {
-    font-size: 1.2rem;
-  }
-  .agrius-disease-card-body .agrius-card-text {
-    font-size: 0.9rem;
-  }
-  .agrius-btn-view-details {
-    padding: var(--spacing-xs) var(--spacing-md);
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) { /* Very small screens (mobile phones) */
-  .agrius-disease-list-container {
-    padding: var(--spacing-lg);
-  }
-  .agrius-list-header h1 {
-    font-size: 1.8rem;
-  }
-  .agrius-disease-cards-flex {
-    grid-template-columns: 1fr; /* Single column on very small screens */
+@media (max-width: 992px) {
+  .agrius-user-list-header {
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--spacing-md);
   }
-  .agrius-disease-card-img {
-    height: 180px; /* Adjust height for single column */
-  }
-  .agrius-disease-card-body .agrius-card-title {
-    font-size: 1.3rem;
-  }
-  .agrius-disease-card-body .agrius-card-text {
-    font-size: 1rem;
-  }
-  .agrius-btn-view-details {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: 1rem;
+  .agrius-user-list-container {
+    padding: var(--spacing-xl);
   }
 }
 
+@media (max-width: 768px) {
+  .agrius-user-list-header h1 {
+    font-size: 2rem;
+  }
+  .agrius-user-table th, .agrius-user-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+}
 
+@media (max-width: 576px) {
+  .agrius-user-list-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  .agrius-user-list-header h1 {
+    font-size: 1.8rem;
+  }
+  .agrius-btn-add-user {
+    width: 100%;
+    justify-content: center;
+  }
+}

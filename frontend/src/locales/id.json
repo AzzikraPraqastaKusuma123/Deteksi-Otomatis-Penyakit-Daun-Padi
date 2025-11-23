@@ -131,11 +131,15 @@
     "pageTitle": "Pustaka Penyakit",
     "addDisease": "Tambah Penyakit",
     "noDescription": "Tidak ada deskripsi tersedia.",
-    "viewDetails": "Lihat Detail",
-    "aiInfo": "Informasi AI",
-    "aiSolution": "Solusi AI",
     "productRecs": "Rekomendasi Produk",
-    "productsFound": "produk ditemukan"
+    "productsFound": "produk ditemukan",
+    "tableHeaderImage": "Gambar",
+    "tableHeaderDiseaseName": "Nama Penyakit",
+    "tableHeaderScientificName": "Nama Ilmiah",
+    "tableHeaderActions": "Aksi",
+    "noDiseasesFound": "Tidak ada penyakit ditemukan.",
+    "deleteConfirm": "Apakah Anda yakin ingin menghapus penyakit ini?",
+    "failedToDelete": "Gagal menghapus penyakit."
   },
   "diseaseDetail": {
     "sessionExpired": "Sesi Anda telah berakhir. Silakan masuk kembali.",
