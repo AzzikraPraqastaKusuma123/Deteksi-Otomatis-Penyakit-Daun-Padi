@@ -9,3 +9,9 @@
 
 # Ignore test image screenshots
 /tes_gambar/foto ss/
+
+# Ignore Digram folder and its contents
+/Digram/
+
+# Ignore tes_gambar folder and its contents
+/tes_gambar/
