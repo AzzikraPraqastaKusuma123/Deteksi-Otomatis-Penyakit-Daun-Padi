@@ -247,9 +247,13 @@ const DetectionPage = () => {
               </div>
               <div className="agrius-result-details">
                 <h4>{t('detectionPage.descriptionLabel')}</h4>
-                <p>{prediction.description}</p>
+                <p className="text-justify-custom" dangerouslySetInnerHTML={{ __html: prediction.description
+                  ? prediction.description.replace(/\*(.*?)\*/g, '<strong>$1</strong>').replace(/\n/g, ' ')
+                  : t('detectionPage.noDescriptionAvailable') }}></p>
                 <h4>{t('detectionPage.preventionLabel')}</h4>
-                <p>{prediction.prevention}</p>
+                <p className="text-justify-custom" dangerouslySetInnerHTML={{ __html: prediction.prevention
+                  ? prediction.prevention.replace(/\*(.*?)\*/g, '<strong>$1</strong>').replace(/\n/g, ' ')
+                  : t('detectionPage.noPreventionAvailable') }}></p>
               </div>
               <button 
                 onClick={handleViewResult}

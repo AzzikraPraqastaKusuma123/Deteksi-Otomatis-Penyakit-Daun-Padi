@@ -125,6 +125,10 @@
   text-align: justify; /* Justify text as requested */
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 .product-list-detailed {
   list-style: none;
   padding-left: 0;

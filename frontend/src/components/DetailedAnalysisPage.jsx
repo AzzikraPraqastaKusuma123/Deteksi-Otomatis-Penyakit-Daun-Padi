@@ -26,16 +26,6 @@ const DetailedAnalysisPage = () => {
   const { disease, generativeInfo, image_url, recommendedSolutions } = prediction; // Destructure recommendedSolutions
   const serverBaseUrl = 'http://localhost:5000';
 
-  // Helper function to format text with bold for asterisks
-  const formatTextWithBold = (text) => {
-    if (!text) return { __html: '' };
-    // Replace single asterisks with <strong> tags, handling cases like *word* or *phrase with spaces*
-    // It specifically looks for patterns like *text* where 'text' doesn't contain spaces around asterisks,
-    // and correctly ignores multiplication signs or other non-formatting asterisks.
-    const formattedText = text.replace(/\*(.+?)\*/g, '<strong>$1</strong>');
-    return { __html: formattedText.replace(/\n/g, '<br />') }; // Replace newlines with <br /> for proper rendering
-  };
-
   return (
     <div className="detailed-analysis-page">
       <div className="analysis-header">
@@ -65,13 +55,17 @@ const DetailedAnalysisPage = () => {
             {generativeInfo && !generativeInfo.error && disease !== 'Healthy Rice Leaf' && (
               <div className="gemini-info-detailed">
                 <div className="gemini-section-detailed">
-                  <h4><i className="fas fa-info-circle"></i> Detailed Information</h4>
-                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.informasi_detail || 'No detailed information available from AI.')}></p>
-                </div>
-
-                <div className="gemini-section-detailed">
-                  <h4><i className="fas fa-seedling"></i> Solution & Healing</h4>
-                  <p dangerouslySetInnerHTML={formatTextWithBold(generativeInfo.solusi_penyembuhan || 'No solution and healing information available from AI.')}></p>
+                  <h4><i className="fas fa-info-circle"></i> Ringkasan Analisis</h4>
+                  <p className="text-justify">
+                    <strong>Deskripsi:</strong> {generativeInfo.informasi_detail 
+                      ? generativeInfo.informasi_detail.replace(/\*/g, '').replace(/\n/g, ' ')
+                      : 'No detailed information available from AI.'}
+                  </p>
+                  <p className="text-justify">
+                    <strong>Pencegahan:</strong> {generativeInfo.solusi_penyembuhan 
+                      ? generativeInfo.solusi_penyembuhan.replace(/\*/g, '').replace(/\n/g, ' ')
+                      : 'No solution and healing information available from AI.'}
+                  </p>
                 </div>
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (
