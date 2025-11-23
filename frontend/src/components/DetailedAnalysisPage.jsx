@@ -73,8 +73,8 @@ const DetailedAnalysisPage = () => {
                     <h4><i className="fas fa-prescription-bottle-alt"></i> Product Recommendations</h4>
                     <ul className="product-list-detailed">
                       {generativeInfo.rekomendasi_produk.map((product, index) => (
-                        <li key={index} className="product-item-detailed">
-                          <strong>{product.nama_produk}</strong>: {product.deskripsi_singkat}
+                        <li key={index} className="product-item-detailed text-justify">
+                          <strong>{product.nama_produk}</strong>: <span dangerouslySetInnerHTML={formatTextWithBold(product.deskripsi_singkat)}></span>
                         </li>
                       ))}
                     </ul>
@@ -123,6 +123,14 @@ const DetailedAnalysisPage = () => {
       </div>
     </div>
   );
+};
+
+// Helper function to format text with bold for asterisks
+const formatTextWithBold = (text) => {
+  if (!text) return { __html: '' };
+  // Replace *text* with <strong>text</strong>
+  const formattedText = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+  return { __html: formattedText };
 };
 
 export default DetailedAnalysisPage;

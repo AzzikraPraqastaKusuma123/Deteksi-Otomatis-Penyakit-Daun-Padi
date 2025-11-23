@@ -139,6 +139,7 @@
   padding: var(--spacing-sm);
   border-left: 4px solid var(--color-primary-bg); /* Forest Green Dark accent */
   box-shadow: var(--shadow-sm);
+  text-align: justify; /* Added for justification */
 }
 
 .product-item-detailed strong {
