@@ -37,10 +37,16 @@ const DetailedAnalysisPage = () => {
 
       <div className="content-grid">
         <div className="main-content">
-          <div className="result-card-detailed">
+          {/* Moved Detected Image card here */}
+          <div className="disease-header-layout">
+            <div className="image-card">
+              <img src={`${serverBaseUrl}${image_url}`} alt="Detected" className="detected-image" />
+            </div>
             <div className="result-header-detailed">
               <h2>{disease.replace(/_/g, ' ')}</h2>
             </div>
+          </div>
+          <div className="result-card-detailed">
 
             {/* Gemini Error Display */}
             {generativeInfo && generativeInfo.error && (
@@ -112,12 +118,6 @@ const DetailedAnalysisPage = () => {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-        <div className="sidebar-content">
-          <div className="image-card">
-            <h3>Detected Image</h3>
-            <img src={`${serverBaseUrl}${image_url}`} alt="Detected" className="detected-image" />
           </div>
         </div>
       </div>
