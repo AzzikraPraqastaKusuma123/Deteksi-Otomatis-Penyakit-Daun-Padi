@@ -67,7 +67,7 @@ function DiseaseDetail() {
                                     {recommendedSolutions.map((solution, index) => (
                                       <Link to={`/agricultural-resources/${solution.id}`} key={solution.id || index} className="agrius-disease-card agrius-carousel-card">
                                           <img
-                                            src={solution.image ? `http://localhost:5000/images/agricultural_resources/${solution.image}` : 'https://via.placeholder.com/300x200'}
+                                            src={solution.image || 'https://via.placeholder.com/300x200'}
                                             alt={solution.name}
                                             className="agrius-disease-card-img"
                                           />
@@ -112,7 +112,7 @@ function DiseaseDetail() {
                   {/* The solutions from gemini_summary are a paragraph, not product list */}
                   {disease.gemini_summary.solutions && (
                     <div className="agrius-detail-section">
-                      <h3><i className="fas fa-lightbulb agrius-section-icon"></i> {t('diseaseDetail.geminiSolutionsSummary')}</h3>
+                      <h3><i className="fas fa-lightbulb agrius-section-icon"></i> {t('diseaseDetail.solutionsSummary')}</h3>
                       <p>{disease.gemini_summary.solutions.toString()}</p>
                     </div>
                   )}
@@ -144,11 +144,11 @@ function DiseaseDetail() {
               {/* Render Gemini Product Recommendations if available */}
               {disease.gemini_rekomendasi_produk_json && disease.gemini_rekomendasi_produk_json.length > 0 && (
                 <div className="agrius-detail-section">
-                  <h3><i className="fas fa-seedling agrius-section-icon"></i> {t('diseaseDetail.geminiProductRecs')}</h3>
+                  <h3><i className="fas fa-seedling agrius-section-icon"></i> {t('diseaseDetail.productRecs')}</h3>
                   <ul className="agrius-product-list">
                     {disease.gemini_rekomendasi_produk_json.map((product, index) => (
-                      <li key={product.nama_produk || index} className="agrius-product-item">
-                        <strong>{product.nama_produk}:</strong> {product.deskripsi_singkat}
+                      <li key={product.nama_produk || index} className="agrius-product-item text-justify">
+                        <strong>{product.nama_produk}:</strong> <span dangerouslySetInnerHTML={formatTextWithBold(product.deskripsi_singkat)}></span>
                       </li>
                     ))}
                   </ul>
@@ -161,5 +161,13 @@ function DiseaseDetail() {
     </div>
   );
 }
+
+// Helper function to format text with bold for asterisks
+const formatTextWithBold = (text) => {
+  if (!text) return { __html: '' };
+  // Replace *text* with <strong>text</strong>
+  const formattedText = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+  return { __html: formattedText };
+};
 
 export default DiseaseDetail;

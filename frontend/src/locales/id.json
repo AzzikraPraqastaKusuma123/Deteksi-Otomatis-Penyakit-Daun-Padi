@@ -150,8 +150,8 @@
     "prevention": "Pencegahan:",
     "treatment": "Pengobatan:",
     "solutionRecs": "Rekomendasi Solusi",
-    "geminiSolutionsSummary": "Ringkasan Solusi Gemini",
-    "geminiProductRecs": "Rekomendasi Produk Gemini"
+    "solutionsSummary": "Ringkasan Solusi",
+    "productRecs": "Rekomendasi Produk"
   },
   "adminDashboard": {
     "dashboardTitle": "Dasbor",
