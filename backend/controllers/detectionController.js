@@ -257,13 +257,58 @@ export const getDetectionById = async (req, res) => {
   }
 };
 
+export const getAllDetectionsForAdmin = async (req, res) => {
+  const userRole = req.user?.role;
+
+  // Ensure only admins can access this
+  if (userRole !== 'admin') {
+    return res.status(403).json({ message: "Forbidden: Admins only." });
+  }
+
+  try {
+    const query = `
+      SELECT
+        d.id,
+        d.disease_name,
+        d.confidence,
+        d.image_url,
+        d.detected_at,
+        u.username
+      FROM detections d
+      JOIN users u ON d.user_id = u.id
+      ORDER BY d.detected_at DESC
+    `;
+    const [results] = await db.promise().query(query);
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching all detections for admin:", error);
+    res.status(500).json({ message: "Failed to fetch all detections", error: error.message });
+  }
+};
+
 export const getDetectionsCount = (req, res) => {
   const userId = req.user?.id;
-  if (!userId) return res.status(401).json({ message: "Unauthorized" });
+  const userRole = req.user?.role;
 
-  const query = "SELECT COUNT(*) as count FROM detections WHERE user_id = ?";
-  db.query(query, [userId], (err, results) => {
-    if (err) return res.status(500).json({ message: "Failed to get detections count", error: err });
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  let query;
+  let params = [];
+
+  // If user is admin, count all detections. Otherwise, count only their own.
+  if (userRole === 'admin') {
+    query = "SELECT COUNT(*) as count FROM detections";
+  } else {
+    query = "SELECT COUNT(*) as count FROM detections WHERE user_id = ?";
+    params.push(userId);
+  }
+
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to get detections count", error: err });
+    }
     res.json(results[0]);
   });
 };

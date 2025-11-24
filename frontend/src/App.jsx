@@ -31,6 +31,7 @@ import PestDetailPage from "./components/PestDetailPage";
 import PestList from "./components/PestList";
 import AddPest from "./components/AddPest";
 import EditPest from "./components/EditPest";
+import AllDetectionsList from "./components/AllDetectionsList";
 import "./App.css";
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
           }
         >
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/detections" element={<AllDetectionsList />} />
+          <Route path="/admin/detections/:id" element={<DetailedAnalysisPage />} />
           <Route path="/admin/users" element={<UserList />} />
           <Route path="/admin/users/add" element={<AddUser />} />
           <Route path="/admin/users/edit/:userId" element={<EditUser />} />
@@ -95,6 +98,7 @@ function App() {
           <Route path="/" element={<UserDashboard />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/detections" element={<DetectionList />} />
+          <Route path="/detections/:id" element={<DetailedAnalysisPage />} />
           <Route path="/detect" element={<DetectionPage />} />
           <Route path="/analysis-result" element={<DetailedAnalysisPage />} /> {/* Add the new route */}
           <Route path="/diseases" element={<DiseaseList />} />

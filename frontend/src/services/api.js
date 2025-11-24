@@ -91,6 +91,11 @@ export const getDetectionsCount = () => {
   return api.get('/detections/count');
 };
 
+export const getAllDetectionsForAdmin = () => {
+  // GET /detections/all/admin
+  return api.get('/detections/all/admin');
+};
+
 export const detectRealtimeImage = (imageData) => {
   const formData = new FormData();
   formData.append('image', imageData, 'frame.jpeg'); // imageData should be a Blob or File object
