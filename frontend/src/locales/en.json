@@ -10,7 +10,8 @@
     "dashboard": "Home",
     "realtimeDetect": "Real-time Detect",
     "detection": "History",
-    "liveDetect": "Detect"
+    "liveDetect": "Detect",
+    "pestList": "Pests"
   },
   "language": {
     "english": "English",
@@ -191,5 +192,25 @@
     "additionalRecommendations": "Additional Recommendations",
     "originalDescription": "Original Description",
     "generatingAiExplanation": "Loading AI explanation..."
+  },
+  "pestList": {
+    "pageTitle": "Pests",
+    "loadingPests": "Loading Pests...",
+    "failedToLoad": "Failed to load pests.",
+    "sessionExpired": "Session expired. Please log in again.",
+    "viewDetails": "View Details"
+  },
+  "pestDetail": {
+    "sessionExpired": "Session expired. Please log in again.",
+    "notFound": "Pest not found.",
+    "failedToLoad": "Failed to load pest data.",
+    "loadingDetails": "Loading details...",
+    "noData": "No pest data.",
+    "backToList": "Back to Pest List",
+    "scientificName": "Scientific Name:",
+    "description": "Description:",
+    "symptoms": "Symptoms:",
+    "prevention": "Prevention:",
+    "treatment": "Treatment:"
   }
 }

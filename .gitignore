@@ -1,17 +1,17 @@
 # Ignore uploaded agricultural resource images
-/backend/public/images/agricultural_resources/
+# /backend/public/images/agricultural_resources/
 
 # Ignore backend .env file
 /backend/.env
 
 # Ignore backend upload folder for detection images
-/backend/uploads/
+# /backend/uploads/
 
 # Ignore test image screenshots
-/tes_gambar/foto ss/
+# /tes_gambar/foto ss/
 
 # Ignore Digram folder and its contents
-/Digram/
+# /Digram/
 
 # Ignore tes_gambar folder and its contents
-/tes_gambar/
+# /tes_gambar/

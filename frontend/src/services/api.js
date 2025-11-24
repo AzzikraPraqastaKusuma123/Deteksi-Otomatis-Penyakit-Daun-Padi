@@ -161,6 +161,16 @@ export const deleteAgriculturalResource = (id) => {
   return api.delete(`/agricultural-resources/${id}`);
 };
 
+// === 10. PEST MANAGEMENT ===
+export const getAllPests = (lang = 'id') => {
+  // GET /pests?lang=id OR /pests?lang=en
+  return api.get(`/pests?lang=${lang}`);
+};
+
+export const getPestById = (id, lang = 'id') => {
+  // GET /pests/:id?lang=id OR /pests/:id?lang=en
+  return api.get(`/pests/${id}?lang=${lang}`);
+};
 
 // === 9. Ekspor default ===
 export { api };

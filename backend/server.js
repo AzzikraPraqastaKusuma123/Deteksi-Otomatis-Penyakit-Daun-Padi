@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import detectionRoutes from "./routes/detectionRoutes.js";
 import diseaseRoutes from "./routes/diseaseRoutes.js";
 import agriculturalResourceRoutes from "./routes/agriculturalResourceRoutes.js";
+import pestRoutes from "./routes/pestRoutes.js";
 import path from "path";
 import { loadModel } from "./services/detectionService.js";
 import mime from 'mime-types';
@@ -66,6 +67,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/detections", detectionRoutes);
 app.use("/api/diseases", diseaseRoutes);
 app.use("/api/agricultural-resources", agriculturalResourceRoutes);
+app.use("/api/pests", pestRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

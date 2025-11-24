@@ -10,7 +10,8 @@
     "dashboard": "Beranda",
     "realtimeDetect": "Deteksi Langsung",
     "detection": "Riwayat",
-    "liveDetect": "Deteksi"
+    "liveDetect": "Deteksi",
+    "pestList": "Hama"
   },
   "language": {
     "english": "Bahasa Inggris",
@@ -209,5 +210,25 @@
     "additionalRecommendations": "Rekomendasi Tambahan",
     "originalDescription": "Deskripsi Asli",
     "generatingAiExplanation": "Memuat penjelasan AI..."
+  },
+  "pestList": {
+    "pageTitle": "Hama",
+    "loadingPests": "Memuat Hama...",
+    "failedToLoad": "Gagal memuat hama.",
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "viewDetails": "Lihat Detail"
+  },
+  "pestDetail": {
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "notFound": "Hama tidak ditemukan.",
+    "failedToLoad": "Gagal memuat data hama.",
+    "loadingDetails": "Memuat detail...",
+    "noData": "Tidak ada data hama.",
+    "backToList": "Kembali ke Daftar Hama",
+    "scientificName": "Nama Ilmiah:",
+    "description": "Deskripsi:",
+    "symptoms": "Gejala:",
+    "prevention": "Pencegahan:",
+    "treatment": "Pengobatan:"
   }
 }

@@ -26,11 +26,14 @@ import AgriculturalResourceDetail from "./components/AgriculturalResourceDetail"
 import ManageAgriculturalResources from "./components/ManageAgriculturalResources";
 import AddAgriculturalResource from "./components/AddAgriculturalResource";
 import EditAgriculturalResource from "./components/EditAgriculturalResource";
+import PestListPage from "./components/PestListPage";
+import PestDetailPage from "./components/PestDetailPage";
 import "./App.css";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -39,7 +42,12 @@ function App() {
       setLoggedIn(true);
       setUserRole(user.role);
     }
+    setLoading(false); // Set loading to false after checking
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a proper spinner component
+  }
 
   return (
     <Router>
@@ -89,6 +97,8 @@ function App() {
           <Route path="/profile/edit" element={<EditProfilePage />} />
           <Route path="/agricultural-resources" element={<AgriculturalResourcesPage />} />
           <Route path="/agricultural-resources/:id" element={<AgriculturalResourceDetail />} />
+          <Route path="/pests" element={<PestListPage />} />
+          <Route path="/pests/:pestId" element={<PestDetailPage />} />
         </Route>
       </Routes>
     </Router>
