@@ -76,9 +76,14 @@ export const detectImage = (formData) => {
   });
 };
 
-export const getDetections = () => {
+export const getDetections = (lang = 'id') => {
   // GET /detections
-  return api.get('/detections');
+  return api.get(`/detections?lang=${lang}`);
+};
+
+export const getDetectionById = (id, lang = 'id') => {
+  // GET /detections/:id?lang=id OR /detections/:id?lang=en
+  return api.get(`/detections/${id}?lang=${lang}`);
 };
 
 export const getDetectionsCount = () => {

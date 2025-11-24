@@ -21,12 +21,12 @@ export const getAllDiseases = (req, res) => {
   const query = `
     SELECT 
       id,
-      ${lang === 'en' ? 'disease_name_en' : 'disease_name_id'} AS disease_name,
+      COALESCE(${lang === 'en' ? 'disease_name_en' : 'disease_name_id'}, disease_name) AS disease_name,
       scientific_name,
-      ${lang === 'en' ? 'description_en' : 'description_id'} AS description,
-      ${lang === 'en' ? 'prevention_en' : 'prevention_id'} AS prevention,
-      ${lang === 'en' ? 'symptoms_en' : 'symptoms_id'} AS symptoms,
-      ${lang === 'en' ? 'treatment_recommendations_en' : 'treatment_recommendations_id'} AS treatment_recommendations,
+      COALESCE(${lang === 'en' ? 'description_en' : 'description_id'}, description) AS description,
+      COALESCE(${lang === 'en' ? 'prevention_en' : 'prevention_id'}, prevention) AS prevention,
+      COALESCE(${lang === 'en' ? 'symptoms_en' : 'symptoms_id'}, symptoms) AS symptoms,
+      COALESCE(${lang === 'en' ? 'treatment_recommendations_en' : 'treatment_recommendations_id'}, treatment_recommendations) AS treatment_recommendations,
       image_url_example,
       gemini_informasi_detail AS gemini_informasi_detail,
       gemini_solusi_penyembuhan AS gemini_solusi_penyembuhan,

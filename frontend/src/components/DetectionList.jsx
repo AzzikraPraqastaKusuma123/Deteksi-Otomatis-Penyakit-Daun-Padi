@@ -76,44 +76,46 @@ function DetectionList() {
             const isHealthy = detection.disease_name.toLowerCase().includes('healthy') || detection.disease_name.toLowerCase().includes('sehat');
             
             return (
-              <div className="agrius-detection-card" key={detection.id}> {/* Gunakan detection.id */}
-                {/* Pastikan URL gambar benar, controller menyimpan '/uploads/...' */}
-                <img src={`http://localhost:5000${detection.image_url}`} className="agrius-card-img-top" alt={detection.disease_name}/>
-                <div className="agrius-detection-card-body">
-                  <span className={`agrius-status-badge ${isHealthy ? 'agrius-status-healthy' : 'agrius-status-disease'}`}>
-                    {isHealthy ? t('detectionList.healthy') : t('detectionList.disease')}
-                  </span>
-                  {/* Tampilkan disease_name langsung dari DB */}
-                  <h5 className="agrius-card-title">{detection.disease_name}</h5>
-                  {/* Tampilkan confidence dari DB (decimal) */}
-                  <p className="agrius-card-text">{t('detectionList.confidence')}: <strong>{(detection.confidence * 100).toFixed(2)}%</strong></p>
-                  {/* Tampilkan detected_at dari DB (timestamp) */}
-                  <p className="agrius-card-text"><small className="agrius-text-muted">{new Date(detection.detected_at).toLocaleString()}</small></p>
+              <Link to={`/detections/${detection.id}`} key={detection.id} className="agrius-detection-card-link">
+                <div className="agrius-detection-card"> {/* Gunakan detection.id */}
+                  {/* Pastikan URL gambar benar, controller menyimpan '/uploads/...' */}
+                  <img src={`http://localhost:5000${detection.image_url}`} className="agrius-card-img-top" alt={detection.disease_name}/>
+                  <div className="agrius-detection-card-body">
+                    <span className={`agrius-status-badge ${isHealthy ? 'agrius-status-healthy' : 'agrius-status-disease'}`}>
+                      {isHealthy ? t('detectionList.healthy') : t('detectionList.disease')}
+                    </span>
+                    {/* Tampilkan disease_name langsung dari DB */}
+                    <h5 className="agrius-card-title">{detection.disease_name}</h5>
+                    {/* Tampilkan confidence dari DB (decimal) */}
+                    <p className="agrius-card-text">{t('detectionList.confidence')}: <strong>{(detection.confidence * 100).toFixed(2)}%</strong></p>
+                    {/* Tampilkan detected_at dari DB (timestamp) */}
+                    <p className="agrius-card-text"><small className="agrius-text-muted">{new Date(detection.detected_at).toLocaleString()}</small></p>
 
-                  {/* Display Gemini Info Summary */}
-                  {detection.gemini_informasi_detail && (
-                    <div className="agrius-gemini-summary mt-2">
-                      <p className="agrius-gemini-info-text">
-                        <strong>{t('detectionList.aiInfo', 'Informasi AI')}:</strong> {detection.gemini_informasi_detail}{detection.gemini_informasi_detail.length > 100 ? '' : ''}
-                      </p>
-                    </div>
-                  )}
-                  {detection.gemini_solusi_penyembuhan && (
-                    <div className="agrius-gemini-summary">
-                      <p className="agrius-gemini-info-text">
-                        <strong>{t('detectionList.aiSolution', 'Solusi AI')}:</strong> {detection.gemini_solusi_penyembuhan}{detection.gemini_solusi_penyembuhan.length > 100 ? '' : ''}
-                      </p>
-                    </div>
-                  )}
-                  {detection.gemini_rekomendasi_produk && detection.gemini_rekomendasi_produk.length > 0 && (
-                    <div className="agrius-gemini-summary">
-                      <p className="agrius-gemini-info-text">
-                        <strong>{t('detectionList.productRecs', 'Rekomendasi Produk')}:</strong> {detection.gemini_rekomendasi_produk.length} {t('detectionList.productsFound', 'produk ditemukan')}
-                      </p>
-                    </div>
-                  )}
+                    {/* Display Gemini Info Summary */}
+                    {detection.gemini_informasi_detail && (
+                      <div className="agrius-gemini-summary mt-2">
+                        <p className="agrius-gemini-info-text">
+                          <strong>{t('detectionList.aiInfo', 'Informasi AI')}:</strong> {detection.gemini_informasi_detail}{detection.gemini_informasi_detail.length > 100 ? '' : ''}
+                        </p>
+                      </div>
+                    )}
+                    {detection.gemini_solusi_penyembuhan && (
+                      <div className="agrius-gemini-summary">
+                        <p className="agrius-gemini-info-text">
+                          <strong>{t('detectionList.aiSolution', 'Solusi AI')}:</strong> {detection.gemini_solusi_penyembuhan}{detection.gemini_solusi_penyembuhan.length > 100 ? '' : ''}
+                        </p>
+                      </div>
+                    )}
+                    {detection.gemini_rekomendasi_produk && detection.gemini_rekomendasi_produk.length > 0 && (
+                      <div className="agrius-gemini-summary">
+                        <p className="agrius-gemini-info-text">
+                          <strong>{t('detectionList.productRecs', 'Rekomendasi Produk')}:</strong> {detection.gemini_rekomendasi_produk.length} {t('detectionList.productsFound', 'produk ditemukan')}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

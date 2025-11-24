@@ -1,37 +1,87 @@
-import React from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom'; // Import Link
+import React, { useState, useEffect } from 'react';
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { getDetectionById } from '../services/api'; // Import the new API function
 import './DetailedAnalysisPage.css';
 import './DiseaseList.css'; // Import for recommendation card styles
 
 const DetailedAnalysisPage = () => {
-  const location = useLocation();
+  const { id } = useParams(); // Get ID from URL
+  const { t, i18n } = useTranslation(); // Use useTranslation
   const navigate = useNavigate();
-  const { prediction } = location.state || {}; // Safely access state
-  console.log("Data received on Detailed Analysis Page:", prediction); // Debugging line
+  
+  const [detectionData, setDetectionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!prediction) {
+  useEffect(() => {
+    const fetchDetectionDetails = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        // Use the new API function to fetch detailed data
+        const response = await getDetectionById(id, i18n.language); 
+        setDetectionData(response.data); // Set the fetched data
+      } catch (err) {
+        console.error("Failed to fetch detection details:", err);
+        setError("Failed to load detection details. Please try again or check the ID."); 
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchDetectionDetails();
+    }
+  }, [id, i18n.language, navigate]); // Re-fetch if ID or language changes
+
+  if (loading) {
+    return (
+      <div className="detailed-analysis-page">
+        <div className="loading-container">
+          <h2>{t('detailedAnalysis.loadingAnalysis')}</h2> {/* Use translation */}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
     return (
       <div className="detailed-analysis-page">
         <div className="error-container">
-          <h2>Error: No Analysis Data</h2>
-          <p>No analysis data was found. Please go back and perform a new detection.</p>
-          <button onClick={() => navigate('/detect')} className="btn-back">
-            Back to Detection
+          <h2>{t('detailedAnalysis.errorTitle')}: {error}</h2> {/* Use translation */}
+          <p>{t('detailedAnalysis.errorPrompt')}</p> {/* Use translation */}
+          <button onClick={() => navigate('/detections')} className="btn-back">
+            {t('detailedAnalysis.backToDetections')} {/* Use translation */}
           </button>
         </div>
       </div>
     );
   }
 
-  const { disease, generativeInfo, image_url, recommendedSolutions } = prediction; // Destructure recommendedSolutions
+  if (!detectionData) {
+    return (
+      <div className="detailed-analysis-page">
+        <div className="error-container">
+          <h2>{t('detailedAnalysis.detectionNotFoundTitle')}</h2> {/* Use translation */}
+          <p>{t('detailedAnalysis.detectionNotFoundPrompt')}</p> {/* Use translation */}
+          <button onClick={() => navigate('/detections')} className="btn-back">
+            {t('detailedAnalysis.backToDetections')} {/* Use translation */}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const { disease, generativeInfo, image_url, recommendedSolutions } = detectionData; // Destructure from detectionData
   const serverBaseUrl = 'http://localhost:5000';
 
   return (
     <div className="detailed-analysis-page">
       <div className="analysis-header">
-        <h1>In-depth AI Analysis</h1>
+        <h1>{t('detailedAnalysis.pageTitle')}</h1> {/* Use translation */}
         <button onClick={() => navigate('/detect')} className="btn-back">
-          <i className="fas fa-arrow-left"></i> New Detection
+          <i className="fas fa-arrow-left"></i> {t('detailedAnalysis.newDetection')} {/* Use translation */}
         </button>
       </div>
 
@@ -51,8 +101,8 @@ const DetailedAnalysisPage = () => {
             {/* Gemini Error Display */}
             {generativeInfo && generativeInfo.error && (
               <div className="gemini-error">
-                <h4><i className="fas fa-exclamation-triangle"></i> Failed to Get AI Info</h4>
-                <p>An error occurred while trying to retrieve additional information from the AI service.</p>
+                <h4><i className="fas fa-exclamation-triangle"></i> {t('detailedAnalysis.aiInfoFailedTitle')}</h4> {/* Use translation */}
+                <p>{t('detailedAnalysis.aiInfoFailedPrompt')}</p> {/* Use translation */}
                 <pre>Detail: {JSON.stringify(generativeInfo.message || 'Unknown error', null, 2)}</pre>
               </div>
             )}
@@ -61,22 +111,22 @@ const DetailedAnalysisPage = () => {
             {generativeInfo && !generativeInfo.error && disease !== 'Healthy Rice Leaf' && (
               <div className="gemini-info-detailed">
                 <div className="gemini-section-detailed">
-                  <h4><i className="fas fa-info-circle"></i> Ringkasan Analisis</h4>
+                  <h4><i className="fas fa-info-circle"></i> {t('detailedAnalysis.analysisSummary')}</h4> {/* Use translation */}
                   <p className="text-justify">
-                    <strong>Deskripsi:</strong> {generativeInfo.informasi_detail 
+                    <strong>{t('detailedAnalysis.description')}:</strong> {generativeInfo.informasi_detail 
                       ? generativeInfo.informasi_detail.replace(/\*/g, '').replace(/\n/g, ' ')
-                      : 'No detailed information available from AI.'}
+                      : t('detailedAnalysis.noDetailedInfoFromAI')} {/* Use translation */}
                   </p>
                   <p className="text-justify">
-                    <strong>Pencegahan:</strong> {generativeInfo.solusi_penyembuhan 
+                    <strong>{t('detailedAnalysis.prevention')}:</strong> {generativeInfo.solusi_penyembuhan 
                       ? generativeInfo.solusi_penyembuhan.replace(/\*/g, '').replace(/\n/g, ' ')
-                      : 'No solution and healing information available from AI.'}
+                      : t('detailedAnalysis.noSolutionInfoFromAI')} {/* Use translation */}
                   </p>
                 </div>
 
                 {generativeInfo.rekomendasi_produk && generativeInfo.rekomendasi_produk.length > 0 && (
                   <div className="gemini-section-detailed">
-                    <h4><i className="fas fa-prescription-bottle-alt"></i> Product Recommendations</h4>
+                    <h4><i className="fas fa-prescription-bottle-alt"></i> {t('detailedAnalysis.productRecommendations')}</h4> {/* Use translation */}
                     <ul className="product-list-detailed">
                       {generativeInfo.rekomendasi_produk.map((product, index) => (
                         <li key={index} className="product-item-detailed text-justify">
@@ -92,14 +142,14 @@ const DetailedAnalysisPage = () => {
             {/* Healthy Leaf Message */}
             {disease === 'Healthy Rice Leaf' && (
               <div className="gemini-info-detailed healthy-leaf-detailed">
-                <p>The rice leaf appears to be healthy! Based on our AI analysis, no treatment is necessary. Continue to maintain good farming practices such as balanced fertilization and proper irrigation to keep your plants healthy.</p>
+                <p>{t('detailedAnalysis.healthyLeafMessage')}</p> {/* Use translation */}
               </div>
             )}
 
             {/* Recommended Solutions Section from DB */}
             {recommendedSolutions && recommendedSolutions.length > 0 && (
               <div className="agrius-recommendations-wrapper">
-                <h3 className="agrius-recommendations-title-small">Recommended Agricultural Resources</h3>
+                <h3 className="agrius-recommendations-title-small">{t('detailedAnalysis.recommendedResources')}</h3> {/* Use translation */}
 
                 <div className="agrius-disease-cards-carousel">
                   {recommendedSolutions.map((solution, index) => (
