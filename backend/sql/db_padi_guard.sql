@@ -228,7 +228,7 @@ CREATE TABLE `disease_solutions` (
   `id` int NOT NULL,
   `disease_id` int NOT NULL,
   `resource_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `disease_solutions`
