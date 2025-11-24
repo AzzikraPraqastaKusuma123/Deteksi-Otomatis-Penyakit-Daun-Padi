@@ -46,17 +46,19 @@ function PestListPage() {
       <div className="agrius-disease-cards-flex">
         {pests.map(pest => {
           const detailPath = `/pests/${pest.id}`;
+          const name = i18n.language === 'id' ? pest.name_id : pest.name_en;
+          const description = i18n.language === 'id' ? pest.description_id : pest.description_en;
 
           return (
             <div className="agrius-disease-card" key={pest.id}>
               <img 
                 src={pest.image_url ? `http://localhost:5000${pest.image_url}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
-                alt={pest.name} 
+                alt={name} 
                 className="agrius-disease-card-img"
               />
               <div className="agrius-disease-card-body">
-                <h5 className="agrius-card-title">{pest.name}</h5>
-                <p className="agrius-card-text">{pest.description}</p>
+                <h5 className="agrius-card-title">{name}</h5>
+                <p className="agrius-card-text">{description}</p>
                 <div className="agrius-card-actions">
                   <Link to={detailPath} className="agrius-btn-secondary agrius-btn-view-details">{t('pestList.viewDetails')}</Link>
                 </div>

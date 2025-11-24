@@ -28,6 +28,9 @@ import AddAgriculturalResource from "./components/AddAgriculturalResource";
 import EditAgriculturalResource from "./components/EditAgriculturalResource";
 import PestListPage from "./components/PestListPage";
 import PestDetailPage from "./components/PestDetailPage";
+import PestList from "./components/PestList";
+import AddPest from "./components/AddPest";
+import EditPest from "./components/EditPest";
 import "./App.css";
 
 function App() {
@@ -76,6 +79,9 @@ function App() {
           <Route path="/admin/agricultural-resources" element={<ManageAgriculturalResources />} />
           <Route path="/admin/agricultural-resources/add" element={<AddAgriculturalResource />} />
           <Route path="/admin/agricultural-resources/edit/:id" element={<EditAgriculturalResource />} />
+          <Route path="/admin/pests" element={<PestList />} />
+          <Route path="/admin/pests/add" element={<AddPest />} />
+          <Route path="/admin/pests/edit/:id" element={<EditPest />} />
         </Route>
 
         {/* User Routes with MainLayout */}

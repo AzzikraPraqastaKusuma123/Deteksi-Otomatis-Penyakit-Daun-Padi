@@ -30,6 +30,7 @@ app.use('/uploads', express.static('uploads'));
 // Define specific upload directories
 const AGRICULTURAL_RESOURCES_DIR = path.join(process.cwd(), 'public', 'images', 'agricultural_resources');
 const DISEASES_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'diseases');
+const PESTS_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'pests');
 
 // Explicit route for agricultural_resources images (bypassing express.static for full control)
 app.get('/images/agricultural_resources/:imageName', (req, res) => {
@@ -61,6 +62,9 @@ app.get('/images/agricultural_resources/:imageName', (req, res) => {
 
 // Serve disease images using express.static, with cors explicitly applied
 app.use('/images/diseases', cors(), express.static(DISEASES_IMAGES_DIR));
+
+// Serve pest images using express.static, with cors explicitly applied
+app.use('/images/pests', cors(), express.static(PESTS_IMAGES_DIR));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

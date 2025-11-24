@@ -172,6 +172,28 @@ export const getPestById = (id, lang = 'id') => {
   return api.get(`/pests/${id}?lang=${lang}`);
 };
 
+export const updatePest = (id, formData) => {
+  // PUT /pests/:id
+  return api.put(`/pests/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const addPest = (pestData) => {
+  // POST /pests
+  return api.post('/pests', pestData);
+};
+
+export const deletePest = (id) => {
+  // DELETE /pests/:id
+  return api.delete(`/pests/${id}`);
+};
+
+export const getPestsCount = () => {
+  // GET /pests/count
+  return api.get('/pests/count');
+};
+
 // === 9. Ekspor default ===
 export { api };
 export default api;

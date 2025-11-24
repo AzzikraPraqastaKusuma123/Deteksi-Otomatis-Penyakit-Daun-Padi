@@ -167,7 +167,24 @@
     "detectionsOverview": "Ikhtisar Deteksi",
     "quickActions": "Tindakan Cepat",
     "manageUsers": "Kelola Pengguna",
-    "addNewDisease": "Tambah Penyakit Baru"
+    "addNewDisease": "Tambah Penyakit Baru",
+    "managePests": "Kelola Hama",
+    "totalPests": "Total Hama"
+  },
+  "pestList": {
+    "pageTitle": "Kelola Hama",
+    "loadingPests": "Memuat hama...",
+    "failedToLoad": "Gagal memuat hama.",
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "viewDetails": "Lihat Detail",
+    "addPest": "Tambah Hama",
+    "deleteConfirm": "Apakah Anda yakin ingin menghapus hama ini?",
+    "failedToDelete": "Gagal menghapus hama.",
+    "tableHeaderImage": "Gambar",
+    "tableHeaderPestName": "Nama Hama",
+    "tableHeaderScientificName": "Nama Ilmiah",
+    "tableHeaderActions": "Aksi",
+    "noPestsFound": "Tidak ada hama ditemukan."
   },
   "userList": {
     "deleteConfirm": "Apakah Anda yakin ingin menghapus pengguna ini?",

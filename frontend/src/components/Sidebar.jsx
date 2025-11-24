@@ -53,6 +53,12 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             <span>Sumber Daya</span>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/admin/pests" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
+            <i className="fas fa-bug"></i>
+            <span>Pests</span>
+          </NavLink>
+        </li>
         {/* Add more admin links here */}
       </ul>
       <div className="agrius-sidebar-footer">

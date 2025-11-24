@@ -10,30 +10,35 @@ const AdminDashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [detectionCount, setDetectionCount] = useState(0);
   const [diseaseCount, setDiseaseCount] = useState(0);
+  const [pestCount, setPestCount] = useState(0);
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const [users, detections, diseases] = await Promise.all([
+        const [users, detections, diseases, pests] = await Promise.all([
           api.get('/users'),
           api.get('/detections/count'),
-          api.get('/diseases/count')
+          api.get('/diseases/count'),
+          api.get('/pests/count')
         ]);
         
         const uCount = users.data.length;
         const dCount = detections.data.count;
         const disCount = diseases.data.count;
+        const pCount = pests.data.count;
 
         setUserCount(uCount);
         setDetectionCount(dCount);
         setDiseaseCount(disCount);
+        setPestCount(pCount);
 
         // Set translated data for the chart
         setChartData([
           { name: t('adminDashboard.totalUsers'), count: uCount },
           { name: t('adminDashboard.totalDetections'), count: dCount },
           { name: t('adminDashboard.totalDiseases'), count: disCount },
+          { name: t('adminDashboard.totalPests'), count: pCount },
         ]);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -77,6 +82,15 @@ const AdminDashboard = () => {
             <h3>{diseaseCount}</h3>
           </div>
         </div>
+        <div className="agrius-stat-card">
+          <div className="agrius-stat-card-icon">
+            <i className="fas fa-bug"></i>
+          </div>
+          <div className="agrius-stat-card-info">
+            <p>{t('adminDashboard.totalPests')}</p>
+            <h3>{pestCount}</h3>
+          </div>
+        </div>
       </div>
 
       <div className="agrius-dashboard-main-content">
@@ -102,6 +116,10 @@ const AdminDashboard = () => {
           <Link to="/admin/diseases/add" className="agrius-btn-primary agrius-quick-action-btn">
             <i className="fas fa-plus-circle"></i>
             <span>{t('adminDashboard.addNewDisease')}</span>
+          </Link>
+          <Link to="/admin/pests" className="agrius-btn-secondary agrius-quick-action-btn">
+            <i className="fas fa-bug"></i>
+            <span>{t('adminDashboard.managePests')}</span>
           </Link>
         </div>
       </div>

@@ -41,6 +41,13 @@ function PestDetailPage() {
   if (error) return <div className="agrius-detail-container"><p className="agrius-error-message">{error}</p></div>;
   if (!pest) return <div className="agrius-detail-container"><p className="agrius-no-data-message">{t('pestDetail.noData')}</p></div>;
 
+  // Select the correct language fields
+  const name = i18n.language === 'id' ? pest.name_id : pest.name_en;
+  const description = i18n.language === 'id' ? pest.description_id : pest.description_en;
+  const symptoms = i18n.language === 'id' ? pest.symptoms_id : pest.symptoms_en;
+  const prevention = i18n.language === 'id' ? pest.prevention_id : pest.prevention_en;
+  const treatment = i18n.language === 'id' ? pest.treatment_id : pest.treatment_en;
+
   return (
     <div className="agrius-detail-container">
       <Link to="/pests" className="agrius-back-link"><i className="fas fa-arrow-left me-2"></i>{t('pestDetail.backToList')}</Link>
@@ -50,14 +57,14 @@ function PestDetailPage() {
             <img 
               src={pest.image_url ? `http://localhost:5000${pest.image_url}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
               className="agrius-detail-image" 
-              alt={pest.name}
+              alt={name}
             />
           </div>
         </div>
 
         <div className="col-md-7">
           <div className="agrius-card agrius-detail-card">
-            <h1 className="agrius-detail-title">{pest.name}</h1>
+            <h1 className="agrius-detail-title">{name}</h1>
             <div className="agrius-detail-info">
               {pest.scientific_name && (
                 <div className="agrius-detail-section">
@@ -65,28 +72,28 @@ function PestDetailPage() {
                   <p>{pest.scientific_name}</p>
                 </div>
               )}
-              {pest.description && (
+              {description && (
                 <div className="agrius-detail-section">
                   <h3><i className="fas fa-leaf agrius-section-icon"></i> {t('pestDetail.description')}</h3>
-                  <p>{pest.description}</p>
+                  <p>{description}</p>
                 </div>
               )}
-              {pest.symptoms && (
+              {symptoms && (
                 <div className="agrius-detail-section">
                   <h3><i className="fas fa-shield-alt agrius-section-icon"></i> {t('pestDetail.symptoms')}</h3>
-                  <p>{pest.symptoms}</p>
+                  <p>{symptoms}</p>
                 </div>
               )}
-              {pest.prevention && (
+              {prevention && (
                 <div className="agrius-detail-section">
                   <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('pestDetail.prevention')}</h3>
-                  <p>{pest.prevention}</p>
+                  <p>{prevention}</p>
                 </div>
               )}
-               {pest.treatment && (
+               {treatment && (
                 <div className="agrius-detail-section">
                   <h3><i className="fas fa-medkit agrius-section-icon"></i> {t('pestDetail.treatment')}</h3>
-                  <p>{pest.treatment}</p>
+                  <p>{treatment}</p>
                 </div>
               )}
             </div>
