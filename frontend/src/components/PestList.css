@@ -54,7 +54,10 @@
 .agrius-user-table td {
   padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
-  border-bottom: 1px solid var(--agrius-cream-off-white); /* Lighter border */
+  border-bottom: 1px solid var(--agrius-cream-off-white);
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
 }
 
 .agrius-user-table thead th {

@@ -228,13 +228,6 @@
     "originalDescription": "Deskripsi Asli",
     "generatingAiExplanation": "Memuat penjelasan AI..."
   },
-  "pestList": {
-    "pageTitle": "Hama",
-    "loadingPests": "Memuat Hama...",
-    "failedToLoad": "Gagal memuat hama.",
-    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
-    "viewDetails": "Lihat Detail"
-  },
   "pestDetail": {
     "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
     "notFound": "Hama tidak ditemukan.",

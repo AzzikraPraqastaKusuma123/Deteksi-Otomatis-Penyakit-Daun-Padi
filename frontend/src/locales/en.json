@@ -210,13 +210,6 @@
     "originalDescription": "Original Description",
     "generatingAiExplanation": "Loading AI explanation..."
   },
-  "pestList": {
-    "pageTitle": "Pests",
-    "loadingPests": "Loading Pests...",
-    "failedToLoad": "Failed to load pests.",
-    "sessionExpired": "Session expired. Please log in again.",
-    "viewDetails": "View Details"
-  },
   "pestDetail": {
     "sessionExpired": "Session expired. Please log in again.",
     "notFound": "Pest not found.",
