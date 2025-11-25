@@ -26,8 +26,6 @@ const UserDashboard = () => {
     fetchDiseases();
   }, [i18n.language]);
 
-
-
   return (
     <>
       <div className="agrius-user-dashboard">
@@ -125,29 +123,10 @@ const UserDashboard = () => {
                     className="agrius-disease-card-img"
                   />
                   <Card.Body>
-                    <Card.Title>{disease[`disease_name_${i18n.language}`]}</Card.Title>
-                    {/* Display Gemini Info */}
-                    {disease.gemini_informasi_detail && (
-                      <Card.Text className="agrius-disease-card-text">
-                        <strong>{t('diseaseList.aiInfo')}:</strong> {disease.gemini_informasi_detail}
-                      </Card.Text>
-                    )}
-                    {disease.gemini_solusi_penyembuhan && (
-                      <Card.Text className="agrius-disease-card-text">
-                        <strong>{t('diseaseList.aiSolution')}:</strong> {disease.gemini_solusi_penyembuhan}
-                      </Card.Text>
-                    )}
-                    {disease.gemini_rekomendasi_produk && disease.gemini_rekomendasi_produk.length > 0 && (
-                      <Card.Text className="agrius-disease-card-text">
-                        <strong>{t('diseaseList.productRecs')}:</strong> {disease.gemini_rekomendasi_produk.length} {t('diseaseList.productsFound')}
-                      </Card.Text>
-                    )}
-                    {/* Fallback to original description if no Gemini info is available */}
-                    {!disease.gemini_informasi_detail && !disease.gemini_solusi_penyembuhan && (
-                      <Card.Text className="agrius-disease-card-text">
-                        {disease[`description_${i18n.language}`] || t('diseaseList.noDescription')}
-                      </Card.Text>
-                    )}
+                    <Card.Title>{disease.disease_name}</Card.Title>
+                    <Card.Text className="agrius-card-text">
+                      {disease.description || t('diseaseList.noDescription')}
+                    </Card.Text>
                     <Button as={Link} to={`/diseases/${disease.id}`} className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
                   </Card.Body>
                 </Card>

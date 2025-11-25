@@ -137,6 +137,18 @@
   background-color: var(--agrius-cream-off-white);
 }
 
+.agrius-card-text {
+  color: var(--color-text-secondary);
+  line-height: 1.5; /* Adjusted line height for better fit */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 68px; /* Approx height for 3 lines to prevent layout shifts */
+  margin-bottom: var(--spacing-md); /* Add space before the button */
+}
+
 @media (max-width: 768px) {
   .agrius-dashboard-cards-flex {
     flex-direction: row;
