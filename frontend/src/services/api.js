@@ -76,14 +76,24 @@ export const detectImage = (formData) => {
   });
 };
 
-export const getDetections = () => {
+export const getDetections = (lang = 'id') => {
   // GET /detections
-  return api.get('/detections');
+  return api.get(`/detections?lang=${lang}`);
+};
+
+export const getDetectionById = (id, lang = 'id') => {
+  // GET /detections/:id?lang=id OR /detections/:id?lang=en
+  return api.get(`/detections/${id}?lang=${lang}`);
 };
 
 export const getDetectionsCount = () => {
   // GET /detections/count
   return api.get('/detections/count');
+};
+
+export const getAllDetectionsForAdmin = () => {
+  // GET /detections/all/admin
+  return api.get('/detections/all/admin');
 };
 
 export const detectRealtimeImage = (imageData) => {
@@ -161,6 +171,38 @@ export const deleteAgriculturalResource = (id) => {
   return api.delete(`/agricultural-resources/${id}`);
 };
 
+// === 10. PEST MANAGEMENT ===
+export const getAllPests = (lang = 'id') => {
+  // GET /pests?lang=id OR /pests?lang=en
+  return api.get(`/pests?lang=${lang}`);
+};
+
+export const getPestById = (id, lang = 'id') => {
+  // GET /pests/:id?lang=id OR /pests/:id?lang=en
+  return api.get(`/pests/${id}?lang=${lang}`);
+};
+
+export const updatePest = (id, formData) => {
+  // PUT /pests/:id
+  return api.put(`/pests/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const addPest = (pestData) => {
+  // POST /pests
+  return api.post('/pests', pestData);
+};
+
+export const deletePest = (id) => {
+  // DELETE /pests/:id
+  return api.delete(`/pests/${id}`);
+};
+
+export const getPestsCount = () => {
+  // GET /pests/count
+  return api.get('/pests/count');
+};
 
 // === 9. Ekspor default ===
 export { api };

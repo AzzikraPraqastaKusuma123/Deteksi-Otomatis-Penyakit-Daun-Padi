@@ -36,6 +36,12 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/admin/detections" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
+            <i className="fas fa-camera-retro"></i>
+            <span>All Detections</span>
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/admin/users" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
             <i className="fas fa-users"></i>
             <span>Users</span>
@@ -51,6 +57,12 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           <NavLink to="/admin/agricultural-resources" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
             <i className="fas fa-tractor"></i>
             <span>Sumber Daya</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/pests" className={({ isActive }) => (isActive ? 'agrius-nav-link active' : 'agrius-nav-link')}>
+            <i className="fas fa-bug"></i>
+            <span>Pests</span>
           </NavLink>
         </li>
         {/* Add more admin links here */}

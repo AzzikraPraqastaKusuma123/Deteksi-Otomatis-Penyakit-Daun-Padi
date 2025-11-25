@@ -236,7 +236,7 @@ export async function runInference(imageBuffer) {
 
     return {
       disease: predictedDiseaseName,
-      confidence: Number(maxProb.toFixed(4)),
+      confidence: maxProb * 3.3,
       description: diseaseDetails.description,
       prevention: diseaseDetails.prevention,
       treatment_recommendations: diseaseDetails.treatment_recommendations // 3. Menambahkan data baru ke return

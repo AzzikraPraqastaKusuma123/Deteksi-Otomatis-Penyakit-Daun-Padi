@@ -149,7 +149,8 @@ export const getAllDetections = (req, res) => {
       image_url,
       description,
       prevention,
-      treatment_recommendations
+      treatment_recommendations,
+      detected_at
     FROM detections
     WHERE user_id = ?
   `;
@@ -159,13 +160,155 @@ export const getAllDetections = (req, res) => {
   });
 };
 
-export const getDetectionsCount = (req, res) => {
+export const getDetectionById = async (req, res) => {
+  const { id } = req.params;
   const userId = req.user?.id;
+  const lang = ['id', 'en'].includes(req.query.lang) ? req.query.lang : 'id'; // Assuming language can be passed
+
   if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-  const query = "SELECT COUNT(*) as count FROM detections WHERE user_id = ?";
-  db.query(query, [userId], (err, results) => {
-    if (err) return res.status(500).json({ message: "Failed to get detections count", error: err });
+  try {
+    // 1. Get basic detection details
+    const detectionQuery = `
+      SELECT
+        id,
+        user_id,
+        disease_name,
+        confidence,
+        image_url,
+        description,
+        prevention,
+        treatment_recommendations,
+        detected_at
+      FROM detections
+      WHERE id = ? AND user_id = ?
+    `;
+    const [detectionResults] = await db.promise().query(detectionQuery, [id, userId]);
+
+    if (detectionResults.length === 0) {
+      return res.status(404).json({ message: "Detection not found or not authorized." });
+    }
+    const detectionData = detectionResults[0];
+
+    // 2. Get additional info from Gemini (re-generate)
+    let generativeInfo = null;
+    try {
+      generativeInfo = await getGenerativeInfo(detectionData.disease_name, lang);
+    } catch (geminiError) {
+      console.error("Error getting Gemini details for detection ID:", id, geminiError);
+      generativeInfo = {
+        error: true,
+        message: "Failed to get AI details for detection."
+      };
+    }
+
+    // 3. Find the disease_id based on detectionData.disease_name
+    let diseaseId = null;
+    try {
+      const [diseaseRow] = await db.promise().query(
+        'SELECT id FROM diseases WHERE disease_name_id = ? OR disease_name_en = ?',
+        [detectionData.disease_name, detectionData.disease_name]
+      );
+      if (diseaseRow.length > 0) {
+        diseaseId = diseaseRow[0].id;
+      }
+    } catch (dbError) {
+      console.error("Error finding disease ID for detected disease:", detectionData.disease_name, dbError);
+    }
+
+    // 4. Fetch recommended solutions if diseaseId found
+    let recommendedSolutions = [];
+    if (diseaseId) {
+      try {
+        const [solutionsResults] = await db.promise().query(`
+          SELECT ar.id, ar.name, ar.category, ar.image, ar.description 
+          FROM agricultural_resources ar
+          JOIN disease_solutions ds ON ar.id = ds.resource_id
+          WHERE ds.disease_id = ?
+        `, [diseaseId]);
+
+        recommendedSolutions = solutionsResults.map(resource => ({
+          ...resource,
+          // Ensure image URL is absolute
+          image: resource.image ? `${req.protocol}://${req.get('host')}/images/agricultural_resources/${resource.image}` : null
+        }));
+      } catch (solutionsError) {
+        console.error("Error fetching recommended solutions for disease ID:", diseaseId, solutionsError);
+      }
+    }
+
+    // Combine all info into a single object, mimicking detectDisease response structure
+    res.json({
+      message: "Detection details fetched successfully",
+      disease: detectionData.disease_name,
+      confidence: detectionData.confidence,
+      image_url: detectionData.image_url,
+      detected_at: detectionData.detected_at, // Include detected_at
+      description: detectionData.description, // Original description from detection record
+      prevention: detectionData.prevention,   // Original prevention from detection record
+      treatment_recommendations: detectionData.treatment_recommendations, // Original treatment from detection record
+      generativeInfo: generativeInfo,
+      recommendedSolutions: recommendedSolutions,
+    });
+
+  } catch (error) {
+    console.error("Error in getDetectionById:", error);
+    res.status(500).json({ message: "Failed to fetch detection details", error: error.message });
+  }
+};
+
+export const getAllDetectionsForAdmin = async (req, res) => {
+  const userRole = req.user?.role;
+
+  // Ensure only admins can access this
+  if (userRole !== 'admin') {
+    return res.status(403).json({ message: "Forbidden: Admins only." });
+  }
+
+  try {
+    const query = `
+      SELECT
+        d.id,
+        d.disease_name,
+        d.confidence,
+        d.image_url,
+        d.detected_at,
+        u.username
+      FROM detections d
+      JOIN users u ON d.user_id = u.id
+      ORDER BY d.detected_at DESC
+    `;
+    const [results] = await db.promise().query(query);
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching all detections for admin:", error);
+    res.status(500).json({ message: "Failed to fetch all detections", error: error.message });
+  }
+};
+
+export const getDetectionsCount = (req, res) => {
+  const userId = req.user?.id;
+  const userRole = req.user?.role;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  let query;
+  let params = [];
+
+  // If user is admin, count all detections. Otherwise, count only their own.
+  if (userRole === 'admin') {
+    query = "SELECT COUNT(*) as count FROM detections";
+  } else {
+    query = "SELECT COUNT(*) as count FROM detections WHERE user_id = ?";
+    params.push(userId);
+  }
+
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to get detections count", error: err });
+    }
     res.json(results[0]);
   });
 };

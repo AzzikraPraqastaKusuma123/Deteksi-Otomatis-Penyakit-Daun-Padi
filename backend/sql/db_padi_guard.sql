@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 21, 2025 at 11:34 PM
--- Server version: 8.0.30
--- PHP Version: 8.3.16
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 24 Nov 2025 pada 07.24
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,27 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agricultural_resources`
+-- Struktur dari tabel `agricultural_resources`
 --
 
 CREATE TABLE `agricultural_resources` (
-  `id` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `category` enum('Obat','Pestisida','Pupuk Organik','Pupuk Anorganik') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `gemini_overview_id` text COLLATE utf8mb4_general_ci,
-  `gemini_overview_en` text COLLATE utf8mb4_general_ci,
-  `gemini_usage_tips_id` text COLLATE utf8mb4_general_ci,
-  `gemini_usage_tips_en` text COLLATE utf8mb4_general_ci,
-  `gemini_benefits_json` json DEFAULT NULL,
-  `gemini_rekomendasi_tambahan_json` json DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` enum('Obat','Pestisida','Pupuk Organik','Pupuk Anorganik') DEFAULT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `gemini_overview_id` text DEFAULT NULL,
+  `gemini_overview_en` text DEFAULT NULL,
+  `gemini_usage_tips_id` text DEFAULT NULL,
+  `gemini_usage_tips_en` text DEFAULT NULL,
+  `gemini_benefits_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gemini_benefits_json`)),
+  `gemini_rekomendasi_tambahan_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gemini_rekomendasi_tambahan_json`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `agricultural_resources`
+-- Dumping data untuk tabel `agricultural_resources`
 --
 
 INSERT INTO `agricultural_resources` (`id`, `name`, `category`, `description`, `image`, `created_at`, `updated_at`, `gemini_overview_id`, `gemini_overview_en`, `gemini_usage_tips_id`, `gemini_usage_tips_en`, `gemini_benefits_json`, `gemini_rekomendasi_tambahan_json`) VALUES
@@ -77,135 +77,139 @@ INSERT INTO `agricultural_resources` (`id`, `name`, `category`, `description`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detections`
+-- Struktur dari tabel `detections`
 --
 
 CREATE TABLE `detections` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `disease_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `disease_name` varchar(100) NOT NULL,
   `confidence` decimal(5,4) NOT NULL,
-  `image_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `prevention` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `treatment_recommendations` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `detected_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `image_url` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `prevention` text DEFAULT NULL,
+  `treatment_recommendations` text DEFAULT NULL,
+  `detected_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `detections`
+-- Dumping data untuk tabel `detections`
 --
 
 INSERT INTO `detections` (`id`, `user_id`, `disease_name`, `confidence`, `image_url`, `description`, `prevention`, `treatment_recommendations`, `detected_at`) VALUES
-(1, 1, 'Sheath Blight', '0.2635', '/uploads/detection_1762488238120.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat.\n2. Lakukan drainase yang baik pada lahan.\n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-07 04:03:58'),
-(2, 1, 'Narrow Brown Leaf Spot', '0.2774', '/uploads/detection_1762488517304.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', NULL, '2025-11-07 04:08:37'),
-(3, 1, 'Narrow Brown Leaf Spot', '0.2794', '/uploads/detection_1762605755865.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', NULL, '2025-11-08 12:42:35'),
-(4, 1, 'Brown Spot', '0.2533', '/uploads/detection_1762605970152.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 12:46:10'),
-(5, 1, 'Brown Spot', '0.2796', '/uploads/detection_1762605998384.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 12:46:38'),
-(6, 1, 'Leaf Blast', '0.2782', '/uploads/detection_1762606014378.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 12:46:54'),
-(7, 1, 'Sheath Blight', '0.2789', '/uploads/detection_1762606117742.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 12:48:37'),
-(8, 1, 'Sheath Blight', '0.2783', '/uploads/detection_1762606163354.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 12:49:23'),
-(9, 1, 'Leaf Blast', '0.2789', '/uploads/detection_1762606185353.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 12:49:45'),
-(10, 1, 'Rice Hispa', '0.2796', '/uploads/detection_1762606228043.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 12:50:28'),
-(11, 1, 'Rice Hispa', '0.2789', '/uploads/detection_1762606754082.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 12:59:14'),
-(12, 1, 'Leaf Scald', '0.2742', '/uploads/detection_1762607430758.jpg', 'Menyebabkan lesi besar, memanjang, berwarna coklat muda atau abu-abu kehijauan pada ujung daun, seringkali dengan pola \"zona\" konsentris.', '1. Jaga kebersihan lahan. \n2. Gunakan benih bersertifikat. \n3. Pemupukan Kalium yang cukup.', NULL, '2025-11-08 13:10:30'),
-(13, 1, 'Rice Hispa', '0.2479', '/uploads/detection_1762607519169.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 13:11:59'),
-(14, 4, 'Healthy Rice Leaf', '0.2797', '/uploads/detection_1762609226852.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 13:40:26'),
-(15, 4, 'Rice Hispa', '0.1689', '/uploads/detection_1762609249391.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 13:40:49'),
-(16, 4, 'Sheath Blight', '0.1940', '/uploads/detection_1762609259872.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 13:40:59'),
-(17, 1, 'Bacterial Leaf Blight', '0.1664', '/uploads/detection_1762610723399.jpg', 'Penyakit ini menyebabkan lesi berair pada tepi daun yang kemudian menguning, menjadi abu-abu, dan kering. Sering disebut \"kresek\".', '1. Gunakan varietas tahan. \n2. Pastikan drainase baik. \n3. Jangan gunakan pupuk Nitrogen berlebihan.', NULL, '2025-11-08 14:05:23'),
-(18, 1, 'Healthy Rice Leaf', '0.2797', '/uploads/detection_1762612855294.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 14:40:55'),
-(19, 6, 'Healthy Rice Leaf', '0.2797', '/uploads/detection_1762613343609.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 14:49:03'),
-(20, 6, 'Brown Spot', '0.2795', '/uploads/detection_1762613359289.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 14:49:19'),
-(21, 6, 'Rice Hispa', '0.2633', '/uploads/detection_1762613376909.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 14:49:36'),
-(22, 1, 'Leaf Blast', '0.2677', '/uploads/detection_1762613423601.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 14:50:23'),
-(23, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763010965268.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-13 05:16:05'),
-(24, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763013139697.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-13 05:52:19'),
-(25, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763013586722.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 05:59:46'),
-(26, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014330863.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:12:10'),
-(27, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014353439.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:12:33'),
-(28, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014435099.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:13:55'),
-(29, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014557586.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:15:57'),
-(30, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014705318.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:18:25'),
-(31, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014724371.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:18:44'),
-(32, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014754300.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:19:14'),
-(33, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763014962018.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:22:42'),
-(34, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015212209.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:26:52'),
-(35, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015257252.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:27:37'),
-(36, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015541322.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:32:21'),
-(37, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015860398.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:37:40'),
-(38, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015928410.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:38:48'),
-(39, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763015959717.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:39:19'),
-(40, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763016086895.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:41:26'),
-(41, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763017197938.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:59:57'),
-(42, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763017270330.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:01:10'),
-(43, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763017468981.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:04:29'),
-(44, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763017893644.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:11:33'),
-(45, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763018026204.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:13:46'),
-(46, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763018292385.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:18:12'),
-(47, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763018574807.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:22:54'),
-(48, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763018612832.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:23:32'),
-(49, 1, 'Healthy Rice Leaf', '0.2344', '/uploads/detection_1763018719220.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', 'Tidak memerlukan perawatan. Lanjutkan pemantauan rutin.', '2025-11-13 07:25:19'),
-(50, 1, 'Rice Hispa', '0.2696', '/uploads/detection_1763018804781.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', 'Gunakan insektisida sistemik seperti fipronil atau carbofuran jika populasi hama tinggi.', '2025-11-13 07:26:44'),
-(51, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763042295793.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 13:58:15'),
-(52, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763043485067.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 14:18:05'),
-(53, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763044157631.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-13 14:29:17'),
-(54, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763062548051.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-13 19:35:48'),
-(55, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763062690941.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 19:38:10'),
-(56, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763181502027.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:38:22'),
-(57, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763181526527.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:38:46'),
-(58, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763181629384.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:40:29'),
-(59, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763182027466.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:47:07'),
-(60, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763182409779.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:53:29'),
-(61, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763182840096.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:00:40'),
-(62, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763182990663.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:03:10'),
-(63, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763183225049.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:07:05'),
-(64, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763184174822.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:22:54'),
-(65, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763184294747.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:24:54'),
-(66, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763201958796.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 10:19:18'),
-(67, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763207294912.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 11:48:14'),
-(68, 1, 'Leaf Blast', '0.2795', '/uploads/detection_1763311037174.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-16 16:37:17'),
-(69, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763311061048.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-16 16:37:41'),
-(70, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763336184956.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-16 23:36:24'),
-(71, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763351944934.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-17 03:59:04'),
-(72, 1, 'Rice Hispa', '0.1900', '/uploads/detection_1763352535874.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', 'Gunakan insektisida sistemik seperti fipronil atau carbofuran jika populasi hama tinggi.', '2025-11-17 04:08:55'),
-(73, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763523611678.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-19 03:40:11'),
-(74, 1, 'Leaf Blast', '0.2037', '/uploads/detection_1763528294792.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-19 04:58:14'),
-(75, 1, 'Narrow Brown Leaf Spot', '0.2771', '/uploads/detection_1763716300944.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \r\n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-21 09:11:40'),
-(76, 1, 'Bacterial Leaf Blight', '0.1845', '/uploads/detection_1763716341345.jpg', 'Bacterial Leaf Blight (BLB) atau Hawar Daun Bakteri disebabkan oleh bakteri *Xanthomonas oryzae pv. oryzae*. Gejala utamanya adalah bercak kuning pada daun yang kemudian meluas dan mengering, terutama pada saat padi memasuki fase pertumbuhan vegetatif hingga generatif. Serangan parah dapat menyebabkan penurunan hasil panen yang signifikan karena mengganggu proses fotosintesis dan pengisian bulir padi.', 'Pencegahan BLB meliputi penggunaan varietas padi yang tahan, pengelolaan air irigasi yang baik (hindari penggenangan terus-menerus), pemupukan berimbang (kurangi penggunaan nitrogen berlebihan), dan sanitasi lahan (membersihkan sisa-sisa tanaman). Secara organik, dapat digunakan agens hayati seperti *Bacillus subtilis*. Jika serangan parah, dapat digunakan bakterisida berbahan aktif streptomisin sulfat atau bahan aktif lainnya yang sesuai dengan rekomendasi setempat, namun penggunaannya harus bijaksana dan sesuai dosis.', 'Pengendalian kimia sulit. Gunakan bakterisida berbasis tembaga pada tahap awal. Fokus pada pencegahan.', '2025-11-21 09:12:21');
+(1, 1, 'Sheath Blight', 0.2635, '/uploads/detection_1762488238120.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat.\n2. Lakukan drainase yang baik pada lahan.\n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-07 04:03:58'),
+(2, 1, 'Narrow Brown Leaf Spot', 0.2774, '/uploads/detection_1762488517304.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', NULL, '2025-11-07 04:08:37'),
+(3, 1, 'Narrow Brown Leaf Spot', 0.2794, '/uploads/detection_1762605755865.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', NULL, '2025-11-08 12:42:35'),
+(4, 1, 'Brown Spot', 0.2533, '/uploads/detection_1762605970152.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 12:46:10'),
+(5, 1, 'Brown Spot', 0.2796, '/uploads/detection_1762605998384.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 12:46:38'),
+(6, 1, 'Leaf Blast', 0.2782, '/uploads/detection_1762606014378.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 12:46:54'),
+(7, 1, 'Sheath Blight', 0.2789, '/uploads/detection_1762606117742.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 12:48:37'),
+(8, 1, 'Sheath Blight', 0.2783, '/uploads/detection_1762606163354.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 12:49:23'),
+(9, 1, 'Leaf Blast', 0.2789, '/uploads/detection_1762606185353.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 12:49:45'),
+(10, 1, 'Rice Hispa', 0.2796, '/uploads/detection_1762606228043.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 12:50:28'),
+(11, 1, 'Rice Hispa', 0.2789, '/uploads/detection_1762606754082.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 12:59:14'),
+(12, 1, 'Leaf Scald', 0.2742, '/uploads/detection_1762607430758.jpg', 'Menyebabkan lesi besar, memanjang, berwarna coklat muda atau abu-abu kehijauan pada ujung daun, seringkali dengan pola \"zona\" konsentris.', '1. Jaga kebersihan lahan. \n2. Gunakan benih bersertifikat. \n3. Pemupukan Kalium yang cukup.', NULL, '2025-11-08 13:10:30'),
+(13, 1, 'Rice Hispa', 0.2479, '/uploads/detection_1762607519169.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 13:11:59'),
+(14, 4, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762609226852.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 13:40:26'),
+(15, 4, 'Rice Hispa', 0.1689, '/uploads/detection_1762609249391.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 13:40:49'),
+(16, 4, 'Sheath Blight', 0.1940, '/uploads/detection_1762609259872.jpg', 'Penyakit ini ditandai dengan lesi oval atau elips berwarna putih keabu-abuan dengan tepi coklat pada pelepah daun, biasanya dekat garis air.', '1. Atur jarak tanam agar tidak terlalu rapat. \n2. Lakukan drainase yang baik. \n3. Gunakan varietas padi yang tahan.', NULL, '2025-11-08 13:40:59'),
+(17, 1, 'Bacterial Leaf Blight', 0.1664, '/uploads/detection_1762610723399.jpg', 'Penyakit ini menyebabkan lesi berair pada tepi daun yang kemudian menguning, menjadi abu-abu, dan kering. Sering disebut \"kresek\".', '1. Gunakan varietas tahan. \n2. Pastikan drainase baik. \n3. Jangan gunakan pupuk Nitrogen berlebihan.', NULL, '2025-11-08 14:05:23'),
+(18, 1, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762612855294.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 14:40:55'),
+(19, 6, 'Healthy Rice Leaf', 0.2797, '/uploads/detection_1762613343609.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', NULL, '2025-11-08 14:49:03'),
+(20, 6, 'Brown Spot', 0.2795, '/uploads/detection_1762613359289.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \n2. Sanitasi lahan. \n3. Gunakan benih sehat.', NULL, '2025-11-08 14:49:19'),
+(21, 6, 'Rice Hispa', 0.2633, '/uploads/detection_1762613376909.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', NULL, '2025-11-08 14:49:36'),
+(22, 1, 'Leaf Blast', 0.2677, '/uploads/detection_1762613423601.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-08 14:50:23'),
+(23, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763010965268.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-13 05:16:05'),
+(24, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763013139697.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', NULL, '2025-11-13 05:52:19'),
+(25, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763013586722.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 05:59:46'),
+(26, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014330863.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:12:10'),
+(27, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014353439.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:12:33'),
+(28, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014435099.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:13:55'),
+(29, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014557586.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:15:57'),
+(30, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014705318.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:18:25'),
+(31, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014724371.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:18:44'),
+(32, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014754300.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:19:14'),
+(33, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763014962018.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:22:42'),
+(34, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015212209.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:26:52'),
+(35, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015257252.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:27:37'),
+(36, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015541322.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:32:21'),
+(37, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015860398.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:37:40'),
+(38, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015928410.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:38:48'),
+(39, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763015959717.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:39:19'),
+(40, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763016086895.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:41:26'),
+(41, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763017197938.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 06:59:57'),
+(42, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763017270330.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:01:10'),
+(43, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763017468981.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:04:29'),
+(44, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763017893644.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:11:33'),
+(45, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763018026204.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:13:46'),
+(46, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763018292385.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:18:12'),
+(47, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763018574807.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:22:54'),
+(48, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763018612832.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 07:23:32'),
+(49, 1, 'Healthy Rice Leaf', 0.2344, '/uploads/detection_1763018719220.jpg', 'Daun tampak sehat, berwarna hijau seragam, dan tidak menunjukkan tanda-tanda lesi, bercak, atau perubahan warna.', 'Pertahankan praktik agronomi yang baik, pemupukan berimbang, dan pengairan yang cukup.', 'Tidak memerlukan perawatan. Lanjutkan pemantauan rutin.', '2025-11-13 07:25:19'),
+(50, 1, 'Rice Hispa', 0.2696, '/uploads/detection_1763018804781.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', 'Gunakan insektisida sistemik seperti fipronil atau carbofuran jika populasi hama tinggi.', '2025-11-13 07:26:44'),
+(51, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763042295793.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 13:58:15'),
+(52, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763043485067.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 14:18:05'),
+(53, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763044157631.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-13 14:29:17'),
+(54, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763062548051.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-13 19:35:48'),
+(55, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763062690941.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-13 19:38:10'),
+(56, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763181502027.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:38:22'),
+(57, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763181526527.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:38:46'),
+(58, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763181629384.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:40:29'),
+(59, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763182027466.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:47:07'),
+(60, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763182409779.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 04:53:29'),
+(61, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763182840096.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:00:40'),
+(62, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763182990663.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:03:10'),
+(63, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763183225049.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:07:05'),
+(64, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763184174822.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:22:54'),
+(65, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763184294747.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 05:24:54'),
+(66, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763201958796.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 10:19:18'),
+(67, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763207294912.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-15 11:48:14'),
+(68, 1, 'Leaf Blast', 0.2795, '/uploads/detection_1763311037174.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-16 16:37:17'),
+(69, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763311061048.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-16 16:37:41'),
+(70, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763336184956.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-16 23:36:24'),
+(71, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763351944934.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-17 03:59:04'),
+(72, 1, 'Rice Hispa', 0.1900, '/uploads/detection_1763352535874.jpg', 'Ini adalah kerusakan akibat hama, bukan penyakit. Kumbang Hispa dan larvanya memakan jaringan daun, meninggalkan goresan-goresan putih.', '1. Sanitasi lahan. \n2. Lepas predator alami (bebek). \n3. Tanam serentak.', 'Gunakan insektisida sistemik seperti fipronil atau carbofuran jika populasi hama tinggi.', '2025-11-17 04:08:55'),
+(73, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763523611678.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-19 03:40:11'),
+(74, 1, 'Leaf Blast', 0.2037, '/uploads/detection_1763528294792.jpg', 'Penyakit \"blas\" adalah salah satu penyakit padi paling merusak. Menyebabkan lesi berbentuk berlian (ketupat) pada daun.', '1. Gunakan varietas tahan. \n2. Hindari pemupukan Nitrogen berlebih. \n3. Atur jarak tanam.', 'Gunakan fungisida sistemik seperti trycyclazole atau carbendazim sesuai dosis anjuran.', '2025-11-19 04:58:14'),
+(75, 1, 'Narrow Brown Leaf Spot', 0.2771, '/uploads/detection_1763716300944.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \r\n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-21 09:11:40'),
+(76, 1, 'Bacterial Leaf Blight', 0.1845, '/uploads/detection_1763716341345.jpg', 'Bacterial Leaf Blight (BLB) atau Hawar Daun Bakteri disebabkan oleh bakteri *Xanthomonas oryzae pv. oryzae*. Gejala utamanya adalah bercak kuning pada daun yang kemudian meluas dan mengering, terutama pada saat padi memasuki fase pertumbuhan vegetatif hingga generatif. Serangan parah dapat menyebabkan penurunan hasil panen yang signifikan karena mengganggu proses fotosintesis dan pengisian bulir padi.', 'Pencegahan BLB meliputi penggunaan varietas padi yang tahan, pengelolaan air irigasi yang baik (hindari penggenangan terus-menerus), pemupukan berimbang (kurangi penggunaan nitrogen berlebihan), dan sanitasi lahan (membersihkan sisa-sisa tanaman). Secara organik, dapat digunakan agens hayati seperti *Bacillus subtilis*. Jika serangan parah, dapat digunakan bakterisida berbahan aktif streptomisin sulfat atau bahan aktif lainnya yang sesuai dengan rekomendasi setempat, namun penggunaannya harus bijaksana dan sesuai dosis.', 'Pengendalian kimia sulit. Gunakan bakterisida berbasis tembaga pada tahap awal. Fokus pada pencegahan.', '2025-11-21 09:12:21'),
+(77, 1, 'Narrow Brown Leaf Spot', 0.2015, '/uploads/detection_1763909868722.jpg', 'Menimbulkan bercak-bercak sempit, linier, berwarna coklat kemerahan pada daun. Biasanya menyerang daun yang lebih tua.', '1. Gunakan varietas tahan. \r\n2. Pemupukan Kalium (K) yang cukup sangat penting.', 'Fungisida umumnya tidak diperlukan kecuali jika parah. Fokus pada manajemen nutrisi (Kalium).', '2025-11-23 14:57:48'),
+(78, 1, 'Brown Spot', 0.2770, '/uploads/detection_1763959634785.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \r\n2. Sanitasi lahan. \r\n3. Gunakan benih sehat.', 'Semprot dengan fungisida seperti mancozeb atau propiconazole jika serangan parah.', '2025-11-24 04:47:14'),
+(79, 1, 'Brown Spot', 0.2770, '/uploads/detection_1763961293860.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \r\n2. Sanitasi lahan. \r\n3. Gunakan benih sehat.', 'Semprot dengan fungisida seperti mancozeb atau propiconazole jika serangan parah.', '2025-11-24 05:14:53'),
+(80, 1, 'Brown Spot', 0.2041, '/uploads/detection_1763961407082.jpg', 'Menimbulkan bercak-bercak oval berwarna coklat pada daun, pelepah, dan bulir. Sering terjadi pada lahan yang kekurangan nutrisi.', '1. Pemupukan berimbang (terutama Kalium). \r\n2. Sanitasi lahan. \r\n3. Gunakan benih sehat.', 'Semprot dengan fungisida seperti mancozeb atau propiconazole jika serangan parah.', '2025-11-24 05:16:47');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diseases`
+-- Struktur dari tabel `diseases`
 --
 
 CREATE TABLE `diseases` (
-  `id` int NOT NULL,
-  `disease_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `disease_name_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `disease_name_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `scientific_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `description_id` text COLLATE utf8mb4_general_ci,
-  `description_en` text COLLATE utf8mb4_general_ci,
-  `prevention` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `prevention_id` text COLLATE utf8mb4_general_ci,
-  `prevention_en` text COLLATE utf8mb4_general_ci,
-  `symptoms` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `symptoms_id` text COLLATE utf8mb4_general_ci,
-  `symptoms_en` text COLLATE utf8mb4_general_ci,
-  `treatment_recommendations` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `treatment_recommendations_id` text COLLATE utf8mb4_general_ci,
-  `treatment_recommendations_en` text COLLATE utf8mb4_general_ci,
-  `image_url_example` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `gemini_informasi_detail` text COLLATE utf8mb4_general_ci,
-  `gemini_solusi_penyembuhan` text COLLATE utf8mb4_general_ci,
-  `gemini_rekomendasi_produk_json` json DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `disease_name` varchar(100) DEFAULT NULL,
+  `disease_name_id` varchar(255) DEFAULT NULL,
+  `disease_name_en` varchar(255) DEFAULT NULL,
+  `scientific_name` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `description_id` text DEFAULT NULL,
+  `description_en` text DEFAULT NULL,
+  `prevention` text DEFAULT NULL,
+  `prevention_id` text DEFAULT NULL,
+  `prevention_en` text DEFAULT NULL,
+  `symptoms` text DEFAULT NULL,
+  `symptoms_id` text DEFAULT NULL,
+  `symptoms_en` text DEFAULT NULL,
+  `treatment_recommendations` text DEFAULT NULL,
+  `treatment_recommendations_id` text DEFAULT NULL,
+  `treatment_recommendations_en` text DEFAULT NULL,
+  `image_url_example` varchar(255) DEFAULT NULL,
+  `gemini_informasi_detail` text DEFAULT NULL,
+  `gemini_solusi_penyembuhan` text DEFAULT NULL,
+  `gemini_rekomendasi_produk_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gemini_rekomendasi_produk_json`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `diseases`
+-- Dumping data untuk tabel `diseases`
 --
 
 INSERT INTO `diseases` (`id`, `disease_name`, `disease_name_id`, `disease_name_en`, `scientific_name`, `description`, `description_id`, `description_en`, `prevention`, `prevention_id`, `prevention_en`, `symptoms`, `symptoms_id`, `symptoms_en`, `treatment_recommendations`, `treatment_recommendations_id`, `treatment_recommendations_en`, `image_url_example`, `gemini_informasi_detail`, `gemini_solusi_penyembuhan`, `gemini_rekomendasi_produk_json`) VALUES
@@ -221,17 +225,17 @@ INSERT INTO `diseases` (`id`, `disease_name`, `disease_name_id`, `disease_name_e
 -- --------------------------------------------------------
 
 --
--- Table structure for table `disease_solutions`
+-- Struktur dari tabel `disease_solutions`
 --
 
 CREATE TABLE `disease_solutions` (
-  `id` int NOT NULL,
-  `disease_id` int NOT NULL,
-  `resource_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int(11) NOT NULL,
+  `disease_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `disease_solutions`
+-- Dumping data untuk tabel `disease_solutions`
 --
 
 INSERT INTO `disease_solutions` (`id`, `disease_id`, `resource_id`) VALUES
@@ -278,34 +282,68 @@ INSERT INTO `disease_solutions` (`id`, `disease_id`, `resource_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `pests`
 --
 
-CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `full_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `location` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `detected_disease` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `image_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `confidence_score` decimal(5,4) DEFAULT NULL,
-  `is_healthy` tinyint(1) DEFAULT NULL,
-  `llm_generated_response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `detection_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user'
+CREATE TABLE `pests` (
+  `id` int(11) NOT NULL,
+  `name_id` varchar(255) DEFAULT NULL,
+  `name_en` varchar(255) DEFAULT NULL,
+  `scientific_name` varchar(100) DEFAULT NULL,
+  `description_id` text DEFAULT NULL,
+  `description_en` text DEFAULT NULL,
+  `symptoms_id` text DEFAULT NULL,
+  `symptoms_en` text DEFAULT NULL,
+  `prevention_id` text DEFAULT NULL,
+  `prevention_en` text DEFAULT NULL,
+  `treatment_id` text DEFAULT NULL,
+  `treatment_en` text DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `pests`
+--
+
+INSERT INTO `pests` (`id`, `name_id`, `name_en`, `scientific_name`, `description_id`, `description_en`, `symptoms_id`, `symptoms_en`, `prevention_id`, `prevention_en`, `treatment_id`, `treatment_en`, `image_url`) VALUES
+(1, 'Wereng Batang Coklat', 'Brown Planthopper', 'Nilaparvata lugens', 'Wereng Batang Coklat (WBC) adalah salah satu hama utama tanaman padi. Hama ini menyerang batang padi dan mengisap cairannya, menyebabkan tanaman menjadi kering dan mati.', 'The Brown Planthopper (BPH) is one of the major pests of rice. This pest attacks the rice stem and sucks its fluid, causing the plant to dry out and die.', 'Tanaman padi menguning dan mengering, seperti terbakar (hopperburn). Terdapat banyak wereng pada pangkal batang.', 'Paddy plants turn yellow and dry up, as if burned (hopperburn). There are many planthoppers at the base of the stem.', 'Tanam varietas tahan, sanitasi lingkungan, penggunaan pestisida nabati.', 'Plant resistant varieties, environmental sanitation, use of botanical pesticides.', 'Gunakan insektisida sistemik dengan bahan aktif imidakloprid atau buprofezin.', 'Use systemic insecticides with the active ingredient imidacloprid or buprofezin.', '/images/pests/wereng.jpg'),
+(2, 'Penggerek Batang Padi', 'Rice Stem Borer', 'Scirpophaga incertulas', 'Hama ini menyerang batang padi pada fase vegetatif dan generatif. Larva penggerek batang memakan bagian dalam batang, menyebabkan pucuk tanaman mati (sundep) atau malai menjadi hampa (beluk).', 'This pest attacks rice stems during the vegetative and generative phases. The stem borer larvae eat the inside of the stem, causing the plant shoots to die (deadheart) or the panicles to become empty (whitehead).', 'Pucuk tanaman mati dan mudah dicabut (sundep) pada fase vegetatif. Malai padi berwarna putih, tegak, dan hampa (beluk) pada fase generatif.', 'Dead plant shoots that are easy to pull out (deadheart) in the vegetative phase. Rice panicles are white, upright, and empty (whitehead) in the generative phase.', 'Tanam serentak, rotasi tanaman, penggunaan perangkap feromon.', 'Simultaneous planting, crop rotation, use of pheromone traps.', 'Gunakan insektisida dengan bahan aktif fipronil atau karbofuran.', 'Use insecticides with the active ingredient fipronil or carbofuran.', '/images/pests/penggerek_batang.jpg'),
+(3, 'Hama Putih Palsu', 'Rice Leaf Folder', 'Cnaphalocrocis medinalis', 'Larva menggulung daun padi dan memakan jaringan hijau di dalamnya, menyebabkan daun mengering dan berwarna putih.', 'Larvae roll rice leaves and feed on the green tissue inside, causing the leaves to dry and turn white.', 'Daun padi tergulung membujur, bagian dalam daun yang tergulung berwarna putih karena dimakan larva.', 'Rice leaves are rolled lengthwise, the inside of the rolled leaves are white due to larval feeding.', 'Sanitasi lingkungan, penggunaan musuh alami, rotasi tanaman.', 'Environmental sanitation, use of natural enemies, crop rotation.', 'Gunakan insektisida kontak atau sistemik dengan bahan aktif dimehipo atau tiametoksam.', 'Use contact or systemic insecticides with active ingredients like dimehypo or thiamethoxam.', '/images/pests/hama_putih_palsu.jpg'),
+(4, 'Tikus Sawah', 'Rice Field Rat', 'Rattus argentiventer', 'Tikus adalah hama yang sangat merusak pada tanaman padi di semua fase pertumbuhan, terutama saat fase perkecambahan dan pemasakan biji. Mereka memakan bibit, batang, dan biji padi.', 'This pest attacks rice plants at all growth stages, especially during germination and grain ripening. They feed on seedlings, stems, and rice grains.', 'Kehilangan tanaman, lubang pada tanggul sawah, jalur jalan tikus di sekitar sawah, kerusakan pada batang dan malai padi.', 'Crop loss, holes in rice field dikes, rat runways around the fields, damage to rice stems and panicles.', 'Sanitasi lingkungan, penggunaan umpan beracun, gropyokan (perburuan tikus), penggunaan predator alami (burung hantu).', 'Environmental sanitation, use of poisonous bait, communal rat hunting, use of natural predators (owls).', 'Penggunaan rodentisida atau pemasangan perangkap di sekitar sawah.', 'Use of rodenticides or installation of traps around the fields.', '/images/pests/tikus_sawah.jpg'),
+(5, 'Walang Sangit', 'Rice Bug', 'Leptocorisa oratorius', 'Walang sangit mengisap cairan pada bulir padi yang sedang masak susu, menyebabkan bulir menjadi hampa atau berwarna kehitaman dan kualitas beras menurun.', 'Rice bugs suck the fluid from developing rice grains, causing the grains to become empty or blackish and reducing rice quality.', 'Bulu padi menjadi hampa atau keriput, terdapat noda hitam pada bulir padi, bau sangit di sekitar area pertanaman.', 'Rice grains become empty or shriveled, black spots on rice grains, pungent odor around the planting area.', 'Tanam serentak, sanitasi gulma, penggunaan musuh alami.', 'Simultaneous planting, weed sanitation, use of natural enemies.', 'Gunakan insektisida kontak dengan bahan aktif fipronil atau klorpirifos.', 'Use contact insecticides with active ingredients like fipronil or chlorpyrifos.', '/images/pests/walang_sangit.jpg'),
+(6, 'Wereng Hijau', 'Green Leafhopper', 'Nephotettix virescens', 'Wereng hijau adalah vektor penyakit tungro pada padi. Selain mengisap cairan tanaman, hama ini juga menyebarkan virus yang menyebabkan pertumbuhan tanaman terhambat dan kerdil.', 'Green leafhopper is a vector of tungro disease in rice. In addition to sucking plant sap, this pest also spreads viruses that cause stunted and dwarfed plant growth.', 'Tanaman kerdil, daun menguning atau oranye, terdapat bercak-bercak coklat pada daun.', 'Stunted plants, yellowing or orange leaves, brown spots on leaves.', 'Tanam varietas tahan tungro, sanitasi gulma, penggunaan insektisida bijaksana.', 'Plant tungro-resistant varieties, weed sanitation, judicious use of insecticides.', 'Pengendalian vektor dengan insektisida sistemik, cabut tanaman terinfeksi tungro.', 'Vector control with systemic insecticides, uproot tungro-infected plants.', '/images/pests/wereng_hijau.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `location` varchar(150) DEFAULT NULL,
+  `detected_disease` varchar(100) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `confidence_score` decimal(5,4) DEFAULT NULL,
+  `is_healthy` tinyint(1) DEFAULT NULL,
+  `llm_generated_response` text DEFAULT NULL,
+  `detection_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `role` varchar(50) NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `full_name`, `location`, `detected_disease`, `image_path`, `confidence_score`, `is_healthy`, `llm_generated_response`, `detection_timestamp`, `password`, `created_at`, `role`) VALUES
-(1, 'fajri', 'fajri@gmail.com', 'Fajri Ramadhan', 'Jakarta, Indonesia', 'Hawar Daun Bakteri', 'uploads/fajri/20251025_093012.jpg', '0.9650', 0, 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', '2025-10-26 04:14:46', '$2b$10$H7/2kG4LnzMXPCxfdWvku.aLC43IGS5OOcMAnDHnVECTh6brrLxAG', '2025-10-25 15:25:52', 'user'),
-(2, 'budi_petani', 'budi.petani@email.com', 'Budi Santoso', 'Karawang, Jawa Barat', 'Hawar Daun Bakteri', 'uploads/budi/20251015_093012.jpg', '0.9650', 0, 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', '2025-10-14 21:14:12', '$2b$10$hGya3vJg8nPWXb8f4HytzuK2Zx8s4fK9z0q3wrXj5D5p3E8aZo5yq', '2025-10-26 05:16:10', 'user'),
-(3, 'siti_agri', 'siti.agri@email.com', 'Siti Aminah', 'Indramayu, Jawa Barat', 'Sehat', 'uploads/siti/20251015_100545.jpg', '0.9910', 1, 'Selamat! Daun padi Anda terlihat sehat. Pertahankan kondisi ini dengan pemupukan berimbang dan pengairan yang cukup.', '2025-10-14 22:14:12', '$2b$10$VtB2YxZf2ExmAwn5nbqZWe5vZfZ6bD3xKQxN0OQxR8WcL1b8Lwzze', '2025-10-26 05:16:10', 'user'),
+(1, 'fajri', 'fajri@gmail.com', 'Fajri Ramadhan', 'Jakarta, Indonesia', 'Hawar Daun Bakteri', 'uploads/fajri/20251025_093012.jpg', 0.9650, 0, 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', '2025-10-26 04:14:46', '$2b$10$H7/2kG4LnzMXPCxfdWvku.aLC43IGS5OOcMAnDHnVECTh6brrLxAG', '2025-10-25 15:25:52', 'user'),
+(2, 'budi_petani', 'budi.petani@email.com', 'Budi Santoso', 'Karawang, Jawa Barat', 'Hawar Daun Bakteri', 'uploads/budi/20251015_093012.jpg', 0.9650, 0, 'Daun padi Anda terindikasi kuat terkena Hawar Daun Bakteri. Gejalanya adalah bercak basah di tepi daun. Segera atur jarak tanam dan kontrol pemupukan nitrogen.', '2025-10-14 21:14:12', '$2b$10$hGya3vJg8nPWXb8f4HytzuK2Zx8s4fK9z0q3wrXj5D5p3E8aZo5yq', '2025-10-26 05:16:10', 'user'),
+(3, 'siti_agri', 'siti.agri@email.com', 'Siti Aminah', 'Indramayu, Jawa Barat', 'Sehat', 'uploads/siti/20251015_100545.jpg', 0.9910, 1, 'Selamat! Daun padi Anda terlihat sehat. Pertahankan kondisi ini dengan pemupukan berimbang dan pengairan yang cukup.', '2025-10-14 22:14:12', '$2b$10$VtB2YxZf2ExmAwn5nbqZWe5vZfZ6bD3xKQxN0OQxR8WcL1b8Lwzze', '2025-10-26 05:16:10', 'user'),
 (4, 'japar', 'japar@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-10-26 05:18:14', '$2b$10$jhI2G/hyadiASkM7IZKLVu7zPSSAEAA57BrNxahTNK5Y8bWhNh/eK', '2025-10-26 05:18:14', 'user'),
 (5, 'zikra', 'zikra@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-10-26 06:19:50', '$2b$10$ve9YCMCZ2FEfaRkOd6i9e.Cmjt0HGWIrmuzpwAET4MKt/96Z/7K7W', '2025-10-26 06:19:50', 'admin'),
 (6, 'joko', 'joko@gmail.com', 'joko anwar', 'lampung', NULL, NULL, NULL, NULL, NULL, '2025-11-08 14:48:33', '$2b$10$ypzfiacv1eChpENU6WIAk.kDXXERMbgAl6fyofCuiEyOdUDEHHaNO', '2025-11-08 14:48:33', 'user');
@@ -315,26 +353,26 @@ INSERT INTO `users` (`id`, `username`, `email`, `full_name`, `location`, `detect
 --
 
 --
--- Indexes for table `agricultural_resources`
+-- Indeks untuk tabel `agricultural_resources`
 --
 ALTER TABLE `agricultural_resources`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `detections`
+-- Indeks untuk tabel `detections`
 --
 ALTER TABLE `detections`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `diseases`
+-- Indeks untuk tabel `diseases`
 --
 ALTER TABLE `diseases`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `disease_solutions`
+-- Indeks untuk tabel `disease_solutions`
 --
 ALTER TABLE `disease_solutions`
   ADD PRIMARY KEY (`id`),
@@ -342,7 +380,13 @@ ALTER TABLE `disease_solutions`
   ADD KEY `resource_id` (`resource_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `pests`
+--
+ALTER TABLE `pests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -350,51 +394,57 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `agricultural_resources`
+-- AUTO_INCREMENT untuk tabel `agricultural_resources`
 --
 ALTER TABLE `agricultural_resources`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `detections`
+-- AUTO_INCREMENT untuk tabel `detections`
 --
 ALTER TABLE `detections`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
--- AUTO_INCREMENT for table `diseases`
+-- AUTO_INCREMENT untuk tabel `diseases`
 --
 ALTER TABLE `diseases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `disease_solutions`
+-- AUTO_INCREMENT untuk tabel `disease_solutions`
 --
 ALTER TABLE `disease_solutions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `pests`
+--
+ALTER TABLE `pests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `detections`
+-- Ketidakleluasaan untuk tabel `detections`
 --
 ALTER TABLE `detections`
   ADD CONSTRAINT `detections_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `disease_solutions`
+-- Ketidakleluasaan untuk tabel `disease_solutions`
 --
 ALTER TABLE `disease_solutions`
   ADD CONSTRAINT `fk_disease` FOREIGN KEY (`disease_id`) REFERENCES `diseases` (`id`) ON DELETE CASCADE,

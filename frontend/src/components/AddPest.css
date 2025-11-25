@@ -1,0 +1,91 @@
+/* AddPest.css */
+@import '../variables.css';
+
+.agrius-add-disease-container {
+  max-width: 550px; /* Adjusted max-width for single column, "stretched" look (6 vertical, 4 horizontal feel) */
+  margin: var(--spacing-xxl) auto;
+  padding: var(--spacing-xxl);
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+}
+
+.agrius-add-disease-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+  font-size: 2.5rem; /* Increased for prominence */
+}
+
+.agrius-add-disease-form {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column grid */
+  gap: var(--spacing-xl); /* Vertical spacing */
+}
+
+.agrius-form-group {
+  /* No margin-bottom needed as gap handles spacing */
+}
+
+/* .form-group-full-width class is removed as it's not needed in a single column */
+
+.agrius-form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--agrius-neutral-gray-2); /* Dark gray for labels */
+  font-size: 0.9rem; /* text-sm equivalent */
+}
+
+textarea.agrius-form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.agrius-btn-submit {
+  /* No grid-column needed, it's 100% width in 1fr grid */
+  padding: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-bold); /* Bold text for button */
+  margin-top: var(--spacing-md);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .agrius-add-disease-form {
+    grid-template-columns: 1fr; /* Already 1fr, keep consistent */
+  }
+  /* .form-group-full-width responsive adjustment removed */
+  /* .agrius-btn-submit responsive adjustment removed */
+  .agrius-add-disease-container {
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
+  }
+  .agrius-add-disease-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-add-disease-container {
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+  }
+  .agrius-add-disease-title {
+    font-size: 1.5rem;
+  }
+  .agrius-form-group label {
+    font-size: 0.9rem;
+  }
+  .agrius-form-control {
+    padding: var(--spacing-xs);
+    font-size: 0.9rem;
+  }
+  .agrius-btn-submit {
+    padding: var(--spacing-sm);
+    font-size: 1rem;
+  }
+}

@@ -10,7 +10,8 @@
     "dashboard": "Beranda",
     "realtimeDetect": "Deteksi Langsung",
     "detection": "Riwayat",
-    "liveDetect": "Deteksi"
+    "liveDetect": "Deteksi",
+    "pestList": "Hama"
   },
   "language": {
     "english": "Bahasa Inggris",
@@ -166,7 +167,24 @@
     "detectionsOverview": "Ikhtisar Deteksi",
     "quickActions": "Tindakan Cepat",
     "manageUsers": "Kelola Pengguna",
-    "addNewDisease": "Tambah Penyakit Baru"
+    "addNewDisease": "Tambah Penyakit Baru",
+    "managePests": "Kelola Hama",
+    "totalPests": "Total Hama"
+  },
+  "pestList": {
+    "pageTitle": "Kelola Hama",
+    "loadingPests": "Memuat hama...",
+    "failedToLoad": "Gagal memuat hama.",
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "viewDetails": "Lihat Detail",
+    "addPest": "Tambah Hama",
+    "deleteConfirm": "Apakah Anda yakin ingin menghapus hama ini?",
+    "failedToDelete": "Gagal menghapus hama.",
+    "tableHeaderImage": "Gambar",
+    "tableHeaderPestName": "Nama Hama",
+    "tableHeaderScientificName": "Nama Ilmiah",
+    "tableHeaderActions": "Aksi",
+    "noPestsFound": "Tidak ada hama ditemukan."
   },
   "userList": {
     "deleteConfirm": "Apakah Anda yakin ingin menghapus pengguna ini?",
@@ -209,5 +227,25 @@
     "additionalRecommendations": "Rekomendasi Tambahan",
     "originalDescription": "Deskripsi Asli",
     "generatingAiExplanation": "Memuat penjelasan AI..."
+  },
+  "pestList": {
+    "pageTitle": "Hama",
+    "loadingPests": "Memuat Hama...",
+    "failedToLoad": "Gagal memuat hama.",
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "viewDetails": "Lihat Detail"
+  },
+  "pestDetail": {
+    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
+    "notFound": "Hama tidak ditemukan.",
+    "failedToLoad": "Gagal memuat data hama.",
+    "loadingDetails": "Memuat detail...",
+    "noData": "Tidak ada data hama.",
+    "backToList": "Kembali ke Daftar Hama",
+    "scientificName": "Nama Ilmiah:",
+    "description": "Deskripsi:",
+    "symptoms": "Gejala:",
+    "prevention": "Pencegahan:",
+    "treatment": "Pengobatan:"
   }
 }

@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import detectionRoutes from "./routes/detectionRoutes.js";
 import diseaseRoutes from "./routes/diseaseRoutes.js";
 import agriculturalResourceRoutes from "./routes/agriculturalResourceRoutes.js";
+import pestRoutes from "./routes/pestRoutes.js";
 import path from "path";
 import { loadModel } from "./services/detectionService.js";
 import mime from 'mime-types';
@@ -29,6 +30,7 @@ app.use('/uploads', express.static('uploads'));
 // Define specific upload directories
 const AGRICULTURAL_RESOURCES_DIR = path.join(process.cwd(), 'public', 'images', 'agricultural_resources');
 const DISEASES_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'diseases');
+const PESTS_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'pests');
 
 // Explicit route for agricultural_resources images (bypassing express.static for full control)
 app.get('/images/agricultural_resources/:imageName', (req, res) => {
@@ -61,11 +63,15 @@ app.get('/images/agricultural_resources/:imageName', (req, res) => {
 // Serve disease images using express.static, with cors explicitly applied
 app.use('/images/diseases', cors(), express.static(DISEASES_IMAGES_DIR));
 
+// Serve pest images using express.static, with cors explicitly applied
+app.use('/images/pests', cors(), express.static(PESTS_IMAGES_DIR));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/detections", detectionRoutes);
 app.use("/api/diseases", diseaseRoutes);
 app.use("/api/agricultural-resources", agriculturalResourceRoutes);
+app.use("/api/pests", pestRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
