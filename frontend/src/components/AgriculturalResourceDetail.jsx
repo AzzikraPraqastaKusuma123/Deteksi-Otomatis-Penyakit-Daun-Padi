@@ -122,7 +122,7 @@ function AgriculturalResourceDetail() {
               )}
 
               {/* Gemini Benefits */}
-              {resource.gemini_benefits && resource.gemini_benefits.length > 0 && (
+              {Array.isArray(resource.gemini_benefits) && resource.gemini_benefits.length > 0 && (
                 <div className="agrius-detail-section">
                   <h3>
                     <i className="fas fa-hand-holding-heart agrius-section-icon"></i>
@@ -139,7 +139,7 @@ function AgriculturalResourceDetail() {
               )}
 
               {/* Gemini Additional Recommendations */}
-              {resource.gemini_additional_recommendations && resource.gemini_additional_recommendations.length > 0 && (
+              {Array.isArray(resource.gemini_additional_recommendations) && resource.gemini_additional_recommendations.length > 0 && (
                 <div className="agrius-detail-section">
                   <h3>
                     <i className="fas fa-seedling agrius-section-icon"></i>

@@ -208,7 +208,8 @@
     "benefits": "Benefits",
     "additionalRecommendations": "Additional Recommendations",
     "originalDescription": "Original Description",
-    "generatingAiExplanation": "Loading AI explanation..."
+    "generatingAiExplanation": "Loading AI explanation...",
+    "loading": "Loading..."
   },
   "pestDetail": {
     "sessionExpired": "Session expired. Please log in again.",

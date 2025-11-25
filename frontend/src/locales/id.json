@@ -226,7 +226,8 @@
     "benefits": "Manfaat",
     "additionalRecommendations": "Rekomendasi Tambahan",
     "originalDescription": "Deskripsi Asli",
-    "generatingAiExplanation": "Memuat penjelasan AI..."
+    "generatingAiExplanation": "Memuat penjelasan AI...",
+    "loading": "Memuat..."
   },
   "pestDetail": {
     "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",

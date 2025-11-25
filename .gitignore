@@ -1,5 +1,6 @@
 # Ignore uploaded agricultural resource images
 /backend/public/images/agricultural_resources/
+/backend/public/images/pests/
 
 # Ignore backend .env file
 /backend/.env
