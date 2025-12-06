@@ -19,6 +19,31 @@ export const detectDisease = async (req, res) => {
     const imageBuffer = req.file.buffer;
     const prediction = await runInference(imageBuffer);
 
+    // Simpan gambar hasil upload di folder /uploads/
+    const uploadDir = path.join(process.cwd(), "uploads");
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+    const filename = `detection_${Date.now()}.jpg`;
+    const imagePath = path.join(uploadDir, filename);
+    fs.writeFileSync(imagePath, imageBuffer);
+
+    const imageUrl = `/uploads/${filename}`;
+
+    // ✅ Tambahkan penanganan khusus untuk 'Grass'
+    if (prediction.disease === 'Grass') {
+      return res.json({
+        message: "Detection success",
+        disease: "Grass", // or a more user-friendly term like "Not Rice Leaf"
+        confidence: prediction.confidence,
+        description: "The uploaded image appears to be grass, not a rice leaf. Please upload an image of a rice leaf for detection.",
+        prevention: "N/A",
+        treatment_recommendations: "N/A",
+        image_url: imageUrl, // Still provide image URL if needed for display
+        generativeInfo: null, // No Gemini info for grass
+        recommendedSolutions: [], // No solutions for grass
+      });
+    }
+
     // Get additional info from Gemini
     let generativeInfo = null;
     try {
@@ -30,16 +55,6 @@ export const detectDisease = async (req, res) => {
         message: "Failed to get AI details for detection." // Simplified message
       };
     }
-
-    // Simpan gambar hasil upload di folder /uploads/
-    const uploadDir = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
-
-    const filename = `detection_${Date.now()}.jpg`;
-    const imagePath = path.join(uploadDir, filename);
-    fs.writeFileSync(imagePath, imageBuffer);
-
-    const imageUrl = `/uploads/${filename}`;
 
     let geminiInformasiDetail = null;
     let geminiSolusiPenyembuhan = null;

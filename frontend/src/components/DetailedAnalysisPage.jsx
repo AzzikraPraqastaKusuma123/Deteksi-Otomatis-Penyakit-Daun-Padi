@@ -6,8 +6,9 @@ import './DetailedAnalysisPage.css';
 import './DiseaseList.css'; // Import for recommendation card styles
 
 const DetailedAnalysisPage = () => {
-  const { id } = useParams(); // Get ID from URL
-  const { t, i18n } = useTranslation(); // Use useTranslation
+  const { id } = useParams();
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   
   const [detectionData, setDetectionData] = useState(null);
@@ -19,9 +20,8 @@ const DetailedAnalysisPage = () => {
       try {
         setLoading(true);
         setError(null);
-        // Use the new API function to fetch detailed data
         const response = await getDetectionById(id, i18n.language); 
-        setDetectionData(response.data); // Set the fetched data
+        setDetectionData(response.data);
       } catch (err) {
         console.error("Failed to fetch detection details:", err);
         setError("Failed to load detection details. Please try again or check the ID."); 
@@ -30,10 +30,19 @@ const DetailedAnalysisPage = () => {
       }
     };
 
-    if (id) {
+    // New logic: Check for state from navigation first
+    if (location.state && location.state.prediction) {
+      setDetectionData(location.state.prediction);
+      setLoading(false);
+    } else if (id) {
+      // Fallback to fetching if ID is present
       fetchDetectionDetails();
+    } else {
+      // No ID and no state, so it's an error or invalid access
+      setError("No detection data found. Please perform a new detection.");
+      setLoading(false);
     }
-  }, [id, i18n.language, navigate]); // Re-fetch if ID or language changes
+  }, [id, i18n.language, location.state, navigate]);
 
   if (loading) {
     return (
@@ -143,6 +152,13 @@ const DetailedAnalysisPage = () => {
             {disease === 'Healthy Rice Leaf' && (
               <div className="gemini-info-detailed healthy-leaf-detailed">
                 <p>{t('detailedAnalysis.healthyLeafMessage')}</p> {/* Use translation */}
+              </div>
+            )}
+
+            {/* Grass Message */}
+            {disease === 'Grass' && (
+              <div className="gemini-info-detailed grass-leaf-detailed">
+                <p>{detectionData.description}</p>
               </div>
             )}
 
