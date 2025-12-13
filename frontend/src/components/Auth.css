@@ -174,7 +174,10 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .agrius-auth-container .agrius-auth-btn:hover {
@@ -184,7 +187,9 @@
 }
 
 .agrius-auth-container .agrius-auth-link {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   margin-top: 20px;
   font-size: 0.9rem;
   color: #666;

@@ -6,7 +6,7 @@ import db from "../config/db.js";
 import axios from 'axios';
 import 'dotenv/config';
 
-const modelPath = path.resolve(process.cwd(), '../model/best_resnet50v2.onnx');
+const modelPath = path.resolve(process.cwd(), '../model/best_resnet50v2_latest.onnx');
 
 const labels = [
   'Bacterial Leaf Blight',
@@ -16,7 +16,8 @@ const labels = [
   'Leaf Scald',
   'Narrow Brown Leaf Spot',
   'Rice Hispa',
-  'Sheath Blight'
+  'Sheath Blight',
+  'Grass'
 ];
 
 let session = null;
@@ -57,11 +58,11 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
   }
 
   const prompt = `
-    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani. Pastikan informasi yang diberikan komprehensif dan selalu terisi.
+    Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani. Pastikan informasi yang diberikan komprehensif dan selalu terisi dengan detail yang relevan.
 
     Berdasarkan nama penyakit berikut: "${diseaseName}"
 
-    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks untuk "informasi_detail" dan "solusi_penyembuhan" harus berupa beberapa paragraf singkat yang padat dan informatif. Jika Anda tidak menemukan informasi spesifik, berikan penjelasan umum atau nyatakan bahwa informasi tersebut belum tersedia. Bidang "rekomendasi_produk" harus dalam format array:
+    Tolong berikan jawaban ${languageInstruction} HANYA dalam format JSON dengan struktur berikut. Setiap bidang teks untuk "informasi_detail" dan "solusi_penyembuhan" harus berupa beberapa paragraf singkat yang padat dan informatif. Jika Anda tidak menemukan informasi spesifik, berikan penjelasan umum yang relevan atau gunakan teks placeholder seperti "Informasi detail mengenai aspek ini akan segera ditambahkan." Bidang "rekomendasi_produk" harus dalam format array:
     {
       "informasi_detail": "Jelaskan penyakit ini secara ringkas namun komprehensif, meliputi gejala utama, penyebab, dan dampaknya pada tanaman padi. Gunakan beberapa paragraf singkat jika diperlukan untuk kejelasan.",
       "solusi_penyembuhan": "Sajikan panduan pencegahan dan penyembuhan utama secara komprehensif, mencakup metode kultural, organik, dan, jika relevan, kimiawi. Gunakan beberapa paragraf singkat jika diperlukan untuk kejelasan.",
@@ -207,6 +208,17 @@ export async function runInference(imageBuffer) {
     const predictedDiseaseName = labels[maxIndex] || "Unknown Disease";
 
     console.log(`✅ Prediction: ${predictedDiseaseName}, Confidence: ${maxProb.toFixed(4)}`);
+
+    // Handle the "Grass" case specifically
+    if (predictedDiseaseName === 'Grass') {
+      return {
+        disease: 'Grass',
+        confidence: maxProb,
+        description: 'Gambar yang diunggah terdeteksi sebagai rumput atau gulma, bukan daun padi.',
+        prevention: 'Pastikan untuk membersihkan area tanam dari gulma yang dapat bersaing dengan tanaman padi untuk nutrisi dan sinar matahari.',
+        treatment_recommendations: 'Tidak ada perawatan yang diperlukan karena ini bukan penyakit. Fokus pada pengendalian gulma secara manual atau menggunakan herbisida yang sesuai.'
+      };
+    }
 
     // --- PERBAIKAN DIMULAI DISINI ---
     const diseaseDetails = await new Promise((resolve) => {

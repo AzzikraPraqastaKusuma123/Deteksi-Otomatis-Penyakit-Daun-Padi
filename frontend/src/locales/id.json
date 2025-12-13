@@ -78,7 +78,12 @@
     "viewDetails": "Lihat Detail",
     "empoweringFarmersTitle": "Memberdayakan Petani dengan Solusi Cerdas",
     "empoweringFarmersDesc": "Temukan bagaimana sistem bertenaga AI canggih kami membantu Anda mengidentifikasi penyakit daun padi dengan cepat dan akurat, memberikan wawasan tepat waktu untuk pengelolaan tanaman yang lebih baik dan hasil yang lebih tinggi. Bergabunglah dengan komunitas petani sukses kami hari ini!",
-    "learnMore": "Pelajari Lebih Lanjut"
+    "learnMore": "Pelajari Lebih Lanjut",
+    "carouselTypeDisease": "Penyakit",
+    "carouselTypePest": "Hama",
+    "carouselTypeResource": "Sumber Daya",
+    "knowledgeBaseTitle": "Jelajahi Pustaka Pengetahuan",
+    "knowledgeBaseDesc": "Temukan informasi detail tentang berbagai penyakit, hama, dan sumber daya pertanian."
   },
   "filter": {
     "search_fertilizer": "Cari nama pupuk...",
@@ -226,14 +231,8 @@
     "benefits": "Manfaat",
     "additionalRecommendations": "Rekomendasi Tambahan",
     "originalDescription": "Deskripsi Asli",
-    "generatingAiExplanation": "Memuat penjelasan AI..."
-  },
-  "pestList": {
-    "pageTitle": "Hama",
-    "loadingPests": "Memuat Hama...",
-    "failedToLoad": "Gagal memuat hama.",
-    "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
-    "viewDetails": "Lihat Detail"
+    "generatingAiExplanation": "Memuat penjelasan AI...",
+    "loading": "Memuat..."
   },
   "pestDetail": {
     "sessionExpired": "Sesi berakhir. Silakan masuk kembali.",
@@ -247,5 +246,25 @@
     "symptoms": "Gejala:",
     "prevention": "Pencegahan:",
     "treatment": "Pengobatan:"
+  },
+  "detailedAnalysis": {
+    "pageTitle": "Analisis Rinci",
+    "loadingAnalysis": "Memuat analisis...",
+    "errorTitle": "Kesalahan",
+    "errorPrompt": "Terjadi kesalahan saat memuat detail deteksi.",
+    "backToDetections": "Kembali ke Deteksi",
+    "detectionNotFoundTitle": "Deteksi Tidak Ditemukan",
+    "detectionNotFoundPrompt": "Deteksi yang diminta tidak dapat ditemukan.",
+    "newDetection": "Deteksi Baru",
+    "aiInfoFailedTitle": "Informasi AI Gagal Dimuat",
+    "aiInfoFailedPrompt": "Informasi yang dihasilkan AI tidak dapat diambil. Menampilkan data asli.",
+    "analysisSummary": "Ringkasan Analisis",
+    "description": "Deskripsi",
+    "noDetailedInfoFromAI": "Tidak ada informasi rinci yang tersedia dari AI.",
+    "prevention": "Pencegahan",
+    "noSolutionInfoFromAI": "Tidak ada informasi solusi yang tersedia dari AI.",
+    "productRecommendations": "Rekomendasi Produk",
+    "healthyLeafMessage": "Daun yang terdeteksi tampak sehat. Lanjutkan praktik pertanian yang baik.",
+    "recommendedResources": "Rekomendasi Sumber Daya"
   }
 }

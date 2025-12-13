@@ -1,5 +1,11 @@
 @import '../variables.css';
 
+.agrius-sidebar-logo {
+  height: 40px;
+  width: auto;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
 :root {
   --agrius-sidebar-width: 260px;
   --agrius-sidebar-width-collapsed: 80px;
@@ -94,12 +100,23 @@
   color: var(--agrius-cream-off-white); /* Cream Off-White for icons */
 }
 
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-header {
+  padding: var(--spacing-lg) 0;
+}
+
+.agrius-sidebar-nav li .agrius-nav-link span, .agrius-logout-btn span {
+  transition: opacity 0.2s ease-in-out;
+}
+
 .agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link i {
   margin-right: 0;
 }
 
-.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link span {
-  display: none;
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-nav li .agrius-nav-link span,
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-logout-btn span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
 }
 
 .agrius-sidebar-footer {
@@ -168,17 +185,20 @@
   justify-content: center;
   cursor: pointer;
   box-shadow: var(--shadow-md);
-  transition: all var(--transition-speed-normal) var(--transition-ease);
+  transition: background-color var(--transition-speed-normal) var(--transition-ease); /* Only transition background */
   z-index: 1001;
 }
 
 .agrius-sidebar-toggle:hover {
   background-color: var(--agrius-cream-off-white);
-  transform: rotate(180deg);
 }
 
-.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-toggle {
-  transform: rotate(0deg);
+.agrius-sidebar-toggle i {
+  transition: transform var(--transition-speed-normal) var(--transition-ease);
+}
+
+.agrius-sidebar.agrius-sidebar-collapsed .agrius-sidebar-toggle i {
+  transform: rotate(180deg);
 }
 
 .agrius-menu-toggle { /* Mobile menu toggle */

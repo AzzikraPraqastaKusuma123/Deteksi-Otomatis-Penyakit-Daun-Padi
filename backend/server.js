@@ -52,7 +52,8 @@ app.get('/images/agricultural_resources/:imageName', (req, res) => {
         if (contentType) {
             res.setHeader('Content-Type', contentType);
         }
-        res.setHeader('Content-Length', data.length); // Explicitly set content length
+        res.setHeader('Content-Length', data.length);
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin'); 
 
         console.log(`Serving image: ${imageName}, Content-Type: ${contentType}, Content-Length: ${data.length}`);
 

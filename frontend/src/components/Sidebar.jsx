@@ -19,7 +19,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
   return (
     <div className={`agrius-sidebar ${isCollapsed ? 'agrius-sidebar-collapsed' : ''} ${isMobileMenuOpen ? 'agrius-sidebar-open' : ''}`}>
       <div className="agrius-sidebar-header">
-        <h3>PadiGuard</h3>
+        <img src={isCollapsed ? "/logo_small.png" : "/logo.png"} alt="PadiGuard Logo" className="agrius-sidebar-logo" />
         <button className="agrius-sidebar-toggle" onClick={toggleSidebar}>
           <i className="fas fa-chevron-left"></i>
         </button>

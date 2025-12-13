@@ -208,14 +208,8 @@
     "benefits": "Benefits",
     "additionalRecommendations": "Additional Recommendations",
     "originalDescription": "Original Description",
-    "generatingAiExplanation": "Loading AI explanation..."
-  },
-  "pestList": {
-    "pageTitle": "Pests",
-    "loadingPests": "Loading Pests...",
-    "failedToLoad": "Failed to load pests.",
-    "sessionExpired": "Session expired. Please log in again.",
-    "viewDetails": "View Details"
+    "generatingAiExplanation": "Loading AI explanation...",
+    "loading": "Loading..."
   },
   "pestDetail": {
     "sessionExpired": "Session expired. Please log in again.",
@@ -229,5 +223,25 @@
     "symptoms": "Symptoms:",
     "prevention": "Prevention:",
     "treatment": "Treatment:"
+  },
+  "detailedAnalysis": {
+    "pageTitle": "Detailed Analysis",
+    "loadingAnalysis": "Loading analysis...",
+    "errorTitle": "Error",
+    "errorPrompt": "An error occurred while loading the detection details.",
+    "backToDetections": "Back to Detections",
+    "detectionNotFoundTitle": "Detection Not Found",
+    "detectionNotFoundPrompt": "The requested detection could not be found.",
+    "newDetection": "New Detection",
+    "aiInfoFailedTitle": "AI Information Failed to Load",
+    "aiInfoFailedPrompt": "The AI-generated information could not be retrieved. Displaying original data.",
+    "analysisSummary": "Analysis Summary",
+    "description": "Description",
+    "noDetailedInfoFromAI": "No detailed information available from AI.",
+    "prevention": "Prevention",
+    "noSolutionInfoFromAI": "No solution information available from AI.",
+    "productRecommendations": "Product Recommendations",
+    "healthyLeafMessage": "The detected leaf appears to be healthy. Continue good farming practices.",
+    "recommendedResources": "Recommended Resources"
   }
 }
