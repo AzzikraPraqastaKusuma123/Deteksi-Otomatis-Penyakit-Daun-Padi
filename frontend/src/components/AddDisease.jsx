@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 import './AddDisease.css';
 
@@ -34,10 +35,11 @@ function AddDisease() {
         treatment_recommendations_en: treatmentRecommendationsEn,
         // image_url_example is handled by separate image upload
       });
+      toast.success('Penyakit berhasil ditambahkan!');
       navigate('/admin/diseases'); // Navigate back to admin disease list
     } catch (error) {
       console.error('Error adding disease:', error);
-      alert('Failed to add disease. Please try again.');
+      toast.error('Gagal menambahkan penyakit. Silakan coba lagi.');
     }
   };
 

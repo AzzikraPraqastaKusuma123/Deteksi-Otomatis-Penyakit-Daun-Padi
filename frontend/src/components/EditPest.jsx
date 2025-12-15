@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getPestById, updatePest } from '../services/api';
 import './AddPest.css'; // Reusing the same CSS for consistency
 
@@ -22,7 +23,6 @@ function EditPest() {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchPest = async () => {
@@ -47,7 +47,7 @@ function EditPest() {
         }
       } catch (err) {
         console.error('Failed to fetch pest:', err);
-        setError('Failed to load pest data.');
+        toast.error('Failed to load pest data.');
       } finally {
         setLoading(false);
       }
@@ -85,16 +85,15 @@ function EditPest() {
 
     try {
       await updatePest(id, data);
-      alert('Pest updated successfully!');
+      toast.success('Pest updated successfully!');
       navigate('/admin/pests');
     } catch (err) {
       console.error('Error updating pest:', err);
-      alert('Failed to update pest.');
+      toast.error('Failed to update pest.');
     }
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <div className="agrius-add-disease-container">
@@ -146,8 +145,7 @@ function EditPest() {
           <label htmlFor="treatmentId">Perawatan (ID)</label>
           <textarea id="treatmentId" name="treatment_id" className="agrius-form-control" rows="3" value={treatmentId} onChange={(e) => setTreatmentId(e.target.value)}></textarea>
         </div>
-        <div className="agrius-form.
-        -group form-group-full-width">
+        <div className="agrius-form-group form-group-full-width">
           <label htmlFor="treatmentEn">Treatment (EN)</label>
           <textarea id="treatmentEn" name="treatment_en" className="agrius-form-control" rows="3" value={treatmentEn} onChange={(e) => setTreatmentEn(e.target.value)}></textarea>
         </div>

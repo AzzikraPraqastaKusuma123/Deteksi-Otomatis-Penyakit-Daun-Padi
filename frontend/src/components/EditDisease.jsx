@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getDiseaseById, updateDisease } from '../services/api';
 import './AddDisease.css'; // Reusing the same CSS for consistency
 
@@ -86,11 +87,11 @@ function EditDisease() {
 
     try {
       await updateDisease(id, data);
-      alert('Disease updated successfully!');
+      toast.success('Penyakit berhasil diperbarui!');
       navigate('/admin/diseases');
     } catch (err) {
       console.error('Error updating disease:', err);
-      alert('Failed to update disease.');
+      toast.error('Gagal memperbarui penyakit.');
     }
   };
 

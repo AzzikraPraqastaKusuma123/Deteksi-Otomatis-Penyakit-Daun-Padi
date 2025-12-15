@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 import './AddUser.css';
 
@@ -17,10 +18,11 @@ const AddUser = () => {
     const userData = { username, email, password, full_name: fullName, location, role };
     try {
       await api.post('/users', userData);
+      toast.success('User added successfully!');
       navigate('/admin/users');
     } catch (error) {
       console.error('Error adding user:', error);
-      alert('Failed to add user. Please try again.');
+      toast.error('Failed to add user. Please try again.');
     }
   };
 

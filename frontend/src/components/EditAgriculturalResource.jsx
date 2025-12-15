@@ -1,27 +1,24 @@
 // frontend/src/components/EditAgriculturalResource.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getAgriculturalResourceById, updateAgriculturalResource } from '../services/api';
 import AgriculturalResourceForm from './AgriculturalResourceForm';
 
 function EditAgriculturalResource() {
   const [initialData, setInitialData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-      const { id } = useParams();
-      console.log("EditAgriculturalResource: Resource ID from URL params:", id);
-      const navigate = useNavigate();
-    
-      const fetchResource = useCallback(async () => {
-        setIsLoading(true);
-        try {
-          const response = await getAgriculturalResourceById(id);
-          console.log("EditAgriculturalResource: Fetched resource data:", response.data);
-          setInitialData(response.data);
-        } catch (err) {
-  
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const fetchResource = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAgriculturalResourceById(id);
+      setInitialData(response.data);
+    } catch (err) {
       console.error('Error fetching resource details:', err);
-      setError('Gagal memuat data sumber daya.');
+      toast.error('Gagal memuat data sumber daya.');
     } finally {
       setIsLoading(false);
     }
@@ -33,13 +30,13 @@ function EditAgriculturalResource() {
 
   const handleUpdateResource = async (formData) => {
     setIsLoading(true);
-    setError('');
     try {
       await updateAgriculturalResource(id, formData);
+      toast.success('Sumber daya berhasil diperbarui!');
       navigate('/admin/agricultural-resources');
     } catch (err) {
       console.error('Error updating resource:', err);
-      setError('Gagal memperbarui sumber daya. Silakan coba lagi.');
+      toast.error('Gagal memperbarui sumber daya. Silakan coba lagi.');
       setIsLoading(false);
     }
   };
@@ -48,20 +45,16 @@ function EditAgriculturalResource() {
     return <p>Loading resource data...</p>;
   }
 
-  if (error) {
-    return <p className="agrius-error-message">{error}</p>;
-  }
-
   return (
     <>
-      {error && <p className="agrius-error-message" style={{ maxWidth: '900px', margin: '0 auto 20px' }}>{error}</p>}
       {initialData && (
-                  <AgriculturalResourceForm
-                    onSubmit={handleUpdateResource}
-                    initialData={initialData.resource} // Pass the nested resource object
-                    isEditing={true}
-                    isLoading={isLoading}
-                  />      )}
+        <AgriculturalResourceForm
+          onSubmit={handleUpdateResource}
+          initialData={initialData.resource} // Pass the nested resource object
+          isEditing={true}
+          isLoading={isLoading}
+        />
+      )}
     </>
   );
 }

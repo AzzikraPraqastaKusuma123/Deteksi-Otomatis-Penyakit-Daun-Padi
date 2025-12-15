@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getAllDiseases, getAllPests, getAgriculturalResources } from '../services/api';
 import { Card, Button, Spinner } from 'react-bootstrap';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './UserDashboard.css';
+import AnimatedCard from './AnimatedCard'; // Import the new component
+import DashboardCarousel from './DashboardCarousel'; // Import DashboardCarousel
 
 const UserDashboard = () => {
   const { t, i18n } = useTranslation();
@@ -13,7 +18,31 @@ const UserDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   const [carouselItems, setCarouselItems] = useState([]);
-  const [carouselLoading, setCarouselLoading] = useState(true);
+
+  const diseaseCarouselSettings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        }
+      }
+    ]
+  };
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -29,6 +58,7 @@ const UserDashboard = () => {
           id: d.id,
           type: t('userDashboard.carouselTypeDisease', 'Penyakit'),
           name: d.disease_name,
+          description: d.description, // Correctly map the description
           image: d.image_url_example ? `http://localhost:5000${d.image_url_example}` : 'https://via.placeholder.com/300x200?text=No+Image',
           link: `/diseases/${d.id}`
         }));
@@ -61,7 +91,6 @@ const UserDashboard = () => {
         console.error("Failed to fetch dashboard data:", error);
       } finally {
         setLoading(false); // For original disease list
-        setCarouselLoading(false); // For new carousel
       }
     };
 
@@ -115,14 +144,17 @@ const UserDashboard = () => {
             <h2>{t('userDashboard.modernSolutionsTitle')}</h2>
             <p>{t('userDashboard.modernSolutionsDesc')}</p>
             <div className="agrius-feature-cards-grid">
-              <div className="agrius-feature-card"><i className="fas fa-leaf agrius-feature-card-icon"></i><h3>{t('userDashboard.featureDetection')}</h3><p>{t('userDashboard.featureDetectionDesc')}</p></div>
-              <div className="agrius-feature-card"><i className="fas fa-history agrius-feature-card-icon"></i><h3>{t('userDashboard.featureHistory')}</h3><p>{t('userDashboard.featureHistoryDesc')}</p></div>
-              <div className="agrius-feature-card"><i className="fas fa-book-open agrius-feature-card-icon"></i><h3>{t('userDashboard.featureLibrary')}</h3><p>{t('userDashboard.featureLibraryDesc')}</p></div>
-              <div className="agrius-feature-card"><i className="fas fa-user-cog agrius-feature-card-icon"></i><h3>{t('userDashboard.featureProfile')}</h3><p>{t('userDashboard.featureProfileDesc')}</p></div>
+              <AnimatedCard delay={0.1}><div className="agrius-feature-card"><i className="fas fa-leaf agrius-feature-card-icon"></i><h3>{t('userDashboard.featureDetection')}</h3><p>{t('userDashboard.featureDetectionDesc')}</p></div></AnimatedCard>
+              <AnimatedCard delay={0.2}><div className="agrius-feature-card"><i className="fas fa-history agrius-feature-card-icon"></i><h3>{t('userDashboard.featureHistory')}</h3><p>{t('userDashboard.featureHistoryDesc')}</p></div></AnimatedCard>
+              <AnimatedCard delay={0.3}><div className="agrius-feature-card"><i className="fas fa-book-open agrius-feature-card-icon"></i><h3>{t('userDashboard.featureLibrary')}</h3><p>{t('userDashboard.featureLibraryDesc')}</p></div></AnimatedCard>
+              <AnimatedCard delay={0.4}><div className="agrius-feature-card"><i className="fas fa-user-cog agrius-feature-card-icon"></i><h3>{t('userDashboard.featureProfile')}</h3><p>{t('userDashboard.featureProfileDesc')}</p></div></AnimatedCard>
             </div>
           </div>
         </div>
       </div>
+
+      {/* New Carousel Section */}
+      {!loading && carouselItems.length > 0 && <DashboardCarousel items={carouselItems} />}
 
       <div className="agrius-user-dashboard">
         <div className="agrius-disease-library-section">
@@ -130,18 +162,20 @@ const UserDashboard = () => {
           {loading ? (
             <div className="text-center"><Spinner animation="border" role="status" variant="success"><span className="visually-hidden">{t('userDashboard.loading')}</span></Spinner></div>
           ) : (
-            <div className="agrius-disease-cards-container">
-              {diseases.map((disease) => (
-                <Card key={disease.id} className="agrius-disease-card">
-                  <Card.Img variant="top" src={disease.image} className="agrius-disease-card-img" />
-                  <Card.Body>
-                    <Card.Title>{disease.name}</Card.Title>
-                    <Card.Text className="agrius-card-text">{disease.description || t('diseaseList.noDescription')}</Card.Text>
-                    <Button as={Link} to={disease.link} className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
-                  </Card.Body>
-                </Card>
+            <Slider {...diseaseCarouselSettings}>
+              {diseases.map((disease, index) => (
+                <Link to={disease.link} key={disease.id}>
+                  <Card className="agrius-disease-card">
+                    <Card.Img variant="top" src={disease.image} className="agrius-disease-card-img" />
+                    <Card.Body>
+                      <Card.Title>{disease.name}</Card.Title>
+                      <Card.Text className="agrius-card-text">{disease.description || t('diseaseList.noDescription')}</Card.Text>
+                      <Button className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
+                    </Card.Body>
+                  </Card>
+                </Link>
               ))}
-            </div>
+            </Slider>
           )}
         </div>
 
@@ -152,3 +186,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+

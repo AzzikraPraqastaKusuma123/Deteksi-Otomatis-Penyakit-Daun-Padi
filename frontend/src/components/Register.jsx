@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { registerUser } from '../services/api';
 import './Auth.css';
 
 const Register = () => {
@@ -16,23 +18,13 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password, full_name: fullName, location }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(t('register.alert.success'));
-        navigate('/login');
-      } else {
-        alert(data.message || t('register.alert.failed'));
-      }
+      await registerUser({ username, email, password, full_name: fullName, location });
+      toast.success(t('register.alert.success'));
+      navigate('/login');
     } catch (error) {
       console.error('Error during registration:', error);
-      alert(t('register.alert.serverError'));
+      const errorMessage = error.response?.data?.message || t('register.alert.failed');
+      toast.error(errorMessage);
     }
   };
 

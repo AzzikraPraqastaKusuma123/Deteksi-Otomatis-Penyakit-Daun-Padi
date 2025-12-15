@@ -78,7 +78,8 @@
     "viewDetails": "View Details",
     "empoweringFarmersTitle": "Empowering Farmers with Smart Solutions",
     "empoweringFarmersDesc": "Discover how our advanced AI-powered system helps you identify rice leaf diseases quickly and accurately, providing timely insights for better crop management and higher yields. Join our community of successful farmers today!",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "exploreContentTitle": "Explore Our Content"
   },
   "detectionPage": {
     "cameraAccessError": "Could not access the camera. Please ensure you have granted permission and are on a secure connection (HTTPS).",

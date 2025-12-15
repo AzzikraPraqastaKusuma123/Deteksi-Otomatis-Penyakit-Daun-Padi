@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { addPest } from '../services/api';
 import './AddPest.css';
 
@@ -33,10 +34,11 @@ function AddPest() {
         treatment_id: treatmentId,
         treatment_en: treatmentEn,
       });
+      toast.success('Hama berhasil ditambahkan!');
       navigate('/admin/pests');
     } catch (error) {
       console.error('Error adding pest:', error);
-      alert('Failed to add pest. Please try again.');
+      toast.error('Gagal menambahkan hama. Silakan coba lagi.');
     }
   };
 

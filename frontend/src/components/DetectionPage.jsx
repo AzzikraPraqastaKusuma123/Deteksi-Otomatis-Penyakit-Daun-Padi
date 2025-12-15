@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
 import { detectImage } from '../services/api'; 
 import './DetectionPage.css';
 import { FiUploadCloud, FiCamera, FiArrowRight, FiRefreshCcw } from 'react-icons/fi';
@@ -10,8 +11,7 @@ const DetectionPage = () => {
   const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [prediction, setPrediction] = useState(null); // Still needed to know when analysis is done
-  const [error, setError] = useState('');
+  const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState('upload'); 
   const [stream, setStream] = useState(null);
@@ -36,7 +36,7 @@ const DetectionPage = () => {
       }
     } catch (err) {
       console.error("Error accessing camera: ", err);
-      setError(t('detectionPage.cameraAccessError'));
+      toast.error(t('detectionPage.cameraAccessError'));
     }
   };
 
@@ -51,15 +51,6 @@ const DetectionPage = () => {
     stopCamera(); // Stop current stream
     const newFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
     setCurrentFacingMode(newFacingMode);
-    // Restart camera with new facing mode
-    // This will be handled by the useEffect that watches currentFacingMode, or by calling startCamera directly
-    // For now, let's call startCamera directly after setting the new mode.
-    // However, startCamera uses the state, so it might not get the updated state immediately.
-    // A better approach is to trigger startCamera when currentFacingMode changes.
-    // Let's modify startCamera to accept a facingMode parameter or rely on useEffect.
-    // For simplicity and immediate effect, I'll modify startCamera to accept a parameter.
-    // But first, let's ensure the state update triggers a re-render and then startCamera.
-    // The useEffect for stream cleanup is good. We need another useEffect for currentFacingMode changes.
   };
 
   useEffect(() => {
@@ -74,13 +65,15 @@ const DetectionPage = () => {
       setImage(file);
       setPreview(URL.createObjectURL(file));
       setPrediction(null);
-      setError('');
     }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
-    onDrop, 
-    accept: 'image/jpeg, image/png',
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/jpeg': [],
+      'image/png': []
+    },
     noClick: mode === 'camera',
     noKeyboard: mode === 'camera',
   });
@@ -90,50 +83,42 @@ const DetectionPage = () => {
     setPreview(null);
     setImage(null);
     setPrediction(null);
-    setError('');
-    if (newMode === 'camera') {
-      // When switching to camera mode, ensure we start with the currentFacingMode
-      // The useEffect above will handle calling startCamera when mode becomes 'camera'
-      // and currentFacingMode is set.
-    } else {
+    if (newMode !== 'camera') {
       stopCamera();
     }
   };
 
   const handleAnalysis = async () => {
     if (!image) {
-      setError(t('detectionPage.imageRequiredError'));
+      toast.warn(t('detectionPage.imageRequiredError'));
       return;
     }
 
     setLoading(true);
     setPrediction(null);
-    setError('');
 
     const formData = new FormData();
     formData.append('image', image, 'image.jpg');
 
     try {
       const res = await detectImage(formData);
-      // Instead of navigating directly, just set the prediction data.
-      // This will make the "View Analysis" button appear.
-      setPrediction(res.data); 
+      setPrediction(res.data);
+      toast.success(t('detectionPage.analysisSuccess'));
     } catch (err) {
       console.error('Error detecting disease:', err);
       if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-        setError(t('detectionPage.sessionExpiredError'));
+        toast.error(t('detectionPage.sessionExpiredError'));
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setTimeout(() => navigate('/login'), 2000);
+        setTimeout(() => navigate('/login'), 3000);
       } else {
-        setError(t('detectionPage.analysisFailedError'));
+        toast.error(t('detectionPage.analysisFailedError'));
       }
     } finally {
       setLoading(false);
     }
   };
 
-  // This function is triggered by the new button
   const handleViewResult = () => {
     if (prediction) {
       navigate('/analysis-result', { state: { prediction } });
@@ -163,7 +148,6 @@ const DetectionPage = () => {
     setImage(null);
     setPreview(null);
     setPrediction(null);
-    setError('');
   };
 
   return (
@@ -222,7 +206,6 @@ const DetectionPage = () => {
                 {loading ? t('detectionPage.analyzingButton') : t('detectionPage.analyzeImageButton')}
               </button>
             </div>
-            {error && <div className="agrius-error-message" style={{marginTop: 'var(--spacing-md)'}}>{error}</div>}
           </div>
         </div>
 
@@ -264,7 +247,7 @@ const DetectionPage = () => {
               </button>
             </div>
           )}
-          {!prediction && !loading && !error && (
+          {!prediction && !loading && (
             <div className="agrius-no-results">
               <p>{t('detectionPage.noResultsMessage')}</p>
             </div>

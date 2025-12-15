@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 import './EditUser.css';
 
@@ -25,7 +26,7 @@ const EditUser = () => {
         setRole(user.role);
       } catch (error) {
         console.error('Error fetching user:', error);
-        alert('Failed to fetch user data.');
+        toast.error('Failed to fetch user data.');
         navigate('/admin/users'); // Redirect if user not found or error
       }
     };
@@ -41,11 +42,11 @@ const EditUser = () => {
     console.log('Updating user with data:', userData);
     try {
       await api.put(`/users/${userId}`, userData);
-      alert('User updated successfully!');
+      toast.success('User updated successfully!');
       navigate('/admin/users');
     } catch (error) {
       console.error('Error updating user:', error);
-      alert('Failed to update user. Please try again.');
+      toast.error('Failed to update user. Please try again.');
     }
   };
 

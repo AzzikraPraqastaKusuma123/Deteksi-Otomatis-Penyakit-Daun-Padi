@@ -83,7 +83,8 @@
     "carouselTypePest": "Hama",
     "carouselTypeResource": "Sumber Daya",
     "knowledgeBaseTitle": "Jelajahi Pustaka Pengetahuan",
-    "knowledgeBaseDesc": "Temukan informasi detail tentang berbagai penyakit, hama, dan sumber daya pertanian."
+    "knowledgeBaseDesc": "Temukan informasi detail tentang berbagai penyakit, hama, dan sumber daya pertanian.",
+    "exploreContentTitle": "Jelajahi Konten Kami"
   },
   "filter": {
     "search_fertilizer": "Cari nama pupuk...",

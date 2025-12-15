@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import './Auth.css';
 import { loginUser } from '../services/api';
 
@@ -28,7 +29,7 @@ const Login = ({ setLoggedIn, setUserRole }) => {
         setLoggedIn(true);
         if (setUserRole) setUserRole(data.user.role);
 
-        alert(t('login.alert.success'));
+        toast.success(t('login.alert.success'));
 
         // Arahkan user sesuai perannya
         if (data.user.role === 'admin') {
@@ -37,14 +38,14 @@ const Login = ({ setLoggedIn, setUserRole }) => {
           navigate('/dashboard');
         }
       } else {
-        alert(data.message || t('login.alert.invalid'));
+        toast.error(data.message || t('login.alert.invalid'));
       }
     } catch (error) {
       console.error('Error during login:', error);
       if (error.response) {
-        alert(error.response.data.message || t('login.alert.invalid'));
+        toast.error(error.response.data.message || t('login.alert.invalid'));
       } else {
-        alert(t('login.alert.serverError'));
+        toast.error(t('login.alert.serverError'));
       }
     }
   };

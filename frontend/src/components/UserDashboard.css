@@ -11,19 +11,19 @@
   background: linear-gradient(to bottom, rgba(4, 13, 12, 0.2), rgba(4, 13, 12, 0.8)), url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
   background-size: cover;
   background-position: center;
-  padding: var(--spacing-xxxxl) var(--spacing-xxl); /* Large organic padding */
-  border-radius: var(--border-radius-xxl); /* Smooth rounded edges */
-  color: var(--color-text-primary); /* Pure White */
+  padding: var(--spacing-xxxxl) var(--spacing-xxl);
+  border-radius: var(--border-radius-xxl);
+  color: var(--color-text-primary);
   text-align: center;
-  margin-bottom: var(--spacing-xxxl);
-  box-shadow: var(--shadow-xl); /* Modern shadow */
+  margin-bottom: var(--spacing-xxxxl); /* Increased margin */
+  box-shadow: var(--shadow-xl);
 }
 
 .agrius-hero-text h1 {
   margin: 0 0 var(--spacing-md) 0;
   font-size: 3.5rem;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary); /* Pure White */
+  color: var(--color-text-primary);
   text-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
@@ -31,28 +31,30 @@
   font-size: 1.3rem;
   margin-bottom: var(--spacing-xl);
   opacity: 0.9;
-  color: var(--agrius-cream-off-white); /* Cream Off-White for body text */
+  color: var(--agrius-cream-off-white);
   line-height: 1.6;
 }
 
+/* Made CTA more prominent */
 .agrius-hero-cta-btn {
-  background-color: var(--color-accent); /* Soft Lime */
-  color: var(--color-text-dark); /* Forest Green Dark */
-  padding: var(--spacing-md) var(--spacing-xxl);
-  border-radius: var(--border-radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-text-dark);
+  padding: var(--spacing-lg) var(--spacing-xxxl); /* Increased padding */
+  border-radius: var(--border-radius-lg); /* Slightly larger radius */
   text-decoration: none;
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold); /* Bolder text */
   transition: all var(--transition-speed-normal) var(--transition-ease);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg); /* More prominent base shadow */
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
+  font-size: 1.1rem; /* Slightly larger font */
 }
 
 .agrius-hero-cta-btn:hover {
   background-color: var(--agrius-cream-off-white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px); /* More lift */
+  box-shadow: var(--shadow-xl);
   color: var(--color-text-dark);
 }
 
@@ -63,14 +65,15 @@
   justify-content: flex-start;
   gap: var(--spacing-lg);
   padding: 0 var(--spacing-lg);
+  margin-bottom: var(--spacing-xxxxl); /* Increased margin */
 }
 
 .agrius-dashboard-card {
   background-color: var(--agrius-cream-off-white);
   padding: var(--spacing-xxl);
-  border-radius: var(--border-radius-xl); /* Smooth rounded edges */
+  border-radius: var(--border-radius-xl);
   text-align: center;
-  box-shadow: var(--shadow-md); /* Subtle shadow */
+  box-shadow: var(--shadow-md);
   text-decoration: none;
   color: var(--color-text-dark);
   transition: all var(--transition-speed-normal) var(--transition-ease);
@@ -78,20 +81,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1 1 300px; /* Flex properties for responsiveness */
-  max-width: 350px; /* Max width for each card */
+  flex: 1 1 300px;
+  max-width: 350px;
 }
 
 .agrius-dashboard-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-xl); /* More pronounced shadow on hover */
+  box-shadow: var(--shadow-xl);
   color: var(--color-text-dark);
 }
 
 .agrius-card-icon {
   font-size: 3.8rem;
   margin-bottom: var(--spacing-lg);
-  color: var(--agrius-dark-green-new); /* Changed to dark green */
+  color: var(--agrius-dark-green-new);
 }
 
 .agrius-dashboard-card h3 {
@@ -102,15 +105,14 @@
 }
 
 .agrius-dashboard-card p {
-  color: var(--agrius-neutral-gray-1); /* Neutral Gray for body text */
+  color: var(--agrius-neutral-gray-1);
   line-height: 1.6;
   font-size: 1rem;
 }
 
-/* New Styles for Disease Library Section */
 .agrius-disease-library-section {
-  margin-top: var(--spacing-xxxl);
-  padding: 0 var(--spacing-lg);
+  margin-top: var(--spacing-xxxxl); /* Increased top margin */
+  /* The parent .agrius-user-dashboard provides the right-side boundary */
 }
 
 .agrius-section-title {
@@ -121,144 +123,169 @@
   margin-bottom: var(--spacing-xxl);
 }
 
-.agrius-disease-cards-container {
-  display: flex;
-  overflow-x: auto;
-  padding-bottom: var(--spacing-lg); /* Add some space for the scrollbar */
-  gap: var(--spacing-xl);
+/* Slick Carousel Specific Adjustments */
+.agrius-disease-library-section .slick-list {
+  padding-left: 0; /* Ensure it starts from the edge */
+  margin-left: calc(-1 * var(--spacing-md)); /* Pull track to the left to align first card */
 }
 
+.agrius-disease-library-section .slick-slide > div {
+  padding: 0 var(--spacing-md); /* Create a gap between slides */
+}
+
+/* Redesigned Disease Card */
 .agrius-disease-card {
-  flex: 0 0 280px; /* Give cards a fixed width so they don't shrink */
   border: none;
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius-xxl); /* Larger radius */
+  box-shadow: var(--shadow-md); /* Softer base shadow */
   transition: all var(--transition-speed-normal) var(--transition-ease);
   background-color: var(--agrius-cream-off-white);
+  height: auto; /* Let content determine height */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Important for border-radius on image */
 }
 
-.agrius-card-text {
+.agrius-disease-library-section .slick-slide > div:hover .agrius-disease-card {
+  transform: translateY(-8px); /* Lift effect */
+  box-shadow: var(--shadow-xl); /* More pronounced shadow */
+}
+
+.agrius-disease-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.agrius-disease-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-lg);
+  flex-grow: 1;
+}
+
+.agrius-disease-card .card-title {
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-bold); /* Bolder title */
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-sm);
+}
+
+.agrius-disease-card .card-text {
   color: var(--color-text-secondary);
-  line-height: 1.5; /* Adjusted line height for better fit */
+  line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
   -webkit-box-orient: vertical;  
   overflow: hidden;
   text-overflow: ellipsis;
-  min-height: 68px; /* Approx height for 3 lines to prevent layout shifts */
-  margin-bottom: var(--spacing-md); /* Add space before the button */
+  /* min-height removed for natural flow */
+  margin-bottom: var(--spacing-lg);
+  flex-grow: 1;
 }
 
-@media (max-width: 768px) {
-  .agrius-dashboard-cards-flex {
-    flex-direction: row;
-    align-items: stretch;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-}
-
-/* Specific style for View Details button in disease card */
 .agrius-disease-card .agrius-btn-primary {
   color: var(--agrius-very-dark-gray);
+  width: 100%;
+  margin-top: var(--spacing-md);
+  background-color: var(--agrius-bright-pastel-green);
+  border: none;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Second Split-Screen Section Styles */
 .agrius-split-screen-section-2 {
   display: flex;
   justify-content: center;
-  align-items: stretch; /* Ensure children stretch to fill height */
-  margin-top: var(--spacing-xxxl);
+  align-items: stretch;
+  margin-top: var(--spacing-xxxxl); /* Increased margin */
   background-color: var(--agrius-pure-white);
   box-shadow: var(--shadow-xl);
-  /* Full viewport width trick */
   width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  border-radius: 0; /* Remove border-radius for full width */
-  overflow: hidden; /* Hide horizontal scrollbar if content overflows */
-  min-height: 500px; /* Make it taller */
+  border-radius: 0;
+  overflow: hidden;
+  min-height: 500px;
 }
 
 .agrius-split-screen-left-2 {
   flex: 1;
   display: flex;
-  /* Removed justify-content: center; and align-items: center; to allow content to stretch */
 }
 
 .agrius-split-screen-left-2 .agrius-split-screen-content-wrapper-2 {
-  padding: 0; /* Remove padding for the image wrapper */
+  padding: 0;
 }
 
 .agrius-split-screen-image-2 {
   max-width: 100%;
   height: auto;
-  border-radius: 0; /* Make corners sharp */
+  border-radius: 0;
   box-shadow: var(--shadow-lg);
-  width: 100%; /* Ensure it takes full width of its parent */
-  height: 100%; /* Ensure it takes full height of its parent */
-  object-fit: cover; /* Cover the area while maintaining aspect ratio */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .agrius-split-screen-right-2 {
   flex: 1;
   text-align: left;
   background-color: var(--agrius-dark-green-new);
-  color: var(--color-text-primary); /* Change text color to white for contrast */
-  /* Removed padding-left here, padding will be on content-wrapper */
+  color: var(--color-text-primary);
 }
 
 .agrius-split-screen-content-wrapper-2 {
-  padding: var(--spacing-xxl); /* Apply padding to the content inside */
-  width: 100%; /* Ensure wrapper takes full width of its flex item */
-  height: 100%; /* Ensure wrapper takes full height of its flex item */
+  padding: var(--spacing-xxl);
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically within wrapper */
+  justify-content: center;
 }
 
 .agrius-split-screen-right-2 h2 {
   font-size: 2.5rem;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary); /* Change heading color to white */
+  color: var(--color-text-primary);
   margin-bottom: var(--spacing-md);
 }
 
 .agrius-split-screen-right-2 p {
   font-size: 1.1rem;
-  color: var(--color-text-primary); /* Change paragraph color to white */
+  color: var(--color-text-primary);
   line-height: 1.7;
   margin-bottom: var(--spacing-xl);
 }
 
 .agrius-split-screen-cta-2 {
-  /* Inherits from agrius-btn-primary in App.css */
   padding: var(--spacing-md) var(--spacing-xxl);
   font-size: 1.1rem;
   font-weight: var(--font-weight-semibold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: var(--spacing-xl); /* Add margin to separate from cards */
+  margin-top: var(--spacing-xl);
 }
 
 /* Feature Cards Grid Styles */
 .agrius-feature-cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Enforce 2x2 grid */
-  gap: var(--spacing-md); /* Adjusted gap */
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
   margin-top: var(--spacing-xxl);
 }
 
 .agrius-feature-card {
-  background-color: #EAEB9D; /* Changed background color */
-  padding: var(--spacing-sm); /* Reduced padding */
+  background-color: #EAEB9D;
+  padding: var(--spacing-sm);
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-md);
-  text-align: center; /* Center text */
+  text-align: center;
   text-decoration: none;
   color: var(--color-text-dark);
   transition: all var(--transition-speed-normal) var(--transition-ease);
@@ -266,7 +293,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Removed max-width and margin: 0 auto; as grid will handle sizing */
 }
 
 .agrius-feature-card:hover {
@@ -276,20 +302,20 @@
 }
 
 .agrius-feature-card-icon {
-  font-size: 1.8rem; /* Further reduced font size */
-  color: #1E3F2B; /* Changed icon color */
-  margin-bottom: var(--spacing-xs); /* Reduced margin */
+  font-size: 1.8rem;
+  color: #1E3F2B;
+  margin-bottom: var(--spacing-xs);
 }
 
 .agrius-feature-card h3 {
-  font-size: 0.9rem; /* Further reduced font size */
+  font-size: 0.9rem;
   font-weight: var(--font-weight-semibold);
   margin-bottom: var(--spacing-xs);
   color: var(--color-text-dark);
 }
 
 .agrius-feature-card p {
-  font-size: 0.75rem; /* Further reduced font size */
+  font-size: 0.75rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
@@ -305,7 +331,7 @@
   }
 
   .agrius-split-screen-image-2 {
-    height: 300px; /* Set a fixed height for mobile */
+    height: 300px;
     object-fit: cover;
   }
 

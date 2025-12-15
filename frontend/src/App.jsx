@@ -32,6 +32,8 @@ import PestList from "./components/PestList";
 import AddPest from "./components/AddPest";
 import EditPest from "./components/EditPest";
 import AllDetectionsList from "./components/AllDetectionsList";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 
 function App() {
@@ -55,6 +57,17 @@ function App() {
 
   return (
     <Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Routes>
         {/* Routes without any layout */}
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserRole={setUserRole} />} />
