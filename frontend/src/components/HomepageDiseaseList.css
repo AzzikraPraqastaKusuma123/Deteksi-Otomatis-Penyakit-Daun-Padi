@@ -1,0 +1,102 @@
+@import '../variables.css';
+
+/* Grid Container for Homepage Disease List */
+.agrius-homepage-disease-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-xxl); /* Consistent spacing between cards */
+  padding: var(--spacing-xl) 0; /* Add some vertical padding */
+}
+
+/* Individual Card Styling */
+.agrius-homepage-disease-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-text-dark);
+  transition: transform 0.25s ease;
+  padding: var(--spacing-md); /* Add padding around the card content */
+  border-radius: var(--border-radius-xl);
+  background-color: var(--agrius-pure-white);
+  box-shadow: var(--shadow-sm); /* Subtle shadow for the card itself */
+}
+
+.agrius-homepage-disease-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg); /* More prominent shadow on hover */
+}
+
+/* Image Container (for circular image and hover effect) */
+.agrius-homepage-disease-image-container {
+  width: 160px; /* Fixed size for the circular container */
+  height: 160px;
+  border-radius: 50%; /* Make the container circular */
+  overflow: hidden; /* Hide anything outside the circle */
+  position: relative; /* For absolute positioning of the button */
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-md); /* Shadow for the image container */
+  display: flex; /* To center the image if it's smaller */
+  justify-content: center;
+  align-items: center;
+}
+
+.agrius-homepage-disease-image-container:hover .agrius-homepage-view-details-btn {
+  opacity: 1; /* Show button on hover */
+  transform: translate(-50%, -50%) scale(1); /* Scale up slightly on hover */
+}
+
+.agrius-homepage-disease-image-container:hover .agrius-homepage-disease-image {
+  transform: scale(1.05); /* Slightly zoom image on hover */
+  filter: brightness(0.7); /* Darken image on hover */
+}
+
+/* Actual Image Styling */
+.agrius-homepage-disease-image {
+  width: 100%; /* Fill the container */
+  height: 100%; /* Fill the container */
+  object-fit: cover; /* Cover the container, crop if necessary */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* "View Details" Button Styling */
+.agrius-homepage-view-details-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9); /* Start slightly smaller */
+  opacity: 0; /* Hidden by default */
+  background-color: var(--agrius-primary-color); /* Use primary color for button */
+  color: var(--agrius-pure-white);
+  padding: 10px 20px;
+  border-radius: 9999px; /* Pill shape */
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+  font-size: 0.9rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10; /* Ensure button is above the image */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.agrius-homepage-view-details-btn:hover {
+  background-color: var(--agrius-primary-dark-color); /* Darken button on hover */
+  transform: translate(-50%, -50%) scale(1.05); /* Slightly larger on button hover */
+}
+
+/* Card Body (for disease name below image) */
+.agrius-homepage-disease-card-body {
+  padding-top: var(--spacing-md); /* Space from image container */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align title to the top if card body expands */
+  width: 100%;
+}
+
+.agrius-homepage-disease-card-body .agrius-homepage-disease-card-title {
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--color-text-dark);
+}

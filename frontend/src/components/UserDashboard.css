@@ -123,75 +123,14 @@
   margin-bottom: var(--spacing-xxl);
 }
 
-/* Slick Carousel Specific Adjustments */
+/* Slick Carousel Specific Adjustments (Old, can be removed if slider is gone) */
 .agrius-disease-library-section .slick-list {
-  padding-left: 0; /* Ensure it starts from the edge */
-  margin-left: calc(-1 * var(--spacing-md)); /* Pull track to the left to align first card */
+  padding-left: 0;
+  margin-left: calc(-1 * var(--spacing-md));
 }
 
 .agrius-disease-library-section .slick-slide > div {
-  padding: 0 var(--spacing-md); /* Create a gap between slides */
-}
-
-/* Redesigned Disease Card */
-.agrius-disease-card {
-  border: none;
-  border-radius: var(--border-radius-xxl); /* Larger radius */
-  box-shadow: var(--shadow-md); /* Softer base shadow */
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  background-color: var(--agrius-cream-off-white);
-  height: auto; /* Let content determine height */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Important for border-radius on image */
-}
-
-.agrius-disease-library-section .slick-slide > div:hover .agrius-disease-card {
-  transform: translateY(-8px); /* Lift effect */
-  box-shadow: var(--shadow-xl); /* More pronounced shadow */
-}
-
-.agrius-disease-card-img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.agrius-disease-card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--spacing-lg);
-  flex-grow: 1;
-}
-
-.agrius-disease-card .card-title {
-  font-size: 1.3rem;
-  font-weight: var(--font-weight-bold); /* Bolder title */
-  color: var(--color-text-dark);
-  margin-bottom: var(--spacing-sm);
-}
-
-.agrius-disease-card .card-text {
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* min-height removed for natural flow */
-  margin-bottom: var(--spacing-lg);
-  flex-grow: 1;
-}
-
-.agrius-disease-card .agrius-btn-primary {
-  color: var(--agrius-very-dark-gray);
-  width: 100%;
-  margin-top: var(--spacing-md);
-  background-color: var(--agrius-bright-pastel-green);
-  border: none;
-  font-weight: var(--font-weight-semibold);
+  padding: 0 var(--spacing-md);
 }
 
 /* Second Split-Screen Section Styles */
@@ -344,3 +283,30 @@
   }
 }
 
+/* === New/Refactored Disease Library Section Styles === */
+.agrius-user-dashboard-container {
+  background-color: #fcfaf5; /* Soft cream / off-white background */
+  padding: var(--spacing-xxxl);
+  margin-top: var(--spacing-xxxxl);
+  border-radius: var(--border-radius-xxl);
+}
+
+.disease-library-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxxl);
+}
+
+.disease-library-header h2 {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.disease-library-header .disease-library-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}

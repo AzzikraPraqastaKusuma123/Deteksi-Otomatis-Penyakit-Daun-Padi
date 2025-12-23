@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAllDiseases, getAllPests, getAgriculturalResources } from '../services/api';
-import { Card, Button, Spinner } from 'react-bootstrap';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { getAgriculturalResources, getAllPests, getAllDiseases } from '../services/api';
+import { Spinner } from 'react-bootstrap';
 import './UserDashboard.css';
 import AnimatedCard from './AnimatedCard'; // Import the new component
 import DashboardCarousel from './DashboardCarousel'; // Import DashboardCarousel
+import HomepageDiseaseList from './HomepageDiseaseList'; // Import HomepageDiseaseList
 
 const UserDashboard = () => {
   const { t, i18n } = useTranslation();
@@ -156,30 +154,15 @@ const UserDashboard = () => {
       {/* New Carousel Section */}
       {!loading && carouselItems.length > 0 && <DashboardCarousel items={carouselItems} />}
 
-      <div className="agrius-user-dashboard">
-        <div className="agrius-disease-library-section">
-          <h2 className="agrius-section-title">{t('userDashboard.diseaseLibrarySectionTitle')}</h2>
-          {loading ? (
-            <div className="text-center"><Spinner animation="border" role="status" variant="success"><span className="visually-hidden">{t('userDashboard.loading')}</span></Spinner></div>
-          ) : (
-            <Slider {...diseaseCarouselSettings}>
-              {diseases.map((disease, index) => (
-                <Link to={disease.link} key={disease.id}>
-                  <Card className="agrius-disease-card">
-                    <Card.Img variant="top" src={disease.image} className="agrius-disease-card-img" />
-                    <Card.Body>
-                      <Card.Title>{disease.name}</Card.Title>
-                      <Card.Text className="agrius-card-text">{disease.description || t('diseaseList.noDescription')}</Card.Text>
-                      <Button className="agrius-btn-primary">{t('userDashboard.viewDetails')}</Button>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              ))}
-            </Slider>
-          )}
+      {/* Disease Library Section - Refactored */}
+      <div className="agrius-user-dashboard-container">
+        <div className="disease-library-header">
+          <h2>{t('userDashboard.diseaseLibrarySectionTitle')}</h2>
+          <p className="disease-library-subtitle">
+            {t('userDashboard.diseaseLibrarySectionDescription', 'Kumpulan informasi penyakit padi lengkap dengan ciri-ciri visual dan penjelasan singkat untuk membantu pengguna mengenali penyakit sejak dini.')}
+          </p>
         </div>
-
-
+        <HomepageDiseaseList diseases={diseases} />
       </div>
     </>
   );

@@ -1,31 +1,65 @@
 /* frontend/src/components/DashboardCarousel.css */
 
 .agrius-dashboard-carousel-section {
-    margin-top: var(--spacing-xxxl);
-    padding: 0 var(--spacing-lg);
+    margin-top: 0;
+    background-color: var(--color-accent); /* Yellowish green background */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIj4KICA8cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxNSAyNTYgMjU2KSAiIGQ9Ik01MDUuNyAyMjAuN0wzMTUuMSAzMC4zQzMwNi40IDExLjkgMjkyLjEgMCAyNzIgMEgxNkM3LjIgMCAwIDcuMiAwIDE2djI0MGMwIDguOCAxMi42IDE2IDE2IDE2aDgwVjQ4MGMwIDguOCAxMi42IDE2IDE2IDE2aDgwYzguOCAwIDE2LTcuMiAxNi0xNlYyNzJoODBjMTAuMSAwIDE5LjktNC44IDI1LjktMTMuMWwxOTAuNi0xOTAuNmM5LjQtOS40IDkuNC0yNC42IDAtMzMuMXpNNTgxLjc2MiAxOTkuMTI1Ii8+Cjwvc3ZnPg=="), url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC0yNSAyNTYgMjU2KSIgZD0iTDUwNS43IDIyMC43TDMxNS4xIDMwLjNDMzA2LjQgMTEuOSAyOTIuMSAwIDI3MiAwSDE2QzcuMiAwIDAgNy4yIDAgMTZ2MjQwYzAgOC44IDcuMiAxNiAxNiAxNmhBODBWNDgwYzAgOC44IDEyLjYgMTYgMT2IDE2aDgwYzguOCAwIDE2LTcuMiAxNi0xNlYyNzJoODBjMTAuMSAwIDE5LjktNC44IDI1LjktMTMuMWwxOTAuNi0xOTAuNmM5LjQtOS40IDkuNC0yNC42IDAtMzMuMXpNNTgxLjc2MiAxOTkuMTI1Ii8+Cjwvc3ZnPg==");
+    background-repeat: repeat;
+    background-size: 250px, 150px; /* Different sizes for irregularity */
+    background-position: 0 0, 50px 70px; /* Different positions for irregularity */
+    padding-top: var(--spacing-xxl); /* Smaller top/bottom padding for the full-bleed section itself */
+    padding-bottom: var(--spacing-xxl);
+    
+    /* Full-bleed effect */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-bottom-left-radius: var(--border-radius-xxl); /* Rounded bottom left corner */
+    border-bottom-right-radius: var(--border-radius-xxl); /* Rounded bottom right corner */
+}
+
+.agrius-carousel-content-wrapper {
+    background-color: var(--agrius-dark-green-new); /* Dark green background as requested */
+    border-radius: var(--border-radius-xxl); /* Rounded corners */
+    max-width: 1200px; /* Constrain width */
+    margin: 0 auto; /* Center the wrapper */
+    padding: var(--spacing-xxxl) var(--spacing-lg); /* Internal padding for content */
+}
+
+.carousel-inner-container {
+    /* No max-width or margin here anymore, it's handled by agrius-carousel-content-wrapper */
+    padding: 0; /* Remove horizontal padding from here as it's now on the parent */
+}
+
+.agrius-section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--agrius-pure-white); /* Change title color to white for contrast on dark green */
+  margin-bottom: var(--spacing-xxl);
 }
 
 .horizontal-scroll-container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll; /* Make scrollbar visible */
     flex-wrap: nowrap;
     gap: var(--spacing-xl);
     padding-bottom: var(--spacing-lg);
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    scroll-snap-type: x mandatory; /* Enable scroll snapping */
+    scroll-padding-left: var(--spacing-lg); /* Padding for scroll snap */
 }
 
 .agrius-carousel-item-wrapper {
-    flex: 0 0 350px; /* Give each item a fixed width so they don't shrink */
-    height: 400px; /* Fixed height for consistent card appearance */
-    text-decoration: none; /* Remove underline from link wrapper */
-    color: inherit; /* Inherit text color */
+    flex: 0 0 350px;
+    height: 400px;
+    text-decoration: none;
+    color: inherit;
     display: block; /* Ensure the link wrapper behaves like a block */
+    scroll-snap-align: start; /* Snap to the start of each item */
+    transition: all var(--transition-speed-normal) var(--transition-ease); /* Ensure card has transition */
 }
 
 /* Redesigned Carousel Card */
@@ -33,7 +67,7 @@
     border: none;
     border-radius: var(--border-radius-xxl); /* Larger radius */
     box-shadow: var(--shadow-md); /* Softer base shadow */
-    transition: all var(--transition-speed-normal) var(--transition-ease);
+    transition: all var(--transition-speed-normal) var(--transition-ease); /* Card's own transition */
     background-color: var(--agrius-cream-off-white);
     height: 100%;
     display: flex;
@@ -41,7 +75,7 @@
     overflow: hidden; /* Important for border-radius on image */
 }
 
-.agrius-carousel-item-wrapper:hover .agrius-dashboard-carousel-card {
+.agrius-dashboard-carousel-card:hover { /* Apply hover directly to card */
     transform: translateY(-8px); /* Lift effect */
     box-shadow: var(--shadow-xl); /* More pronounced shadow */
 }

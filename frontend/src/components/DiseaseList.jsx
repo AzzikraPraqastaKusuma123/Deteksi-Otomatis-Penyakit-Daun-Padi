@@ -125,47 +125,25 @@ function DiseaseList() {
             const detailPath = `/diseases/${disease.id}`; // Non-admin detail path
 
             return (
-              <div className="agrius-disease-card" key={disease.id}>
-                <img 
-                  src={disease.image_url_example ? `http://localhost:5000${disease.image_url_example}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
-                  alt={disease.disease_name} 
-                  className="agrius-disease-card-img"
-                />
+              <div 
+                className="agrius-disease-card" 
+                key={disease.id}
+              >
+                <div className="agrius-disease-image-wrapper">
+                  <img 
+                    src={disease.image_url_example ? `http://localhost:5000${disease.image_url_example}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
+                    alt={disease.disease_name} 
+                    className="agrius-disease-card-img"
+                  />
+                  <Link to={detailPath} className="agrius-image-external-link-btn">
+                    <i className="fas fa-external-link"></i>
+                  </Link>
+                  <div className="agrius-card-actions">
+                    <Link to={detailPath} className="agrius-btn-detail">{t('diseaseList.viewDetails')}</Link>
+                  </div>
+                </div>
                 <div className="agrius-disease-card-body">
                   <h5 className="agrius-card-title">{disease.disease_name}</h5>
-                  
-                  {(() => {
-                    const explanation = disease.gemini_informasi_detail || disease.description;
-                    const solution = disease.gemini_solusi_penyembuhan;
-
-                    const truncate = (text, length) => (text && text.length > length) ? text.substring(0, length) + '...' : text;
-                    
-                    const truncatedExplanation = truncate(explanation, 100);
-
-                    if (!truncatedExplanation && !solution) {
-                      return <p className="agrius-card-text">{t('diseaseList.noDescription', 'No description available.')}</p>;
-                    }
-
-                    return (
-                      <>
-                        {truncatedExplanation && (
-                          <p className="agrius-card-text">{truncatedExplanation}</p>
-                        )}
-                        {solution && (
-                          <div className="agrius-gemini-summary mt-2">
-                            <p className="agrius-gemini-info-text">
-                              <strong>{t('diseaseList.aiSolution', 'Solusi AI')}:</strong> {truncate(solution, 80)}
-                            </p>
-                          </div>
-                        )}
-                      </>
-                    );
-                  })()}
-                  
-                  <div className="agrius-card-actions">
-                    <Link to={detailPath} className="agrius-btn-secondary agrius-btn-view-details">{t('diseaseList.viewDetails')}</Link>
-                    {/* Admin actions not visible in user context */}
-                  </div>
                 </div>
               </div>
             );
