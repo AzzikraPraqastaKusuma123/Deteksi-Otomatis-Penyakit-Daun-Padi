@@ -125,27 +125,19 @@ function DiseaseList() {
             const detailPath = `/diseases/${disease.id}`; // Non-admin detail path
 
             return (
-              <div 
-                className="agrius-disease-card" 
-                key={disease.id}
-              >
+              <Link to={detailPath} key={disease.id} className="agrius-disease-card">
                 <div className="agrius-disease-image-wrapper">
                   <img 
                     src={disease.image_url_example ? `http://localhost:5000${disease.image_url_example}` : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='} 
                     alt={disease.disease_name} 
                     className="agrius-disease-card-img"
                   />
-                  <Link to={detailPath} className="agrius-image-external-link-btn">
-                    <i className="fas fa-external-link"></i>
-                  </Link>
-                  <div className="agrius-card-actions">
-                    <Link to={detailPath} className="agrius-btn-detail">{t('diseaseList.viewDetails')}</Link>
-                  </div>
                 </div>
                 <div className="agrius-disease-card-body">
                   <h5 className="agrius-card-title">{disease.disease_name}</h5>
+                  {/* The detail button is removed for a whole-card link UX */}
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -3,84 +3,102 @@
 /* === Grid Container === */
 .agrius-disease-cards-flex {
   display: grid;
-  /* Grid responsif: 4 kolom di desktop, 2 di tablet, 1 di seluler */
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--spacing-xxl); /* Jarak konsisten antar kartu */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Larger base size for cards */
+  gap: var(--spacing-xxl);
 }
 
-/* === New Circular Image + Title Card Style === */
+/* === New Modern Card Style === */
 .agrius-disease-card {
-  background-color: transparent; /* Tidak ada background card */
-  box-shadow: none; /* Tidak ada shadow card */
-  border-radius: 0; /* Reset border radius card */
+  background-color: var(--agrius-pure-white); /* White background */
+  border-radius: var(--border-radius-xl); /* Consistent rounded corners */
+  box-shadow: var(--shadow-lg); /* Soft, modern shadow */
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Pusatkan semua konten secara horizontal */
-  text-align: center;
+  text-align: left; /* Align text to the left for a cleaner look */
   text-decoration: none;
   color: var(--color-text-dark);
-  transition: transform 0.25s ease; /* Hanya transisi untuk lift */
-  border: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden; /* Important to contain the image corners */
+  border: 1px solid var(--color-border-light);
 }
 
-/* Interaksi Hover pada Card (hanya lift) */
+/* Hover effect: lift and deeper shadow */
 .agrius-disease-card:hover {
-  transform: translateY(-6px); /* Efek naik sedikit */
-  box-shadow: none; /* Pastikan tidak ada shadow pada hover card */
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
 }
 
-/* 1. Gambar (Bulat Sempurna) */
-.agrius-disease-card-img {
-  width: 160px; /* Ukuran yang sama untuk lebar dan tinggi */
-  height: 160px;
-  object-fit: cover;
-  border-radius: 50%; /* Membuat gambar bulat sempurna */
-  margin-bottom: var(--spacing-md); /* Spasi antara gambar dan judul */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow pada gambar itu sendiri */
+/* Remove the unnecessary wrapper */
+.agrius-disease-image-wrapper {
+  position: relative;
 }
+
+/* 1. Gambar (Kotak dengan Sudut Tumpul) */
+.agrius-disease-card-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Makes the image a perfect square */
+  object-fit: cover;
+  border-radius: 0; /* The container handles the rounding */
+  margin-bottom: 0; /* No margin needed as it's part of the card flow */
+  box-shadow: none; /* Shadow is now on the card itself */
+}
+
+/* Link overlay on image */
+.agrius-image-external-link-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  opacity: 0; /* Hidden by default */
+}
+
+.agrius-disease-card:hover .agrius-image-external-link-btn {
+  opacity: 1; /* Show on hover */
+}
+
+.agrius-image-external-link-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 
 /* Wrapper untuk konten teks (Judul & Tombol) */
 .agrius-disease-card-body {
-  padding: 0;
+  padding: var(--spacing-lg); /* Add padding inside the card */
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Pastikan konten teks terpusat */
+  justify-content: space-between; /* Pushes button to the bottom */
 }
 
 /* 2. Judul Penyakit */
 .agrius-disease-card-body .agrius-card-title {
-  font-size: 1.1rem;
-  font-weight: var(--font-weight-semibold); /* Semi-bold */
-  margin: 0; /* Hilangkan margin atas/bawah yang tidak perlu */
+  font-size: 1.15rem;
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-md) 0; /* Space below the title */
 }
 
-/* 3. Tombol Aksi */
-.agrius-btn-detail {
-  display: inline-block;
-  width: auto; /* Lebar mengikuti isi */
-  padding: 8px 24px;
-  margin-top: var(--spacing-lg); /* Jarak dari judul ke tombol */
-  
-  /* Bentuk rounded penuh (pill) */
-  border-radius: 9999px;
-  
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  /* Warna hijau lembut */
-  background-color: #e8f5e9;
-  color: #1b5e20;
-  border: none;
+/* 3. Tombol Aksi - Hide the old one */
+.agrius-card-actions {
+  display: none;
 }
 
-/* Hover pada tombol */
-.agrius-btn-detail:hover {
-  background-color: #dceddd; /* Warna hijau sedikit lebih gelap */
+/* New detail link styled differently */
+.agrius-disease-card-body .agrius-btn-detail {
+  /* This is now a text link at the bottom of the card */
+  display: none; /* We will make the whole card clickable */
 }
+
+/* We will wrap the card content with Link instead */
 
 /* ==== ADMIN TABLE STYLES (Keep them for admin pages) ==== */
 /* (Styles for admin table are kept below to not interfere) */
