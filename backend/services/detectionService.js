@@ -5,42 +5,36 @@ import path from 'path';
 import db from "../config/db.js";
 import axios from 'axios';
 import 'dotenv/config';
+import { getDiseaseFallbackData, getResourceFallbackData } from './fallbackData.js';
 
 const modelPath = path.resolve(process.cwd(), '../model/best_resnet50v2_latest.onnx');
 
 const labels = [
-  'Bacterial Leaf Blight',
-  'Brown Spot',
-  'Healthy Rice Leaf',
-  'Leaf Blast',
-  'Leaf Scald',
-  'Narrow Brown Leaf Spot',
-  'Rice Hispa',
-  'Sheath Blight',
-  'Grass'
+  'Bacterial Leaf Blight',
+  'Brown Spot',
+  'Healthy Rice Leaf',
+  'Leaf Blast',
+  'Leaf Scald',
+  'Narrow Brown Leaf Spot',
+  'Rice Hispa',
+  'Sheath Blight',
+  'Grass'
 ];
 
 let session = null;
 
 export async function loadModel() {
-  try {
-    console.log("🧠 Loading ONNX model:", modelPath);
-    session = await InferenceSession.create(modelPath);
-    console.log('✅ Model loaded successfully.');
-  } catch (error) {
-    console.error('❌ Failed to load ONNX model:', error);
-    throw error;
-  }
+  try {
+    console.log("🧠 Loading ONNX model:", modelPath);
+    session = await InferenceSession.create(modelPath);
+    console.log('✅ Model loaded successfully.');
+  } catch (error) {
+    console.error('❌ Failed to load ONNX model:', error);
+    throw error;
+  }
 }
 
 export async function getGenerativeInfo(diseaseName, lang = 'id') {
-  if (!process.env.GEMINI_API_KEY) {
-    console.warn("GEMINI_API_KEY not found. Skipping generative info.");
-    return null;
-  }
-
-  const languageInstruction = lang === 'id' ? 'dalam Bahasa Indonesia' : 'in English';
-
   if (diseaseName === 'Healthy Rice Leaf') {
     if (lang === 'id') {
       return {
@@ -57,6 +51,12 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
     }
   }
 
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn("⚠️ GEMINI_API_KEY not found. Using fallback data.");
+    return getDiseaseFallbackData(diseaseName, lang);
+  }
+
+  const languageInstruction = lang === 'id' ? 'dalam Bahasa Indonesia' : 'in English';
   const prompt = `
     Anda adalah seorang ahli pertanian dan pakar penyakit tanaman padi. Berikan penjelasan yang ringkas, langsung pada intinya, dan mudah dipahami oleh petani. Pastikan informasi yang diberikan komprehensif dan selalu terisi dengan detail yang relevan.
 
@@ -72,46 +72,38 @@ export async function getGenerativeInfo(diseaseName, lang = 'id') {
     }
   `;
 
+  const modelsToTry = ['gemini-2.5-flash'];
+  
   try {
-    const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          response_mime_type: "application/json",
-        },
+    for (const model of modelsToTry) {
+      console.log(`🚀 Trying to call Gemini API with model: ${model}`);
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        {
+          contents: [{ parts: [{ text: prompt }] }],
+        }
+      );
+
+      console.log(`✅ Successfully received response from Gemini API using model: ${model}.`);
+      let jsonString = response.data.candidates[0].content.parts[0].text;
+      if (jsonString.startsWith("```json")) {
+        jsonString = jsonString.slice(7, -3).trim();
       }
-    );
-
-    console.log("✅ Successfully received response from Gemini API.");
-    console.log("Raw Gemini response data:", JSON.stringify(response.data, null, 2)); // Log raw response
-
-    try {
-      const jsonString = response.data.candidates[0].content.parts[0].text;
       const parsedJson = JSON.parse(jsonString);
-      console.log("Parsed Gemini JSON:", JSON.stringify(parsedJson, null, 2)); // Log parsed JSON
-      return parsedJson;
-    } catch (parseError) {
-      console.error("❌ Failed to parse JSON response from Gemini:", parseError);
-      return { 
-        error: true, 
-        message: "Failed to parse AI response." 
-      };
+      return { ...parsedJson, isFallback: false };
     }
+    // This part should not be reached if one of the models succeeds
+    throw new Error("All models in the loop failed or parsing failed.");
   } catch (error) {
-    console.error("❌ Error calling Gemini API:", error.response ? error.response.data : error.message);
-    // Return a structured error object instead of null
-    return { 
-      error: true, 
-      message: error.response ? error.response.data : error.message 
-    };
+    console.warn(`🛑 Gemini API call failed. Reason: ${error.message}. Using fallback data.`);
+    return getDiseaseFallbackData(diseaseName, lang);
   }
 }
 
 export async function getGenerativeAgriculturalResourceInfo(resourceName, resourceDescription, lang = 'id') {
   if (!process.env.GEMINI_API_KEY) {
-    console.warn("GEMINI_API_KEY not found. Skipping generative info for agricultural resource.");
-    return null;
+    console.warn("⚠️ GEMINI_API_KEY not found. Using fallback data for agricultural resource.");
+    return getResourceFallbackData(resourceName, lang);
   }
 
   const languageInstruction = lang === 'id' ? 'dalam Bahasa Indonesia' : 'in English';
@@ -136,41 +128,32 @@ export async function getGenerativeAgriculturalResourceInfo(resourceName, resour
     }
   `;
 
+  const modelsToTry = ['gemini-2.5-flash'];
+  
   try {
-    const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          response_mime_type: "application/json",
-        },
+    for (const model of modelsToTry) {
+      console.log(`🚀 Trying to call Gemini API for resource info with model: ${model}`);
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        {
+          contents: [{ parts: [{ text: prompt }] }],
+        }
+      );
+
+      console.log(`✅ Successfully received response from Gemini API for resource info using model: ${model}.`);
+      let jsonString = response.data.candidates[0].content.parts[0].text;
+      if (jsonString.startsWith("```json")) {
+        jsonString = jsonString.slice(7, -3).trim();
       }
-    );
-
-    console.log("✅ Successfully received response from Gemini API for agricultural resource.");
-    // console.log("Raw Gemini resource response data:", JSON.stringify(response.data, null, 2)); // Log raw response
-
-    try {
-      const jsonString = response.data.candidates[0].content.parts[0].text;
       const parsedJson = JSON.parse(jsonString);
-      // console.log("Parsed Gemini Resource JSON:", JSON.stringify(parsedJson, null, 2)); // Log parsed JSON
-      return parsedJson;
-    } catch (parseError) {
-      console.error("❌ Failed to parse JSON response from Gemini for agricultural resource:", parseError);
-      return { 
-        error: true, 
-        message: "Failed to parse AI response for agricultural resource." 
-      };
+      return { ...parsedJson, isFallback: false };
     }
+    throw new Error("All models for resource info failed.");
   } catch (error) {
-    console.error("❌ Error calling Gemini API for agricultural resource:", error.response ? error.response.data : error.message);
-    return { 
-      error: true, 
-      message: error.response ? error.response.data : error.message 
-    };
+    console.warn(`🛑 Gemini API call for resource info failed. Reason: ${error.message}. Using fallback data.`);
+    return getResourceFallbackData(resourceName, lang);
   }
 }
-
 function softmax(arr) {
   const max = Math.max(...arr);
   const exp = arr.map(x => Math.exp(x - max));

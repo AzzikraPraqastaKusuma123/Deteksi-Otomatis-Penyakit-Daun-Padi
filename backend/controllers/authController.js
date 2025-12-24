@@ -12,7 +12,12 @@ export const register = (req, res) => {
 
   const query = "INSERT INTO users (username, email, password, full_name, location) VALUES (?, ?, ?, ?, ?)";
   db.query(query, [username, email, hashedPassword, full_name, location], (err) => {
-    if (err) return res.status(500).json({ message: "Registration failed", error: err });
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ message: "Username or email already exists." });
+      }
+      return res.status(500).json({ message: "Registration failed due to a server error.", error: err });
+    }
     res.status(201).json({ message: "User registered successfully" });
   });
 };

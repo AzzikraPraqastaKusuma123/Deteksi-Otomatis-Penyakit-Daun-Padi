@@ -29,7 +29,9 @@
     "registerLink": "Register",
     "alert": {
       "success": "Login successful!",
-      "invalid": "Invalid credentials",
+      "userNotFound": "User not found.",
+      "invalidPassword": "Invalid password.",
+      "failed": "Login failed. Please try again.",
       "serverError": "Failed to connect to the server"
     }
   },
@@ -49,6 +51,7 @@
     "alert": {
       "success": "Registration successful!",
       "failed": "Registration failed",
+      "userExists": "Username or email already exists.",
       "serverError": "Failed to connect to the server"
     }
   },
@@ -73,6 +76,7 @@
     "featureProfile": "Profile Management",
     "featureProfileDesc": "Manage your account information, update personal details, and change your password easily.",
     "diseaseLibrarySectionTitle": "Disease Library",
+    "diseaseLibrarySectionDescription": "A collection of comprehensive rice disease information with visual characteristics and brief explanations to help users identify diseases early.",
     "loading": "Loading...",
     "noImage": "No Image",
     "viewDetails": "View Details",
@@ -86,6 +90,7 @@
     "imageRequiredError": "Please provide an image first.",
     "sessionExpiredError": "Your session has expired. Please log in again.",
     "analysisFailedError": "Failed to analyze the image. Please try again.",
+    "analysisSuccess": "Image analysis complete!",
     "pageTitle": "Paddy Leaf Disease Detection",
     "pageSubtitle": "Upload an image or use your camera to detect diseases in rice leaves.",
     "uploadImageButton": "Upload Image",

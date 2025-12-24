@@ -23,8 +23,12 @@ const Register = () => {
       navigate('/login');
     } catch (error) {
       console.error('Error during registration:', error);
-      const errorMessage = error.response?.data?.message || t('register.alert.failed');
-      toast.error(errorMessage);
+      if (error.response && error.response.status === 409) {
+        toast.error(t('register.alert.userExists'));
+      } else {
+        const errorMessage = error.response?.data?.message || t('register.alert.failed');
+        toast.error(errorMessage);
+      }
     }
   };
 

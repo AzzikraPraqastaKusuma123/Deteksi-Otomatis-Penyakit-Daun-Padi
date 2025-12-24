@@ -43,7 +43,15 @@ const Login = ({ setLoggedIn, setUserRole }) => {
     } catch (error) {
       console.error('Error during login:', error);
       if (error.response) {
-        toast.error(error.response.data.message || t('login.alert.invalid'));
+        let errorMessage;
+        if (error.response.status === 404) {
+          errorMessage = t('login.alert.userNotFound');
+        } else if (error.response.status === 401) {
+          errorMessage = t('login.alert.invalidPassword');
+        } else {
+          errorMessage = t('login.alert.failed');
+        }
+        toast.error(errorMessage);
       } else {
         toast.error(t('login.alert.serverError'));
       }

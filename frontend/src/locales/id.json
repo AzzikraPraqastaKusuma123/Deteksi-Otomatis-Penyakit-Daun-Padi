@@ -29,7 +29,9 @@
     "registerLink": "Daftar",
     "alert": {
       "success": "Login berhasil!",
-      "invalid": "Kredensial tidak valid",
+      "userNotFound": "Pengguna tidak ditemukan.",
+      "invalidPassword": "Kata sandi salah.",
+      "failed": "Login gagal. Silakan coba lagi.",
       "serverError": "Gagal terhubung ke server"
     }
   },
@@ -49,6 +51,7 @@
     "alert": {
       "success": "Registrasi berhasil!",
       "failed": "Registrasi gagal",
+      "userExists": "Nama pengguna atau email sudah ada.",
       "serverError": "Gagal terhubung ke server"
     }
   },
@@ -73,6 +76,7 @@
     "featureProfile": "Manajemen Profil",
     "featureProfileDesc": "Kelola informasi akun Anda, perbarui detail pribadi, dan ubah kata sandi dengan mudah.",
     "diseaseLibrarySectionTitle": "Pustaka Penyakit",
+    "diseaseLibrarySectionDescription": "Kumpulan informasi penyakit padi lengkap dengan ciri-ciri visual dan penjelasan singkat untuk membantu pengguna mengenali penyakit sejak dini.",
     "loading": "Memuat...",
     "noImage": "Tidak Ada Gambar",
     "viewDetails": "Lihat Detail",
@@ -98,6 +102,7 @@
     "imageRequiredError": "Harap berikan gambar terlebih dahulu.",
     "sessionExpiredError": "Sesi Anda telah berakhir. Harap masuk kembali.",
     "analysisFailedError": "Gagal menganalisis gambar. Silakan coba lagi.",
+    "analysisSuccess": "Analisis gambar selesai!",
     "pageTitle": "Deteksi Penyakit Daun Padi",
     "pageSubtitle": "Unggah gambar atau gunakan kamera Anda untuk mendeteksi penyakit pada daun padi.",
     "uploadImageButton": "Unggah Gambar",
