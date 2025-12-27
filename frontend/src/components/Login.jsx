@@ -5,33 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import './Auth.css';
 import { loginUser } from '../services/api';
+import { FiUser, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Login = ({ setLoggedIn, setUserRole }) => {
   const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await loginUser({ username, password });
       const data = response.data;
-
       if (data.token) {
-        // Simpan token dan data user ke localStorage
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-
-        // Update state global di App.jsx
         setLoggedIn(true);
         if (setUserRole) setUserRole(data.user.role);
-
         toast.success(t('login.alert.success'));
-
-        // Arahkan user sesuai perannya
         if (data.user.role === 'admin') {
           navigate('/admin');
         } else {
@@ -63,67 +56,54 @@ const Login = ({ setLoggedIn, setUserRole }) => {
   };
 
   return (
-    <div className="agrius-auth-container">
-      {/* Bagian kiri dengan teks promosi */}
-      <div className="agrius-auth-image-section">
-        <div className="agrius-auth-image-content">
-          <h1>{t('login.welcome')}</h1>
-          <p>{t('login.promo')}</p>
+    <div className="agrius-auth-page">
+      <div className="agrius-auth-card">
+        <div className="agrius-auth-logo">
+          <img src="/logo.png" alt="PadiGuard Logo" />
         </div>
-      </div>
+        
+        <div className="agrius-auth-header">
+          <h2>{t('login.title')}</h2>
+          <p>{t('login.subtitle')}</p>
+        </div>
 
-      {/* Bagian kanan: form login */}
-      <div className="agrius-auth-form-section">
-        <div className="agrius-auth-card">
-          <div className="agrius-auth-header">
-            <h1>{t('login.title')}</h1>
-            <p>{t('login.subtitle')}</p>
+        <form onSubmit={handleLogin} className="agrius-auth-form">
+          <div className="agrius-input-group">
+            <FiUser className="agrius-input-icon" />
+            <input
+              type="text"
+              className="agrius-form-control"
+              placeholder={t('login.username')}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
 
-          <form onSubmit={handleLogin}>
-            {/* Input Username */}
-            <div className="agrius-input-group">
-              <span className="agrius-input-group-text">
-                <i className="fas fa-user"></i>
-              </span>
-              <input
-                type="text"
-                className="agrius-form-control"
-                placeholder={t('login.username')}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Input Password */}
-            <div className="agrius-input-group">
-              <span className="agrius-input-group-text">
-                <i className="fas fa-lock"></i>
-              </span>
-              <input
-                type={showPassword ? 'text' : 'password'} // Dynamic type
-                className="agrius-form-control"
-                placeholder={t('login.password')}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <span className="agrius-password-toggle-icon" onClick={togglePasswordVisibility}>
-                <i className={showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
-              </span>
-            </div>
-
-            {/* Tombol login */}
-            <button type="submit" className="agrius-btn-primary agrius-auth-btn">{t('login.button')}</button>
-          </form>
-
-          {/* Link ke register */}
-          <div className="agrius-auth-link">
-            <p>
-              {t('login.noAccount')} <Link to="/register" className="agrius-link">{t('login.registerLink')}</Link>
-            </p>
+          <div className="agrius-input-group">
+            <FiLock className="agrius-input-icon" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="agrius-form-control"
+              placeholder={t('login.password')}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="button" className="agrius-password-toggle-btn" onClick={togglePasswordVisibility}>
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
           </div>
+
+          <button type="submit" className="agrius-btn-primary agrius-auth-btn">
+            {t('login.button')}
+          </button>
+        </form>
+
+        <div className="agrius-auth-footer">
+          <p>
+            {t('login.noAccount')} <Link to="/register">{t('login.registerLink')}</Link>
+          </p>
         </div>
       </div>
     </div>

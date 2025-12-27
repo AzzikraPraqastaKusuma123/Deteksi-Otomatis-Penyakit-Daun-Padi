@@ -1,373 +1,313 @@
+/* frontend/src/components/DetectionPage.css */
 @import '../variables.css';
 
-.agrius-detection-page {
-  font-family: var(--font-family-inter);
+/* Main Container & Background */
+.agrius-detection-container {
   background-color: var(--color-secondary-bg); /* Cream Off-White */
+  padding: var(--spacing-xxxl) var(--spacing-lg);
   min-height: 100vh;
-  padding: var(--spacing-lg);
-  color: var(--color-text-dark);
-}
-
-.agrius-detection-main-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns */
-  gap: var(--spacing-xxl);
   width: 100%;
-  max-width: 1200px; /* Max width for content */
-  margin: var(--spacing-xxl) auto; /* Center the layout */
-  background-color: var(--agrius-pure-white); /* Pure White for main layout background */
-  padding: var(--spacing-xxl);
-  border-radius: var(--border-radius-xxl);
-  box-shadow: var(--shadow-xl);
-  min-height: 700px;
-}
-
-.agrius-detection-input-section {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.agrius-detection-results-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: var(--spacing-lg);
-  background-color: var(--agrius-cream-off-white); /* Light background for results */
-  border-radius: var(--border-radius-xl);
-  min-height: 500px;
+/* Two-Column Grid Layout */
+.agrius-detection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Left column smaller than right */
+  gap: var(--spacing-xxxxl);
+  width: 100%;
+  max-width: 1300px;
+  align-items: flex-start; /* Align items to the top */
 }
 
-.agrius-detection-controls {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+/* Left Column: Text Content */
+.agrius-detection-text-content {
+  position: sticky;
+  top: 140px; /* Adjust based on navbar height */
 }
 
-.agrius-detection-controls h2 {
-  font-size: 2rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-dark);
-  margin-bottom: var(--spacing-xs);
-}
-
-.agrius-detection-controls > p {
-  color: var(--color-text-secondary);
+.agrius-label-tag {
+  display: inline-block;
+  background-color: var(--agrius-soft-lime-pastel-yellow);
+  color: var(--agrius-forest-green-dark);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 9999px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
   margin-bottom: var(--spacing-lg);
 }
 
+.agrius-detection-text-content h1 {
+  font-size: 3.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-lg);
+}
+
+.agrius-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 450px;
+}
+
+/* Right Column: Main Interactive Panel */
+.agrius-detection-main-panel {
+  width: 100%;
+}
+
+/* General Card Style */
+.agrius-card {
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xxl); /* 24px */
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-xl);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+
+/* Uploader & Loading Card Specifics */
+.agrius-uploader-card, .agrius-loading-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.agrius-loading-card {
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+}
+
+/* Mode Switcher (Upload/Camera) */
 .agrius-mode-switcher {
   display: flex;
-  margin-bottom: var(--spacing-lg);
   border-radius: var(--border-radius-md);
   overflow: hidden;
-  border: 1px solid var(--agrius-neutral-gray-1);
+  background-color: var(--agrius-cream-off-white);
+  padding: var(--spacing-xxs);
 }
 
 .agrius-mode-switcher button {
   flex: 1;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
   font-size: 1rem;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   background: none;
   border: none;
   cursor: pointer;
   transition: all var(--transition-speed-normal) var(--transition-ease);
-  color: var(--agrius-very-dark-gray);
+  color: var(--color-text-secondary);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  border-radius: var(--border-radius-md);
+}
+
+.agrius-mode-switcher button.active {
+  background-color: var(--agrius-pure-white);
+  color: var(--color-text-dark);
+  box-shadow: var(--shadow-md);
+}
+
+/* New Dropzone Style */
+.agrius-dropzone {
+  border: 2px dashed #D1D5DB;
+  background-color: var(--agrius-cream-off-white);
+  border-radius: var(--border-radius-lg); /* 12px */
+  padding: var(--spacing-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative; /* For preview */
+}
+
+.agrius-dropzone.active {
+  border-color: var(--color-accent);
+  background-color: var(--agrius-soft-lime-pastel-yellow);
+}
+.agrius-dropzone:hover {
+  border-color: var(--color-text-dark);
+}
+
+.agrius-dropzone-instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+}
+
+.agrius-dropzone-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--agrius-pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.agrius-dropzone-instructions p {
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  margin: 0;
+}
+.agrius-dropzone-instructions em {
+  font-size: 0.9rem;
+}
+
+/* Image Preview inside Dropzone */
+.agrius-image-preview-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: var(--spacing-xs);
+}
+
+.agrius-image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.agrius-clear-btn {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-speed-fast) var(--transition-ease);
+  z-index: 10;
+}
+.agrius-clear-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Camera View */
+.agrius-camera-container {
+  position: relative;
+  background: #000;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  min-height: 250px;
+}
+.agrius-camera-feed {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.agrius-camera-controls {
+  position: absolute;
+  bottom: var(--spacing-md);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+.agrius-camera-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+}
+.agrius-camera-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pill-shaped Buttons */
+.agrius-btn-primary, .agrius-btn-secondary {
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
 }
 
-.agrius-mode-switcher button.active {
-  background-color: var(--color-primary-bg); /* Forest Green Dark */
-  color: var(--color-text-primary); /* Pure White */
+.agrius-btn-primary {
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-primary);
 }
-
-.agrius-mode-switcher button:not(.active):hover {
-  background-color: var(--agrius-cream-off-white);
-}
-
-/* Dropzone Styling */
-.agrius-dropzone {
-  border: 2px dashed var(--agrius-neutral-gray-1);
-  border-radius: var(--border-radius-xl);
-  padding: var(--spacing-xxl);
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  position: relative;
-  min-height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--agrius-cream-off-white);
-}
-
-.agrius-dropzone.active {
-  border-color: var(--color-accent);
-  background-color: rgba(255, 251, 239, 0.3);
-}
-
-.agrius-image-preview-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.agrius-image-preview {
-  max-width: 100%;
-  max-height: 250px;
-  border-radius: var(--border-radius-md);
-  object-fit: contain;
-  box-shadow: var(--shadow-md);
-}
-
-.agrius-clear-btn {
-  position: absolute;
-  top: var(--spacing-xs);
-  right: var(--spacing-xs);
-  background: var(--color-primary-bg); /* Forest Green Dark */
-  color: var(--color-text-primary); /* Pure White */
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  font-weight: var(--font-weight-bold);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-speed-fast) var(--transition-ease);
-}
-
-.agrius-clear-btn:hover {
-  background-color: var(--agrius-neutral-gray-1);
-  transform: scale(1.1);
-}
-
-.agrius-dropzone-text {
-  color: var(--color-text-secondary);
-}
-
-.agrius-dropzone-text svg {
-  color: var(--agrius-very-dark-gray);
-  margin-bottom: var(--spacing-sm);
-}
-
-.agrius-dropzone-text p {
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-xs);
-}
-
-.agrius-dropzone-text em {
-  font-size: 0.9rem;
-  color: var(--agrius-neutral-gray-2);
-}
-
-/* Camera Styling */
-.agrius-camera-container {
-  position: relative;
-  background: var(--color-primary-bg);
-  border-radius: var(--border-radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.agrius-camera-feed {
-  width: 100%;
-  display: block;
-  border-radius: var(--border-radius-xl);
-}
-
-.agrius-camera-controls {
-  position: absolute;
-  bottom: var(--spacing-lg);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-md);
-  z-index: 10;
-}
-
-.agrius-btn-capture, .agrius-btn-switch-camera {
-  background-color: var(--color-accent); /* Soft Lime */
-  color: var(--agrius-very-dark-gray);
-  border: 3px solid var(--agrius-pure-white);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: var(--shadow-md);
-}
-
-.agrius-btn-capture:hover, .agrius-btn-switch-camera:hover {
-  background-color: var(--agrius-cream-off-white);
-  transform: scale(1.05);
-}
-
-/* Action Buttons Area */
-.agrius-action-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
-}
-
-.agrius-btn-analyze {
-  /* Inherits from agrius-btn-primary in App.css */
-  width: 100%;
-  padding: var(--spacing-md);
-  font-size: 1.1rem;
-  font-weight: var(--font-weight-semibold);
-}
-
-.agrius-error-message {
-  color: #e74c3c; /* Red for errors */
-  background-color: rgba(231, 76, 60, 0.1);
-  border: 1px solid #e74c3c;
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-sm);
-  margin-top: var(--spacing-md);
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-/* Result Display */
-.agrius-result-card {
-  width: 100%;
-  background-color: var(--agrius-pure-white); /* Pure White */
-  padding: var(--spacing-xxl);
-  border-radius: var(--border-radius-xl);
+.agrius-btn-primary:hover {
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
-  margin-top: 0; /* Already handled by layout */
-  text-align: left;
+}
+.agrius-btn-primary:disabled {
+  background-color: var(--agrius-neutral-gray-1);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.agrius-result-card h3 {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-dark);
-  margin-bottom: var(--spacing-md);
-  text-align: center;
-}
-
-.agrius-result-header h2 {
-  text-transform: capitalize;
-  font-size: 2.2rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary-bg); /* Forest Green Dark */
-  text-align: center;
-  margin-bottom: var(--spacing-lg);
-}
-
-.agrius-confidence {
-  margin-bottom: var(--spacing-xl);
-}
-
-.agrius-confidence p {
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: var(--spacing-xs);
-}
-
-.agrius-confidence-bar-container {
+.agrius-btn-secondary {
   background-color: var(--agrius-cream-off-white);
-  border-radius: var(--border-radius-md);
-  height: 20px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(4, 13, 12, 0.1);
-}
-
-.agrius-confidence-bar {
-  background-color: var(--color-accent); /* Soft Lime */
-  height: 100%;
-  border-radius: var(--border-radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: var(--spacing-xs);
   color: var(--color-text-dark);
-  font-weight: var(--font-weight-medium);
-  font-size: 0.9rem;
-  transition: width 0.5s ease-out;
+}
+.agrius-btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
-.agrius-result-details {
-  margin-top: var(--spacing-xl);
+.agrius-action-buttons {
+  margin-top: var(--spacing-md);
 }
-
-.agrius-result-details h4 {
-  font-size: 1.3rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-dark);
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-sm);
-  border-bottom: 2px solid var(--color-accent); /* Soft Lime underline */
-  padding-bottom: var(--spacing-xs);
-}
-
-.agrius-result-details p {
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-  font-size: 1rem;
-}
-
-.agrius-btn-view-result {
-  /* Inherits from agrius-btn-primary in App.css */
+.agrius-action-buttons .agrius-btn-primary {
   width: 100%;
-  padding: var(--spacing-md);
-  font-size: 1.1rem;
-  font-weight: var(--font-weight-semibold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.agrius-btn-view-result svg {
-  color: var(--agrius-dark-green-new); /* Apply dark green to icon */
-}
 
-.agrius-no-results {
-  text-align: center;
-  color: var(--color-text-secondary);
-  margin-top: var(--spacing-xxl);
-  font-size: 1.1rem;
-  padding: var(--spacing-xl);
-  background-color: var(--agrius-cream-off-white);
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-sm);
-}
-
-.agrius-loading-spinner {
-  text-align: center;
-  color: var(--color-text-secondary);
-  margin-top: var(--spacing-xxl);
-  padding: var(--spacing-xl);
-  background-color: var(--agrius-cream-off-white);
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-sm);
-}
-
+/* Spinner */
 .agrius-spinner {
-  border: 4px solid rgba(4, 13, 12, 0.1); /* Forest Green Dark transparent */
-  border-top: 4px solid var(--color-primary-bg); /* Forest Green Dark */
+  border: 4px solid var(--agrius-cream-off-white);
+  border-top: 4px solid var(--color-primary-bg);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   animation: spin 1s linear infinite;
-  margin: var(--spacing-md) auto;
 }
 
 @keyframes spin {
@@ -375,180 +315,120 @@
   100% { transform: rotate(360deg); }
 }
 
+
+/* Result Card */
+.agrius-result-card {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* Image left, content right */
+  gap: var(--spacing-xl);
+  align-items: center;
+}
+
+.agrius-result-image-wrapper {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--border-radius-xl); /* 16px */
+  overflow: hidden;
+}
+
+.agrius-result-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agrius-result-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.agrius-result-tag {
+  background-color: var(--agrius-soft-lime-pastel-yellow);
+  color: var(--agrius-forest-green-dark);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-weight: var(--font-weight-bold);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.agrius-result-header h2 {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.agrius-confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: var(--color-accent);
+  color: var(--color-text-dark);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-weight: var(--font-weight-bold);
+}
+
+.agrius-result-summary p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.agrius-result-content .agrius-btn-primary,
+.agrius-result-content .agrius-btn-secondary {
+  margin-top: var(--spacing-sm);
+  width: 100%;
+}
+
+
 /* Responsive Design */
 @media (max-width: 992px) {
-  .agrius-detection-main-layout {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
-    gap: var(--spacing-xl);
-    padding: var(--spacing-lg);
-    min-height: auto;
-    margin: var(--spacing-xl) auto;
+  .agrius-detection-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xxl);
   }
-
-  .agrius-detection-results-section {
-    min-height: auto;
-    padding: var(--spacing-lg);
+  .agrius-detection-text-content {
+    position: static;
+    text-align: center;
   }
+  .agrius-subtitle {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .agrius-detection-text-content h1 {
+    font-size: 2.8rem;
+  }
+}
 
-  .agrius-detection-page {
-    padding: var(--spacing-md);
+@media (max-width: 768px) {
+  .agrius-result-card {
+    grid-template-columns: 1fr; /* Stack image on top of content */
+    text-align: center;
+  }
+  .agrius-result-image-wrapper {
+    width: 100%;
+    height: 250px; /* Taller image for vertical layout */
+    margin: 0 auto;
+  }
+  .agrius-result-content {
+    align-items: center;
   }
 }
 
 @media (max-width: 576px) {
-  .agrius-detection-page {
-    padding: var(--spacing-xs);
+  .agrius-detection-container {
+    padding: var(--spacing-xl) var(--spacing-sm);
   }
-  .agrius-detection-main-layout {
-    padding: var(--spacing-md);
+  .agrius-detection-text-content h1 {
+    font-size: 2.2rem;
   }
-  .agrius-detection-controls h2 {
-    font-size: 1.8rem;
+  .agrius-card {
+    padding: var(--spacing-lg);
   }
-  .agrius-mode-switcher button {
-    font-size: 0.9rem;
-    padding: var(--spacing-xs);
-  }
-  .agrius-btn-analyze {
-    font-size: 1rem;
-    padding: var(--spacing-sm);
-  }
-  .agrius-result-card h3 {
-    font-size: 1.3rem;
-  }
-  .agrius-result-header h2 {
-    font-size: 1.8rem;
-  }
-  .agrius-result-details h4 {
-    font-size: 1.1rem;
-  }
-  .agrius-result-details p {
-    font-size: 0.9rem;
-  }
-}
-
-.agrius-btn-view-result svg {
-  color: var(--agrius-very-dark-gray); /* Apply #222222 to icon */
-}
-
-.gemini-info h3 {
-  font-size: 1.4rem;
-  color: var(--color-text-dark);
-  margin-bottom: var(--spacing-md);
-  text-align: center;
-}
-
-.gemini-section {
-  margin-bottom: var(--spacing-xl);
-}
-
-.gemini-section h4 {
-  font-size: 1.1rem;
-  color: var(--color-text-dark);
-  margin-bottom: var(--spacing-xs);
-  display: flex;
-  align-items: center;
-}
-
-.gemini-section h4 i {
-  margin-right: var(--spacing-xs);
-  color: var(--color-primary-bg);
-}
-
-.gemini-section p, .gemini-section li {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.product-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.product-item {
-  background-color: var(--agrius-cream-off-white);
-  padding: var(--spacing-sm);
-  border-left: 3px solid var(--color-primary-bg);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-xs);
-}
-
-.healthy-leaf {
-  text-align: center;
-  padding: var(--spacing-xl);
-  background-color: var(--agrius-cream-off-white);
-  border-radius: var(--border-radius-xl);
-  border: 1px solid var(--agrius-neutral-gray-1);
-}
-
-.healthy-leaf p {
-  font-size: 1.1rem;
-  color: var(--color-primary-bg);
-  font-weight: var(--font-weight-medium);
-}
-
-
-.btn-toggle-gemini {
-  background-color: var(--color-primary-bg);
-  color: var(--color-text-primary);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: none;
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: var(--spacing-xl) auto;
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-}
-
-.btn-toggle-gemini:hover {
-  background-color: var(--agrius-neutral-gray-1);
-}
-
-.btn-toggle-gemini i {
-  margin-left: var(--spacing-xs);
-}
-
-.gemini-toggle-container {
-  text-align: center;
-  margin-top: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-}
-
-
-.gemini-error {
-  background-color: #fff5f5; /* Light red */
-  border: 1px solid #f5c6cb; /* Red border */
-  color: #721c24; /* Dark red text */
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  margin-top: var(--spacing-xl);
-}
-
-.gemini-error h4 {
-  color: #721c24;
-  margin-top: 0;
-  margin-bottom: var(--spacing-xs);
-  display: flex;
-  align-items: center;
-}
-
-.gemini-error h4 i {
-  margin-right: var(--spacing-xs);
-  color: #721c24;
-}
-
-.gemini-error pre {
-  background-color: #f8d7da;
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-size: 0.85rem;
-}
-.text-justify-custom {
-  text-align: justify;
 }

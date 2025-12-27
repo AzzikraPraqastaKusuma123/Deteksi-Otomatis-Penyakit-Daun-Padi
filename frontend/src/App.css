@@ -112,3 +112,8 @@ h1, h2, h3, h4, h5, h6 {
 .agrius-form-control.error {
   border-color: #e74c3c; /* Red for error states */
 }
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+}

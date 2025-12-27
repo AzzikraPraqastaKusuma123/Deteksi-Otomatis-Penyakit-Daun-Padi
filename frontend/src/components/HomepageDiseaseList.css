@@ -3,9 +3,29 @@
 /* Grid Container for Homepage Disease List */
 .agrius-homepage-disease-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--spacing-xxl); /* Consistent spacing between cards */
+  grid-template-columns: repeat(4, 1fr); /* 4 columns by default on desktop */
+  gap: 0; /* Remove consistent spacing between cards */
   padding: var(--spacing-xl) 0; /* Add some vertical padding */
+}
+
+/* --- Responsive Adjustments for the Grid --- */
+@media (max-width: 1200px) {
+  .agrius-homepage-disease-cards-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller desktops/large tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .agrius-homepage-disease-cards-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .agrius-homepage-disease-cards-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+    gap: 0; /* Remove spacing for mobile */
+  }
 }
 
 /* Individual Card Styling */
@@ -16,16 +36,17 @@
   text-align: center;
   text-decoration: none;
   color: var(--color-text-dark);
-  transition: transform 0.25s ease;
-  padding: var(--spacing-md); /* Add padding around the card content */
+  transition: transform 0.25s ease; /* Only transform transition */
+  padding: 0; /* Make padding 0 to be more 'mempet' */
   border-radius: var(--border-radius-xl);
-  background-color: var(--agrius-pure-white);
-  box-shadow: var(--shadow-sm); /* Subtle shadow for the card itself */
+  background-color: transparent; /* Make background transparent */
+  box-shadow: none; /* Remove shadow */
+  /* Ensure opacity is 1 by default, no need to explicitly set it */
 }
 
 .agrius-homepage-disease-card:hover {
   transform: translateY(-6px);
-  box-shadow: var(--shadow-lg); /* More prominent shadow on hover */
+  box-shadow: none; /* Remove hover shadow as well */
 }
 
 /* Image Container (for circular image and hover effect) */

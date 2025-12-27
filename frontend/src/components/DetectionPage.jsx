@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
-import { detectImage } from '../services/api'; 
+import { detectImage } from '../services/api';
 import './DetectionPage.css';
-import { FiUploadCloud, FiCamera, FiArrowRight, FiRefreshCcw } from 'react-icons/fi';
+import { FiUploadCloud, FiCamera, FiArrowRight, FiRefreshCcw, FiCheckCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -13,9 +13,9 @@ const DetectionPage = () => {
   const [preview, setPreview] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [mode, setMode] = useState('upload'); 
+  const [mode, setMode] = useState('upload');
   const [stream, setStream] = useState(null);
-  const [currentFacingMode, setCurrentFacingMode] = useState('environment'); // 'user' for front, 'environment' for back
+  const [currentFacingMode, setCurrentFacingMode] = useState('environment');
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const DetectionPage = () => {
   };
 
   const switchCamera = () => {
-    stopCamera(); // Stop current stream
+    stopCamera();
     const newFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
     setCurrentFacingMode(newFacingMode);
   };
@@ -57,7 +57,7 @@ const DetectionPage = () => {
     if (mode === 'camera' && currentFacingMode) {
       startCamera();
     }
-  }, [currentFacingMode, mode]); // Re-run startCamera when facing mode or mode changes
+  }, [currentFacingMode, mode]);
 
   const onDrop = useCallback(acceptedFiles => {
     const file = acceptedFiles[0];
@@ -70,10 +70,7 @@ const DetectionPage = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'image/jpeg': [],
-      'image/png': []
-    },
+    accept: { 'image/jpeg': [], 'image/png': [] },
     noClick: mode === 'camera',
     noKeyboard: mode === 'camera',
   });
@@ -93,13 +90,10 @@ const DetectionPage = () => {
       toast.warn(t('detectionPage.imageRequiredError'));
       return;
     }
-
     setLoading(true);
     setPrediction(null);
-
     const formData = new FormData();
     formData.append('image', image, 'image.jpg');
-
     try {
       const res = await detectImage(formData);
       setPrediction(res.data);
@@ -127,135 +121,136 @@ const DetectionPage = () => {
 
   const handleCapture = () => {
     if (!videoRef.current) return;
-
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const context = canvas.getContext('2d');
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
     canvas.toBlob(blob => {
       if (blob) {
         setImage(blob);
         setPreview(URL.createObjectURL(blob));
         stopCamera();
-        setMode('upload'); 
+        setMode('upload');
       }
     }, 'image/jpeg');
   };
 
-  const clearPreview = () => {
+  const clearPreview = (e) => {
+    e.stopPropagation(); // Prevent dropzone click event
     setImage(null);
     setPreview(null);
     setPrediction(null);
   };
 
   return (
-    <div className="agrius-detection-page">
-      <div className="agrius-detection-main-layout">
-        <div className="agrius-detection-input-section">
-          <div className="agrius-detection-controls">
-            <h2>{t('detectionPage.pageTitle')}</h2>
-            <p>{t('detectionPage.pageSubtitle')}</p>
-            <div className="agrius-mode-switcher">
-              <button onClick={() => handleModeChange('upload')} className={mode === 'upload' ? 'active' : ''}>
-                <FiUploadCloud /> {t('detectionPage.uploadImageButton')}
-              </button>
-              <button onClick={() => handleModeChange('camera')} className={mode === 'camera' ? 'active' : ''}>
-                <FiCamera /> {t('detectionPage.useCameraButton')}
-              </button>
-            </div>
-
-            {mode === 'upload' && (
-              <div {...getRootProps({ className: `agrius-dropzone ${isDragActive ? 'active' : ''}` })}>
-                <input {...getInputProps()} />
-                {preview ? (
-                  <div className="agrius-image-preview-container">
-                    <img src={preview} alt="Preview" className="agrius-image-preview" />
-                    <button onClick={clearPreview} className="agrius-clear-btn">X</button>
-                  </div>
-                ) : (
-                  <div className="agrius-dropzone-text">
-                    <FiUploadCloud size={50} />
-                    <p>{t('detectionPage.dropzoneText')}</p>
-                    <em>{t('detectionPage.dropzoneSupport')}</em>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {mode === 'camera' && (
-              <div className="agrius-camera-container">
-                <video ref={videoRef} autoPlay playsInline muted className="agrius-camera-feed" />
-                {stream && (
-                  <div className="agrius-camera-controls">
-                    <button onClick={handleCapture} className="agrius-btn-capture"><FiCamera size={24} /></button>
-                    <button onClick={switchCamera} className="agrius-btn-switch-camera"><FiRefreshCcw size={24} /></button>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Action Buttons Area */}
-            <div className="agrius-action-buttons">
-              <button 
-                onClick={handleAnalysis} 
-                disabled={loading || !image || !!prediction} // Disable if analysis is done
-                className="agrius-btn-primary agrius-btn-analyze"
-              >
-                {loading ? t('detectionPage.analyzingButton') : t('detectionPage.analyzeImageButton')}
-              </button>
-            </div>
-          </div>
+    <div className="agrius-detection-container">
+      <div className="agrius-detection-grid">
+        {/* Left Column: Text Content */}
+        <div className="agrius-detection-text-content">
+          <div className="agrius-label-tag">{t('detectionPage.tag')}</div>
+          <h1>{t('detectionPage.pageTitle')}</h1>
+          <p className="agrius-subtitle">{t('detectionPage.pageSubtitle')}</p>
         </div>
 
-        <div className="agrius-detection-results-section">
-          {/* Basic result shown here */}
-          {prediction && !loading && (
-            <div className="agrius-result-card" style={{marginTop: '0'}}>
-              <h3>{t('detectionPage.summaryTitle')}</h3>
-              <div className="agrius-result-header">
-                <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
+        {/* Right Column: Uploader and Results */}
+        <div className="agrius-detection-main-panel">
+          {/* Uploader Card */}
+          {!prediction && (
+            <div className="agrius-card agrius-uploader-card">
+              <div className="agrius-mode-switcher">
+                <button onClick={() => handleModeChange('upload')} className={mode === 'upload' ? 'active' : ''}>
+                  <FiUploadCloud /> {t('detectionPage.uploadImageButton')}
+                </button>
+                <button onClick={() => handleModeChange('camera')} className={mode === 'camera' ? 'active' : ''}>
+                  <FiCamera /> {t('detectionPage.useCameraButton')}
+                </button>
               </div>
-              <div className="agrius-confidence">
-                <p>{t('detectionPage.confidenceLabel')}</p>
-                <div className="agrius-confidence-bar-container">
-                  <div 
-                    className="agrius-confidence-bar" 
-                    style={{ width: `${(prediction.confidence * 100).toFixed(2)}%` }}
-                  >
-                    <span>{(prediction.confidence * 100).toFixed(2)}%</span>
-                  </div>
+
+              {mode === 'upload' && (
+                <div {...getRootProps({ className: `agrius-dropzone ${isDragActive ? 'active' : ''}` })}>
+                  <input {...getInputProps()} />
+                  {preview ? (
+                    <div className="agrius-image-preview-container">
+                      <img src={preview} alt="Preview" className="agrius-image-preview" />
+                      <button onClick={clearPreview} className="agrius-clear-btn">×</button>
+                    </div>
+                  ) : (
+                    <div className="agrius-dropzone-instructions">
+                      <div className="agrius-dropzone-icon">
+                        <FiUploadCloud size={40} />
+                      </div>
+                      <p>{t('detectionPage.dropzoneText')}</p>
+                      <em>{t('detectionPage.dropzoneSupport')}</em>
+                    </div>
+                  )}
                 </div>
+              )}
+
+              {mode === 'camera' && (
+                <div className="agrius-camera-container">
+                  <video ref={videoRef} autoPlay playsInline muted className="agrius-camera-feed" />
+                  {stream && (
+                    <div className="agrius-camera-controls">
+                      <button onClick={handleCapture} className="agrius-camera-btn"><FiCamera size={24} /></button>
+                      <button onClick={switchCamera} className="agrius-camera-btn"><FiRefreshCcw size={24} /></button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="agrius-action-buttons">
+                <button
+                  onClick={handleAnalysis}
+                  disabled={loading || !image}
+                  className="agrius-btn-primary"
+                >
+                  {loading ? t('detectionPage.analyzingButton') : t('detectionPage.analyzeImageButton')}
+                </button>
               </div>
-              <div className="agrius-result-details">
-                <h4>{t('detectionPage.descriptionLabel')}</h4>
-                <p className="text-justify-custom" dangerouslySetInnerHTML={{ __html: prediction.description
-                  ? prediction.description.replace(/\*(.*?)\*/g, '<strong>$1</strong>').replace(/\n/g, ' ')
-                  : t('detectionPage.noDescriptionAvailable') }}></p>
-                <h4>{t('detectionPage.preventionLabel')}</h4>
-                <p className="text-justify-custom" dangerouslySetInnerHTML={{ __html: prediction.prevention
-                  ? prediction.prevention.replace(/\*(.*?)\*/g, '<strong>$1</strong>').replace(/\n/g, ' ')
-                  : t('detectionPage.noPreventionAvailable') }}></p>
-              </div>
-              <button 
-                onClick={handleViewResult}
-                className="agrius-btn-primary agrius-btn-view-result"
-                style={{width: '100%', marginTop: 'var(--spacing-md)'}}
-              >
-                {t('detectionPage.viewDetailsButton')} <FiArrowRight />
-              </button>
             </div>
           )}
-          {!prediction && !loading && (
-            <div className="agrius-no-results">
-              <p>{t('detectionPage.noResultsMessage')}</p>
-            </div>
-          )}
+
+          {/* Loading State */}
           {loading && (
-            <div className="agrius-loading-spinner">
-              <div className="agrius-spinner"></div>
-              <p>{t('detectionPage.analyzingImageMessage')}</p>
+             <div className="agrius-card agrius-loading-card">
+                <div className="agrius-spinner"></div>
+                <p>{t('detectionPage.analyzingImageMessage')}</p>
+             </div>
+          )}
+
+          {/* Result Card */}
+          {prediction && !loading && (
+            <div className="agrius-card agrius-result-card">
+                <div className="agrius-result-image-wrapper">
+                    <img src={preview} alt={prediction.disease} />
+                </div>
+                <div className="agrius-result-content">
+                    <div className="agrius-result-header">
+                        <span className="agrius-result-tag">{t('detectionPage.resultTag')}</span>
+                        <h2>{prediction.disease.replace(/_/g, ' ')}</h2>
+                    </div>
+                    
+                    <div className="agrius-confidence-badge">
+                        <FiCheckCircle />
+                        <span>{(prediction.confidence * 100).toFixed(0)}% {t('detectionPage.confidenceLabel')}</span>
+                    </div>
+
+                    <div className="agrius-result-summary">
+                        <p>
+                            {prediction.description
+                                ? prediction.description.replace(/\*.+?\*/g, '').split('.').slice(0, 2).join('.') + '.'
+                                : t('detectionPage.noDescriptionAvailable')}
+                        </p>
+                    </div>
+                    
+                    <button onClick={handleViewResult} className="agrius-btn-primary">
+                        {t('detectionPage.viewDetailsButton')} <FiArrowRight />
+                    </button>
+                    <button onClick={clearPreview} className="agrius-btn-secondary">
+                        {t('detectionPage.analyzeAgainButton')}
+                    </button>
+                </div>
             </div>
           )}
         </div>

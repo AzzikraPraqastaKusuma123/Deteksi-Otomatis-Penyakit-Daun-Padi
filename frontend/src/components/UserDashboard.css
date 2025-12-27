@@ -286,7 +286,7 @@
 /* === New/Refactored Disease Library Section Styles === */
 .agrius-user-dashboard-container {
   background-color: #fcfaf5; /* Soft cream / off-white background */
-  padding: var(--spacing-xxxl);
+  padding: 120px 0; /* Increased vertical padding, no horizontal padding */
   margin-top: var(--spacing-xxxxl);
   border-radius: var(--border-radius-xxl);
 }

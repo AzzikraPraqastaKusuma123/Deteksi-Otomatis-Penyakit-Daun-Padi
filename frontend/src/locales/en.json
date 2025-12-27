@@ -1,17 +1,15 @@
 {
   "navbar": {
     "home": "Home",
-    "detection": "Detection",
+    "dashboard": "Dashboard",
+    "detectionHistory": "Detection History",
+    "liveDetect": "Live Detect",
     "diseaseList": "Disease List",
+    "pestList": "Pest List",
     "login": "Login",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Logout",
-    "dashboard": "Home",
-    "realtimeDetect": "Real-time Detect",
-    "detection": "History",
-    "liveDetect": "Detect",
-    "pestList": "Pests"
+    "logout": "Logout"
   },
   "language": {
     "english": "English",

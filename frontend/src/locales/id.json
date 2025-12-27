@@ -1,17 +1,15 @@
 {
   "navbar": {
     "home": "Beranda",
-    "detection": "Deteksi",
+    "dashboard": "Dasbor",
+    "detectionHistory": "Riwayat Deteksi",
+    "liveDetect": "Deteksi Langsung",
     "diseaseList": "Daftar Penyakit",
+    "pestList": "Daftar Hama",
     "login": "Masuk",
     "register": "Daftar",
     "profile": "Profil",
-    "logout": "Keluar",
-    "dashboard": "Beranda",
-    "realtimeDetect": "Deteksi Langsung",
-    "detection": "Riwayat",
-    "liveDetect": "Deteksi",
-    "pestList": "Hama"
+    "logout": "Keluar"
   },
   "language": {
     "english": "Bahasa Inggris",

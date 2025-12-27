@@ -151,9 +151,6 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      {/* New Carousel Section */}
-      {!loading && carouselItems.length > 0 && <DashboardCarousel items={carouselItems} />}
-
       {/* Disease Library Section - Refactored */}
       <div className="agrius-user-dashboard-container">
         <div className="disease-library-header">
@@ -162,8 +159,11 @@ const UserDashboard = () => {
             {t('userDashboard.diseaseLibrarySectionDescription', 'Kumpulan informasi penyakit padi lengkap dengan ciri-ciri visual dan penjelasan singkat untuk membantu pengguna mengenali penyakit sejak dini.')}
           </p>
         </div>
-        <HomepageDiseaseList diseases={diseases} />
+        <HomepageDiseaseList diseases={diseases.slice(0, 8)} />
       </div>
+
+      {/* New Carousel Section */}
+      {!loading && carouselItems.length > 0 && <DashboardCarousel items={carouselItems} />}
     </>
   );
 };
