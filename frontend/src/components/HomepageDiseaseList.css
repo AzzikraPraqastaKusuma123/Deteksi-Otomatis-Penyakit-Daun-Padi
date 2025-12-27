@@ -4,27 +4,31 @@
 .agrius-homepage-disease-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns by default on desktop */
-  gap: 0; /* Remove consistent spacing between cards */
+  gap: var(--spacing-xxxxl) 0; /* Vertical gap, no horizontal gap */
   padding: var(--spacing-xl) 0; /* Add some vertical padding */
+  max-width: 1000px; /* Increased grid width for more horizontal space */
+  margin: 0 auto; /* Center the constrained grid */
 }
 
 /* --- Responsive Adjustments for the Grid --- */
 @media (max-width: 1200px) {
   .agrius-homepage-disease-cards-grid {
     grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller desktops/large tablets */
+    gap: var(--spacing-xxxxl) 0; /* Vertical gap, no horizontal gap */
   }
 }
 
 @media (max-width: 768px) {
   .agrius-homepage-disease-cards-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    gap: var(--spacing-xxxxl) 0; /* Vertical gap, no horizontal gap */
   }
 }
 
 @media (max-width: 576px) {
   .agrius-homepage-disease-cards-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
-    gap: 0; /* Remove spacing for mobile */
+    gap: var(--spacing-xxxxl) 0; /* Vertical gap, no horizontal gap */
   }
 }
 
@@ -51,8 +55,8 @@
 
 /* Image Container (for circular image and hover effect) */
 .agrius-homepage-disease-image-container {
-  width: 160px; /* Fixed size for the circular container */
-  height: 160px;
+  width: 200px; /* Increased fixed size for the circular container */
+  height: 200px;
   border-radius: 50%; /* Make the container circular */
   overflow: hidden; /* Hide anything outside the circle */
   position: relative; /* For absolute positioning of the button */
@@ -116,7 +120,7 @@
 }
 
 .agrius-homepage-disease-card-body .agrius-homepage-disease-card-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem; /* Increased font size */
   font-weight: var(--font-weight-semibold);
   margin: 0;
   color: var(--color-text-dark);
