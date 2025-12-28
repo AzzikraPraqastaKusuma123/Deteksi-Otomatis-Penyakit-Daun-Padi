@@ -1,10 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+import { FiEdit, FiLogOut } from 'react-icons/fi';
 
 const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // Redirecting to login will cause App.jsx to re-evaluate and update the loggedIn state
+    navigate('/login');
+  };
 
   return (
     <div className="agrius-profile-container">
@@ -34,12 +42,20 @@ const ProfilePage = () => {
               <span>{user.location || "-"}</span>
             </div>
 
-            <button
-              className="agrius-btn-primary agrius-btn-edit-profile"
-              onClick={() => navigate("/profile/edit")}
-            >
-              <i className="fas fa-edit"></i> Edit Profile
-            </button>
+            <div className="agrius-profile-actions">
+              <button
+                className="agrius-btn-primary agrius-btn-edit-profile"
+                onClick={() => navigate("/profile/edit")}
+              >
+                <FiEdit /> <span>Edit Profile</span>
+              </button>
+              <button
+                className="agrius-btn-secondary agrius-btn-logout"
+                onClick={handleLogout}
+              >
+                <FiLogOut /> <span>Logout</span>
+              </button>
+            </div>
           </div>
         ) : (
           <p className="agrius-error-message">Failed to load user data. Please log in again.</p>

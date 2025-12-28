@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import './Navbar.css';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 
-const Navbar = ({ loggedIn, setLoggedIn }) => {
+const Navbar = ({ loggedIn }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,14 +43,6 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
       document.body.classList.remove('mobile-menu-open');
     };
   }, [isMobileMenuOpen]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setLoggedIn(false);
-    navigate('/login');
-    setMobileMenuOpen(false);
-  };
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -101,7 +93,6 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
                 <NavLink to="/profile" className="agrius-profile-icon" title={t('navbar.profile')}>
                     <i className="fas fa-user"></i>
                 </NavLink>
-                <button className="agrius-btn-secondary" onClick={handleLogout}>{t('navbar.logout')}</button>
               </>
             ) : (
               <button className="agrius-btn-primary" onClick={() => navigate('/login')}>{t('navbar.login')}</button>
@@ -135,7 +126,12 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
               <li><NavLink to="/profile" onClick={closeMobileMenu}>{t('navbar.profile')}</NavLink></li>
             </ul>
             <div className="agrius-mobile-logout">
-              <button className="agrius-btn-secondary" onClick={handleLogout}>{t('navbar.logout')}</button>
+              <button className="agrius-btn-secondary" onClick={() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                navigate('/login');
+                closeMobileMenu();
+              }}>{t('navbar.logout')}</button>
             </div>
           </div>
         </>
@@ -143,5 +139,6 @@ const Navbar = ({ loggedIn, setLoggedIn }) => {
     </header>
   );
 };
+
 
 export default Navbar;
