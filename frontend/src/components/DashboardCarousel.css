@@ -2,23 +2,48 @@
 
 .agrius-dashboard-carousel-section {
     margin-top: 0;
-    background-color: var(--color-accent); /* Yellowish green background */
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIj4KICA8cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxNSAyNTYgMjU2KSAiIGQ9Ik01MDUuNyAyMjAuN0wzMTUuMSAzMC4zQzMwNi40IDExLjkgMjkyLjEgMCAyNzIgMEgxNkM3LjIgMCAwIDcuMiAwIDE2djI0MGMwIDguOCAxMi42IDE2IDE2IDE2aDgwVjQ4MGMwIDguOCAxMi42IDE2IDE2IDE2aDgwYzguOCAwIDE2LTcuMiAxNi0xNlYyNzJoODBjMTAuMSAwIDE5LjktNC44IDI1LjktMTMuMWwxOTAuNi0xOTAuNmM5LjQtOS40IDkuNC0yNC42IDAtMzMuMXpNNTgxLjc2MiAxOTkuMTI1Ii8+Cjwvc3ZnPg=="), url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC0yNSAyNTYgMjU2KSIgZD0iTDUwNS43IDIyMC43TDMxNS4xIDMwLjNDMzA2LjQgMTEuOSAyOTIuMSAwIDI3MiAwSDE2QzcuMiAwIDAgNy4yIDAgMTZ2MjQwYzAgOC44IDcuMiAxNiAxNiAxNmhBODBWNDgwYzAgOC44IDEyLjYgMTYgMT2IDE2aDgwYzguOCAwIDE2LTcuMiAxNi0xNlYyNzJoODBjMTAuMSAwIDE5LjktNC44IDI1LjktMTMuMWwxOTAuNi0xOTAuNmM5LjQtOS40IDkuNC0yNC42IDAtMzMuMXpNNTgxLjc2MiAxOTkuMTI1Ii8+Cjwvc3ZnPg==");
-    background-repeat: repeat;
-    background-size: 250px, 150px; /* Different sizes for irregularity */
-    background-position: 0 0, 50px 70px; /* Different positions for irregularity */
-    padding-top: var(--spacing-xxl); /* Smaller top/bottom padding for the full-bleed section itself */
+    background-color: var(--color-accent); /* Base color is now here */
+    padding-top: var(--spacing-xxl);
     padding-bottom: var(--spacing-xxl);
     
     /* Full-bleed effect */
     width: 100vw;
-    position: relative;
+    position: relative; /* Stacking context for pseudo-element */
+    z-index: 1; /* Stacking context */
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    border-bottom-left-radius: var(--border-radius-xxl); /* Rounded bottom left corner */
-    border-bottom-right-radius: var(--border-radius-xxl); /* Rounded bottom right corner */
+    border-bottom-left-radius: var(--border-radius-xxl);
+    border-bottom-right-radius: var(--border-radius-xxl);
+    overflow: hidden; /* Recommended when using pseudo-elements for background */
+}
+
+.agrius-dashboard-carousel-section::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* Cover the entire parent */
+    z-index: -1; /* Sit behind the content */
+    background:
+        /* Top-Left Quadrant */
+        url('/image/wheat.png') 10% 15% / 90px 90px no-repeat,
+        /* Top-Center Quadrant */
+        url('/image/wheat.png') 45% 5% / 100px 100px no-repeat,
+        /* Top-Right Quadrant */
+        url('/image/wheat.png') 90% 20% / 85px 85px no-repeat,
+        /* Mid-Left Quadrant */
+        url('/image/wheat.png') 5% 50% / 105px 105px no-repeat,
+        /* Mid-Center Quadrant */
+        url('/image/wheat.png') 50% 50% / 80px 80px no-repeat,
+        /* Mid-Right Quadrant */
+        url('/image/wheat.png') 95% 55% / 95px 95px no-repeat,
+        /* Bot-Left Quadrant */
+        url('/image/wheat.png') 15% 90% / 85px 85px no-repeat,
+        /* Bot-Center Quadrant */
+        url('/image/wheat.png') 55% 95% / 100px 100px no-repeat,
+        /* Bot-Right Quadrant */
+        url('/image/wheat.png') 85% 85% / 90px 90px no-repeat;
+    filter: brightness(0) invert(1); /* Apply filter ONLY to the pseudo-element */
 }
 
 .agrius-carousel-content-wrapper {
@@ -116,4 +141,3 @@
     border: none;
     font-weight: var(--font-weight-semibold);
 }
-
