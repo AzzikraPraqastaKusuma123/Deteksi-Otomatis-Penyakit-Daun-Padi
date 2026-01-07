@@ -1,13 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  font-family: var(--font-family-inter);
-  line-height: 1.5;
-  font-weight: var(--font-weight-regular);
+  /* Typography */
+  --font-family-inter: 'Inter', sans-serif;
+  --font-family-serif: 'Merriweather', serif;
 
-  color-scheme: light; /* Force light scheme, Agrius is light-themed */
-  color: var(--color-text-dark); /* Default text color from Agrius */
-  background-color: var(--color-secondary-bg); /* Default background from Agrius */
+  /* Original Palette from variables.css */
+  --color-primary-green: #040D0C;
+  /* Original Forest Green Dark */
+  --color-secondary-green: #1E3F2B;
+  /* Original Dark Green New */
+  --color-accent-lime: #EAEB9D;
+  /* Original Soft Lime/Accent */
+  --color-soft-bg: #F8F5E9;
+  /* Original Cream Off-White */
+  --color-surface-white: #FFFFFF;
+  /* Pure White */
+  --color-text-main: #040D0C;
+  --color-text-muted: #616766;
+  /* Neutral Gray 1 */
+  --color-danger: #E74C3C;
+  --color-warning: #F1C40F;
+
+  /* Glassmorphism using Original Colors */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(4, 13, 12, 0.1);
+  --backdrop-blur: blur(12px);
+
+  /* Spacing & Borders */
+  --border-radius-lg: 24px;
+  --border-radius-md: 12px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: var(--color-text-main);
+  background-color: var(--color-soft-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,22 +54,23 @@
 }
 
 a {
-  font-weight: var(--font-weight-medium);
-  color: var(--color-primary-bg); /* Use a darker color for links */
-  text-decoration: none; /* Remove underline */
-  transition: color var(--transition-speed-normal) var(--transition-ease);
+  font-weight: 500;
+  color: var(--color-primary-green);
+  text-decoration: none;
+  transition: color var(--transition-normal);
 }
+
 a:hover {
-  color: var(--color-accent); /* Accent color on hover */
+  color: var(--color-accent-lime);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--color-secondary-bg); /* Cream Off-White */
-  color: var(--color-text-dark); /* Forest Green Dark for body text */
-  font-family: var(--font-family-inter); /* Ensure font is applied */
+  background-color: var(--color-soft-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-family-inter);
 }
 
 #root {
@@ -41,13 +80,17 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: var(--color-text-dark); /* Darker heading color */
-  font-weight: var(--font-weight-bold); /* Agrius bold heading */
+  color: var(--color-text-main);
+  font-weight: 700;
 }
 
-h2, h3, h4, h5, h6 {
-    color: var(--color-text-dark); /* Ensure all headings use dark color */
-    font-weight: var(--font-weight-semibold); /* Semibold for subheadings */
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-main);
+  font-weight: 600;
 }
 
 button {
@@ -55,23 +98,25 @@ button {
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: var(--font-weight-medium); /* Agrius button font weight */
+  font-weight: 500;
   font-family: var(--font-family-inter);
-  background-color: var(--color-accent); /* Soft Lime for buttons */
-  color: var(--color-text-dark); /* Dark text on light button */
+  background-color: var(--color-accent-lime);
+  color: var(--color-text-main);
   cursor: pointer;
-  transition: all var(--transition-speed-normal) var(--transition-ease);
-  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(4, 13, 12, 0.05);
 }
+
 button:hover {
-  border-color: var(--color-accent);
-  background-color: var(--agrius-cream-off-white); /* Lighter on hover */
+  border-color: var(--color-accent-lime);
+  background-color: var(--color-surface-white);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 24px rgba(4, 13, 12, 0.08);
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto var(--color-accent); /* Accent color for focus ring */
+  outline: 4px auto var(--color-accent-lime);
 }
 
 @media (prefers-color-scheme: light) {
@@ -79,6 +124,7 @@ button:focus-visible {
     color: var(--color-text-dark);
     background-color: var(--color-secondary-bg);
   }
+
   a:hover {
     color: var(--color-accent);
   }
@@ -90,7 +136,8 @@ button:focus-visible {
   /* padding: 1rem; Removed padding for full-width background */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Explicitly set width to 100% */
+  width: 100%;
+  /* Explicitly set width to 100% */
 }
 
 .card {

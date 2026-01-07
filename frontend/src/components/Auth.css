@@ -1,115 +1,158 @@
-/* frontend/src/components/Auth.css */
+/* frontend/src/components/Auth.css - Modern Eco-Tech Split Screen Design */
 @import '../variables.css';
 
-/* --- PAGE CONTAINER --- */
-.agrius-auth-page {
+/* ===== SPLIT SCREEN CONTAINER ===== */
+.eco-auth-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   width: 100%;
-  padding: var(--spacing-xl);
-  background-color: var(--color-secondary-bg);
-  background: url('https://images.unsplash.com/photo-1597992958320-9725c8d88535?q=80&w=1974&auto=format&fit=crop') center center/cover no-repeat;
-  position: relative;
 }
 
-.agrius-auth-page::before {
-  content: '';
+/* ===== LEFT SIDE - IMAGE/BRANDING ===== */
+.eco-auth-split-left {
+  position: relative;
+  flex: 1;
+  background: linear-gradient(135deg, #040D0C 0%, #1E3F2B 100%);
+  background-image: url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2000');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+}
+
+.eco-auth-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(4, 13, 12, 0.5); /* Dark overlay */
-  backdrop-filter: blur(5px);
+  background: linear-gradient(135deg, rgba(4, 13, 12, 0.85) 0%, rgba(30, 63, 43, 0.75) 100%);
+  backdrop-filter: blur(2px);
 }
 
-/* --- FLOATING AUTH CARD --- */
-.agrius-auth-card {
+.eco-auth-content {
   position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--agrius-pure-white);
+  max-width: 500px;
+}
+
+.eco-auth-logo-large {
+  height: 80px;
+  margin-bottom: var(--spacing-xl);
+  filter: brightness(0) invert(1);
+}
+
+.eco-auth-tagline {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  color: var(--agrius-pure-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.eco-auth-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* ===== RIGHT SIDE - FORM ===== */
+.eco-auth-split-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+  background-color: var(--agrius-cream-off-white);
+}
+
+.eco-auth-form-wrapper {
   width: 100%;
   max-width: 450px;
   background-color: var(--agrius-pure-white);
-  border-radius: var(--border-radius-xxl); /* 24px */
-  box-shadow: var(--shadow-xl);
+  border-radius: var(--border-radius-xxl);
   padding: var(--spacing-xxl);
-  animation: fadeIn 0.6s ease-out;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-xl);
+  animation: slideInRight 0.5s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-/* --- HEADER & LOGO --- */
-.agrius-auth-logo {
-  text-align: center;
-  margin-bottom: var(--spacing-md);
-}
-.agrius-auth-logo img {
-  height: 40px;
-}
-
-.agrius-auth-header {
+/* ===== HEADER ===== */
+.eco-auth-header {
   text-align: center;
   margin-bottom: var(--spacing-xl);
 }
-.agrius-auth-header h2 {
-  font-size: 2.2rem;
+
+.eco-auth-header h2 {
+  font-size: 2rem;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-  margin: 0 0 var(--spacing-xs) 0;
-}
-.agrius-auth-header p {
-  color: var(--color-text-secondary);
-  font-size: 1rem;
+  color: var(--agrius-forest-green-dark);
+  margin-bottom: var(--spacing-xs);
 }
 
-/* --- FORM & INPUTS --- */
-.agrius-auth-form {
+.eco-auth-header p {
+  color: var(--agrius-neutral-gray-1);
+  font-size: 0.95rem;
+}
+
+/* ===== FORM ===== */
+.eco-auth-form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-.agrius-input-group {
+.eco-input-group {
   position: relative;
 }
-.agrius-input-icon {
+
+.eco-input-icon {
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 18px;
   transform: translateY(-50%);
-  color: var(--color-text-secondary);
+  color: var(--agrius-neutral-gray-1);
+  font-size: 1.1rem;
   pointer-events: none;
-}
-.agrius-form-control {
-  width: 100% !important;
-  border-radius: var(--border-radius-lg) !important; /* 12px */
-  border: 1px solid #e0e0e0 !important;
-  padding: 1rem 1rem 1rem 50px !important; /* Generous padding with space for icon */
-  font-size: 1rem !important;
-  color: var(--color-text-dark) !important;
-  background-color: var(--agrius-cream-off-white) !important;
-  transition: border-color var(--transition-speed-normal) ease, box-shadow var(--transition-speed-normal) ease !important;
-  -webkit-appearance: none !important;
-  box-shadow: none !important;
+  z-index: 1;
 }
 
-.agrius-form-control:focus {
-  outline: none !important;
-  border-color: var(--color-accent) !important;
-  box-shadow: 0 0 0 3px rgba(234, 235, 157, 0.5) !important; /* Accent color focus ring */
-}
-/* Fix for autofill styles */
-.agrius-form-control:-webkit-autofill,
-.agrius-form-control:-webkit-autofill:hover, 
-.agrius-form-control:-webkit-autofill:focus, 
-.agrius-form-control:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px var(--agrius-cream-off-white) inset !important;
-  -webkit-text-fill-color: var(--color-text-dark) !important;
+.eco-form-control {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border: 2px solid #E8E8E8;
+  border-radius: var(--border-radius-lg);
+  font-size: 1rem;
+  color: var(--agrius-forest-green-dark);
+  background-color: var(--agrius-pure-white);
+  transition: all var(--transition-speed-normal) var(--transition-ease);
+  font-family: var(--font-family-inter);
 }
 
-.agrius-password-toggle-btn {
+.eco-form-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(234, 235, 157, 0.15);
+  background-color: var(--agrius-pure-white);
+}
+
+.eco-form-control::placeholder {
+  color: var(--agrius-neutral-gray-2);
+}
+
+.eco-password-toggle {
   position: absolute;
   top: 50%;
   right: 15px;
@@ -117,53 +160,228 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-text-secondary);
+  color: var(--agrius-neutral-gray-1);
   font-size: 1.2rem;
+  padding: 5px;
+  transition: color var(--transition-speed-fast);
 }
 
-/* --- BUTTONS --- */
-.agrius-btn-primary.agrius-auth-btn {
-  width: 100%;
-  border-radius: 9999px;
-  padding: 14px 32px;
+.eco-password-toggle:hover {
+  color: var(--agrius-forest-green-dark);
+}
+
+/* ===== BUTTONS ===== */
+.eco-btn-primary {
+  background-color: var(--agrius-forest-green-dark);
+  color: var(--agrius-pure-white);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  padding: 16px 32px;
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
   cursor: pointer;
   transition: all var(--transition-speed-normal) var(--transition-ease);
-  background-color: var(--color-primary-bg);
-  color: var(--color-text-primary);
-  border: none;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-family-inter);
 }
-.agrius-btn-primary.agrius-auth-btn:hover {
-  transform: translateY(-3px);
+
+.eco-btn-primary:hover {
+  background-color: var(--agrius-dark-green-new);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
-/* --- FOOTER LINK --- */
-.agrius-auth-footer {
+.eco-btn-full {
+  width: 100%;
+}
+
+/* ===== FOOTER ===== */
+.eco-auth-footer {
   text-align: center;
   margin-top: var(--spacing-xl);
   font-size: 0.95rem;
-  color: var(--color-text-secondary);
+  color: var(--agrius-neutral-gray-1);
 }
-.agrius-auth-footer a {
-  color: var(--color-primary-bg);
+
+.eco-link {
+  color: var(--agrius-forest-green-dark);
   font-weight: var(--font-weight-bold);
   text-decoration: none;
+  transition: color var(--transition-speed-fast);
 }
-.agrius-auth-footer a:hover {
+
+.eco-link:hover {
+  color: var(--agrius-dark-green-new);
   text-decoration: underline;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 576px) {
-  .agrius-auth-page {
-    padding: var(--spacing-md);
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .eco-auth-split-left {
+    display: none;
   }
-  .agrius-auth-card {
+
+  .eco-auth-split-right {
+    flex: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .eco-auth-split-right {
+    padding: var(--spacing-lg);
+  }
+
+  .eco-auth-form-wrapper {
     padding: var(--spacing-xl);
   }
-  .agrius-auth-header h2 {
-    font-size: 1.8rem;
+
+  .eco-auth-header h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* ===== LEGACY SUPPORT (for Register page if it still uses old classes) ===== */
+.agrius-auth-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.agrius-auth-image-section {
+  flex: 1;
+  background: linear-gradient(135deg, #040D0C 0%, #1E3F2B 100%);
+  background-image: url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2000');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+}
+
+.agrius-auth-image-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(4, 13, 12, 0.85) 0%, rgba(30, 63, 43, 0.75) 100%);
+}
+
+.agrius-auth-image-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  max-width: 500px;
+}
+
+.agrius-auth-image-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  color: white;
+}
+
+.agrius-auth-image-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.agrius-auth-form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+  background-color: var(--agrius-cream-off-white);
+}
+
+.agrius-auth-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--agrius-pure-white);
+  border-radius: var(--border-radius-xxl);
+  padding: var(--spacing-xxl);
+  box-shadow: var(--shadow-xl);
+}
+
+.agrius-auth-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.agrius-auth-header h1 {
+  font-size: 2rem;
+  color: var(--agrius-forest-green-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.agrius-auth-header p {
+  color: var(--agrius-neutral-gray-1);
+}
+
+.agrius-input-group {
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+}
+
+.agrius-input-group-text {
+  position: absolute;
+  left: 18px;
+  color: var(--agrius-neutral-gray-1);
+  font-size: 1.1rem;
+  z-index: 1;
+}
+
+.agrius-form-control {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border: 2px solid #E8E8E8;
+  border-radius: var(--border-radius-lg);
+  font-size: 1rem;
+  transition: all var(--transition-speed-normal);
+}
+
+.agrius-form-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(234, 235, 157, 0.15);
+}
+
+.agrius-btn-primary.agrius-auth-btn {
+  width: 100%;
+  background-color: var(--agrius-forest-green-dark);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--spacing-md);
+}
+
+.agrius-btn-primary.agrius-auth-btn:hover {
+  background-color: var(--agrius-dark-green-new);
+  transform: translateY(-2px);
+}
+
+.agrius-auth-link {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+  color: var(--agrius-neutral-gray-1);
+}
+
+.agrius-link {
+  color: var(--agrius-forest-green-dark);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.agrius-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .agrius-auth-image-section {
+    display: none;
   }
 }

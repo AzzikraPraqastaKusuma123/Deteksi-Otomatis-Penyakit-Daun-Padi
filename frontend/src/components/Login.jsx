@@ -56,54 +56,61 @@ const Login = ({ setLoggedIn, setUserRole }) => {
   };
 
   return (
-    <div className="agrius-auth-page">
-      <div className="agrius-auth-card">
-        <div className="agrius-auth-logo">
-          <img src="/logo.png" alt="PadiGuard Logo" />
+    <div className="eco-auth-container">
+      <div className="eco-auth-split-left">
+        <div className="eco-auth-overlay"></div>
+        <div className="eco-auth-content">
+          <img src="/logo.png" alt="PadiGuard Logo" className="eco-auth-logo-large" />
+          <h1 className="eco-auth-tagline">{t('login.welcomeBack', 'Selamat Datang Kembali')}</h1>
+          <p className="eco-auth-subtitle">{t('login.tagline', 'Lindungi Tanaman Padi Anda dengan Teknologi AI')}</p>
         </div>
-        
-        <div className="agrius-auth-header">
-          <h2>{t('login.title')}</h2>
-          <p>{t('login.subtitle')}</p>
-        </div>
+      </div>
 
-        <form onSubmit={handleLogin} className="agrius-auth-form">
-          <div className="agrius-input-group">
-            <FiUser className="agrius-input-icon" />
-            <input
-              type="text"
-              className="agrius-form-control"
-              placeholder={t('login.username')}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+      <div className="eco-auth-split-right">
+        <div className="eco-auth-form-wrapper">
+          <div className="eco-auth-header">
+            <h2>{t('login.title')}</h2>
+            <p>{t('login.subtitle')}</p>
           </div>
 
-          <div className="agrius-input-group">
-            <FiLock className="agrius-input-icon" />
-            <input
-              type={showPassword ? 'text' : 'password'}
-              className="agrius-form-control"
-              placeholder={t('login.password')}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="button" className="agrius-password-toggle-btn" onClick={togglePasswordVisibility}>
-              {showPassword ? <FiEyeOff /> : <FiEye />}
+          <form onSubmit={handleLogin} className="eco-auth-form">
+            <div className="eco-input-group">
+              <FiUser className="eco-input-icon" />
+              <input
+                type="text"
+                className="eco-form-control"
+                placeholder={t('login.username')}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="eco-input-group">
+              <FiLock className="eco-input-icon" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="eco-form-control"
+                placeholder={t('login.password')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button type="button" className="eco-password-toggle" onClick={togglePasswordVisibility}>
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+
+            <button type="submit" className="eco-btn-primary eco-btn-full">
+              {t('login.button')}
             </button>
+          </form>
+
+          <div className="eco-auth-footer">
+            <p>
+              {t('login.noAccount')} <Link to="/register" className="eco-link">{t('login.registerLink')}</Link>
+            </p>
           </div>
-
-          <button type="submit" className="agrius-btn-primary agrius-auth-btn">
-            {t('login.button')}
-          </button>
-        </form>
-
-        <div className="agrius-auth-footer">
-          <p>
-            {t('login.noAccount')} <Link to="/register">{t('login.registerLink')}</Link>
-          </p>
         </div>
       </div>
     </div>
